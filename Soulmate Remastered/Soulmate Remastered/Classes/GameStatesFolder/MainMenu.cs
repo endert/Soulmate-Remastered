@@ -33,7 +33,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         public void initialize()
         {
             isPressed = false;
-            isPressedEnter = false;
+            isPressedEnter = true;
             x = 0;
 
             start = new Sprite(startNotSelected);
