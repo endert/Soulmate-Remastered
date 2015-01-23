@@ -16,12 +16,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         protected List<Texture> textureList = new List<Texture>();
         public Vector2f position { get; set; }
         public String type { get { return "Object"; } }
-        public bool isAlive { get; set; }
+        protected bool _isAlive = true;
+        public bool isAlive { get { return _isAlive; } set { _isAlive = value; } }
         public int indexObjectList { get; set; }
         protected bool _walkable = false;
         public bool walkable { get { return _walkable; } set { _walkable = value; } }
         protected bool visible = true;  //standart is visible
-        public bool isVisible { get { return visible; } }
+        public bool isVisible { get { return true; } }
 
 
         public void kill()

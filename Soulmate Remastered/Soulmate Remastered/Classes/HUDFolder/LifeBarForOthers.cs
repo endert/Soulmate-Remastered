@@ -32,7 +32,7 @@ namespace Soulmate_Remastered.Classes.HUDFolder
 
         public void setPosition(Entity entity)
         {
-            if (!entity.type.Split('.')[2].Equals("Player"))
+            //if (!entity.type.Split('.')[2].Equals("Player"))
             {
                 if (entity != null)
                 {

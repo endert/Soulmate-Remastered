@@ -17,6 +17,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             { 
                 case 0:
                     player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), 2);
+                    EntityHandler.add(player);
                     break;
 
                 default:
@@ -27,8 +28,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         public static void deleate()
         {
             player = null;
-
-            EntityHandler.deleateType("Player");
         }
     }
 }
