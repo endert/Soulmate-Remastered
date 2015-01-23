@@ -165,7 +165,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         {
             for (int i = 0; i < GameObjectHandler.gameObjectList.Count; i++)
             {
-                if ((i != indexObjectList) && (hitBox.hit(GameObjectHandler.gameObjectList[i].hitBox)) && !walkable)
+                if ((i != indexObjectList) && (hitBox.hit(GameObjectHandler.gameObjectList[i].hitBox)) && !GameObjectHandler.gameObjectList[i].walkable)
                 {
                     bool notFound = true;
                     for (int j = 0; j < hitFromDirections.Count; j++)
@@ -222,10 +222,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 
         public void takeDmg(float dmg)
         {
-            if (dmg-def>=0)
+            if (isVulnerable)
             {
-                currentHP -= (dmg - def);
-                tookDmg = true;
+                if (dmg - def >= 0)
+                {
+                    currentHP -= (dmg - def);
+                    tookDmg = true;
+                }
             }
         }
 

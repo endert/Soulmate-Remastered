@@ -42,6 +42,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             }
         }
 
+        public static void removeAt(int index)
+        {
+            if (index < gameObjectList.Count)
+            {
+                gameObjectList.RemoveAt(index);
+            }
+            for (int i = 0; i < gameObjectList.Count; i++)
+            {
+                gameObjectList[i].indexObjectList = i;
+            }
+        }
+
         public static void deleateType(String type)
         {
             for (int i = 0; i < gameObjectList.Count; i++)

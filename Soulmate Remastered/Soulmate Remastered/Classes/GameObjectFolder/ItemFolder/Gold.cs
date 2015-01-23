@@ -14,17 +14,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
         public Gold()
         {
-            textureList.Add(new Texture("Picture/Items/Gold.png"));
+            textureList.Add(new Texture("Pictures/Items/Gold.png"));
             sprite = new Sprite(textureList[0]);
             visible = false;
-            walkable = true;
             position = new Vector2f();
             hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
+            dropRate = 100;
         }
 
         public override void cloneAndDrop(Vector2f dropPosition)
         {
-            (new Gold()).drop(dropPosition);
+            Gold gold = new Gold();
+            ItemHandler.add(gold);
+            gold.drop(dropPosition);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
     abstract class AbstractItem : GameObject
     {
         public override String type { get { return base.type + ".Item"; } }
-
+        public override bool walkable { get { return true; } }
         protected int dropRate; // in percent
         public int DROPRATE { get { return dropRate; } }
         public bool onMap { get; set; }
@@ -26,7 +26,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 y * ItemHandler.playerInventory.FIELDSIZE + ItemHandler.playerInventory.inventory.Position.Y);
         }
 
-        public void pickUp()
+        public void pickUp(GameTime gameTime)
         {
             for (int i = 0; i < ItemHandler.playerInventory.inventoryMatrix.GetLength(0); i++) //row -> x-coordinate
             {
@@ -37,6 +37,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                         ItemHandler.playerInventory.inventoryMatrix[i, j] = this;
                         position = new Vector2f((j * 50 + ItemHandler.playerInventory.inventory.Position.X), (i * 50 + ItemHandler.playerInventory.inventory.Position.Y));
                         onMap = false;
+                        GameObjectHandler.removeAt(indexObjectList);
                         return;
                     }
                 }

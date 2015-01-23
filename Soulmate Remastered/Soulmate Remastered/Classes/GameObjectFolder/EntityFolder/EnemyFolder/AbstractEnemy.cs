@@ -135,6 +135,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             }
         }
 
+        public override void drop()
+        {
+            for (int i = 0; i < random.Next(10); i++)
+            {
+                int rand = random.Next(drops.Length);
+                if (drops[rand].DROPRATE > random.Next(100))
+                {
+                    drops[rand].cloneAndDrop(new Vector2f(position.X + random.Next(50), position.Y + random.Next(50)));
+                }
+            }
+        }
+
         public abstract void react();   //what the enemy does if it's sense a player
 
         public abstract void notReact();    //what the enemy normaly does
