@@ -12,7 +12,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 {
     class PetWolf : AbstractPet
     {
-        public String type { get { return base.type + ".PetWolf"; } }
+        public override String type { get { return base.type + ".PetWolf"; } }
         public PetWolf(AbstractPlayer player)
         {
             textureList.Add(new Texture("Pictures/Player/WolfFront.png"));

@@ -16,7 +16,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         protected int movingFor = 0; //moving for millisek in one direction
         protected int randomMovingDirection;
 
-        public String type { get { return base.type + ".Enemy"; } }
+        public override String type { get { return base.type + ".Enemy"; } }
 
         public override void update(GameTime gameTime)
         {

@@ -15,7 +15,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         public  Sprite sprite { get; set; }
         protected List<Texture> textureList = new List<Texture>();
         public Vector2f position { get; set; }
-        public String type { get { return "Object"; } }
+        public virtual String type { get { return "Object"; } }
         protected bool _isAlive = true;
         public bool isAlive { get { return _isAlive; } set { _isAlive = value; } }
         public int indexObjectList { get; set; }

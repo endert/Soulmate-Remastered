@@ -10,7 +10,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {
     abstract class AbstractItem : GameObject
     {
-        public String type { get { return base.type + ".Item"; } }
+        public override String type { get { return base.type + ".Item"; } }
 
         protected int dropRate; // in percent
         public int DROPRATE { get { return dropRate; } }

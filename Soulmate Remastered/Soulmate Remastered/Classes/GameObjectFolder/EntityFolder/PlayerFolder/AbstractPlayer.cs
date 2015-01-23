@@ -16,7 +16,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         public float currentFusionValue { get; set; } 
         protected float fusionDuration; //in sec
         protected HitBox attackHitBox;
-        public String type { get { return base.type + ".Player"; } }
+        public override String type { get { return base.type + ".Player"; } }
 
         //Inventory???
 
@@ -46,7 +46,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public virtual void spritePositionUpdate()
         {
-            switch (numFacingDirection)
+            switch (getNumFacingDirection)
             {
                 case 0:
                     {

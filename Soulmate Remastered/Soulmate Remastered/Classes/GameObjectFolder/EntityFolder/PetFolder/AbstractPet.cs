@@ -10,7 +10,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 {
     abstract class AbstractPet : Entity
     {
-        public String type { get { return base.type + ".Pet"; } }
+        public override String type { get { return base.type + ".Pet"; } }
 
         public override void update(GameTime gameTime)
         {

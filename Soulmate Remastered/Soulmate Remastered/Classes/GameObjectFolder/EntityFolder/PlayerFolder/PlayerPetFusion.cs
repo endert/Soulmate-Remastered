@@ -14,7 +14,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         AbstractPlayer fusionedPlayer;
         AbstractPet fusionedPet;
         
-        public String type { get { return base.type + ".PlayerPetFusion"; } } 
+        public override String type { get { return base.type + ".PlayerPetFusion"; } } 
         
         public PlayerPetFusion(AbstractPlayer player, AbstractPet pet)
         {
