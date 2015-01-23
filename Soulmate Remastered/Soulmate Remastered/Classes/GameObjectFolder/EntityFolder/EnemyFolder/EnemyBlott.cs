@@ -15,11 +15,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         
         public EnemyBlott(Vector2f spawnPos)
         {
-            textureList.Add(new Texture("Pictures/Player/BlottFront.png"));
-            textureList.Add(new Texture("Pictures/Player/BlottBack.png"));
-            textureList.Add(new Texture("Pictures/Player/BlottRight.png"));
-            textureList.Add(new Texture("Pictures/Player/BlottLeft.png"));
-            textureList.Add(new Texture("Pictures/Player/BlottInvulnerable.png"));
+            textureList.Add(new Texture("Pictures/Enemy/Blott/BlottFront.png"));
+            textureList.Add(new Texture("Pictures/Enemy/Blott/BlottBack.png"));
+            textureList.Add(new Texture("Pictures/Enemy/Blott/BlottRight.png"));
+            textureList.Add(new Texture("Pictures/Enemy/Blott/BlottLeft.png"));
+            textureList.Add(new Texture("Pictures/Enemy/Blott/Invulnerable/BlottFrontInvulnerable.png"));
 
             sprite = new Sprite(textureList[0]);
             position = spawnPos;

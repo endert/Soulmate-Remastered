@@ -22,7 +22,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 
             switch (GameObjectHandler.lvl)
             {
-                case 1:
+                case 0:
                     for (int i = 0; i < 2; i++)
                     {
                         float rX = 600 + random.Next(1000);
@@ -31,7 +31,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 
                         EnemyBlott blott = new EnemyBlott(spawnPos);
                         if (blott.hitBox.distanceTo(PlayerHandler.player.hitBox) > 200 && GameObjectHandler.lvlMap.getWalkable(blott.hitBox, spawnPos))
+                        { 
                             enemyList.Add(blott);
+                            EntityHandler.add(blott);
+                        }
                         else
                             i--;
                     }

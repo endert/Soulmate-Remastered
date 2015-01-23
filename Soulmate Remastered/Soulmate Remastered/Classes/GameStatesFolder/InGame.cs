@@ -53,7 +53,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
         public void loadContent()
         {
-            backGroundTex = new Texture("Pictures/Hintergrund.png");
+            //backGroundTex = new Texture("Pictures/Hintergrund.png");
 
             map = new Map(new Bitmap("Pictures/Map/Map2.bmp"));
             
@@ -149,8 +149,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             window.Draw(backGround);
             window.SetView(view);
             map.draw(window);
-            gameObjectHandler.draw(window);
             hud.draw(window);
+            gameObjectHandler.draw(window);
+            
 
             if (inventoryOpen == true)
             {
