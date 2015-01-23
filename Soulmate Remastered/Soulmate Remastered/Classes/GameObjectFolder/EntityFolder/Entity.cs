@@ -19,7 +19,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         protected Stopwatch[] stopWatchList = { new Stopwatch(), new Stopwatch(), new Stopwatch() }; //first for animation, second for vulnerable, third for transformation
 
         protected bool tookDmg;
-        protected int inVulnerableFor; //in milisec
+        protected int inVulnerableFor = 500; //in milisec
             protected bool isVulnerable
         {
             get
@@ -42,7 +42,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         protected float knockBack;
         protected AbstractItem[] drops;
         protected bool hitPlayer;
-        protected float damage;
 
         protected float maxHP;
             public float getMaxHP { get { return maxHP; } }
@@ -221,9 +220,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 
         }
 
-        public void takeDmg()
+        public void takeDmg(float dmg)
         {
-
+            if (dmg-def>=0)
+            {
+                currentHP -= (dmg - def);
+                tookDmg = true;
+            }
         }
 
         public Vector2f getPlayerDirection()

@@ -52,7 +52,6 @@ namespace Soulmate_Remastered.Classes.HUDFolder
                 fusionBar.Position = new Vector2f((InGame.VIEW.Center.X - (Game.windowSizeX / 2) + 5),
                                                   (InGame.VIEW.Center.Y - (Game.windowSizeY / 2) + lifeBarTexture.Size.Y + 10));
 
-                Console.WriteLine(fusionBar.Position);
 
                 barBackground.Position = new Vector2f(fusionBar.Position.X + fusionBar.Texture.Size.X, fusionBar.Position.Y);
             }

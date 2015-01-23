@@ -56,5 +56,24 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 
             EntityHandler.deleateType("Enemy");
         }
+
+        public void update(GameTime gameTime)
+        {
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                if (!enemyList[i].isAlive)
+                {
+                    enemyList.RemoveAt(i);
+                    i--;
+                }
+                else
+                {
+                    if (enemyList[i].touchedPlayer())
+                    {
+                        PlayerHandler.player.takeDmg(enemyList[i].getAtt);
+                    }
+                }
+            }
+        }
     }
 }

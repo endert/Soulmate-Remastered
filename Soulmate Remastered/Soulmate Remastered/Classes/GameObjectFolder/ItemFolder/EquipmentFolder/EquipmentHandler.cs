@@ -10,6 +10,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
     {
         public static List<Equipment> equipmentList { get; set; }
 
+        public EquipmentHandler()
+        {
+            equipmentList = new List<Equipment>();
+        }
+
         public static void add(Equipment equip)
         {
             equipmentList.Add(equip);

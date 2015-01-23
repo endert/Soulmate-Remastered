@@ -66,6 +66,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                     i--;
                 }
             }
+            enemyHandler.update(gameTime);
         }
     }
 }

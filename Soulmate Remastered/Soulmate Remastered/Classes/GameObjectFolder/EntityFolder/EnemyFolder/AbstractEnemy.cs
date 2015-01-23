@@ -23,7 +23,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             movementSpeed = 0.2f * (float)gameTime.EllapsedTime.TotalMilliseconds;
             animate(textureList);
             sprite.Position = position;
-            takeDmg();
 
             if (currentHP <= 0)
             {

@@ -29,6 +29,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             
             maxHP = 100;
             currentHP = maxHP;
+            att = 6;
             def = 5;
             aggroRange = 150f;
             knockBack = 50f;
