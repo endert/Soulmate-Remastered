@@ -15,14 +15,14 @@ namespace Soulmate_Remastered.Classes.HUDFolder
 
         public HUD()
         {
-            fusionBar = new LifeFusionBar();
-            lifeBar = new LifeFusionBar();
+            fusionBar = new LifeFusionBar("Fusion");
+            lifeBar = new LifeFusionBar("Life");
         }
 
         public void update(GameTime gameTime)
         {
-            fusionBar.update("Fusion");
-            lifeBar.update("Life");
+            fusionBar.update();
+            lifeBar.update();
         }
 
         public void draw(RenderWindow window)

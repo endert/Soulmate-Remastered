@@ -20,41 +20,44 @@ namespace Soulmate_Remastered.Classes.HUDFolder
         Sprite fusionBar;
         Sprite lifeBar;
 
-        public LifeFusionBar()
+        String barStyle;
+
+        public LifeFusionBar(String _barStyle)
         {
             barBackground = new Sprite(barBackgroundTexture);
             fusionBar = new Sprite(fusionBarTexture);
             lifeBar = new Sprite(lifeBarTexture);
+            barStyle = _barStyle;
         }
 
-        public Sprite scale(String barStyle)
+        public Sprite scale()
         {
             if (barStyle.Equals("Fusion"))
             {
-                barBackground.Scale = new Vector2f(-1 + ((float)PlayerHandler.player.currentFusionValue / (float)PlayerHandler.player.getMaxFusionValue), 1);
-
-                return barBackground;
+                barBackground.Scale = new Vector2f(-1 + (PlayerHandler.player.currentFusionValue / PlayerHandler.player.getMaxFusionValue), 1);
             }
 
-            else
+            else if (barStyle.Equals("Life"))
             {
-                barBackground.Scale = new Vector2f(-1 + ((float)PlayerHandler.player.getCurrentHP / (float)PlayerHandler.player.getMaxHP), 1);
-
-                return barBackground;
+                barBackground.Scale = new Vector2f(1-(PlayerHandler.player.getCurrentHP / PlayerHandler.player.getMaxHP), 1);
             }
-            
+
+            return barBackground;
         }
 
-        public void setPosition(String barStyle)
+        public void setPosition()
         {
             if(barStyle.Equals("Fusion"))
             {
                 fusionBar.Position = new Vector2f((InGame.VIEW.Center.X - (Game.windowSizeX / 2) + 5),
-                                                  (InGame.VIEW.Center.Y - (Game.windowSizeY / 2) + lifeBarTexture.Size.Y + 5));
+                                                  (InGame.VIEW.Center.Y - (Game.windowSizeY / 2) + lifeBarTexture.Size.Y + 10));
+
+                Console.WriteLine(fusionBar.Position);
+
                 barBackground.Position = new Vector2f(fusionBar.Position.X + fusionBar.Texture.Size.X, fusionBar.Position.Y);
             }
 
-            else
+            else if(barStyle.Equals("Life"))
             {
                 lifeBar.Position = new Vector2f((InGame.VIEW.Center.X - (Game.windowSizeX / 2) + 5),
                                                 (InGame.VIEW.Center.Y - (Game.windowSizeY / 2) + 5));
@@ -63,16 +66,19 @@ namespace Soulmate_Remastered.Classes.HUDFolder
             
         }
 
-        public void update(String barStyle)
+        public void update()
         {
-            setPosition(barStyle);
-            scale(barStyle);
+            setPosition();
+            scale();
         }
 
         public void draw(RenderWindow window)
         {
-            window.Draw(lifeBar);
-            window.Draw(fusionBar);
+            if (barStyle.Equals("Fusion"))
+                window.Draw(fusionBar);
+            if (barStyle.Equals("Life"))
+                window.Draw(lifeBar);
+           
             window.Draw(barBackground);
         }
     }

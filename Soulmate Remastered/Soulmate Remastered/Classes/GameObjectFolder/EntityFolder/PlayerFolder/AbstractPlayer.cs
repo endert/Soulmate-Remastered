@@ -77,6 +77,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public override void update(GameTime gameTime)
         {
+            //Cheats==============
+            moreHP();
+            makeHeile();
+            cheatDef();
+            cheatAtt();
+            cheatFusionValue();
+            //====================
+            
             movementSpeed = 0.4f * (float)gameTime.EllapsedTime.TotalMilliseconds;
             animate(textureList);
             spritePositionUpdate();
@@ -88,5 +96,50 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
             hitFromDirections.Clear();
         }
+
+        //Cheats==============================================================
+        public void moreHP()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.H))
+            {
+                maxHP += 50;
+                currentHP += 50;
+            }
+        }
+
+        public void makeHeile()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.B))
+            {
+                currentHP = maxHP;
+            }
+        }
+
+        public void cheatDef()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.D))
+            {
+                def += 1;
+            }
+        }
+
+        public void cheatAtt()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.F))
+            {
+                att += 1;
+            }
+        }
+
+        public void cheatFusionValue()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Q))
+            {
+                currentFusionValue += 50f;
+                if (currentFusionValue > maxFusionValue)
+                    currentFusionValue = maxFusionValue;
+            }
+        }
+        //====================================================================
     }
 }
