@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 {
@@ -15,6 +16,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         public static PlayerHandler playerHandler { get; set; }
         public static EnemyHandler enemyHandler { get; set; }
         public static PetHandler petHandler { get; set; }
+        public static ProjectileHandler projectileHandler { get; set; }
 
         public EntityHandler()
         {
@@ -23,6 +25,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             playerHandler = new PlayerHandler();
             enemyHandler = new EnemyHandler();
             petHandler = new PetHandler();
+            projectileHandler = new ProjectileHandler();
         }
 
         public static void add(Entity entity)
@@ -49,6 +52,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             PlayerHandler.deleate();
             EnemyHandler.deleate();
             PetHandler.deleate();
+           // ProjectileHandler.deleate();
         }
 
         public static void deleateType(String _type)
@@ -67,6 +71,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                 }
             }
             enemyHandler.update(gameTime);
+            //projectileHandler.update(gameTime);
         }
     }
 }

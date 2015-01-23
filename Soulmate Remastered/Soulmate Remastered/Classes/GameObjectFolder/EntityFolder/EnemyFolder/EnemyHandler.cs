@@ -31,9 +31,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 
                         EnemyBlott blott = new EnemyBlott(spawnPos);
                         if (blott.hitBox.distanceTo(PlayerHandler.player.hitBox) > 200 && GameObjectHandler.lvlMap.getWalkable(blott.hitBox, spawnPos))
-                        { 
-                            enemyList.Add(blott);
-                            EntityHandler.add(blott);
+                        {
+                            add(blott);
                         }
                         else
                             i--;
