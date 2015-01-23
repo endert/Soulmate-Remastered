@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 
 namespace Soulmate_Remastered.Classes
 {
@@ -44,11 +45,7 @@ namespace Soulmate_Remastered.Classes
             inventoryMatrix = new AbstractItem[inventoryLength, inventoryWidth];
         }
 
-        public void update(GameTime gameTime)
-        {
-            ItemHandler.updateInventoryMatrix(gameTime);
-            managment();
-        }
+        
 
         public bool isFull()
         {
@@ -124,17 +121,22 @@ namespace Soulmate_Remastered.Classes
             selected.Position = new Vector2f(x * FIELDSIZE + inventory.Position.X, y * FIELDSIZE + inventory.Position.Y);
         }
 
+        public void deleate()
+        {
+            inventoryMatrix = new AbstractItem[inventoryLength, inventoryWidth];
+        }
+
+        public void update(GameTime gameTime)
+        {
+            ItemHandler.updateInventoryMatrix(gameTime);
+            managment();
+        }
 
         public void draw(RenderWindow window)
         {
             window.Draw(inventory);
             ItemHandler.drawInventoryItems(window);
             window.Draw(selected);
-        }
-
-        public void deleate()
-        {
-            inventoryMatrix = new AbstractItem[inventoryLength, inventoryWidth];
         }
     }
 }

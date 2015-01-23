@@ -15,6 +15,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         public static List<GameObject> gameObjectList { get; set; }
 
         public static EntityHandler entityHandler { get; set; }
+        public static ItemHandler itemHandler { get; set; }
 
         public static Map lvlMap { get; set; }
         public static int lvl { get; set; }
@@ -25,6 +26,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             lvl = _lvl;
             gameObjectList = new List<GameObject>();
             entityHandler = new EntityHandler();
+            itemHandler = new ItemHandler();
         }
 
         public static void add(GameObject obj)
@@ -44,7 +46,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         {
             for (int i = 0; i < gameObjectList.Count; i++)
             {
-                if (gameObjectList[i].TYPE.Equals(type))
+                if (gameObjectList[i].type.Equals(type))
                 {
                     gameObjectList.RemoveAt(i);
                     i--;
@@ -52,7 +54,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             }
         }
 
-        static public void deleate()
+        public void deleate()
         {
             foreach (GameObject gObj in gameObjectList)
             {
@@ -80,13 +82,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             }
 
             entityHandler.update(gameTime);
+            itemHandler.update(gameTime);
         }
 
         public void draw(RenderWindow window)
         {
             foreach (GameObject gObj in gameObjectList)
             {
-                gObj.draw(window);
+                if (gObj.isVisible)
+                {
+                    gObj.draw(window);
+                }
             }
         }
     }

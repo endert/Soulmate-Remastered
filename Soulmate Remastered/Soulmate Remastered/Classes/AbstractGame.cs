@@ -10,7 +10,7 @@ using Soulmate_Remastered.Classes;
 
 namespace Soulmate_Remastered.Classes
 {
-    public abstract class AbstractGame
+    abstract class AbstractGame
     {
         public RenderWindow window;
         GameTime gameTime;
