@@ -31,7 +31,7 @@ namespace Soulmate_Remastered.Classes.HUDFolder
 
         public void setPosition(GameObject gameObject)
         {
-            if (!gameObject.TYPE.Equals("player"))
+            if (!gameObject.type.Equals("player"))
             {
                 if (gameObject != null)
                 {

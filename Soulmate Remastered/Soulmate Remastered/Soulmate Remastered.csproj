@@ -65,6 +65,9 @@
     <Compile Include="Classes\GameObjectFolder\GameObject.cs" />
     <Compile Include="Classes\GameObjectFolder\GameObjectHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\AbstractItem.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\EquipmentFolder\Equipment.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\EquipmentFolder\EquipmentHandler.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\Gold.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\ItemHandler.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameStatesFolder\Controls.cs" />
