@@ -12,7 +12,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
     {
         public String type { get { return base.type + ".Pet"; } }
 
-        public void update(GameTime gameTime)
+        public override void update(GameTime gameTime)
         {
             animate(textureList);
 

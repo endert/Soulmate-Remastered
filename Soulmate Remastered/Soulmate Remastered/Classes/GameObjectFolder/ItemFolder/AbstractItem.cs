@@ -62,7 +62,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
         public abstract void cloneAndDrop(Vector2f dropPosition);
 
-        public void update(GameTime gameTime)
+        public override void update(GameTime gameTime)
         {
             hitBox.Position = position;
             sprite.Position = position;

@@ -75,7 +75,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             }
         }
 
-        public virtual void update(GameTime gameTime)
+        public override void update(GameTime gameTime)
         {
             movementSpeed = 0.4f * (float)gameTime.EllapsedTime.TotalMilliseconds;
             animate(textureList);
