@@ -28,15 +28,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         Sprite optionsButton;
         Sprite controls;
 
-        //Texture backGroundTex;
-        //Sprite backGround;
-
         View view;
 
         public void initialize()
         {
             isPressed = false;
-            isPressedEnter = false;
+            isPressedEnter = true;
             x = 0;
 
             start = new Sprite(startNotSelected);
@@ -50,9 +47,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
             controls = new Sprite(controlsNotSelected);
             controls.Position = new Vector2f(300, 500);
-
-            //backGround = new Sprite(backGroundTex);
-            //backGround.Position = new Vector2f(0, 0);
 
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
@@ -70,8 +64,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
             controlsSelected = new Texture("Pictures/MainMenu/Controls/ControlsSelected.png");
             controlsNotSelected = new Texture("Pictures/MainMenu/Controls/ControlsNotSelected.png");
-
-            //backGroundTex = new Texture("Pictures/Hintergrund.png");
         }
 
         public EnumGameStates update(GameTime gameTime)
@@ -154,7 +146,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
         public void draw(RenderWindow window)
         {
-            //window.Draw(backGround);
             window.SetView(view);
             window.Draw(start);
             window.Draw(exit);

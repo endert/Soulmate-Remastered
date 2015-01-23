@@ -10,6 +10,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 {
     class Controls : GameState
     {
+        bool isPressedEnter;
+     
         Texture controlsTexture;
         Sprite controls;
 
@@ -17,6 +19,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
         public void initialize()
         {
+            isPressedEnter = true;
             controls = new Sprite(controlsTexture);
             controls.Position = new Vector2f(0, 0);
 
@@ -30,8 +33,16 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
         public EnumGameStates update(GameTime gameTime)
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
+            {
+                isPressedEnter = true;
                 return EnumGameStates.mainMenu;
+            }
+
+            if (!Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            {
+                isPressedEnter = false;
+            }
 
             return EnumGameStates.controls;
         }
