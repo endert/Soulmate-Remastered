@@ -14,7 +14,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 {
     abstract class Entity : GameObject
     {
-        protected String type { get { return base.type + ".Entity"; } }
+        public override String type { get { return base.type + ".Entity"; } }
         protected LifeBarForOthers lifeBar;
         protected Stopwatch[] stopWatchList = { new Stopwatch(), new Stopwatch(), new Stopwatch() }; //first for animation, second for vulnerable, third for transformation
 
@@ -58,8 +58,37 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             public bool getIsMoving { get { return isMoving; } }
         protected Vector2f facingDirection;
             public Vector2f getFacingDirection { get { return facingDirection; } }
-        protected int numFacingDirection;
-            public int getNumFacingDirection { get { return numFacingDirection; } }
+        protected int numFacingDirection { get; set; }
+        public int getNumFacingDirection
+        {
+            get
+            {
+                if (facingDirection.Y>0)
+                {
+                    numFacingDirection = 0;
+                    return 0;
+                }
+                else if (facingDirection.Y < 0)
+                {
+                    numFacingDirection = 1;
+                    return 1;
+                }
+                else if (facingDirection.X > 0)
+                {
+                    numFacingDirection = 2;
+                    return 2;
+                }
+                else if(facingDirection.X<0)
+                {
+                    numFacingDirection = 3;
+                    return 3;
+                }
+                else
+                {
+                    return numFacingDirection;
+                }
+            }
+        }
         protected bool moveAwayFromEntity;
         protected Vector2f movement;
         protected float movementSpeed;
@@ -71,7 +100,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             if (!direction.Equals(new Vector2f(0, 0)))
             {
                 isMoving = true;
-                if (hitAnotherEntity() && !moveAwayFromEntity && ((type.Equals("Player")) ? (true) : (!touchedPlayer()))) //if an entity is not a player it should not touch the player
+                if (hitAnotherEntity() && !moveAwayFromEntity && moveHelp()) //if an entity is not a player it should not touch the player
                 {
                     moveAwayFromEntity = true;
 
@@ -172,6 +201,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             else
             {
                 return false;
+            }
+        }
+
+        public bool moveHelp()
+        {
+            if (type.Split('.')[2].Equals("Player"))
+            {
+                return true;
+            }
+            else
+            {
+                return !touchedPlayer();
             }
         }
 

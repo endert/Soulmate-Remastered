@@ -10,7 +10,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {
     class Gold : AbstractItem
     {
-        public String type { get { return base.type + ".Gold"; } }
+        public override String type { get { return base.type + ".Gold"; } }
 
         public Gold()
         {

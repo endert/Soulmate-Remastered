@@ -11,7 +11,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 {
     class EnemyBlott : AbstractEnemy
     {
-        public String type { get { return base.type + ".EnemyBlott"; } }
+        public override String type { get { return base.type + ".EnemyBlott"; } }
         
         public EnemyBlott(Vector2f spawnPos)
         {

@@ -8,7 +8,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
 {
     abstract class Equipment : AbstractItem
     {
-        public String type { get { return base.type + ".Equipment"; } }
+        public override String type { get { return base.type + ".Equipment"; } }
         
         protected float attBonus;
             public float bonusAtt { get { return attBonus; } }

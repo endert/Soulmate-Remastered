@@ -10,7 +10,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
     class HumanPlayer : AbstractPlayer
     {
-        public String type { get { return base.type + ".HumanPlayer"; } }
+        public override String type { get { return base.type + ".HumanPlayer"; } }
 
         public HumanPlayer(Vector2f spawnPosition, int spawnFacingDirection)
         {
