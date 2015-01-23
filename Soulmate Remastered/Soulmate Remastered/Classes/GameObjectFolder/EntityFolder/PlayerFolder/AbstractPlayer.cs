@@ -10,20 +10,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
     abstract class AbstractPlayer : Entity
     {
+        public override String type { get { return base.type + ".Player"; } }
+        
         //FusionBar fusionBar;
         protected float maxFusionValue;
             public float getMaxFusionValue { get { return maxFusionValue; } }
         public float currentFusionValue { get; set; } 
         protected float fusionDuration; //in sec
         protected HitBox attackHitBox;
-        public override String type { get { return base.type + ".Player"; } }
+            public HitBox getAttackHitBox { get { return attackHitBox; } }
+        protected bool attacking;
+        protected bool isPressed;
+        public bool isAttacking { get { return attacking; } }
 
         //Inventory???
-
-        public HitBox getAttackHitBox()
-        {
-            return attackHitBox;
-        }
 
         public virtual Vector2f getKeyPressed(float movementSpeed)
         {
@@ -42,6 +42,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 result.X = movementSpeed;
 
             return result;
+        }
+
+        public bool pressedKeyForAttack()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.A) && !isPressed)
+            {
+                isPressed = true;
+                return true;
+            }
+
+            if (isPressed && !Keyboard.IsKeyPressed(Keyboard.Key.A))
+            {
+                isPressed = false;
+            }
+            return false;
         }
 
         public virtual void spritePositionUpdate()
@@ -74,6 +89,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                     }
             }
         }
+        public virtual Vector2f attckHitBoxPositionUpdate()
+        {
+            return new Vector2f(0, 0);
+        }
 
         public override void update(GameTime gameTime)
         {
@@ -89,6 +108,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             animate(textureList);
             spritePositionUpdate();
             hitBox.setPosition(position);
+            attackHitBox.Position = attckHitBoxPositionUpdate();
+            if (pressedKeyForAttack())
+            {
+                attacking = true;
+                //start animate
+            }
+            else
+            {
+                attacking = false;
+            }
 
             movement = new Vector2f(0, 0);
             movement = getKeyPressed(movementSpeed);
@@ -96,6 +125,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
             hitFromDirections.Clear();
             Console.WriteLine(currentHP);
+           
         }
 
         //Cheats==============================================================

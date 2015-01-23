@@ -68,6 +68,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                 }
                 else
                 {
+                    if (enemyList[i].hitBox.hit(PlayerHandler.player.getAttackHitBox)&&PlayerHandler.player.isAttacking)
+                    {
+                        enemyList[i].takeDmg(PlayerHandler.player.getAtt);
+                    }
+
                     if (enemyList[i].touchedPlayer())
                     {
                         PlayerHandler.player.takeDmg(enemyList[i].getAtt);

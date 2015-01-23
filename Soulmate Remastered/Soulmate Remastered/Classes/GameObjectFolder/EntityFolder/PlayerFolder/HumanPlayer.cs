@@ -25,6 +25,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             sprite.Position = spawnPosition;
             position = spawnPosition;
             hitBox = new HitBox(sprite.Position, textureList[0].Size.X, textureList[0].Size.Y);
+            attackHitBox = new HitBox(attckHitBoxPositionUpdate(), textureList[2].Size.X - textureList[0].Size.X, 85);
 
             maxHP = 100f;
             currentHP = maxHP;
@@ -33,6 +34,22 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             fusionDuration = 50;
             maxFusionValue = 500f;
             currentFusionValue = 0f;
+        }
+
+        public override Vector2f attckHitBoxPositionUpdate()
+        {
+            if (numFacingDirection == 2)
+            {
+                return new Vector2f(sprite.Position.X + 70, sprite.Position.Y + 94);
+            }
+
+            else if (numFacingDirection == 3)
+            {
+                return new Vector2f(sprite.Position.X, sprite.Position.Y + 94);
+            }
+
+            else
+                return new Vector2f(0, 0);
         }
     }
 }
