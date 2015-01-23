@@ -62,6 +62,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             {
                 if (!entityList[i].isAlive)
                 {
+                    entityList[i].drop();
                     entityList.RemoveAt(i);
                     i--;
                 }

@@ -19,8 +19,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         protected bool _isAlive = true;
         public bool isAlive { get { return _isAlive; } set { _isAlive = value; } }
         public int indexObjectList { get; set; }
-        protected bool _walkable = false;
-        public bool walkable { get { return _walkable; } set { _walkable = value; } }
+        public virtual bool walkable { get { return false; } }
         protected bool visible = true;  //standart is visible
         public bool isVisible { get { return true; } }
 

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 {
@@ -20,6 +21,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             textureList.Add(new Texture("Pictures/Enemy/Blott/BlottRight.png"));
             textureList.Add(new Texture("Pictures/Enemy/Blott/BlottLeft.png"));
             textureList.Add(new Texture("Pictures/Enemy/Blott/Invulnerable/BlottFrontInvulnerable.png"));
+
+            drops = new AbstractItem[] {new Gold()};
 
             sprite = new Sprite(textureList[0]);
             position = spawnPos;
