@@ -53,11 +53,14 @@
   <ItemGroup>
     <Compile Include="Classes\AbstractGame.cs" />
     <Compile Include="Classes\Game.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\EnemyFolder\AbstractEnemy.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\EnemyFolder\EnemyBlott.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\EnemyFolder\EnemyHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\Entity.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\EntityHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PetFolder\AbstractPet.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PetFolder\PetHandler.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\PetFolder\PetWolf.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PlayerFolder\AbstractPlayer.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PlayerFolder\HumanPlayer.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PlayerFolder\PlayerHandler.cs" />
@@ -75,6 +78,7 @@
     <Compile Include="Classes\GameTime.cs" />
     <Compile Include="Classes\HUDFolder\HUD.cs" />
     <Compile Include="Classes\HUDFolder\LifeBarForOthers.cs" />
+    <Compile Include="Classes\HUDFolder\LifeFusionBar.cs" />
     <Compile Include="Classes\InGameMenu.cs" />
     <Compile Include="Classes\Inventory.cs" />
     <Compile Include="Classes\MapFolder\Blocks.cs" />
@@ -85,6 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Pictures\MainMenu\Controls\ControlsText.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="csfml-audio-2.dll" />
@@ -92,9 +99,6 @@
     <Content Include="csfml-window-2.dll" />
     <Content Include="libsndfile-1.dll" />
     <Content Include="openal32.dll" />
-    <Content Include="Pictures\ControlsTextBild.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Pictures\Enemy\Blott\BlottBack.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -146,10 +150,7 @@
     <Content Include="Pictures\FusionBar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\FusionBarBackground.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Hintergrund.png">
+    <Content Include="Pictures\BarBackground.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\InGameMenu\ContinueNotSelected.png">
@@ -164,7 +165,7 @@
     <Content Include="Pictures\InGameMenu\ExitSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\InGameMenu\InGameMenuHintergrund.png">
+    <Content Include="Pictures\InGameMenu\InGameMenuBackground.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Inventory\Inventory.PNG">
@@ -182,49 +183,52 @@
     <Content Include="Pictures\Items\TestItem%28Pete%29.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Pictures\LifeBar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pictures\Life\BarBackground.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Life\LifeBar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Life\LifeHeartFull.png">
+    <Content Include="Pictures\MainMenu\Controls\ControlsMenu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Life\LifeHeartHalf.png">
+    <Content Include="Pictures\MainMenu\Controls\ControlsNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Life\LifeHeartOne-Quarter.png">
+    <Content Include="Pictures\MainMenu\Controls\ControlsSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Life\LifeHeartThree-Quarters.png">
+    <Content Include="Pictures\MainMenu\End\EndNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Life\LifeHeartZero.png">
+    <Content Include="Pictures\MainMenu\End\EndSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\ControlsNotSelected.png">
+    <Content Include="Pictures\MainMenu\Enter\Enter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\ControlsSelected.png">
+    <Content Include="Pictures\MainMenu\Enter\EnterSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\EndNotSelected.png">
+    <Content Include="Pictures\MainMenu\Options\OptionsMenu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\EndSelected.png">
+    <Content Include="Pictures\MainMenu\Options\OptionsNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\OptionsNotSelected.png">
+    <Content Include="Pictures\MainMenu\Options\OptionsSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\OptionsSelected.png">
+    <Content Include="Pictures\MainMenu\Start\StartNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\StartNotSelected.png">
+    <Content Include="Pictures\MainMenu\StartScreen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\StartSelected.png">
+    <Content Include="Pictures\MainMenu\Start\StartSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Map\Boden.png">
@@ -242,13 +246,10 @@
     <Content Include="Pictures\Map\Wald.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\OptionsTest.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Pictures\Pet\WolfFront.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\WolfRueckTest.png">
+    <Content Include="Pictures\Pet\WolfRueck.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Pet\WolfSeiteLinks.png">
@@ -278,7 +279,7 @@
     <Content Include="Pictures\Player\SpielerFront.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Player\SpielerRueckTest.png">
+    <Content Include="Pictures\Player\SpielerRueck.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Player\SpielerSeiteLinksSchwert.png">
@@ -288,9 +289,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Player\SpielerSeiteRechtsSchwert.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\StartScreen Kopie.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

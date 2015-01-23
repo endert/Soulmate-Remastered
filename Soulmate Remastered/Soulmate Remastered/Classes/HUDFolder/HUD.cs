@@ -10,25 +10,25 @@ namespace Soulmate_Remastered.Classes.HUDFolder
 {
     class HUD
     {
-        LifePlayer lifePlayer;
-        BarFusionPlayerPet barFusionPlayerPet;
+        LifeFusionBar fusionBar;
+        LifeFusionBar lifeBar;
 
         public HUD()
         {
-            lifePlayer = new LifePlayer();
-            barFusionPlayerPet = new BarFusionPlayerPet();
+            fusionBar = new LifeFusionBar();
+            lifeBar = new LifeFusionBar();
         }
 
         public void update(GameTime gameTime)
         {
-            lifePlayer.update(gameTime);
-            barFusionPlayerPet.update(lifePlayer.getLastLifeHeartSpritePositionBottomY());
+            fusionBar.update("Fusion");
+            lifeBar.update("Life");
         }
 
         public void draw(RenderWindow window)
         {
-            lifePlayer.draw(window);
-            barFusionPlayerPet.draw(window);
+            fusionBar.draw(window);
+            lifeBar.draw(window);
         }
     }
 }

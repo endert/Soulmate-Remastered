@@ -20,12 +20,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             controls = new Sprite(controlsTexture);
             controls.Position = new Vector2f(0, 0);
 
-            view = new View(new FloatRect(0, 0, 1280, 720));
+            view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
 
         public void loadContent()
         {
-            controlsTexture = new Texture("Pictures/ControlsTextBild.png");
+            controlsTexture = new Texture("Pictures/Controls/ControlsMenu.png");
         }
 
         public EnumGameStates update(GameTime gameTime)

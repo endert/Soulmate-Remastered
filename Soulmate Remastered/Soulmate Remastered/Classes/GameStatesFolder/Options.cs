@@ -20,12 +20,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             options = new Sprite(optionsTexture);
             options.Position = new Vector2f(0, 0);
 
-            view = new View(new FloatRect(0, 0, 1280, 720));
+            view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
 
         public void loadContent()
         {
-            optionsTexture = new Texture("Pictures/OptionsTest.png");
+            optionsTexture = new Texture("Pictures/Options/OptionsMenu.png");
         }
 
         public EnumGameStates update(GameTime gameTime)

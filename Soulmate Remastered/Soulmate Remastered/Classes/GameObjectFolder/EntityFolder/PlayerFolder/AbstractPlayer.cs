@@ -12,6 +12,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
     {
         //FusionBar fusionBar;
         protected float maxFusionValue;
+            public float getMaxFusionValue { get { return maxFusionValue; } }
         public float currentFusionValue { get; set; } 
         protected float fusionDuration; //in sec
         protected HitBox attackHitBox;

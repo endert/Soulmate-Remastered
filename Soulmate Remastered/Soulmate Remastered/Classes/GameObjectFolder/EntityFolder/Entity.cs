@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Soulmate_Remastered.Classes.HUDFolder;
 using SFML.Graphics;
 using System.Diagnostics;
 using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+using Soulmate_Remastered.Classes.HUDFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 {
@@ -55,6 +55,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         //attackHitBox
 
         protected bool isMoving;
+            public bool getIsMoving { get { return isMoving; } }
         protected Vector2f facingDirection;
             public Vector2f getFacingDirection { get { return facingDirection; } }
         protected int numFacingDirection;
@@ -70,7 +71,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             if (!direction.Equals(new Vector2f(0, 0)))
             {
                 isMoving = true;
-                if (hitAnotherEntity() && !moveAwayFromEntity && ((type.Equals("player")) ? (true) : (!touchedPlayer()))) //if an entity is not a player it should not touch the player
+                if (hitAnotherEntity() && !moveAwayFromEntity && ((type.Equals("Player")) ? (true) : (!touchedPlayer()))) //if an entity is not a player it should not touch the player
                 {
                     moveAwayFromEntity = true;
 
@@ -182,6 +183,29 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         public void takeDmg()
         {
 
+        }
+
+        public Vector2f getPlayerDirection()
+        {
+            Vector2f playerDirection = new Vector2f(0, 0);
+            if (PlayerHandler.player.hitBox.getPosition().X + PlayerHandler.player.hitBox.getWidth() < position.X) //player is to the left
+            {
+                playerDirection.X = -1;
+            }
+            else if (position.X + hitBox.getWidth() < PlayerHandler.player.hitBox.getPosition().X)
+            {
+                playerDirection.X = 1;
+            }
+
+            if (PlayerHandler.player.hitBox.getPosition().Y + PlayerHandler.player.hitBox.getHeight() < position.Y)
+            {
+                playerDirection.Y = -1;
+            }
+            else if (position.Y + hitBox.height < PlayerHandler.player.hitBox.getPosition().Y)
+            {
+                playerDirection.Y = 1;
+            }
+            return playerDirection;
         }
 
         virtual public void animate(List<Texture> textureList)

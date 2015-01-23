@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder;
 
 namespace Soulmate_Remastered.Classes.HUDFolder
 {
@@ -22,29 +23,29 @@ namespace Soulmate_Remastered.Classes.HUDFolder
             lifeSpriteBar = new Sprite(lifeTextureBar);
         }
 
-        public Sprite scale(GameObject gameObject)
+        public Sprite scale(Entity entity)
         {
-            lifeSpriteBar.Scale = new Vector2f((float)gameObject.getCurrentHP() / (float)gameObject.getMaxHP(), 1);
+            lifeSpriteBar.Scale = new Vector2f((float)entity.getCurrentHP / (float)entity.getMaxHP, 1);
 
             return lifeSpriteBar;
         }
 
-        public void setPosition(GameObject gameObject)
+        public void setPosition(Entity entity)
         {
-            if (!gameObject.TYPE.Equals("player"))
+            if (!entity.TYPE.Split('.')[2].Equals("Player"))
             {
-                if (gameObject != null)
+                if (entity != null)
                 {
-                    lifeSpriteBackground.Position = new Vector2f((gameObject.position.X + gameObject.sprite.Texture.Size.X / 2) - lifeTextureBackground.Size.X / 2, gameObject.position.Y - 20);
+                    lifeSpriteBackground.Position = new Vector2f((entity.position.X + entity.sprite.Texture.Size.X / 2) - lifeTextureBackground.Size.X / 2, entity.position.Y - 20);
                     lifeSpriteBar.Position = new Vector2f(lifeSpriteBackground.Position.X + 2, lifeSpriteBackground.Position.Y + 2);
                 }
             }
         }
 
-        public void update(GameObject gameObject)
+        public void update(Entity entity)
         {
-            setPosition(gameObject);
-            scale(gameObject);
+            setPosition(entity);
+            scale(entity);
         }
 
         public void draw(RenderWindow window)

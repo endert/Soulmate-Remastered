@@ -10,7 +10,7 @@ namespace Soulmate_Remastered.Classes
 {
     class Inventory
     {
-        Texture inventoryTexture = new Texture("Pictures/Inventory/inventory.png");
+        Texture inventoryTexture = new Texture("Pictures/Inventory/Inventory.PNG");
         public Sprite inventory { get; set; }
         public float FIELDSIZE { get { return 50f; } }
         Texture selectedTexture = new Texture("Pictures/Inventory/Selected.png");

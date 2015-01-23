@@ -16,7 +16,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         public static EnemyHandler enemyHandler { get; set; }
         public static PetHandler petHandler { get; set; }
 
-
         public EntityHandler()
         {
             entityList = new List<Entity>();

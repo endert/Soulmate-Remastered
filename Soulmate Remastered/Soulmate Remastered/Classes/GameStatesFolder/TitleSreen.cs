@@ -19,12 +19,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         {
             titleScreen = new Sprite(titleScreenTexture);
 
-            view = new View(new FloatRect(0, 0, 1280, 720));
+            view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
 
         public void loadContent()
         {
-            titleScreenTexture = new Texture("Pictures/StartScreen Kopie.png");
+            titleScreenTexture = new Texture("Pictures//MainMenu/StartScreen.png");
         }
 
         public EnumGameStates update(GameTime gameTime)
