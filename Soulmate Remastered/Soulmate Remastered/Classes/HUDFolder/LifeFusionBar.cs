@@ -39,7 +39,7 @@ namespace Soulmate_Remastered.Classes.HUDFolder
 
             else if (barStyle.Equals("Life"))
             {
-                barBackground.Scale = new Vector2f(1-(PlayerHandler.player.getCurrentHP / PlayerHandler.player.getMaxHP), 1);
+                barBackground.Scale = new Vector2f(1 - (PlayerHandler.player.getCurrentHP / PlayerHandler.player.getMaxHP), 1);
             }
 
             return barBackground;
@@ -49,20 +49,16 @@ namespace Soulmate_Remastered.Classes.HUDFolder
         {
             if(barStyle.Equals("Fusion"))
             {
-                fusionBar.Position = new Vector2f((InGame.VIEW.Center.X - (Game.windowSizeX / 2) + 5),
-                                                  (InGame.VIEW.Center.Y - (Game.windowSizeY / 2) + lifeBarTexture.Size.Y + 10));
-
+                fusionBar.Position = new Vector2f((InGame.VIEW.Center.X - (Game.windowSizeX / 2) + 5), (InGame.VIEW.Center.Y - (Game.windowSizeY / 2) + lifeBarTexture.Size.Y + 10));
 
                 barBackground.Position = new Vector2f(fusionBar.Position.X + fusionBar.Texture.Size.X, fusionBar.Position.Y);
             }
 
             else if(barStyle.Equals("Life"))
             {
-                lifeBar.Position = new Vector2f((InGame.VIEW.Center.X - (Game.windowSizeX / 2) + 5),
-                                                (InGame.VIEW.Center.Y - (Game.windowSizeY / 2) + 5));
+                lifeBar.Position = new Vector2f((InGame.VIEW.Center.X - (Game.windowSizeX / 2) + 5), (InGame.VIEW.Center.Y - (Game.windowSizeY / 2) + 5));
                 barBackground.Position = new Vector2f(lifeBar.Position.X + lifeBar.Texture.Size.X, lifeBar.Position.Y);
             }
-            
         }
 
         public void update()

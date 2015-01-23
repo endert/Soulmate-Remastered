@@ -11,6 +11,7 @@ using Soulmate_Remastered.Classes.HUDFolder;
 using System.Drawing;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+using Soulmate_Remastered.Classes.InGameMenuFolder;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolders
 {
@@ -19,8 +20,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         GameTime time = new GameTime();
         static View view;
         View viewInventory;
-        Texture backGroundTex;
-        Sprite backGround;
         Map map;
         GameObjectHandler gameObjectHandler;
         InGameMenu inGameMenu;
@@ -46,15 +45,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             time.Start();
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
             viewInventory = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
-
-            backGround = new Sprite(backGroundTex);
-            backGround.Position = new Vector2f(0, 0);
         }
 
         public void loadContent()
         {
-            //backGroundTex = new Texture("Pictures/Hintergrund.png");
-
             map = new Map(new Bitmap("Pictures/Map/Map2.bmp"));
             
             gameObjectHandler = new GameObjectHandler(map, 0);
@@ -129,7 +123,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
             else if (!inventoryOpen && !inGameMenuOpen)
             {
-                backGround.Position = new Vector2f(view.Center.X - Game.windowSizeX / 2, view.Center.Y - Game.windowSizeY / 2);
                 view.Move(new Vector2f((PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)), (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height / 2))) - view.Center); //View als letztes updaten und der sprite springt nicht mehr 
 
                 gameObjectHandler.update(gameTime);
@@ -146,7 +139,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
         public void draw(RenderWindow window)
         {
-            window.Draw(backGround);
             window.SetView(view);
             map.draw(window);
             hud.draw(window);

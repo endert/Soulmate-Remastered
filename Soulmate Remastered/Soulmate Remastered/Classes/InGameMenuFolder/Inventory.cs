@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 
-namespace Soulmate_Remastered.Classes
+namespace Soulmate_Remastered.Classes.InGameMenuFolder
 {
     class Inventory
     {

@@ -85,8 +85,8 @@
     <Compile Include="Classes\HUDFolder\HUD.cs" />
     <Compile Include="Classes\HUDFolder\LifeBarForOthers.cs" />
     <Compile Include="Classes\HUDFolder\LifeFusionBar.cs" />
-    <Compile Include="Classes\InGameMenu.cs" />
-    <Compile Include="Classes\Inventory.cs" />
+    <Compile Include="Classes\InGameMenuFolder\InGameMenu.cs" />
+    <Compile Include="Classes\InGameMenuFolder\Inventory.cs" />
     <Compile Include="Classes\MapFolder\Blocks.cs" />
     <Compile Include="Classes\MapFolder\Map.cs" />
     <Compile Include="Classes\GameObjectFolder\HitBox.cs" />

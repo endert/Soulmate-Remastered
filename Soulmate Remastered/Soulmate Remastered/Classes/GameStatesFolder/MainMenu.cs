@@ -11,6 +11,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
     class MainMenu : GameState
     {
         bool isPressed;
+        bool isPressedEnter;
         int x; //für Menüsteuerung
 
         Texture startSelected;
@@ -35,6 +36,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         public void initialize()
         {
             isPressed = false;
+            isPressedEnter = false;
             x = 0;
 
             start = new Sprite(startNotSelected);
@@ -121,14 +123,31 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
                 controls.Texture = controlsSelected;
             }
 
-            if (x == 0 && Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            if (x == 0 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
+            {
+                isPressedEnter = true;
                 return EnumGameStates.inGame;
-            if (x == 1 && Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            }
+            if (x == 1 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
+            {
+                isPressedEnter = true;
                 return EnumGameStates.none;
-            if (x == 2 && Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            }
+            if (x == 2 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
+            {
+                isPressedEnter = true;
                 return EnumGameStates.options;
-            if (x == 3 && Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            }
+            if (x == 3 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
+            {
+                isPressedEnter = true;
                 return EnumGameStates.controls;
+            }
+
+            if(!Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            {
+                isPressedEnter = false;
+            }
 
             return EnumGameStates.mainMenu;
         }
