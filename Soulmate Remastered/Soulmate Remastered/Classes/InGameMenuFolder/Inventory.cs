@@ -13,9 +13,12 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
     class Inventory
     {
         Font font = new Font("FontFolder/arial_narrow_7.ttf");
-        public Text gold;
+        Text gold;
         Texture goldTexture = new Texture("Pictures/Items/Money/Gold.png");
         Sprite goldSprite;
+        Text attack;
+        Text defense;
+        Text exp;
 
         Sprite displayedPlayer;
 
@@ -47,6 +50,10 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             goldSprite = new Sprite(goldTexture);
             goldSprite.Scale = new Vector2f(0.5f, 0.5f);
 
+            attack = new Text("Attack Damage: ", font, 20);
+            defense = new Text("Defense: ", font, 20);
+            exp = new Text("Exp: ", font, 20);
+
             inventory = new Sprite(inventoryTexture);
             inventory.Position = new Vector2f((Game.windowSizeX - inventoryTexture.Size.X) / 2, (Game.windowSizeY - inventoryTexture.Size.Y) / 2);
 
@@ -64,10 +71,21 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public void spriteAndTextPositionUpdate()
         {
+            gold.DisplayedString = "Gold: " + PlayerHandler.player.gold;
             gold.Position = new Vector2f((inventory.Position.X + inventory.Texture.Size.X) - ((gold.CharacterSize / 2) * gold.DisplayedString.Length) - (goldSprite.Texture.Size.X - 20),
                                         (inventory.Position.Y + inventory.Texture.Size.Y) - (gold.CharacterSize + 10));
+
             displayedPlayer = new Sprite(PlayerHandler.player.getTexture[0]);
             displayedPlayer.Position = new Vector2f(inventory.Position.X + (5*FIELDSIZE/2) - displayedPlayer.Texture.Size.X/2, inventory.Position.Y + FIELDSIZE);
+
+            attack.DisplayedString = "Attack: " + PlayerHandler.player.getAtt;
+            attack.Position = new Vector2f(inventory.Position.X + 20, inventory.Position.Y + 9 * FIELDSIZE + 20);
+
+            defense.DisplayedString = "Defense: " + PlayerHandler.player.getDef;
+            defense.Position = new Vector2f(attack.Position.X, attack.Position.Y + attack.CharacterSize);
+
+            exp.DisplayedString = "EXP: " + PlayerHandler.player.getCurrentEXP + "/" + PlayerHandler.player.getMaxEXP;
+            exp.Position = new Vector2f(defense.Position.X, defense.Position.Y + defense.CharacterSize);
         }
 
         public bool isFull()
@@ -153,17 +171,24 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         {
             spriteAndTextPositionUpdate();
             ItemHandler.updateInventoryMatrix(gameTime);
-            gold.DisplayedString = "Gold: " + PlayerHandler.player.gold;
             managment();
+        }
+
+        public void drawTexts(RenderWindow window)
+        {
+            window.Draw(gold);
+            window.Draw(goldSprite);
+            window.Draw(displayedPlayer);
+            window.Draw(attack);
+            window.Draw(defense);
+            window.Draw(exp);
         }
 
         public void draw(RenderWindow window)
         {
             window.Draw(inventory);
             ItemHandler.drawInventoryItems(window);
-            window.Draw(gold);
-            window.Draw(goldSprite);
-            window.Draw(displayedPlayer);
+            drawTexts(window);
             window.Draw(selected);
         }
     }

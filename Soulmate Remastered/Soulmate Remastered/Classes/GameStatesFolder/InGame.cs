@@ -123,7 +123,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
             else if (!inventoryOpen && !inGameMenuOpen)
             {
-                view.Move(new Vector2f((PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)), (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height / 2))) - view.Center); //View als letztes updaten und der sprite springt nicht mehr 
+                view.Move(new Vector2f((PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)), (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height * 5 / 6))) - view.Center); //View als letztes updaten und der sprite springt nicht mehr 
 
                 gameObjectHandler.update(gameTime);
                 hud.update(gameTime);

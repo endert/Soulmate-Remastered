@@ -133,7 +133,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
             if (pressedKeyForShoot())
             {
-                new ProjectileArrow(8f, 0.8f, 15f, facingDirection, new Vector2f(position.X+ textureList[0].Size.X+10, position.Y+textureList[0].Size.Y/2));
+                new ProjectileArrow(8f, 0.8f, 15f, facingDirection, position);
             }
 
             movement = new Vector2f(0, 0);
@@ -164,9 +164,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void moneyMoneyMoney()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.M))
+            if(Keyboard.IsKeyPressed(Keyboard.Key.M))
             {
-                gold += 500; 
+                gold += 500;
             }
         }
 
