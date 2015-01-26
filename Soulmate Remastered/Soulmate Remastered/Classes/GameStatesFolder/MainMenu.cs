@@ -131,19 +131,19 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             if (x == 1 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
             {
                 isPressedEnter = true;
-                return EnumGameStates.none;
+                return EnumGameStates.options;
             }
             if (x == 2 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
             {
                 isPressedEnter = true;
-                return EnumGameStates.options;
+                return EnumGameStates.controls;
             }
             if (x == 3 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
             {
                 isPressedEnter = true;
-                return EnumGameStates.controls;
+                return EnumGameStates.none;
             }
-
+            
             if(!Keyboard.IsKeyPressed(Keyboard.Key.Return))
             {
                 isPressedEnter = false;
@@ -157,9 +157,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             window.Draw(backGround);
             window.SetView(view);
             window.Draw(start);
-            window.Draw(end);
             window.Draw(optionsButton);
             window.Draw(controls);
+            window.Draw(end);
         }
     }
 }
