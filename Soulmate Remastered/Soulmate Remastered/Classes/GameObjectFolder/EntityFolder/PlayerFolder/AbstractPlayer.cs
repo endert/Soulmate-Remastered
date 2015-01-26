@@ -22,7 +22,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         protected bool attacking;
         protected bool isPressed;
         public bool isAttacking { get { return attacking; } }
-        public int Gold { get; set; }
+        public int Gold { get; set; } //money money money...
         //Inventory???
 
         public virtual Vector2f getKeyPressed(float movementSpeed)
@@ -64,29 +64,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             switch (getNumFacingDirection)
             {
                 case 0:
-                    {
-                        sprite.Position = position;
-                        break;
-                    }
+                    sprite.Position = position;
+                    break;
                 case 1:
-                    {
-                        sprite.Position = position;
-                        break;
-                    }
+                    sprite.Position = position;
+                    break;
                 case 2:
-                    {
-                        sprite.Position = position;
-                        break;
-                    }
+                    sprite.Position = position;
+                    break;
                 case 3:
-                    {
-                        sprite.Position = new Vector2f(position.X - (textureList[2].Size.X - hitBox.getWidth()), position.Y);
-                        break;
-                    }
+                    sprite.Position = new Vector2f(position.X - (textureList[2].Size.X - hitBox.getWidth()), position.Y);
+                    break;
                 default:
-                    {
-                        break;
-                    }
+                    break;
             }
         }
         public virtual Vector2f attckHitBoxPositionUpdate()
