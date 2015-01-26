@@ -144,8 +144,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.H))
             {
-                maxHP += 50;
-                currentHP += 50;
+                maxHP += 5000000000000000000;
+                currentHP += 5000000000000000000;
             }
         }
 
