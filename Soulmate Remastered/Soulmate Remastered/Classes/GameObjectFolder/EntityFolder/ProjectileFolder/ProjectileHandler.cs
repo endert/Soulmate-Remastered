@@ -11,28 +11,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
     {
         public static List<AbstractProjectile> projectileList { get; set; }
 
-        public static AbstractProjectile projectile { get; set; }
-
         public ProjectileHandler()
         {
             projectileList = new List<AbstractProjectile>();
-
-            projectile = new ProjectileArrow();
-
-            add(projectile);
         }
 
         public static void add(AbstractProjectile projectile)
         {
             projectileList.Add(projectile);
-            //EntityHandler.add(projectile);
+            EntityHandler.add(projectile);
         }
 
         static public void deleate()
         {
-            projectile = null;
-
-            EntityHandler.deleateType("Projectile");
+            projectileList.Clear();
         }
 
         public void update(GameTime gameTime)
@@ -46,10 +38,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
                 }
                 else
                 {
-                    //if (projectileList[i].touchedPlayer())
-                    //{
-                    //    PlayerHandler.player.takeDmg(projectileList[i].getAtt);
-                    //}
+                    if (projectileList[i].touchedPlayer())
+                    {
+                        PlayerHandler.player.takeDmg(projectileList[i].getAtt);
+                    }
                 }
             }
         }

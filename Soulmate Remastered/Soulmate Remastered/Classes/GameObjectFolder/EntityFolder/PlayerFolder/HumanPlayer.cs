@@ -14,7 +14,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public HumanPlayer(Vector2f spawnPosition, int spawnFacingDirection)
         {
-            textureList.Add( new Texture("Pictures/Player/SpielerFront.png")); 
+            textureList.Add(new Texture("Pictures/Player/SpielerFront.png")); 
             textureList.Add(new Texture("Pictures/Player/SpielerRueck.png"));
             textureList.Add(new Texture("Pictures/Player/SpielerSeiteRechtsSchwert.png"));
             textureList.Add(new Texture("Pictures/Player/SpielerSeiteLinksSchwert.png"));
@@ -26,6 +26,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             position = spawnPosition;
             hitBox = new HitBox(sprite.Position, textureList[0].Size.X, textureList[0].Size.Y);
             attackHitBox = new HitBox(attckHitBoxPositionUpdate(), textureList[2].Size.X - textureList[0].Size.X, 85);
+            movementSpeedConstant = 0.4f;
 
             maxHP = 100f;
             currentHP = maxHP;
