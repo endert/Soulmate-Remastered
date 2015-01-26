@@ -28,6 +28,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         protected bool isPressedForShoot;
         public bool isAttacking { get { return attacking; } }
         public float gold { get; set; } //money money money...
+        protected float currentEXP { get; set; }
+            public float getCurrentEXP { get { return currentEXP; } }
+        protected float maxEXP;
+            public float getMaxEXP { get { return maxEXP; } }
+
         //Inventory???
 
         public virtual Vector2f getKeyPressed(float movementSpeed)
@@ -47,6 +52,24 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 result.X = movementSpeed;
 
             return result;
+        }
+
+        public void setCurrentFusionValue()
+        {
+            currentFusionValue += 50;
+            if (currentFusionValue >= maxFusionValue)
+            {
+                currentFusionValue = maxFusionValue;
+            }
+        }
+
+        public void setCurrentEXP()
+        {
+            currentEXP += 50;
+            if (currentEXP >= maxEXP)
+            {
+                currentEXP = maxEXP;
+            }
         }
 
         public bool pressedKeyForAttack()
@@ -114,7 +137,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             cheatAtt();
             cheatFusionValue();
             //====================
-            
+            Console.WriteLine(currentEXP);
             movementSpeed = movementSpeedConstant * (float)gameTime.EllapsedTime.TotalMilliseconds;
             animate(textureList);
             spritePositionUpdate();
@@ -133,7 +156,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
             if (pressedKeyForShoot())
             {
-                new ProjectileArrow(8f, 0.8f, 15f, facingDirection, position);
+                new ProjectileArrow((att / 2) + 2, 0.8f, 8f, facingDirection, position);
             }
 
             movement = new Vector2f(0, 0);
@@ -190,9 +213,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.Q))
             {
-                currentFusionValue += 50f;
-                if (currentFusionValue > maxFusionValue)
-                    currentFusionValue = maxFusionValue;
+                setCurrentFusionValue();
             }
         }
         //====================================================================

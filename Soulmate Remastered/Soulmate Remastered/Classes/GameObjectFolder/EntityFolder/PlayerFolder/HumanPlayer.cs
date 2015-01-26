@@ -35,6 +35,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             fusionDuration = 50;
             maxFusionValue = 500f;
             currentFusionValue = 0f;
+            maxEXP = 1000f;
+            currentEXP = 0f;
         }
 
         public override Vector2f attckHitBoxPositionUpdate()
