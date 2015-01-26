@@ -90,6 +90,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         }
         protected bool moveAwayFromEntity;
         protected Vector2f movement;
+        protected float movementSpeedConstant;
         protected float movementSpeed;
         protected List<Vector2f> hitFromDirections = new List<Vector2f>();
 
@@ -151,7 +152,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                     {
                         position = new Vector2f(position.X + movement.X, position.Y + movement.Y);
                         facingDirection = movement;
-
                     }
                 }
             }

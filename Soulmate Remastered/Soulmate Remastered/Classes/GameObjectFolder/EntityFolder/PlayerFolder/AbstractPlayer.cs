@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
@@ -20,7 +21,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         protected HitBox attackHitBox;
             public HitBox getAttackHitBox { get { return attackHitBox; } }
         protected bool attacking;
-        protected bool isPressed;
+        protected bool isPressedForAttack;
+        protected bool isPressedForShoot;
         public bool isAttacking { get { return attacking; } }
         public int Gold { get; set; } //money money money...
         //Inventory???
@@ -46,15 +48,30 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public bool pressedKeyForAttack()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.A) && !isPressed)
+            if (Keyboard.IsKeyPressed(Keyboard.Key.A) && !isPressedForAttack)
             {
-                isPressed = true;
+                isPressedForAttack = true;
                 return true;
             }
 
-            if (isPressed && !Keyboard.IsKeyPressed(Keyboard.Key.A))
+            if (isPressedForAttack && !Keyboard.IsKeyPressed(Keyboard.Key.A))
             {
-                isPressed = false;
+                isPressedForAttack = false;
+            }
+            return false;
+        }
+
+        public bool pressedKeyForShoot()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.S) && !isPressedForShoot)
+            {
+                isPressedForShoot = true;
+                return true;
+            }
+
+            if (isPressedForShoot && !Keyboard.IsKeyPressed(Keyboard.Key.S))
+            {
+                isPressedForShoot = false;
             }
             return false;
         }
@@ -95,11 +112,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             cheatFusionValue();
             //====================
             
-            movementSpeed = 0.4f * (float)gameTime.EllapsedTime.TotalMilliseconds;
+            movementSpeed = movementSpeedConstant * (float)gameTime.EllapsedTime.TotalMilliseconds;
             animate(textureList);
             spritePositionUpdate();
             hitBox.setPosition(position);
             attackHitBox.Position = attckHitBoxPositionUpdate();
+
             if (pressedKeyForAttack())
             {
                 attacking = true;
@@ -108,6 +126,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             else
             {
                 attacking = false;
+            }
+
+            if (pressedKeyForShoot())
+            {
+                new ProjectileArrow(8f, 0.8f, 15f, facingDirection, new Vector2f(position.X+ textureList[0].Size.X+10, position.Y+textureList[0].Size.Y/2));
             }
 
             movement = new Vector2f(0, 0);
