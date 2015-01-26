@@ -98,6 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="FontFolder\arial_narrow_7.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Pictures\MainMenu\Controls\ControlsText.docx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -312,7 +315,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Classes\GameObjectFolder\EntityFolder\NPCFolder\" />
-    <Folder Include="FontFolder\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

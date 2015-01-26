@@ -17,8 +17,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         Texture backGroundTexture;
         Texture startSelected;
         Texture startNotSelected;
-        Texture exitSelected;
-        Texture exitNotSelected;
+        Texture endSelected;
+        Texture endNotSelected;
         Texture controlsSelected;
         Texture controlsNotSelected;
         Texture optionsSelected;
@@ -26,7 +26,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
         Sprite backGround;
         Sprite start;
-        Sprite exit;
+        Sprite end;
         Sprite optionsButton;
         Sprite controls;
 
@@ -44,14 +44,14 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             start = new Sprite(startNotSelected);
             start.Position = new Vector2f(300, 250);
 
-            exit = new Sprite(exitNotSelected);
-            exit.Position = new Vector2f(300, 325);
-
             optionsButton = new Sprite(optionsNotSelected);
-            optionsButton.Position = new Vector2f(300, 400);
+            optionsButton.Position = new Vector2f(300, 325);
 
             controls = new Sprite(controlsNotSelected);
-            controls.Position = new Vector2f(300, 475);
+            controls.Position = new Vector2f(300, 400);
+
+            end = new Sprite(endNotSelected);
+            end.Position = new Vector2f(300, 475);
 
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
@@ -63,8 +63,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             startSelected = new Texture("Pictures/MainMenu/Start/StartSelected.png");
             startNotSelected = new Texture("Pictures/MainMenu/Start/StartNotSelected.png");
 
-            exitSelected = new Texture("Pictures/MainMenu/End/EndSelected.png");
-            exitNotSelected = new Texture("Pictures/MainMenu/End/EndNotSelected.png");
+            endSelected = new Texture("Pictures/MainMenu/End/EndSelected.png");
+            endNotSelected = new Texture("Pictures/MainMenu/End/EndNotSelected.png");
 
             optionsSelected = new Texture("Pictures/MainMenu/Options/OptionsSelected.png");
             optionsNotSelected = new Texture("Pictures/MainMenu/Options/OptionsNotSelected.png");
@@ -93,33 +93,34 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             if (x == 0)
             {
                 start.Texture = startSelected;
-                exit.Texture = exitNotSelected;
                 optionsButton.Texture = optionsNotSelected;
                 controls.Texture = controlsNotSelected;
+                end.Texture = endNotSelected;
+                
             }
 
             if (x == 1)
             {
                 start.Texture = startNotSelected;
-                exit.Texture = exitSelected;
-                optionsButton.Texture = optionsNotSelected;
+                optionsButton.Texture = optionsSelected;
                 controls.Texture = controlsNotSelected;
+                end.Texture = endNotSelected;
             }
 
             if (x == 2)
             {
                 start.Texture = startNotSelected;
-                exit.Texture = exitNotSelected;
-                optionsButton.Texture = optionsSelected;
-                controls.Texture = controlsNotSelected;
+                optionsButton.Texture = optionsNotSelected;
+                controls.Texture = controlsSelected;
+                end.Texture = endNotSelected;
             }
 
             if (x == 3)
             {
                 start.Texture = startNotSelected;
-                exit.Texture = exitNotSelected;
                 optionsButton.Texture = optionsNotSelected;
-                controls.Texture = controlsSelected;
+                controls.Texture = controlsNotSelected;
+                end.Texture = endSelected;
             }
 
             if (x == 0 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
@@ -156,7 +157,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             window.Draw(backGround);
             window.SetView(view);
             window.Draw(start);
-            window.Draw(exit);
+            window.Draw(end);
             window.Draw(optionsButton);
             window.Draw(controls);
         }
