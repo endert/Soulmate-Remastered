@@ -14,6 +14,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         bool isPressedEnter;
         int x; //für Menüsteuerung
 
+        Texture backGroundTexture;
         Texture startSelected;
         Texture startNotSelected;
         Texture exitSelected;
@@ -23,6 +24,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         Texture optionsSelected;
         Texture optionsNotSelected;
 
+        Sprite backGround;
         Sprite start;
         Sprite exit;
         Sprite optionsButton;
@@ -36,23 +38,28 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             isPressedEnter = true;
             x = 0;
 
+            backGround = new Sprite(backGroundTexture);
+            backGround.Position = new Vector2f(0, 0);
+
             start = new Sprite(startNotSelected);
-            start.Position = new Vector2f(300, 50);
+            start.Position = new Vector2f(300, 250);
 
             exit = new Sprite(exitNotSelected);
-            exit.Position = new Vector2f(300, 200);
+            exit.Position = new Vector2f(300, 325);
 
             optionsButton = new Sprite(optionsNotSelected);
-            optionsButton.Position = new Vector2f(300, 350);
+            optionsButton.Position = new Vector2f(300, 400);
 
             controls = new Sprite(controlsNotSelected);
-            controls.Position = new Vector2f(300, 500);
+            controls.Position = new Vector2f(300, 475);
 
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
 
         public void loadContent()
         {
+            backGroundTexture = new Texture("Pictures/MainMenu/StartScreen.png");
+
             startSelected = new Texture("Pictures/MainMenu/Start/StartSelected.png");
             startNotSelected = new Texture("Pictures/MainMenu/Start/StartNotSelected.png");
 
@@ -146,6 +153,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
         public void draw(RenderWindow window)
         {
+            window.Draw(backGround);
             window.SetView(view);
             window.Draw(start);
             window.Draw(exit);

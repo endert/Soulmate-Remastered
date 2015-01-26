@@ -22,7 +22,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         protected bool attacking;
         protected bool isPressed;
         public bool isAttacking { get { return attacking; } }
-
+        public int Gold { get; set; }
         //Inventory???
 
         public virtual Vector2f getKeyPressed(float movementSpeed)
