@@ -10,7 +10,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 {
     abstract class GameObject : IComparable<GameObject>
     {
-        public float yCordinate { get { return position.Y + sprite.Position.Y; } }  // for sorting the list
+        public float yCordinate { get { return position.Y + sprite.Texture.Size.Y; } }  // for sorting the list
         //Parameters for gameObjects
         public  HitBox hitBox { get; set; }
         public  Sprite sprite { get; set; }

@@ -283,6 +283,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                     sprite = new Sprite(textureList[4]); // invulnerablety
                 }
             }
+
+            sprite.Position = position;
         }
 
         public abstract override void update(GameTime gameTime);

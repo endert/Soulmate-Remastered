@@ -14,6 +14,10 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
     {
         Font font = new Font("FontFolder/arial_narrow_7.ttf");
         public Text gold;
+        Texture goldTexture = new Texture("Pictures/Items/Money/Gold.png");
+        Sprite goldSprite;
+
+        Sprite displayedPlayer;
 
         Texture inventoryTexture = new Texture("Pictures/Inventory/Inventory.PNG");
         public Sprite inventory { get; set; }
@@ -40,6 +44,8 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         public Inventory()
         {
             gold = new Text("Gold: ", font, 20);
+            goldSprite = new Sprite(goldTexture);
+            goldSprite.Scale = new Vector2f(0.5f, 0.5f);
 
             inventory = new Sprite(inventoryTexture);
             inventory.Position = new Vector2f((Game.windowSizeX - inventoryTexture.Size.X) / 2, (Game.windowSizeY - inventoryTexture.Size.Y) / 2);
@@ -52,13 +58,16 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
             inventoryMatrix = new AbstractItem[inventoryLength, inventoryWidth];
 
-            goldPositionUpdate();
+            spriteAndTextPositionUpdate();
+            goldSprite.Position = new Vector2f(inventory.Position.X + (inventory.Texture.Size.X - (goldSprite.Texture.Size.X - 20)), gold.Position.Y);
         }
 
-        public void goldPositionUpdate()
+        public void spriteAndTextPositionUpdate()
         {
-            gold.Position = new Vector2f((inventory.Position.X + inventory.Texture.Size.X) - ((gold.CharacterSize / 2) * gold.DisplayedString.Length),
+            gold.Position = new Vector2f((inventory.Position.X + inventory.Texture.Size.X) - ((gold.CharacterSize / 2) * gold.DisplayedString.Length) - (goldSprite.Texture.Size.X - 20),
                                         (inventory.Position.Y + inventory.Texture.Size.Y) - (gold.CharacterSize + 10));
+            displayedPlayer = new Sprite(PlayerHandler.player.getTexture[0]);
+            displayedPlayer.Position = new Vector2f(inventory.Position.X + (5*FIELDSIZE/2) - displayedPlayer.Texture.Size.X/2, inventory.Position.Y + FIELDSIZE);
         }
 
         public bool isFull()
@@ -142,9 +151,9 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public void update(GameTime gameTime)
         {
-            goldPositionUpdate();
+            spriteAndTextPositionUpdate();
             ItemHandler.updateInventoryMatrix(gameTime);
-            gold.DisplayedString = "Gold: " + PlayerHandler.player.Gold;
+            gold.DisplayedString = "Gold: " + PlayerHandler.player.gold;
             managment();
         }
 
@@ -153,6 +162,8 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             window.Draw(inventory);
             ItemHandler.drawInventoryItems(window);
             window.Draw(gold);
+            window.Draw(goldSprite);
+            window.Draw(displayedPlayer);
             window.Draw(selected);
         }
     }

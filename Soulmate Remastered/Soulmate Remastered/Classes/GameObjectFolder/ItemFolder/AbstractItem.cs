@@ -41,7 +41,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                         GameObjectHandler.removeAt(indexObjectList);
                         if (type.Equals("Object.Item.Gold"))
                         {
-                            PlayerHandler.player.Gold += 1;
+                            PlayerHandler.player.gold += 1;
                         }
                         return;
                     }
