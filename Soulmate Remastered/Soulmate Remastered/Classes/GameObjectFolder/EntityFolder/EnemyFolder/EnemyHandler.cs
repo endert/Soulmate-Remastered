@@ -62,6 +62,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             {
                 if (!enemyList[i].isAlive)
                 {
+                    PlayerHandler.player.setCurrentFusionValue();
+                    PlayerHandler.player.setCurrentEXP();
+                    
                     enemyList.RemoveAt(i);
                     i--;
                 }

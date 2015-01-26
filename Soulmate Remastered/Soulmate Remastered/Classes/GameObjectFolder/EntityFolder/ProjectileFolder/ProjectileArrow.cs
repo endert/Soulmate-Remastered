@@ -25,7 +25,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
             duration = _duration;
             facingDirection = _facingDirection;
             sprite = new Sprite(textureList[0]);
-
+  
             if (facingDirection.X > 0)
             {
                 position = new Vector2f(_position.X + PlayerHandler.player.hitBox.width + 10, _position.Y + PlayerHandler.player.hitBox.height * 5 / 6);

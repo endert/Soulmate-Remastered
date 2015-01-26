@@ -12,6 +12,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
     {
         protected float duration;
         protected Vector2f startPosition;
+        public override bool walkable
+        {
+            get
+            {
+                return true;
+            }
+        }
         public override String type { get { return base.type + ".Projectile"; } }
 
         public bool inRange()
@@ -37,7 +44,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
 
         public void doDamage()
         {
-            if (hitAnotherEntity() && getTouchedEnemy().Count>0)
+            if (hitAnotherEntity() && getTouchedEnemy().Count > 0)
             {
                 getTouchedEnemy()[0].takeDmg(att);
                 isAlive = false;
@@ -56,7 +63,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
             {
                 move(facingDirection);
                 animate(textureList);
+                sprite.Position = position;
                 doDamage();
+
+                if (!touchedPlayer() && hitAnotherEntity())
+                {
+                    movementSpeed = 0;
+                    att = 0;
+                }
             }
 
             else
