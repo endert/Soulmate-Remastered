@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {
-    class Gold : AbstractItem
+    class Gold : AbstractItem //should extend another instans (money?)
     {
         public override String type { get { return base.type + ".Gold"; } }
 

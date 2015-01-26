@@ -1,4 +1,5 @@
 ﻿using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -38,6 +39,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                         position = new Vector2f((j * 50 + ItemHandler.playerInventory.inventory.Position.X), (i * 50 + ItemHandler.playerInventory.inventory.Position.Y));
                         onMap = false;
                         GameObjectHandler.removeAt(indexObjectList);
+                        if (type.Equals("Object.Item.Gold"))
+                        {
+                            PlayerHandler.player.Gold += 1;
+                        }
                         return;
                     }
                 }

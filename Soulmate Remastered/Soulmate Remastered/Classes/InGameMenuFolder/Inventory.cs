@@ -6,11 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 
 namespace Soulmate_Remastered.Classes.InGameMenuFolder
 {
     class Inventory
     {
+        Font font = new Font("FontFolder/arial_narrow_7.ttf");
+        public Text gold;
+
         Texture inventoryTexture = new Texture("Pictures/Inventory/Inventory.PNG");
         public Sprite inventory { get; set; }
         public float FIELDSIZE { get { return 50f; } }
@@ -33,6 +37,8 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public Inventory()
         {
+            gold = new Text("", font, 20);
+
             inventory = new Sprite(inventoryTexture);
             inventory.Position = new Vector2f((Game.windowSizeX - inventoryTexture.Size.X) / 2, (Game.windowSizeY - inventoryTexture.Size.Y) / 2);
 
@@ -43,6 +49,8 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             inventoryLength = inventoryTexture.Size.Y / selectedTexture.Size.Y;
 
             inventoryMatrix = new AbstractItem[inventoryLength, inventoryWidth];
+
+            gold.Position = inventory.Position;
         }
 
         
@@ -129,6 +137,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         public void update(GameTime gameTime)
         {
             ItemHandler.updateInventoryMatrix(gameTime);
+            gold.DisplayedString = "Gold: " + PlayerHandler.player.Gold;
             managment();
         }
 
@@ -136,6 +145,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         {
             window.Draw(inventory);
             ItemHandler.drawInventoryItems(window);
+            window.Draw(gold);
             window.Draw(selected);
         }
     }
