@@ -137,7 +137,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             cheatAtt();
             cheatFusionValue();
             //====================
-            Console.WriteLine(currentEXP);
             movementSpeed = movementSpeedConstant * (float)gameTime.EllapsedTime.TotalMilliseconds;
             animate(textureList);
             spritePositionUpdate();
