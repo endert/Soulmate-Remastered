@@ -10,7 +10,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 {
     abstract class GameObject : IComparable<GameObject>
     {
-        public float yCordinate { get { return position.Y + sprite.Position.Y; } }  // for sorting the list
+        public float yCoordinate { get { return position.Y + sprite.Position.Y; } }  // for sorting the list
         //Parameters for gameObjects
         public  HitBox hitBox { get; set; }
         public  Sprite sprite { get; set; }
@@ -26,12 +26,25 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 
         public int CompareTo(GameObject gameObject) //for sort in the ObjectList
         {
-            return (int)(this.yCordinate - gameObject.yCordinate);
+            return (int)(this.yCoordinate - gameObject.yCoordinate);
         }
 
         public void kill()
         {
             isAlive = false;
+        }
+
+        public List<GameObject> getTouchedObject()
+        {
+            List<GameObject> gObjList = new List<GameObject>();
+            for (int i = 0; i < GameObjectHandler.gameObjectList.Count; i++)
+            {
+                if ((i != indexObjectList) && (hitBox.hit(GameObjectHandler.gameObjectList[i].hitBox)))
+                {
+                    gObjList.Add(GameObjectHandler.gameObjectList[i]);
+                }
+            }
+            return gObjList;
         }
 
         public abstract void update(GameTime gameTime);

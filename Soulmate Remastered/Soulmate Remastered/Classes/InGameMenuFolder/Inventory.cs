@@ -144,7 +144,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         {
             goldPositionUpdate();
             ItemHandler.updateInventoryMatrix(gameTime);
-            gold.DisplayedString = "Gold: " + PlayerHandler.player.Gold;
+            gold.DisplayedString = "Gold: " + PlayerHandler.player.gold;
             managment();
         }
 

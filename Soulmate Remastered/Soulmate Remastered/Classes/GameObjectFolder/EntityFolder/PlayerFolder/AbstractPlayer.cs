@@ -24,7 +24,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         protected bool isPressedForAttack;
         protected bool isPressedForShoot;
         public bool isAttacking { get { return attacking; } }
-        public float Gold { get; set; } //money money money...
+        public float gold { get; set; } //money money money...
         //Inventory???
 
         public virtual Vector2f getKeyPressed(float movementSpeed)
@@ -106,6 +106,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             //Cheats==============
             moreHP();
             makeHeile();
+            moneyMoneyMoney();
             cheatDef();
             cheatAtt();
             cheatFusionValue();
@@ -129,7 +130,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
             if (pressedKeyForShoot())
             {
-                new ProjectileArrow(8f, 0.8f, 15f, facingDirection, new Vector2f(position.X+ textureList[0].Size.X+10, position.Y+textureList[0].Size.Y/2));
+                new ProjectileArrow(8f, 0.8f, 15f, facingDirection, position);
             }
 
             movement = new Vector2f(0, 0);
@@ -144,8 +145,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.H))
             {
-                maxHP += 5000000000000000000;
-                currentHP += 5000000000000000000;
+                float c = 50;
+                maxHP += c;
+                currentHP += c;
             }
         }
 
@@ -154,6 +156,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             if (Keyboard.IsKeyPressed(Keyboard.Key.B))
             {
                 currentHP = maxHP;
+            }
+        }
+
+        public void moneyMoneyMoney()
+        {
+            if(Keyboard.IsKeyPressed(Keyboard.Key.M))
+            {
+                gold += 500;
             }
         }
 
