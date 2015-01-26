@@ -235,20 +235,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         public Vector2f getPlayerDirection()
         {
             Vector2f playerDirection = new Vector2f(0, 0);
-            if (PlayerHandler.player.hitBox.getPosition().X + PlayerHandler.player.hitBox.getWidth() < position.X) //player is to the left
+            if (PlayerHandler.player.hitBox.Position.X + PlayerHandler.player.hitBox.width < hitBox.Position.X) //player is to the left
             {
                 playerDirection.X = -1;
             }
-            else if (position.X + hitBox.getWidth() < PlayerHandler.player.hitBox.getPosition().X)
+            else if (hitBox.Position.X + hitBox.width < PlayerHandler.player.hitBox.Position.X)
             {
                 playerDirection.X = 1;
             }
 
-            if (PlayerHandler.player.hitBox.getPosition().Y + PlayerHandler.player.hitBox.getHeight() < position.Y)
+            if (PlayerHandler.player.hitBox.Position.Y + PlayerHandler.player.hitBox.height < hitBox.Position.Y)
             {
                 playerDirection.Y = -1;
             }
-            else if (position.Y + hitBox.height < PlayerHandler.player.hitBox.getPosition().Y)
+            else if (hitBox.Position.Y + hitBox.height < PlayerHandler.player.hitBox.Position.Y)
             {
                 playerDirection.Y = 1;
             }

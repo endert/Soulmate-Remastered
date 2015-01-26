@@ -45,7 +45,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
                     }
                 case 3:
                     {
-                        sprite.Position = new Vector2f(position.X - (textureList[2].Size.X - hitBox.getWidth()), position.Y);
+                        sprite.Position = new Vector2f(position.X - (textureList[2].Size.X - hitBox.width), position.Y);
                         break;
                     }
                 default:

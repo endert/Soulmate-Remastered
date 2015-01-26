@@ -78,6 +78,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 
         public void update(GameTime gameTime)
         {
+            gameObjectList.Sort();
+
             for (int i = 0; i < gameObjectList.Count; i++)
             {
                 if (!gameObjectList[i].isAlive)

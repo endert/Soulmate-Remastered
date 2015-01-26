@@ -73,7 +73,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                     sprite.Position = position;
                     break;
                 case 3:
-                    sprite.Position = new Vector2f(position.X - (textureList[2].Size.X - hitBox.getWidth()), position.Y);
+                    sprite.Position = new Vector2f(position.X - (textureList[2].Size.X - hitBox.width), position.Y);
                     break;
                 default:
                     break;
@@ -89,6 +89,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             //Cheats==============
             moreHP();
             makeHeile();
+            moneyMoneyMoney();
             cheatDef();
             cheatAtt();
             cheatFusionValue();
@@ -121,8 +122,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.H))
             {
-                maxHP += 50;
-                currentHP += 50;
+                float c = 50;
+                maxHP += c;
+                currentHP += c;
             }
         }
 
@@ -131,6 +133,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             if (Keyboard.IsKeyPressed(Keyboard.Key.B))
             {
                 currentHP = maxHP;
+            }
+        }
+
+        public void moneyMoneyMoney()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.M))
+            {
+                Gold += 500; 
             }
         }
 

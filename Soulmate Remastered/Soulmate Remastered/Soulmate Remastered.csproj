@@ -74,10 +74,12 @@
     <Compile Include="Classes\GameObjectFolder\ItemFolder\AbstractItem.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\EquipmentFolder\Equipment.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\EquipmentFolder\EquipmentHandler.cs" />
-    <Compile Include="Classes\GameObjectFolder\ItemFolder\Gold.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\MoneyFolder\Gold.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\ItemHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\ProjectileFolder\AbstractProjectile.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\ProjectileFolder\ProjectileHandler.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\MoneyFolder\Money.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\TestItem.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameStatesFolder\Controls.cs" />
     <Compile Include="Classes\GameStatesFolder\InGame.cs" />
@@ -192,10 +194,10 @@
     <Content Include="Pictures\Inventory\Selected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Items\Gold.png">
+    <Content Include="Pictures\Items\Money\Gold.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Items\Schwert.png">
+    <Content Include="Pictures\Items\Equipment\Schwert.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Items\TestItem%28Pete%29.png">

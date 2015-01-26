@@ -34,15 +34,15 @@ namespace Soulmate_Remastered.Classes.MapFolder
 
             //Kollision
             if (!(map[(int)(newPosition.X / objectSize), (int)(newPosition.Y / objectSize)].getWalkable()/*links oben*/
-                && map[(int)(newPosition.X / objectSize), (int)((newPosition.Y + hitBox.getHeight()) / objectSize)].getWalkable()/*links unten*/
-                && map[(int)(newPosition.X / objectSize), (int)((newPosition.Y + hitBox.getHeight() / 2)) / objectSize].getWalkable()/*links mitte*/
+                && map[(int)(newPosition.X / objectSize), (int)((newPosition.Y + hitBox.height) / objectSize)].getWalkable()/*links unten*/
+                && map[(int)(newPosition.X / objectSize), (int)((newPosition.Y + hitBox.height / 2)) / objectSize].getWalkable()/*links mitte*/
 
-                && map[(int)((newPosition.X + hitBox.getWidth()) / objectSize), (int)(newPosition.Y / objectSize)].getWalkable()/*rechts oben*/
-                && map[(int)((newPosition.X + hitBox.getWidth()) / objectSize), (int)((newPosition.Y + hitBox.getHeight()) / objectSize)].getWalkable()/*rechts unten*/
-                && map[(int)((newPosition.X + hitBox.getWidth()) / objectSize), (int)((newPosition.Y + hitBox.getHeight() / 2) / objectSize)].getWalkable()/*rechts mitte*/
+                && map[(int)((newPosition.X + hitBox.width) / objectSize), (int)(newPosition.Y / objectSize)].getWalkable()/*rechts oben*/
+                && map[(int)((newPosition.X + hitBox.width) / objectSize), (int)((newPosition.Y + hitBox.height) / objectSize)].getWalkable()/*rechts unten*/
+                && map[(int)((newPosition.X + hitBox.width) / objectSize), (int)((newPosition.Y + hitBox.height / 2) / objectSize)].getWalkable()/*rechts mitte*/
 
-                && map[(int)((newPosition.X + hitBox.getWidth() / 2) / objectSize), (int)(newPosition.Y / objectSize)].getWalkable()/*oben mitte*/
-                && map[(int)((newPosition.X + hitBox.getWidth() / 2) / objectSize), (int)((newPosition.Y + hitBox.getHeight()) / objectSize)].getWalkable()/*unten mitte*/
+                && map[(int)((newPosition.X + hitBox.width / 2) / objectSize), (int)(newPosition.Y / objectSize)].getWalkable()/*oben mitte*/
+                && map[(int)((newPosition.X + hitBox.width / 2) / objectSize), (int)((newPosition.Y + hitBox.height) / objectSize)].getWalkable()/*unten mitte*/
                 ))
                 return false;
 

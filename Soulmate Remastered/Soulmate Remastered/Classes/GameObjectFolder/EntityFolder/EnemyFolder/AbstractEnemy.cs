@@ -18,36 +18,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 
         public override String type { get { return base.type + ".Enemy"; } }
 
-        public override void update(GameTime gameTime)
-        {
-            movementSpeed = 0.2f * (float)gameTime.EllapsedTime.TotalMilliseconds;
-            animate(textureList);
-            sprite.Position = position;
-
-            if (currentHP <= 0)
-            {
-                isAlive = false;
-            }
-
-            if (isAlive)
-            {
-                hitBox.setPosition(sprite.Position);
-
-                if (sensePlayer())  //if a player is sensed (is in aggroRange) react else not ;)
-                {
-                    react();
-                }
-                else
-                {
-                    notReact();
-                }
-            }
-
-            lifeBar.update(this);
-
-            hitFromDirections.Clear();
-        }
-
         public bool sensePlayer()
         {
             if (hitBox.distanceTo(PlayerHandler.player.hitBox) <= aggroRange)
@@ -137,7 +107,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 
         public override void drop()
         {
-            for (int i = 0; i < random.Next(10); i++)
+            for (int i = 0; i < random.Next(100); i++)
             {
                 int rand = random.Next(drops.Length);
                 if (drops[rand].DROPRATE > random.Next(100))
@@ -150,5 +120,35 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         public abstract void react();   //what the enemy does if it's sense a player
 
         public abstract void notReact();    //what the enemy normaly does
+
+        public override void update(GameTime gameTime)
+        {
+            movementSpeed = 0.2f * (float)gameTime.EllapsedTime.TotalMilliseconds;
+            animate(textureList);
+            sprite.Position = position;
+
+            if (currentHP <= 0)
+            {
+                isAlive = false;
+            }
+
+            if (isAlive)
+            {
+                hitBox.setPosition(sprite.Position);
+
+                if (sensePlayer())  //if a player is sensed (is in aggroRange) react else not ;)
+                {
+                    react();
+                }
+                else
+                {
+                    notReact();
+                }
+            }
+
+            lifeBar.update(this);
+
+            hitFromDirections.Clear();
+        }
     }
 }
