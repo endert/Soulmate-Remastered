@@ -6,16 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 
 namespace Soulmate_Remastered.Classes.InGameMenuFolder
 {
     class Inventory
     {
+        Font font = new Font("FontFolder/arial_narrow_7.ttf");
+        public Text gold;
+
         Texture inventoryTexture = new Texture("Pictures/Inventory/Inventory.PNG");
         public Sprite inventory { get; set; }
         public float FIELDSIZE { get { return 50f; } }
         Texture selectedTexture = new Texture("Pictures/Inventory/Selected.png");
         Sprite selected;
+
+        public Vector2f inventoryMatrixPosition { get { return new Vector2f(inventory.Position.X + 5 * selected.Texture.Size.X, inventory.Position.Y); } }
 
         bool isPressed = false;
         int x = 0, y = 0; //Inventarsteurung
@@ -33,19 +39,27 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public Inventory()
         {
+            gold = new Text("Gold: ", font, 20);
+
             inventory = new Sprite(inventoryTexture);
             inventory.Position = new Vector2f((Game.windowSizeX - inventoryTexture.Size.X) / 2, (Game.windowSizeY - inventoryTexture.Size.Y) / 2);
 
             selected = new Sprite(selectedTexture);
-            selected.Position = inventory.Position;
+            selected.Position = inventoryMatrixPosition;
 
-            inventoryWidth = inventoryTexture.Size.X / selectedTexture.Size.X;
-            inventoryLength = inventoryTexture.Size.Y / selectedTexture.Size.Y;
+            inventoryWidth = inventoryTexture.Size.X / selectedTexture.Size.X - 5;
+            inventoryLength = inventoryTexture.Size.Y / selectedTexture.Size.Y - 3;
 
             inventoryMatrix = new AbstractItem[inventoryLength, inventoryWidth];
+
+            goldPositionUpdate();
         }
 
-        
+        public void goldPositionUpdate()
+        {
+            gold.Position = new Vector2f((inventory.Position.X + inventory.Texture.Size.X) - ((gold.CharacterSize / 2) * gold.DisplayedString.Length),
+                                        (inventory.Position.Y + inventory.Texture.Size.Y) - (gold.CharacterSize + 10));
+        }
 
         public bool isFull()
         {
@@ -118,7 +132,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 isPressed = false;
 
 
-            selected.Position = new Vector2f(x * FIELDSIZE + inventory.Position.X, y * FIELDSIZE + inventory.Position.Y);
+            selected.Position = new Vector2f(x * FIELDSIZE + inventoryMatrixPosition.X, y * FIELDSIZE + inventoryMatrixPosition.Y);
         }
 
         public void deleate()
@@ -128,7 +142,9 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public void update(GameTime gameTime)
         {
+            goldPositionUpdate();
             ItemHandler.updateInventoryMatrix(gameTime);
+            gold.DisplayedString = "Gold: " + PlayerHandler.player.Gold;
             managment();
         }
 
@@ -136,6 +152,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         {
             window.Draw(inventory);
             ItemHandler.drawInventoryItems(window);
+            window.Draw(gold);
             window.Draw(selected);
         }
     }

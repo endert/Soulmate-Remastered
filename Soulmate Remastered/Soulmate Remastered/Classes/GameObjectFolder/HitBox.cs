@@ -13,33 +13,23 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         public Vector2f Position { get; set; }
         public float width { get; set; }
         public float height { get; set; }
+        private float spriteHeight;
 
         Vector2f unionPos;
         float unionWidth;
         float unionHeight;
 
-        public Vector2f getPosition()
-        {
-            return Position;
-        }
         public void setPosition(Vector2f _pos)
         {
-            Position = new Vector2f(_pos.X, _pos.Y);
-        }
-        public float getWidth()
-        {
-            return width;
-        }
-        public float getHeight()
-        {
-            return height;
+            Position = new Vector2f(_pos.X, _pos.Y + (2 * spriteHeight) / 5);
         }
 
         public HitBox(Vector2f pos, float _width, float _height)
         {
-            Position = pos;
+            Position = new Vector2f(pos.X,pos.Y+(2*_height)/5);
             width = _width;
-            height = _height;
+            height = (_height * 3)/5;
+            spriteHeight = _height;
         }
 
         public Vector2f hitFrom(HitBox h)

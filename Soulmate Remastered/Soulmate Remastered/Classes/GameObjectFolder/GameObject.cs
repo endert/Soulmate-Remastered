@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder
 {
-    abstract class GameObject
+    abstract class GameObject : IComparable<GameObject>
     {
+        public float yCordinate { get { return position.Y + sprite.Position.Y; } }  // for sorting the list
         //Parameters for gameObjects
         public  HitBox hitBox { get; set; }
         public  Sprite sprite { get; set; }
@@ -23,6 +24,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         protected bool visible = true;  //standart is visible
         public bool isVisible { get { return true; } }
 
+        public int CompareTo(GameObject gameObject) //for sort in the ObjectList
+        {
+            return (int)(this.yCordinate - gameObject.yCordinate);
+        }
 
         public void kill()
         {

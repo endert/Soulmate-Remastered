@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
+namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
 {
-    class Gold : AbstractItem
+    class Gold : Money //should extend another instans (money?)
     {
         public override String type { get { return base.type + ".Gold"; } }
 
         public Gold()
         {
-            textureList.Add(new Texture("Pictures/Items/Gold.png"));
+            textureList.Add(new Texture("Pictures/Items/Money/Gold.png"));
             sprite = new Sprite(textureList[0]);
             visible = false;
             position = new Vector2f();

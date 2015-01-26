@@ -1,4 +1,5 @@
 ﻿using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,11 +23,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
         public void setPositionMatrix(int x, int y)
         {
-            position = new Vector2f(x * ItemHandler.playerInventory.FIELDSIZE + ItemHandler.playerInventory.inventory.Position.X,
-                y * ItemHandler.playerInventory.FIELDSIZE + ItemHandler.playerInventory.inventory.Position.Y);
+            position = new Vector2f(x * ItemHandler.playerInventory.FIELDSIZE + ItemHandler.playerInventory.inventoryMatrixPosition.X,
+                y * ItemHandler.playerInventory.FIELDSIZE + ItemHandler.playerInventory.inventoryMatrixPosition.Y);
         }
 
-        public void pickUp(GameTime gameTime)
+        public virtual void pickUp(GameTime gameTime)
         {
             for (int i = 0; i < ItemHandler.playerInventory.inventoryMatrix.GetLength(0); i++) //row -> x-coordinate
             {
@@ -35,9 +36,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                     if (ItemHandler.playerInventory.inventoryMatrix[i, j] == null)
                     {
                         ItemHandler.playerInventory.inventoryMatrix[i, j] = this;
-                        position = new Vector2f((j * 50 + ItemHandler.playerInventory.inventory.Position.X), (i * 50 + ItemHandler.playerInventory.inventory.Position.Y));
+                        position = new Vector2f((j * 50 + ItemHandler.playerInventory.inventoryMatrixPosition.X), (i * 50 + ItemHandler.playerInventory.inventoryMatrixPosition.Y));
                         onMap = false;
                         GameObjectHandler.removeAt(indexObjectList);
+                        if (type.Equals("Object.Item.Gold"))
+                        {
+                            PlayerHandler.player.Gold += 1;
+                        }
                         return;
                     }
                 }
