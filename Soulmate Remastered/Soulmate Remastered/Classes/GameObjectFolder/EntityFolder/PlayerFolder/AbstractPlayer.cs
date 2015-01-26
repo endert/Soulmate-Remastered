@@ -124,8 +124,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             move(movement);
 
             hitFromDirections.Clear();
-            Console.WriteLine(currentHP);
-           
         }
 
         //Cheats==============================================================
