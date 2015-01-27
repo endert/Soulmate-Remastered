@@ -155,7 +155,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
             if (pressedKeyForShoot())
             {
-                new ProjectileArrow((att / 2) + 2, 0.8f, 8f, facingDirection, position);
+                new ProjectileArrow((att / 2) + 2, 0.8f, 2f, facingDirection, position);
             }
 
             movement = new Vector2f(0, 0);
