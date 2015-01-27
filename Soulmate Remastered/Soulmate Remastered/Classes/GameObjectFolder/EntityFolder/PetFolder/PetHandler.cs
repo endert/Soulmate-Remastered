@@ -1,4 +1,5 @@
 ﻿using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         public PetHandler()
         {
             petList = new List<AbstractPet>();
+
+            pet = new PetWolf(PlayerHandler.player);
+            EntityHandler.add(pet);
         }
 
         public static void add(AbstractPet pet)
