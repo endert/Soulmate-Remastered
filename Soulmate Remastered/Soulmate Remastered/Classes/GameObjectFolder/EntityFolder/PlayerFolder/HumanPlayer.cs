@@ -28,15 +28,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             attackHitBox = new HitBox(attckHitBoxPositionUpdate(), textureList[2].Size.X - textureList[0].Size.X, 85);
             movementSpeedConstant = 0.4f;
 
-            maxHP = 100f;
-            currentHP = maxHP;
-            att = 10;
-            def = 5;
+            lvl = 1;
+            baseHp = 100f;
+            baseAtt = 10;
+            baseDef = 5;
+
             fusionDuration = 50;
             maxFusionValue = 500f;
             currentFusionValue = 0f;
-            maxEXP = 1000f;
-            currentEXP = 0f;
+            statsUpdate();
+            currentHP = maxHP;
         }
 
         public override Vector2f attckHitBoxPositionUpdate()

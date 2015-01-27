@@ -12,15 +12,17 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 {
     class Inventory
     {
-        Font font = new Font("FontFolder/arial_narrow_7.ttf");
-        Text gold;
         Texture goldTexture = new Texture("Pictures/Items/Money/Gold.png");
         Sprite goldSprite;
+
+        Sprite displayedPlayer;
+
+        Font font = new Font("FontFolder/arial_narrow_7.ttf");
+        Text gold;
         Text attack;
         Text defense;
         Text exp;
-
-        Sprite displayedPlayer;
+        Text lvl;
 
         Texture inventoryTexture = new Texture("Pictures/Inventory/Inventory.PNG");
         public Sprite inventory { get; set; }
@@ -53,6 +55,8 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             attack = new Text("Attack Damage: ", font, 20);
             defense = new Text("Defense: ", font, 20);
             exp = new Text("Exp: ", font, 20);
+            lvl = new Text("Lvl: ", font, 20);
+
 
             inventory = new Sprite(inventoryTexture);
             inventory.Position = new Vector2f((Game.windowSizeX - inventoryTexture.Size.X) / 2, (Game.windowSizeY - inventoryTexture.Size.Y) / 2);
@@ -86,6 +90,9 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
             exp.DisplayedString = "EXP: " + PlayerHandler.player.getCurrentEXP + "/" + PlayerHandler.player.getMaxEXP;
             exp.Position = new Vector2f(defense.Position.X, defense.Position.Y + defense.CharacterSize);
+
+            lvl.DisplayedString = "Lvl: " + PlayerHandler.player.getLvl;
+            lvl.Position = new Vector2f(exp.Position.X, exp.Position.Y + exp.CharacterSize);
         }
 
         public bool isFull()
@@ -170,6 +177,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         public void update(GameTime gameTime)
         {
             spriteAndTextPositionUpdate();
+            PlayerHandler.player.cheatUpdate();
             ItemHandler.updateInventoryMatrix(gameTime);
             managment();
         }
@@ -182,6 +190,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             window.Draw(attack);
             window.Draw(defense);
             window.Draw(exp);
+            window.Draw(lvl);
         }
 
         public void draw(RenderWindow window)
