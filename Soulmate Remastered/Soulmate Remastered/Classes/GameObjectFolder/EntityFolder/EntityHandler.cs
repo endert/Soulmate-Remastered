@@ -57,7 +57,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 
         public static void deleateType(String _type)
         {
+            bool foundEntry = false;
+            for (int i = 0; i < entityList.Count; i++)
+            {
+                if (entityList[i].type.Equals(_type))
+                {
+                    entityList.RemoveAt(i);
+                    foundEntry = true;
+                    i--;
+                }
+            }
 
+            if (foundEntry)
+            {
+                GameObjectHandler.deleateType(_type);
+            }
         }
 
         public void update(GameTime gameTime)

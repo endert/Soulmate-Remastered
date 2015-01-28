@@ -19,21 +19,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         protected Stopwatch[] stopWatchList = { new Stopwatch(), new Stopwatch(), new Stopwatch() }; //first for animation, second for vulnerable, third for transformation
 
         protected bool tookDmg;
+        protected bool vulnerable = true;
         protected int inVulnerableFor = 500; //in milisec
             protected bool isVulnerable
         {
             get
             {
-                bool vulnerable = true;
                 if (tookDmg)
                 {
                     vulnerable = false;
-                    stopWatchList[0].Start();
-                    if (stopWatchList[0].ElapsedMilliseconds >= inVulnerableFor)
+                    stopWatchList[1].Start();
+                    if (stopWatchList[1].ElapsedMilliseconds >= inVulnerableFor)
                     {
                         tookDmg = false;
                         vulnerable = true;
-                        stopWatchList[0].Reset();
+                        stopWatchList[1].Reset();
                     }
                 }
                 return vulnerable;
@@ -44,16 +44,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         protected bool hitPlayer;
 
         protected float baseHp;
+            public float getBaseHp { get { return baseHp; } }
         protected float maxHP;
             public float getMaxHP { get { return maxHP; } }
         protected float currentHP;
             public float getCurrentHP { get { return currentHP; } }
 
         protected float baseAtt;
+        public float getBaseAtt { get { return baseAtt; } }
         protected float att;
             public float getAtt { get { return att; } }
 
         protected float baseDef;
+            public float getBaseDef { get { return baseDef; } }
         protected float def;
             public float getDef { get { return def; } }
         //attackHitBox
@@ -96,6 +99,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         protected bool moveAwayFromEntity;
         protected Vector2f movement;
         protected float movementSpeedConstant;
+            public float getMovementSpeedConstant { get { return movementSpeedConstant; } }
         protected float movementSpeed;
         protected List<Vector2f> hitFromDirections = new List<Vector2f>();
 
@@ -170,7 +174,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         {
             for (int i = 0; i < GameObjectHandler.gameObjectList.Count; i++)
             {
-                if ((i != indexObjectList) && (hitBox.hit(GameObjectHandler.gameObjectList[i].hitBox)) && !GameObjectHandler.gameObjectList[i].walkable)
+                if ((i != indexObjectList) && (hitBox.hit(GameObjectHandler.gameObjectList[i].hitBox)) && hitAnotherEnityHelp(i))
                 {
                     bool notFound = true;
                     for (int j = 0; j < hitFromDirections.Count; j++)
@@ -194,6 +198,46 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             {
                 return false;
             }
+        }
+
+        private bool hitAnotherEnityHelp(int index)
+        {
+            if (type.Split('.')[2].Equals("Pet") || type.Split('.')[2].Equals("Player"))
+            {
+                return !petPlayerCollision();
+            }
+
+            else
+            {
+                return !GameObjectHandler.gameObjectList[index].walkable;
+            }
+        }
+
+        public bool petPlayerCollision()
+        {
+            if (type.Split('.')[2].Equals("Pet"))
+            {
+                foreach (Entity entity in EntityHandler.entityList)
+                {
+                    if (hitBox.hit(entity.hitBox) && !entity.type.Split('.')[2].Equals("Pet") && entity.type.Split('.')[2].Equals("Player"))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            if (type.Split('.')[2].Equals("Player"))
+            {
+                foreach (Entity entity in EntityHandler.entityList)
+                {
+                    if (hitBox.hit(entity.hitBox) && !entity.type.Split('.')[2].Equals("Player") && entity.type.Split('.')[2].Equals("Pet"))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public bool touchedPlayer()
