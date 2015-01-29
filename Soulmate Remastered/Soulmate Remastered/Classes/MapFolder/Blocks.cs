@@ -13,11 +13,6 @@ namespace Soulmate_Remastered.Classes.MapFolder
         bool walkable;
         Sprite blockSprite;
 
-        public Texture getTexture()
-        {
-            return this.blockSprite.Texture;
-        }
-
         public bool getWalkable()
         {
             return this.walkable;
