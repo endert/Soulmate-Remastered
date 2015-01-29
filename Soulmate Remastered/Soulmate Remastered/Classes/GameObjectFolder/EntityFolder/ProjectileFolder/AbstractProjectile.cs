@@ -66,6 +66,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
                 sprite.Position = position;
                 doDamage();
 
+                //Fehlersuche
+                getTouchedObject();
+
                 if (!touchedPlayer() && hitAnotherEntity())
                 {
                     movementSpeed = 0;

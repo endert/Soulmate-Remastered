@@ -42,6 +42,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
                 if ((i != indexObjectList) && (hitBox.hit(GameObjectHandler.gameObjectList[i].hitBox)))
                 {
                     gObjList.Add(GameObjectHandler.gameObjectList[i]);
+                    Console.WriteLine(GameObjectHandler.gameObjectList[i].type);
                 }
             }
             return gObjList;

@@ -133,7 +133,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             if (currentEXP >= maxEXP)
             {
-                lvl += ((int)currentEXP / (int)maxEXP) ;
+                lvl += ((int)currentEXP / (int)maxEXP);
                 currentEXP %= maxEXP;
                 statsUpdate();
                 currentHP = maxHP;
@@ -142,10 +142,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void statsUpdate()
         {
-            maxEXP = 1000*(float)Math.Pow(2, lvl-1);
-            att = baseAtt + (lvl-1)*1;
-            def = baseDef + (lvl-1)*0.5f;
-            maxHP = baseHp + (lvl-1)*50;
+            maxEXP = 1000 * (float)Math.Pow(2, lvl - 1);
+            att = baseAtt + (lvl - 1) * 1;
+            def = baseDef + (lvl - 1) * 0.5f;
+            maxHP = baseHp + (lvl - 1) * 50;
         }
 
         public void cheatUpdate()
