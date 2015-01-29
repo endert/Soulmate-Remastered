@@ -41,13 +41,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
                 position = new Vector2f(_position.X + PlayerHandler.player.hitBox.width / 2, _position.Y - 20);
             }
 
-            else
+            else if(facingDirection.Y > 0)
             {
                 position = new Vector2f(_position.X + PlayerHandler.player.hitBox.width / 2, _position.Y + PlayerHandler.player.hitBox.height * 5 / 6 + 10);
             }
-
-
-
 
             sprite.Position = position;
             startPosition = position;
