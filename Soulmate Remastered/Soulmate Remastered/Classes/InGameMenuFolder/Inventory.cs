@@ -79,8 +79,8 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             gold.Position = new Vector2f((inventory.Position.X + inventory.Texture.Size.X) - ((gold.CharacterSize / 2) * gold.DisplayedString.Length) - (goldSprite.Texture.Size.X - 20),
                                         (inventory.Position.Y + inventory.Texture.Size.Y) - (gold.CharacterSize + 10));
 
-            displayedPlayer = new Sprite(PlayerHandler.player.getTexture[0]);
-            displayedPlayer.Position = new Vector2f(inventory.Position.X + (5*FIELDSIZE/2) - displayedPlayer.Texture.Size.X/2, inventory.Position.Y + FIELDSIZE);
+            displayedPlayer = new Sprite(new Texture("Pictures/Inventory/PlayerFrontInventory.png"));
+            displayedPlayer.Position = new Vector2f(inventory.Position.X + 20, inventory.Position.Y + FIELDSIZE);
 
             attack.DisplayedString = "Attack: " + PlayerHandler.player.getAtt;
             attack.Position = new Vector2f(inventory.Position.X + 20, inventory.Position.Y + 9 * FIELDSIZE + 20);

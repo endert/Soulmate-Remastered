@@ -126,16 +126,19 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             if (x == 0 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
             {
                 isPressedEnter = true;
+                Console.WriteLine("load Game");
                 return EnumGameStates.inGame;
             }
             if (x == 1 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
             {
                 isPressedEnter = true;
+                Console.WriteLine("load Options");
                 return EnumGameStates.options;
             }
             if (x == 2 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
             {
                 isPressedEnter = true;
+                Console.WriteLine("load Controls");
                 return EnumGameStates.controls;
             }
             if (x == 3 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)

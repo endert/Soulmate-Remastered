@@ -162,6 +162,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                         position = new Vector2f(position.X + movement.X, position.Y + movement.Y);
                         facingDirection = movement;
                     }
+                    else
+                    {
+                        //Vector2f wayOutOfWall = new Vector2f(0, 0);
+                        //if (position.X<30)
+                        //{
+                        //    wayOutOfWall.X = 35;
+                        //}
+                        //if (position.X>)
+                        //{
+                            
+                        //}
+                    }
                 }
             }
             else
@@ -267,6 +279,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         public virtual void drop()
         {
 
+        }
+
+        public void moveOutOfWall(Vector2f theWayOut)
+        {
+            position = new Vector2f(position.X + (theWayOut.X / Math.Abs(theWayOut.X)) * movementSpeed, position.Y + (theWayOut.Y / Math.Abs(theWayOut.Y)) * movementSpeed);
         }
 
         public void takeDmg(float dmg)

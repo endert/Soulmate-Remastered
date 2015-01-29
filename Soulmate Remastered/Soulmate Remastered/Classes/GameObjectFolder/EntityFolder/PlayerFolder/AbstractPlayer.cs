@@ -8,6 +8,7 @@ using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFolder;
 using SFML.Graphics;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
+using System.Diagnostics;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
@@ -15,6 +16,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
     {
         public override String type { get { return base.type + ".Player"; } }
 
+        protected Stopwatch[] coolDown = new Stopwatch[] { new Stopwatch() };
+        //                                                  Arrow
+        protected int arrowCd = 1; //in sec
+        protected bool arrowOnCoolDown = false;
         public List<Texture> getTexture { get { return textureList; } }
         protected int lvl;
             public int getLvl { get { return lvl; } }
@@ -86,7 +91,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             position = player.position;
             maxFusionValue = player.getMaxFusionValue;
             currentFusionValue = player.currentFusionValue;
-            hitBox = player.hitBox;
 
             baseHp = player.getBaseHp;
             maxHP = player.getMaxHP;
@@ -174,7 +178,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void statsUpdate()
         {
-            maxEXP = 1000 * (float)Math.Pow(2, lvl - 1);
+            maxEXP += 1000 * ( lvl);
             att = baseAtt + (lvl - 1) * 1;
             def = baseDef + (lvl - 1) * 0.5f;
             maxHP = baseHp + (lvl - 1) * 50;
@@ -221,7 +225,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
             if (pressedKeyForShoot())
             {
-                new ProjectileArrow((att / 2) + 2, 0.8f, 2f, facingDirection, position);
+                coolDown[0].Start();
+                if (!arrowOnCoolDown)
+                {
+                    new ProjectileArrow((att / 2) + 2, 0.8f, 2f, facingDirection, position);
+                }
+                if (coolDown[0].ElapsedMilliseconds < arrowCd * 1000)
+                {
+                    arrowOnCoolDown = true;
+                }
+                else
+                {
+                    arrowOnCoolDown = false;
+                    coolDown[0].Reset();
+                }
             }
 
             if (!transforming)
@@ -257,7 +274,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.E))
             {
-                currentEXP += 50;
+                currentEXP += 500;
             }
         }
 
