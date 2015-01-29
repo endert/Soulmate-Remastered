@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Classes.MapFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder
 {
-    public class HitBox
+    class HitBox
     {
-        Texture testTexture = new Texture("Pictures/Inventory/Selected.png");
+        Texture testTexture;
         Sprite testSprite;
         static bool visible = false;
         public static bool VISIBLE { get { return visible; } set { visible = value; } }
@@ -28,12 +29,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             Position = new Vector2f(_pos.X, _pos.Y + (2 * spriteHeight) / 5);
         }
 
+        public HitBox(Blocks block)
+        {
+            Position = block.getSprite.Position;
+            width = block.getSprite.Texture.Size.X;
+            height = block.getSprite.Texture.Size.Y;
+            spriteHeight = height;
+        }
+
         public HitBox(Vector2f pos, float _width, float _height)
         {
             Position = new Vector2f(pos.X, pos.Y + (2 * _height) / 5);
             width = _width;
             height = (_height * 3) / 5;
             spriteHeight = _height;
+            testTexture = new Texture("Pictures/Inventory/Selected.png");
             testSprite = new Sprite(testTexture);
             testSprite.Scale = new Vector2f(width / testTexture.Size.X, height / testTexture.Size.Y);
             testSprite.Position = Position;
@@ -123,7 +133,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 
         public bool hit(HitBox h)
         {
-            testSprite.Position = Position;
+            if (testSprite != null)
+            {
+                testSprite.Position = Position;
+            }
             if (h != null)
             {
                 union(h);
@@ -169,7 +182,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 
         public void draw(RenderWindow window)
         {
-            window.Draw(testSprite);
+            if (testSprite != null)
+            {
+                window.Draw(testSprite);
+            }
         }
     }
 }
