@@ -26,9 +26,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 
         public HitBox(Vector2f pos, float _width, float _height)
         {
-            Position = new Vector2f(pos.X,pos.Y+(2*_height)/5);
+            Position = new Vector2f(pos.X, pos.Y + (2 * _height) / 5);
             width = _width;
-            height = (_height * 3)/5;
+            height = (_height * 3) / 5;
             spriteHeight = _height;
         }
 
