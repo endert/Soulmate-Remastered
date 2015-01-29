@@ -20,11 +20,6 @@ namespace Soulmate_Remastered.Classes.MapFolder
             get { return blockHitBox; } 
         }
 
-        public bool getWalkable()
-        {
-            return this.walkable;
-        }
-
         public Blocks(int blockType, Vector2f position, Texture bodenTex)
         {
             switch (blockType)
