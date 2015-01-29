@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFolder;
 using SFML.Graphics;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
@@ -22,6 +23,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             public float getMaxFusionValue { get { return maxFusionValue; } }
         public float currentFusionValue { get; set; } 
         protected float fusionDuration; //in sec
+            public float getFusionDuration { get { return fusionDuration * 1000; } }
         protected HitBox attackHitBox;
             public HitBox getAttackHitBox { get { return attackHitBox; } }
         protected bool attacking;
@@ -33,6 +35,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             public float getCurrentEXP { get { return currentEXP; } }
         protected float maxEXP;
             public float getMaxEXP { get { return maxEXP; } }
+
+        protected bool transforming = false;
+        protected bool animating = false;
 
         //Inventory???
 
@@ -71,6 +76,33 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             {
                 currentEXP = maxEXP;
             }
+        }
+
+        public void adapt(AbstractPlayer player)
+        {
+            facingDirection = player.getFacingDirection; // RECHTS
+            sprite = new Sprite(textureList[player.getNumFacingDirection]);
+            sprite.Position = player.position;
+            position = player.position;
+            maxFusionValue = player.getMaxFusionValue;
+            currentFusionValue = player.currentFusionValue;
+            hitBox = player.hitBox;
+
+            baseHp = player.getBaseHp;
+            maxHP = player.getMaxHP;
+            currentHP = player.getCurrentHP;
+
+            baseAtt = player.getBaseAtt;
+            att = player.getAtt;
+
+            baseDef = player.getBaseDef;
+            def = player.getDef;
+
+            lvl = player.getLvl;
+            maxEXP = player.getMaxEXP;
+            currentEXP = player.getCurrentEXP;
+
+            movementSpeedConstant = player.getMovementSpeedConstant;
         }
 
         public bool pressedKeyForAttack()
@@ -166,10 +198,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             cheatUpdate();
             //====================
             movementSpeed = movementSpeedConstant * (float)gameTime.EllapsedTime.TotalMilliseconds;
-            animate(textureList);
+            if (!animating)
+            {
+                animate(textureList);
+            }
             spritePositionUpdate();
             hitBox.setPosition(position);
-            attackHitBox.Position = attckHitBoxPositionUpdate();
+            if (attackHitBox != null)
+            {
+                attackHitBox.Position = attckHitBoxPositionUpdate();
+            }
 
             if (pressedKeyForAttack())
             {
@@ -186,9 +224,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 new ProjectileArrow((att / 2) + 2, 0.8f, 2f, facingDirection, position);
             }
 
-            movement = new Vector2f(0, 0);
-            movement = getKeyPressed(movementSpeed);
-            move(movement);
+            if (!transforming)
+            {
+                movement = new Vector2f(0, 0);
+                movement = getKeyPressed(movementSpeed);
+                move(movement);
+            }
 
             hitFromDirections.Clear();
         }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
@@ -40,6 +41,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             currentHP = maxHP;
         }
 
+        public void fusion()
+        {
+            if (currentFusionValue >= maxFusionValue)
+            {
+                new PlayerPetFusion(this, PetHandler.pet);
+            }
+        }
+
         public override Vector2f attckHitBoxPositionUpdate()
         {
             if (numFacingDirection == 2)
@@ -54,6 +63,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
             else
                 return new Vector2f(0, 0);
+        }
+
+        public override void update(GameTime gameTime)
+        {
+            base.update(gameTime);
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+            {
+                fusion();
+            }
         }
     }
 }

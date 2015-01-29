@@ -12,18 +12,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
     {
         public override String type { get { return base.type + ".Pet"; } }
 
-        public override void update(GameTime gameTime)
-        {
-            animate(textureList);
-
-            spritePositionUpdate();
-            hitBox.setPosition(position);
-
-            movementSpeed = 0.4f * (float)gameTime.EllapsedTime.TotalMilliseconds;
-            movement = getVectorForMove();
-            move(movement);
-        }
-
         public virtual void spritePositionUpdate()
         {
             switch (numFacingDirection)
@@ -193,6 +181,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
                 return (behindX || behindY);
             }
             return false;
+        }
+        public override void update(GameTime gameTime)
+        {
+            animate(textureList);
+
+            hitBox.update(sprite);
+            spritePositionUpdate();
+            hitBox.setPosition(position);
+            lifeBar.update(this);
+
+            movementSpeed = movementSpeedConstant * (float)gameTime.EllapsedTime.TotalMilliseconds;
+            movement = getVectorForMove();
+            move(movement);
+
+            hitFromDirections.Clear();
         }
     }
 }
