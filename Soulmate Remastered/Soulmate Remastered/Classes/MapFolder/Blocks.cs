@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Soulmate_Remastered.Classes.GameObjectFolder;
 
 namespace Soulmate_Remastered.Classes.MapFolder
 {
@@ -12,6 +13,12 @@ namespace Soulmate_Remastered.Classes.MapFolder
     {
         bool walkable;
         Sprite blockSprite;
+        HitBox blockHitBox;
+
+        public HitBox getBlockHitBox 
+        {
+            get { return blockHitBox; } 
+        }
 
         public bool getWalkable()
         {
@@ -34,6 +41,7 @@ namespace Soulmate_Remastered.Classes.MapFolder
                         this.blockSprite = new Sprite(new Texture("Pictures/Map/Wald.png"));
                         this.blockSprite.Position = position;
                         this.walkable = false;
+                        blockHitBox = new HitBox(new Vector2f(position.X, position.Y - bodenTex.Size.Y * 2 / 5), bodenTex.Size.X, (bodenTex.Size.Y * 5) / 3);
                         break;
                     }
             }
