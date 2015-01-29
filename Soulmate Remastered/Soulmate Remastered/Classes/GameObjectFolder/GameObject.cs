@@ -54,6 +54,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         public virtual void draw(RenderWindow window)
         {
             window.Draw(sprite);
+            if (HitBox.VISIBLE)
+            {
+                hitBox.draw(window);
+            }
         }
     }
 }

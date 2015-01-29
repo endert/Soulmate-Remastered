@@ -186,6 +186,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void cheatUpdate()
         {
+            drawHitBoxOnOff();
             moreHP();
             makeHeile();
             expCheat();
@@ -307,6 +308,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             if (Keyboard.IsKeyPressed(Keyboard.Key.Q))
             {
                 setCurrentFusionValue();
+            }
+        }
+
+        public void drawHitBoxOnOff()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.F1))
+            {
+                if (HitBox.VISIBLE == false)
+                {
+                    HitBox.VISIBLE = true;
+                }
+                else
+                {
+                    HitBox.VISIBLE = false;
+                }
             }
         }
         //====================================================================

@@ -10,6 +10,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 {
     public class HitBox
     {
+        Texture testTexture = new Texture("Pictures/Inventory/Selected.png");
+        Sprite testSprite;
+        static bool visible = false;
+        public static bool VISIBLE { get { return visible; } set { visible = value; } }
         public Vector2f Position { get; set; }
         public float width { get; set; }
         public float height { get; set; }
@@ -30,6 +34,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             width = _width;
             height = (_height * 3)/5;
             spriteHeight = _height;
+            testSprite = new Sprite(testTexture);
+            testSprite.Scale = new Vector2f(width / testTexture.Size.X, height / testTexture.Size.Y);
+            testSprite.Position = Position;
         }
 
         public Vector2f hitFrom(HitBox h)
@@ -114,15 +121,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             return (float)Math.Sqrt(Math.Pow(distanceX, 2) + Math.Pow(distanceY, 2));
         }
 
-        public void update(Sprite sprite)
-        {
-            Position = sprite.Position;
-            width = sprite.Texture.Size.X;
-            height = sprite.Texture.Size.Y;
-        }
-
         public bool hit(HitBox h)
         {
+            testSprite.Position = Position;
             if (h != null)
             {
                 union(h);
@@ -155,6 +156,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 
             unionWidth = ((thisBottomRight.X >= hBottomRight.X) ? (thisBottomRight.X) : (hBottomRight.X)) - unionPos.X;
             unionHeight = ((thisBottomRight.Y >= hBottomRight.Y) ? (thisBottomRight.Y) : (hBottomRight.Y)) - unionPos.Y;
+        }
+
+        public void update(Sprite sprite)
+        {
+            Position = new Vector2f(sprite.Position.X, sprite.Position.Y + (2 * spriteHeight) / 5);
+            width = sprite.Texture.Size.X;
+            height = sprite.Texture.Size.Y;
+            testSprite.Scale = new Vector2f(width / testTexture.Size.X, height / testTexture.Size.Y);
+            testSprite.Position = Position;
+        }
+
+        public void draw(RenderWindow window)
+        {
+            window.Draw(testSprite);
         }
     }
 }
