@@ -15,10 +15,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
         
         public ProjectileArrow(float _att, float _movementSpeed, float _duration, Vector2f _facingDirection, Vector2f _position)
         {
-            textureList.Add(new Texture("Pictures/Projectile/Error!!!Top.png"));
-            textureList.Add(new Texture("Pictures/Projectile/Error!!!Bottom.png"));
-            textureList.Add(new Texture("Pictures/Projectile/Error!!!Right.png"));
-            textureList.Add(new Texture("Pictures/Projectile/Error!!!Left.png"));
+            textureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowTop.png"));
+            textureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowBottom.png"));
+            textureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowRight.png"));
+            textureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowLeft.png"));
 
             att = _att;
             movementSpeedConstant = _movementSpeed;

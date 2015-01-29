@@ -32,13 +32,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             fusionedPet = pet;
 
             adapt(player);
+            hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
 
             PlayerHandler.player = this;
             EntityHandler.deleateType(player.type);
             EntityHandler.deleateType(pet.type);
             EntityHandler.add(this);
 
-            stopWatchList[2].Start();
             statsUpdate();
             animatingFusion = true;
         }
@@ -107,7 +107,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 transforming = false;
                 vulnerable = true;
             }
-            defuse();
+            if (!transforming)
+            {
+                stopWatchList[2].Start();
+                defuse();
+            }
         }
     }
 }

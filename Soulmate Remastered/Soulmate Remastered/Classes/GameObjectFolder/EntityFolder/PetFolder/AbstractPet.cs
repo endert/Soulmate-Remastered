@@ -184,6 +184,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         }
         public override void update(GameTime gameTime)
         {
+            if (hitBox.distanceTo(PlayerHandler.player.hitBox) >= 800f)
+            {
+                position = PlayerHandler.player.position;
+            }
+
             animate(textureList);
 
             hitBox.update(sprite);

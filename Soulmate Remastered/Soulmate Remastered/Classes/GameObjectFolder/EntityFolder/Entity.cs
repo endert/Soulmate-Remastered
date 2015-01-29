@@ -164,7 +164,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                     }
                     else
                     {
-
+                        //Vector2f wayOutOfWall = new Vector2f(0, 0);
+                        //if (position.X<30)
+                        //{
+                        //    wayOutOfWall.X = 35;
+                        //}
+                        //if (position.X>)
+                        //{
+                            
+                        //}
                     }
                 }
             }
