@@ -46,6 +46,8 @@ namespace Soulmate_Remastered.Classes.MapFolder
                 ))
                 return false;
 
+            
+
             return walkable;
         }
 
