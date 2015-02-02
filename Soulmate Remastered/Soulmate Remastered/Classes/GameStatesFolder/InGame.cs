@@ -12,6 +12,7 @@ using System.Drawing;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.InGameMenuFolder;
+using Soulmate_Remastered.Classes.DialogeBoxFolder;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolders
 {
@@ -22,6 +23,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         View viewInventory;
         Map map;
         GameObjectHandler gameObjectHandler;
+        DialogeHandler dialoges;
         InGameMenu inGameMenu;
         HUD hud;
 
@@ -52,6 +54,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             map = new Map(new Bitmap("Pictures/Map/Map2.bmp"));
             
             gameObjectHandler = new GameObjectHandler(map, 0);
+
+            dialoges = new DialogeHandler();
 
             inGameMenu = new InGameMenu();
 
@@ -96,6 +100,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             }
 
             return false;
+        }
+
+        public void save()
+        {
+            
         }
 
         public EnumGameStates update(GameTime gameTime)
@@ -143,6 +152,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             map.draw(window);
             hud.draw(window);
             gameObjectHandler.draw(window);
+            dialoges.draw(window);
             
 
             if (inventoryOpen == true)

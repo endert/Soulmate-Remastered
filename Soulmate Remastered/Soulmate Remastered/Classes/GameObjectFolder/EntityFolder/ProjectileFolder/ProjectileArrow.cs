@@ -24,7 +24,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
             movementSpeedConstant = _movementSpeed;
             duration = _duration;
             facingDirection = _facingDirection;
-            sprite = new Sprite(textureList[0]);
+            sprite = new Sprite(textureList[getNumFacingDirection]);
   
             if (facingDirection.X > 0)
             {
@@ -49,7 +49,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
             sprite.Position = position;
             startPosition = position;
             isAlive = true;
-            hitBox = new HitBox(sprite.Position, textureList[0].Size.X, textureList[0].Size.Y);
+            hitBox = new HitBox(this);
 
             ProjectileHandler.add(this);
         }        

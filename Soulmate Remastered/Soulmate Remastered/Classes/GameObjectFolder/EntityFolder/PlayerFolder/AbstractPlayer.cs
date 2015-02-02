@@ -207,8 +207,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             {
                 animate(textureList);
             }
-            spritePositionUpdate();
             hitBox.setPosition(position);
+            spritePositionUpdate();
+
             if (attackHitBox != null)
             {
                 attackHitBox.Position = attckHitBoxPositionUpdate();
