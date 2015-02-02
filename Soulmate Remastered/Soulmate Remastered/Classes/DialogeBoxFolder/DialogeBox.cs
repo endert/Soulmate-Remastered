@@ -10,7 +10,7 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
 {
     class DialogeBox
     {
-        bool isOpen;
+        public bool isOpen { get; set; }
         Vector2f position;
         Texture background = new Texture("Pictures/DialogeBox/DialogeBoxBackground.png");
         Sprite dialogeBox;
@@ -27,7 +27,14 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
             txt = new Text(dialoge, font, 20);
             txt.Position = new Vector2f(dialogeBox.Position.X + 5, dialogeBox.Position.Y + 5);
             isOpen = true;
-            DialogeHandler.dialogeList.Add(this);
+        }
+
+        public void update()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.P))
+            {
+                
+            }
         }
 
         public void draw(RenderWindow window)

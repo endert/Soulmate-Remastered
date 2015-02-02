@@ -14,6 +14,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
     {
         public override String type { get { return base.type + ".PetStorageGuy"; } }
         public bool interacted { get; set; }
+        DialogeBox dialoge;
 
         String test = "lulululu ... heiliege Kuh; . . . *trinkt einen Schluck* . . . dieser verkackte INDER XD, n bissl Rassismus muss halt sein außerdem weiß ich nicht wie ich den Text noch strecken kann ;) ist jetzt auch schon lang genug für Testzwecke ^^";
 
@@ -37,7 +38,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 
         public void changePet()
         {
-            new DialogeBox(new Vector2f(position.X, position.Y-200), test);
+            dialoge = new DialogeBox(new Vector2f(position.X, position.Y-100), test);
+            DialogeHandler.dialogeList.Add(dialoge);
         }
 
         public override void update(GameTime gameTime)
@@ -46,9 +48,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             {
                 interacted = true;
             }
+            if (hitBox.distanceTo(PlayerHandler.player.hitBox) > 50)
+            {
+                interacted = false;
+            }
             if (interacted)
             {
                 changePet();
+            }
+
+            if (!interacted)
+            {
+                dialoge = null;
+                DialogeHandler.dialogeList.Clear();
             }
         }
     }
