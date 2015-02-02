@@ -17,12 +17,12 @@ namespace Soulmate_Remastered.Classes.MapFolder
 
         public Sprite getSprite { get { return blockSprite; } }
 
-        //public HitBox getBlockHitBox { get { return blockHitBox; } }
-
         public bool getWalkable()
         {
             return this.walkable;
         }
+
+        //public HitBox getBlockHitBox { get { return blockHitBox; } }
 
         public Blocks(int blockType, Vector2f position, Texture bodenTex)
         {
