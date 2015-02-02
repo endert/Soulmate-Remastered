@@ -26,8 +26,7 @@ namespace Soulmate_Remastered.Classes.MapFolder
             bool walkable = true;
             Vector2f newPosition = new Vector2f(hitBox.Position.X + vector.X, hitBox.Position.Y + vector.Y);
 
-            //Map-Grenzen ;; muss auch abbrechen wenn die newPosition + Vector außerhalb liegt
-            //Entschulidgung für die Änderung, aber anders hat es ständig exceptions geworfen ;(
+            //Map-Borders, return false if u ran out of the map
             if (newPosition.X < 0 || newPosition.Y < 0 || newPosition.X >= map.GetLength(0) * objectSize || newPosition.Y >= map.GetLength(1) * objectSize
                 || newPosition.X + vector.X >= map.GetLength(0) * objectSize || newPosition.Y + vector.Y >= map.GetLength(1) * objectSize)
                 return false;

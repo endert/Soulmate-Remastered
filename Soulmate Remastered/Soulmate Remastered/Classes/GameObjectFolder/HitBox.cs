@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
 using Soulmate_Remastered.Classes.MapFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder
 {
@@ -35,6 +36,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             width = block.getSprite.Texture.Size.X;
             height = block.getSprite.Texture.Size.Y;
             spriteHeight = height;
+        }
+
+        public HitBox(AbstractProjectile projectile)
+        {
+            Position = projectile.position;
+            width = projectile.sprite.Texture.Size.X;
+            height = projectile.sprite.Texture.Size.Y;
+            spriteHeight = height;
+            testTexture = new Texture("Pictures/Inventory/Selected.png");
+            testSprite = new Sprite(testTexture);
+            testSprite.Scale = new Vector2f(width / testTexture.Size.X, height / testTexture.Size.Y);
+            testSprite.Position = Position;
         }
 
         public HitBox(Vector2f pos, float _width, float _height)
@@ -175,7 +188,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         {
             Position = new Vector2f(sprite.Position.X, sprite.Position.Y + (2 * spriteHeight) / 5);
             width = sprite.Texture.Size.X;
-            height = sprite.Texture.Size.Y;
+            height = sprite.Texture.Size.Y * 3 / 5;
             testSprite.Scale = new Vector2f(width / testTexture.Size.X, height / testTexture.Size.Y);
             testSprite.Position = Position;
         }
