@@ -14,11 +14,7 @@ namespace Soulmate_Remastered.Classes
     //class SaveGame
     //{
     //    public GameObjectHandler gameObjects;
-    //    public GameTime time;
-    //    public View view;
-    //    public View viewInventory;
     //    public Map map;
-    //    public InGameMenu inGameMenu;
     //    public HUD hud;
     //}
 }

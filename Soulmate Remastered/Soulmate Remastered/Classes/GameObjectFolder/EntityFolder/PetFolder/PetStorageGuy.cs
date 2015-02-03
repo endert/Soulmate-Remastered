@@ -18,6 +18,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 
         String test = "lulululu ... heiliege Kuh; . . . *trinkt einen Schluck* . . . dieser verkackte INDER XD, n bissl Rassismus muss halt sein außerdem weiß ich nicht wie ich den Text noch strecken kann ;) ist jetzt auch schon lang genug für Testzwecke ^^";
 
+        bool dialogeIsOn = false;
+
         public PetStorageGuy(Vector2f _position)
         {
             textureList.Add(new Texture("Pictures/Pet/PetStorageGuy/PetStorageGuyFrontTest.png"));
@@ -44,22 +46,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 
         public override void update(GameTime gameTime)
         {
-            if (hitBox.distanceTo(PlayerHandler.player.hitBox)<= 50 && Keyboard.IsKeyPressed(Keyboard.Key.P))
+            if (hitBox.distanceTo(PlayerHandler.player.hitBox)<= 50 && Keyboard.IsKeyPressed(Keyboard.Key.P) && !dialogeIsOn)
             {
                 interacted = true;
+                dialogeIsOn = true;
+                changePet();
             }
             if (hitBox.distanceTo(PlayerHandler.player.hitBox) > 50)
             {
                 interacted = false;
             }
-            if (interacted)
-            {
-                changePet();
-            }
 
             if (!interacted)
             {
                 dialoge = null;
+                dialogeIsOn = false;
                 DialogeHandler.dialogeList.Clear();
             }
         }
