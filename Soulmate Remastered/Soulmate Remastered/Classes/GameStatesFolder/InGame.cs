@@ -136,6 +136,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
                 gameObjectHandler.update(gameTime);
                 hud.update(gameTime);
+                dialoges.update();
 
                 if (PlayerHandler.player.getCurrentHP <= 0)
                 {
@@ -150,10 +151,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         {
             window.SetView(view);
             map.draw(window);
-            hud.draw(window);
             gameObjectHandler.draw(window);
             dialoges.draw(window);
-            
+            hud.draw(window);
 
             if (inventoryOpen == true)
             {
