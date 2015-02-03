@@ -15,10 +15,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         public override String type { get { return base.type + ".PetWolf"; } }
         public PetWolf(AbstractPlayer player)
         {
-            textureList.Add(new Texture("Pictures/Pet/WolfFront.png"));
-            textureList.Add(new Texture("Pictures/Pet/WolfRueck.png"));
-            textureList.Add(new Texture("Pictures/Pet/WolfSeiteRechts.png"));
-            textureList.Add(new Texture("Pictures/Pet/WolfSeiteLinks.png"));
+            textureList.Add(new Texture("Pictures/Pet/Wolf/WolfFront.png"));
+            textureList.Add(new Texture("Pictures/Pet/Wolf/WolfBack.png"));
+            textureList.Add(new Texture("Pictures/Pet/Wolf/WolfRight.png"));
+            textureList.Add(new Texture("Pictures/Pet/Wolf/WolfLeft.png"));
 
             movementSpeedConstant = 0.4f;
             sprite = new Sprite(textureList[0]);

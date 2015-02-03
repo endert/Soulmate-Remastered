@@ -13,6 +13,7 @@ using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.InGameMenuFolder;
 using Soulmate_Remastered.Classes.DialogeBoxFolder;
+using System.IO;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolders
 {
@@ -26,6 +27,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         DialogeHandler dialoges;
         InGameMenu inGameMenu;
         HUD hud;
+        private readonly String savePath = "save.soul";
 
         public static View VIEW
         {
@@ -47,6 +49,15 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             time.Start();
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
             viewInventory = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
+
+            if(File.Exists(savePath))
+                load("save.soul");
+            else
+            {
+
+
+
+            }
         }
 
         public void loadContent()
@@ -102,10 +113,28 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             return false;
         }
 
-        public void save()
+        public void save(String path)
         {
-            
+            StreamWriter writer = new StreamWriter(path);
+            writer.WriteLine("Bacon");
+            writer.WriteLine("Reiswaffel");
+
+            writer.Flush();
+            writer.Close();
         }
+
+        public void load(String path)
+        {
+            StreamReader reader = new StreamReader(path);
+
+            while(!reader.EndOfStream)
+            {
+                Console.WriteLine(reader.ReadLine());
+            }
+            reader.Close();
+
+        }
+
 
         public EnumGameStates update(GameTime gameTime)
         {

@@ -300,16 +300,16 @@
     <Content Include="Pictures\Pet\PetStorageGuy\PetStorageGuyRightTest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\WolfFront.png">
+    <Content Include="Pictures\Pet\Wolf\WolfBack.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\WolfRueck.png">
+    <Content Include="Pictures\Pet\Wolf\WolfFront.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\WolfSeiteLinks.png">
+    <Content Include="Pictures\Pet\Wolf\WolfLeft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\WolfSeiteRechts.png">
+    <Content Include="Pictures\Pet\Wolf\WolfRight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Player\PlayerWerewolf\VerwandlungWerwolf1.png">

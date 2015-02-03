@@ -43,8 +43,34 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         protected bool transforming = false;
         protected bool animating = false;
-
+        Char lineBreak = ';';
         //Inventory???
+
+        public String ToString()
+        {
+            String playerString = "Player:" + lineBreak;
+
+            playerString += lvl + lineBreak;    //splitPlayerString[1]
+            playerString += currentFusionValue + lineBreak; //splitPlayerString[2]
+            playerString += gold + lineBreak;   //splitPlayerString[3]
+            playerString += getMaxEXP + lineBreak;  //splitPlayerString[4]
+            playerString += currentEXP + lineBreak; //splitPlayerString[5]
+            playerString += getCurrentHP;   //splitPlayerString[6]
+
+            return playerString;
+        }
+
+        public void toPlayer(String playerString)
+        {
+            String[] splitPlayerString = playerString.Split(lineBreak);
+
+            lvl = Convert.ToInt32(splitPlayerString[1]);
+            currentFusionValue = Convert.ToSingle(splitPlayerString[2]);
+            gold = Convert.ToSingle(splitPlayerString[3]);
+            maxEXP = Convert.ToSingle(splitPlayerString[4]);
+            currentEXP = Convert.ToSingle(splitPlayerString[5]);
+            currentHP = Convert.ToSingle(splitPlayerString[6]);
+        }
 
         public virtual Vector2f getKeyPressed(float movementSpeed)
         {
