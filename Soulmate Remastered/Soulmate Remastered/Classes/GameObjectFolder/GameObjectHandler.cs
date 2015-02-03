@@ -24,6 +24,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         {
             lvlMap = _lvlMap;
             lvl = _lvl;
+            
             gameObjectList = new List<GameObject>();
             entityHandler = new EntityHandler();
             itemHandler = new ItemHandler();

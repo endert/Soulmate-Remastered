@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Classes;
+using Soulmate_Remastered.Classes.GameObjectFolder;
 
 namespace Soulmate_Remastered.Classes
 {

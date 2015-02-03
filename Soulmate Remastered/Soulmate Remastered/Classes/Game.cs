@@ -57,6 +57,9 @@ namespace Soulmate_Remastered.Classes
                 case EnumGameStates.titleSreen:
                     gameState = new TitleScreen();
                     break;
+                case EnumGameStates.village:
+                    gameState = new Village();
+                    break;
                 //case EGameStates.gameWon:
                 //    gameState = new GameWon();
                 //    break;

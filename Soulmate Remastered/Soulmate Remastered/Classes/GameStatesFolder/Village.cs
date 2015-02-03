@@ -17,12 +17,12 @@ using Soulmate_Remastered.Classes.GameStatesFolder;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolders
 {
-    class InGame : AbstractGamePlay
+    class Village : AbstractGamePlay
     {
         public override void loadContent()
         {
-            map = new Map(new Bitmap("Pictures/Map/Map2.bmp"));
-            GameObjectHandler.lvl = 1;
+            map = new Map(new Bitmap("Pictures/Map/Map.bmp"));
+            GameObjectHandler.lvl = 0;
             GameObjectHandler.lvlMap = map;
             base.loadContent();
         }
@@ -31,23 +31,23 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         {
             stuff(gameTime);
 
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1) //if exit clicked
+            {
+                gameObjectHandler.deleate();
+                return EnumGameStates.mainMenu;
+            }
+
             if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !isKlicked)
             {
                 isKlicked = true;
-                Console.WriteLine("change to village");
+                Console.WriteLine("change to instance");
                 change++;
-                return EnumGameStates.village;
+                return EnumGameStates.inGame;
             }
 
             if (!Keyboard.IsKeyPressed(Keyboard.Key.L))
             {
                 isKlicked = false;
-            }
-
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1) //if exit clicked
-            {
-                gameObjectHandler.deleate();
-                return EnumGameStates.mainMenu;
             }
 
             if (!inventoryOpen && !inGameMenuOpen)
@@ -65,7 +65,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
                 }
             }
 
-            return EnumGameStates.inGame;
-        }        
+            return EnumGameStates.village;
+        }
     }
 }

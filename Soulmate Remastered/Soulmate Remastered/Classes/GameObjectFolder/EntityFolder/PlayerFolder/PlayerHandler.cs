@@ -20,6 +20,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                     EntityHandler.add(player);
                     break;
 
+                case 1:
+                    player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), 2);
+                    EntityHandler.add(player);
+                    break;
+
                 default:
                     break;
             }

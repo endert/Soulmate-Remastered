@@ -84,11 +84,13 @@
     <Compile Include="Classes\GameObjectFolder\ItemFolder\MoneyFolder\Money.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\TestItem.cs" />
     <Compile Include="Classes\GameState.cs" />
+    <Compile Include="Classes\GameStatesFolder\AbstractGamePlay.cs" />
     <Compile Include="Classes\GameStatesFolder\Controls.cs" />
     <Compile Include="Classes\GameStatesFolder\InGame.cs" />
     <Compile Include="Classes\GameStatesFolder\MainMenu.cs" />
     <Compile Include="Classes\GameStatesFolder\Options.cs" />
     <Compile Include="Classes\GameStatesFolder\TitleSreen.cs" />
+    <Compile Include="Classes\GameStatesFolder\Village.cs" />
     <Compile Include="Classes\GameTime.cs" />
     <Compile Include="Classes\HUDFolder\HUD.cs" />
     <Compile Include="Classes\HUDFolder\LifeBarForOthers.cs" />
@@ -379,6 +381,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Projectile\Fireball\FireballTop3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Map\Village.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="sfmlnet-audio-2.dll" />

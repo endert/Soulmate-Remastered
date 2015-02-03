@@ -52,7 +52,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             PlayerHandler.deleate();
             EnemyHandler.deleate();
             PetHandler.deleate();
-           // ProjectileHandler.deleate();
+            //ProjectileHandler.deleate();
         }
 
         public static void deleateType(String _type)

@@ -96,7 +96,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
                 optionsButton.Texture = optionsNotSelected;
                 controls.Texture = controlsNotSelected;
                 end.Texture = endNotSelected;
-                
             }
 
             if (x == 1)
@@ -127,7 +126,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             {
                 isPressedEnter = true;
                 Console.WriteLine("load Game");
-                return EnumGameStates.inGame;
+                return EnumGameStates.village;
             }
             if (x == 1 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
             {

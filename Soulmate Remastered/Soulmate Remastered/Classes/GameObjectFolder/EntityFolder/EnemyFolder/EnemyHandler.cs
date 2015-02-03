@@ -14,15 +14,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         public static AbstractEnemy enemy { get; set; }
         public static List<AbstractEnemy> enemyList { get; set; }
 
-        private Random random = new Random();
+        static Random random = new Random();
 
         public EnemyHandler()
         {
             enemyList = new List<AbstractEnemy>();
+        }
 
+        public static void enemyUpdate()
+        {
             switch (GameObjectHandler.lvl)
             {
                 case 0:
+                    break;
+
+                case 1:
                     for (int i = 0; i < 2; i++)
                     {
                         float rX = 600 + random.Next(1000);
@@ -38,6 +44,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                             i--;
                     }
                     break;
+
                 default:
                     break;
             }
@@ -48,8 +55,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             enemyList.Add(enemy);
             EntityHandler.add(enemy);
         }
-        
-        static public void deleate()
+
+        public static void deleate()
         {
             enemy = null;
 
