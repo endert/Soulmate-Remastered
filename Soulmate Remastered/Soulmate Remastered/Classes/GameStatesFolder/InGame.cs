@@ -16,7 +16,7 @@ using Soulmate_Remastered.Classes.DialogeBoxFolder;
 using Soulmate_Remastered.Classes.GameStatesFolder;
 using System.IO;
 
-namespace Soulmate_Remastered.Classes.GameStatesFolders
+namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class InGame : AbstractGamePlay
     {

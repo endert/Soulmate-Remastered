@@ -29,11 +29,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 default:
                     break;
             }
-
-            loadPlayer();
+            loadPlayerForMapChange();
         }
 
-        public void loadPlayer()
+        public void loadPlayerForMapChange()
         {
             if (File.Exists("Saves/player.soul"))
             {

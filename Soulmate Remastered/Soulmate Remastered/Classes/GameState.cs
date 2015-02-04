@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Window;
-using Soulmate_Remastered.Classes.GameStatesFolders;
+using Soulmate_Remastered.Classes.GameStatesFolder;
 
 namespace Soulmate_Remastered.Classes
 {
@@ -19,7 +19,8 @@ namespace Soulmate_Remastered.Classes
         village,
         controls,
         options,
-        titleSreen
+        titleSreen,
+        loadGame
     }
 
     interface GameState

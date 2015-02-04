@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Soulmate_Remastered.Classes.GameStatesFolders
+namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class MainMenu : GameState
     {
@@ -58,7 +58,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
         public void loadContent()
         {
-            backGroundTexture = new Texture("Pictures/MainMenu/StartScreen.png");
+            backGroundTexture = new Texture("Pictures/StartScreen/StartScreen.png");
 
             startSelected = new Texture("Pictures/MainMenu/Start/StartSelected.png");
             startNotSelected = new Texture("Pictures/MainMenu/Start/StartNotSelected.png");
@@ -125,8 +125,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             if (x == 0 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
             {
                 isPressedEnter = true;
-                Console.WriteLine("load Game");
-                return EnumGameStates.village;
+                return EnumGameStates.loadGame;
             }
             if (x == 1 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
             {

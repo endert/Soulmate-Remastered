@@ -1,5 +1,5 @@
 ﻿using SFML.Graphics;
-using Soulmate_Remastered.Classes.GameStatesFolders;
+using Soulmate_Remastered.Classes.GameStatesFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +59,9 @@ namespace Soulmate_Remastered.Classes
                     break;
                 case EnumGameStates.village:
                     gameState = new Village();
+                    break;
+                case EnumGameStates.loadGame:
+                    gameState = new LoadGame();
                     break;
                 //case EGameStates.gameWon:
                 //    gameState = new GameWon();

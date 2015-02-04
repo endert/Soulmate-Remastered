@@ -87,6 +87,7 @@
     <Compile Include="Classes\GameStatesFolder\AbstractGamePlay.cs" />
     <Compile Include="Classes\GameStatesFolder\Controls.cs" />
     <Compile Include="Classes\GameStatesFolder\InGame.cs" />
+    <Compile Include="Classes\GameStatesFolder\LoadGame.cs" />
     <Compile Include="Classes\GameStatesFolder\MainMenu.cs" />
     <Compile Include="Classes\GameStatesFolder\Options.cs" />
     <Compile Include="Classes\GameStatesFolder\TitleSreen.cs" />
@@ -114,6 +115,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Pictures\InGameMenu\SaveNotSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\InGameMenu\SaveSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="csfml-audio-2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -125,6 +132,15 @@
     </Content>
     <Content Include="libsndfile-1.dll" />
     <Content Include="openal32.dll" />
+    <Content Include="Pictures\Bars\BarBackground.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Bars\FusionBar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Bars\LifeBar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pictures\DialogeBox\DialogeBoxBackground.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -188,12 +204,6 @@
     <Content Include="Pictures\Enemy\Echsa\EchsaFrontRight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\FusionBar.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\BarBackground.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Pictures\InGameMenu\ContinueNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -227,9 +237,6 @@
     <Content Include="Pictures\Items\TestItem%28Pete%29.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\LifeBar.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Pictures\Life\BarBackground.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -251,10 +258,16 @@
     <Content Include="Pictures\MainMenu\End\EndSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\Enter\Enter.png">
+    <Content Include="Pictures\MainMenu\Load\LoadNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\Enter\EnterSelected.png">
+    <Content Include="Pictures\MainMenu\Load\LoadSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\MainMenu\NewGame\NewGameNotSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\MainMenu\NewGame\NewGameSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\MainMenu\Options\OptionsMenu.png">
@@ -267,9 +280,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\MainMenu\Start\StartNotSelected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\MainMenu\StartScreen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\MainMenu\Start\StartSelected.png">
@@ -396,6 +406,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Map\Village.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\StartScreen\Enter\Enter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\StartScreen\Enter\EnterSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\StartScreen\StartScreen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="sfmlnet-audio-2.dll" />
