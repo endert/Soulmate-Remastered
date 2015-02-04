@@ -19,7 +19,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     abstract class AbstractGamePlay : GameState
     {
-        protected String saveFile = "save.soul";
+        protected String saveFile = "Saves/player.soul";
         protected GameTime time = new GameTime();
         protected View viewInventory;
         protected Map map;
@@ -38,22 +38,31 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         protected bool isKlicked = false;
 
-        public void save(String path)
+        //public void save(String path)
+        //{
+        //    StreamWriter writer = new StreamWriter(path);
+        //    writer.WriteLine(PlayerHandler.player.ToString());
+
+        //    writer.Flush();
+        //    writer.Close();
+        //}
+
+        //public void load(String path)
+        //{
+        //    StreamReader reader = new StreamReader(path);
+
+        //        PlayerHandler.player.toPlayer(reader.ReadLine());
+
+        //    reader.Close();
+        //}
+
+        public void savePlayerForMapChange(String path)
         {
             StreamWriter writer = new StreamWriter(path);
-            writer.WriteLine(PlayerHandler.player.ToString());
+            writer.WriteLine(PlayerHandler.player.toString());
 
             writer.Flush();
             writer.Close();
-        }
-
-        public void load(String path)
-        {
-            StreamReader reader = new StreamReader(path);
-
-                PlayerHandler.player.toPlayer(reader.ReadLine());
-
-            reader.Close();
         }
 
         public bool getInventoryOpen()
@@ -107,6 +116,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public void inGameMenuUpdate(GameTime gameTime)
         {
+            getInGameMenuOpen();
             if (inGameMenuOpen == true)
                 inGameMenu.update(gameTime);
         }
@@ -125,26 +135,16 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             inGameMenu = new InGameMenu();
             hud = new HUD();
             EnemyHandler.enemyUpdate();
-
-            if (File.Exists(saveFile))
-            {
-                load(saveFile);
-            }
-
-            else
-            {
-                gameObjectHandler = new GameObjectHandler(map, 0);
-            }
+            gameObjectHandler = new GameObjectHandler(map, 0);
         }
 
         public abstract EnumGameStates update(GameTime gameTime);
 
-        public void stuff(GameTime gameTime)
+        public void GameUpdate(GameTime gameTime)
         {
             time.Update();
 
             inventoryUpdate(gameTime);
-            getInGameMenuOpen();
             inGameMenuUpdate(gameTime);
         }
 

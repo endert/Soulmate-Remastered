@@ -46,15 +46,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         Char lineBreak = ';';
         //Inventory???
 
-        public String ToString()
+        public String toString()
         {
-            String playerString = "Player:" + lineBreak;
+            String playerString = "Player:" + lineBreak.ToString();
 
-            playerString += lvl + lineBreak;    //splitPlayerString[1]
-            playerString += currentFusionValue + lineBreak; //splitPlayerString[2]
-            playerString += gold + lineBreak;   //splitPlayerString[3]
-            playerString += getMaxEXP + lineBreak;  //splitPlayerString[4]
-            playerString += currentEXP + lineBreak; //splitPlayerString[5]
+            playerString += lvl + lineBreak.ToString();    //splitPlayerString[1]
+            playerString += currentFusionValue + lineBreak.ToString(); //splitPlayerString[2]
+            playerString += gold + lineBreak.ToString();   //splitPlayerString[3]
+            playerString += getMaxEXP + lineBreak.ToString();  //splitPlayerString[4]
+            playerString += currentEXP + lineBreak.ToString(); //splitPlayerString[5]
             playerString += getCurrentHP;   //splitPlayerString[6]
 
             return playerString;
@@ -65,6 +65,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             String[] splitPlayerString = playerString.Split(lineBreak);
 
             lvl = Convert.ToInt32(splitPlayerString[1]);
+            statsUpdate();
             currentFusionValue = Convert.ToSingle(splitPlayerString[2]);
             gold = Convert.ToSingle(splitPlayerString[3]);
             maxEXP = Convert.ToSingle(splitPlayerString[4]);

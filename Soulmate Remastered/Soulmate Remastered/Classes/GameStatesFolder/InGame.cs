@@ -28,15 +28,17 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             base.loadContent();
         }
 
+       
+
         public override EnumGameStates update(GameTime gameTime)
         {
-            stuff(gameTime);
+            GameUpdate(gameTime);
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !isKlicked)
             {
                 isKlicked = true;
                 Console.WriteLine("change to village");
-                save(saveFile);
+                savePlayerForMapChange(saveFile);
                 return EnumGameStates.village;
             }
 
@@ -47,6 +49,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1) //if exit clicked
             {
+                savePlayerForMapChange(saveFile);
                 gameObjectHandler.deleate();
                 return EnumGameStates.mainMenu;
             }

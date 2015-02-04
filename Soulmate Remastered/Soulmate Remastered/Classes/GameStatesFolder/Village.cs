@@ -29,25 +29,26 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
         public override EnumGameStates update(GameTime gameTime)
         {
-            stuff(gameTime);
-
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1) //if exit clicked
-            {
-                gameObjectHandler.deleate();
-                return EnumGameStates.mainMenu;
-            }
+            GameUpdate(gameTime);
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !isKlicked)
             {
                 isKlicked = true;
                 Console.WriteLine("change to instance");
-                save(saveFile);
+                savePlayerForMapChange(saveFile);
                 return EnumGameStates.inGame;
             }
 
             if (!Keyboard.IsKeyPressed(Keyboard.Key.L))
             {
                 isKlicked = false;
+            }
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1) //if exit clicked
+            {
+                savePlayerForMapChange(saveFile);
+                gameObjectHandler.deleate();
+                return EnumGameStates.mainMenu;
             }
 
             if (!inventoryOpen && !inGameMenuOpen)
