@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
 
-namespace Soulmate_Remastered.Classes.GameStatesFolders
+namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class Options : GameState
     {

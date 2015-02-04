@@ -7,7 +7,7 @@ using SFML.Graphics;
 using SFML.Window;
 using System.Diagnostics;
 
-namespace Soulmate_Remastered.Classes.GameStatesFolders
+namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class TitleScreen : GameState
     {
@@ -40,9 +40,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
         public void loadContent()
         {
-            titleScreenTexture = new Texture("Pictures//MainMenu/StartScreen.png");
-            pressEnter = new Texture("Pictures/MainMenu/Enter/Enter.png");
-            pressEnter2 = new Texture("Pictures/MainMenu/Enter/EnterSelected.png");
+            titleScreenTexture = new Texture("Pictures//StartScreen/StartScreen.png");
+            pressEnter = new Texture("Pictures/StartScreen/Enter/Enter.png");
+            pressEnter2 = new Texture("Pictures/StartScreen/Enter/EnterSelected.png");
         }
 
         public EnumGameStates update(GameTime gameTime)

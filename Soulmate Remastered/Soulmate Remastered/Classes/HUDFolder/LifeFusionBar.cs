@@ -3,7 +3,6 @@ using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameStatesFolder;
-using Soulmate_Remastered.Classes.GameStatesFolders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +16,9 @@ namespace Soulmate_Remastered.Classes.HUDFolder
         Font font = new Font("FontFolder/arial_narrow_7.ttf");
         Text inNumber;
 
-        Texture barBackgroundTexture = new Texture("Pictures/BarBackground.png");
-        Texture fusionBarTexture = new Texture("Pictures/FusionBar.png");
-        Texture lifeBarTexture = new Texture("Pictures/LifeBar.png");
+        Texture barBackgroundTexture = new Texture("Pictures/Bars/BarBackground.png");
+        Texture fusionBarTexture = new Texture("Pictures/Bars/FusionBar.png");
+        Texture lifeBarTexture = new Texture("Pictures/Bars/LifeBar.png");
 
         Sprite barBackground;
         Sprite fusionBar;
@@ -29,7 +28,7 @@ namespace Soulmate_Remastered.Classes.HUDFolder
 
         public LifeFusionBar(String _barStyle)
         {
-            inNumber = new Text("",font,20);
+            inNumber = new Text("", font, 20);
             barBackground = new Sprite(barBackgroundTexture);
             fusionBar = new Sprite(fusionBarTexture);
             lifeBar = new Sprite(lifeBarTexture);

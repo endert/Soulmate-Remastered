@@ -15,7 +15,7 @@ using Soulmate_Remastered.Classes.InGameMenuFolder;
 using Soulmate_Remastered.Classes.DialogeBoxFolder;
 using Soulmate_Remastered.Classes.GameStatesFolder;
 
-namespace Soulmate_Remastered.Classes.GameStatesFolders
+namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class Village : AbstractGamePlay
     {

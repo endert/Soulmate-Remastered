@@ -146,7 +146,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public void GameUpdate(GameTime gameTime)
         {
             time.Update();
-            Console.WriteLine(GameObjectHandler.lvl);
             inventoryUpdate(gameTime);
             inGameMenuUpdate(gameTime);
         }

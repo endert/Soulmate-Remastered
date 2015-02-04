@@ -18,26 +18,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             { 
                 case 0:
                     player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), 2);
-
-                    loadPlayer();
-
                     EntityHandler.add(player);
                     break;
 
                 case 1:
                     player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), 2);
-
-                    loadPlayer();
-
                     EntityHandler.add(player);
                     break;
 
                 default:
                     break;
             }
+            loadPlayerForMapChange();
         }
 
-        public void loadPlayer()
+        public void loadPlayerForMapChange()
         {
             if (File.Exists("Saves/player.soul"))
             {
