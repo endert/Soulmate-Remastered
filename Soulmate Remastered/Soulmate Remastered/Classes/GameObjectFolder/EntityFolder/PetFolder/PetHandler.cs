@@ -1,4 +1,5 @@
 ﻿using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             petList = new List<AbstractPet>();
 
             pet = new PetWolf(PlayerHandler.player);
-            new PetStorageGuy(new Vector2f(600, 800));
+            if (GameObjectHandler.lvl == 0)
+            {
+                new PetStorageGuy(new Vector2f(300, 400));
+            }
             EntityHandler.add(pet);
             petList.Add(pet);
         }

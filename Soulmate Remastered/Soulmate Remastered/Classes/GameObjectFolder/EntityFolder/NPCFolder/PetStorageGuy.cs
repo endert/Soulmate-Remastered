@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.DialogeBoxFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 
-namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
+namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 {
     class PetStorageGuy : Entity
     {
@@ -16,7 +16,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         public bool interacted { get; set; }
         DialogeBox dialoge;
 
-        String test = "lulululu ... heiliege Kuh; . . . *trinkt einen Schluck* . . . dieser verkackte INDER XD, n bissl Rassismus muss halt sein außerdem weiß ich nicht wie ich den Text noch strecken kann ;) ist jetzt auch schon lang genug für Testzwecke ^^";
+        String test = "lulululu ... heiliege Kuh; . . . *trinkt einen Schluck* . . . dieser verkackte INDER XD, "
+                    + "n bissl Rassismus muss halt sein außerdem weiß ich nicht wie ich den Text noch strecken kann ;) "
+                    + "ist jetzt auch schon lang genug für Testzwecke ^^";
 
         bool dialogeIsOn = false;
 
