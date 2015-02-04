@@ -24,6 +24,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             return petForSave;
         }
 
+        public void load(String petString)
+        {
+            String[] splitPetString = petString.Split(lineBreak);
+
+            currentHP = Convert.ToSingle(splitPetString[1]);
+            position = new Vector2f(Convert.ToSingle(splitPetString[2]), Convert.ToSingle(splitPetString[3]));
+        }
+
         public virtual void spritePositionUpdate()
         {
             switch (numFacingDirection)

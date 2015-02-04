@@ -10,6 +10,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class LoadGame : GameState
     {
+        private readonly String loadFile = "Saves/save.soul";
         bool isPressed;
         bool isPressedEnter;
         int x; //für Menüsteuerung
@@ -90,6 +91,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             {
                 isPressedEnter = true;
                 Console.WriteLine("load Game");
+                //SaveGame.loadGame(loadFile);
                 return EnumGameStates.village;
             }
             if (x == 1 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)

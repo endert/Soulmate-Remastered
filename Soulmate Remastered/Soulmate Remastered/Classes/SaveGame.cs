@@ -31,7 +31,14 @@ namespace Soulmate_Remastered.Classes
 
         public static void loadGame(String path)
         {
+            StreamReader reader = new StreamReader(path);
 
+            PlayerHandler.player.load(reader.ReadLine());
+            PetHandler.load(reader.ReadLine());
+            GameObjectHandler.lvl = Convert.ToInt32(reader.ReadLine());
+            ItemHandler.load(reader.ReadLine());
+
+            reader.Close();
         }
     }
      /* player + position
