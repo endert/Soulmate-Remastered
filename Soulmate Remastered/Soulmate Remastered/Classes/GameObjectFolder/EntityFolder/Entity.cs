@@ -22,23 +22,23 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         protected bool vulnerable = true;
         protected int inVulnerableFor = 500; //in milisec
             protected bool isVulnerable
-        {
-            get
             {
-                if (tookDmg)
+                get
                 {
-                    vulnerable = false;
-                    stopWatchList[1].Start();
-                    if (stopWatchList[1].ElapsedMilliseconds >= inVulnerableFor)
+                    if (tookDmg)
                     {
-                        tookDmg = false;
-                        vulnerable = true;
-                        stopWatchList[1].Reset();
+                        vulnerable = false;
+                        stopWatchList[1].Start();
+                        if (stopWatchList[1].ElapsedMilliseconds >= inVulnerableFor)
+                        {
+                            tookDmg = false;
+                            vulnerable = true;
+                            stopWatchList[1].Reset();
+                        }
                     }
+                    return vulnerable;
                 }
-                return vulnerable;
             }
-        }
         protected float knockBack;
         protected AbstractItem[] drops;
 
