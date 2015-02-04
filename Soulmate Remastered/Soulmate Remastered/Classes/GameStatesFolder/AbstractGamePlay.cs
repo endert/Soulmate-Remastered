@@ -10,6 +10,7 @@ using Soulmate_Remastered.Classes.InGameMenuFolder;
 using Soulmate_Remastered.Classes.MapFolder;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     abstract class AbstractGamePlay : GameState
     {
+        protected String saveFile = "save.soul";
         protected GameTime time = new GameTime();
         protected View viewInventory;
         protected Map map;
@@ -36,7 +38,23 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         protected bool isKlicked = false;
 
-        protected int change = 0;
+        public void save(String path)
+        {
+            StreamWriter writer = new StreamWriter(path);
+            writer.WriteLine(PlayerHandler.player.ToString());
+
+            writer.Flush();
+            writer.Close();
+        }
+
+        public void load(String path)
+        {
+            StreamReader reader = new StreamReader(path);
+
+                PlayerHandler.player.toPlayer(reader.ReadLine());
+
+            reader.Close();
+        }
 
         public bool getInventoryOpen()
         {
@@ -99,13 +117,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             time.Start();
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
             viewInventory = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
-            Console.WriteLine(change);
-            if (change == 0)
-            {
-                gameObjectHandler = new GameObjectHandler(map, 0);
-                change++;
-            }
-
         }
 
         public virtual void loadContent()
@@ -114,6 +125,16 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             inGameMenu = new InGameMenu();
             hud = new HUD();
             EnemyHandler.enemyUpdate();
+
+            if (File.Exists(saveFile))
+            {
+                load(saveFile);
+            }
+
+            else
+            {
+                gameObjectHandler = new GameObjectHandler(map, 0);
+            }
         }
 
         public abstract EnumGameStates update(GameTime gameTime);

@@ -14,6 +14,7 @@ using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.InGameMenuFolder;
 using Soulmate_Remastered.Classes.DialogeBoxFolder;
 using Soulmate_Remastered.Classes.GameStatesFolder;
+using System.IO;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolders
 {
@@ -21,7 +22,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
     {
         public override void loadContent()
         {
-            map = new Map(new Bitmap("Pictures/Map/Map2.bmp"));
+            map = new Map(new Bitmap("Pictures/Map/Map2.bmp"));            
             GameObjectHandler.lvl = 1;
             GameObjectHandler.lvlMap = map;
             base.loadContent();
@@ -35,7 +36,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             {
                 isKlicked = true;
                 Console.WriteLine("change to village");
-                change++;
+                save(saveFile);
                 return EnumGameStates.village;
             }
 
@@ -57,6 +58,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
                 gameObjectHandler.update(gameTime);
                 hud.update(gameTime);
+                dialoges.update();
 
                 if (PlayerHandler.player.getCurrentHP <= 0)
                 {

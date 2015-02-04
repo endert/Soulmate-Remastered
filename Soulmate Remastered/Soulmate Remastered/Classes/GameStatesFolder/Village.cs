@@ -41,7 +41,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             {
                 isKlicked = true;
                 Console.WriteLine("change to instance");
-                change++;
+                save(saveFile);
                 return EnumGameStates.inGame;
             }
 

@@ -16,6 +16,14 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
             dialogeList = new List<DialogeBox>();
         }
 
+        public void update()
+        {
+            foreach (DialogeBox dialoge in dialogeList)
+            {
+                dialoge.update();
+            }
+        }
+
         public void draw(RenderWindow window)
         {
             foreach (DialogeBox dialoge in dialogeList)

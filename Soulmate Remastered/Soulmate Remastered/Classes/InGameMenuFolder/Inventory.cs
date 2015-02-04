@@ -15,6 +15,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         Texture goldTexture = new Texture("Pictures/Items/Money/Gold.png");
         Sprite goldSprite;
 
+        Texture displayedPlayerTexture = new Texture("Pictures/Inventory/PlayerFrontInventory.png");
         Sprite displayedPlayer;
 
         Font font = new Font("FontFolder/arial_narrow_7.ttf");
@@ -79,7 +80,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             gold.Position = new Vector2f((inventory.Position.X + inventory.Texture.Size.X) - ((gold.CharacterSize / 2) * gold.DisplayedString.Length) - (goldSprite.Texture.Size.X - 20),
                                         (inventory.Position.Y + inventory.Texture.Size.Y) - (gold.CharacterSize + 10));
 
-            displayedPlayer = new Sprite(new Texture("Pictures/Inventory/PlayerFrontInventory.png"));
+            displayedPlayer = new Sprite(displayedPlayerTexture);
             displayedPlayer.Position = new Vector2f(inventory.Position.X + 20, inventory.Position.Y + FIELDSIZE);
 
             attack.DisplayedString = "Attack: " + PlayerHandler.player.getAtt;
