@@ -98,7 +98,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (x == 1 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
             {
                 isPressedEnter = true;
-                Console.WriteLine("load Game");
+                Console.WriteLine("new Game");
                 return EnumGameStates.village;
             }
 
