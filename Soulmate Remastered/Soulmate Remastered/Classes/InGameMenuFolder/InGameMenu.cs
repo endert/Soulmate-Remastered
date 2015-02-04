@@ -17,6 +17,10 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         Texture continueSelected = new Texture("Pictures/InGameMenu/ContinueSelected.png");
         Sprite continueGame;
 
+        Texture saveNotSelected = new Texture("Pictures/InGameMenu/SaveNotSelected.png");
+        Texture saveSelected = new Texture("Pictures/InGameMenu/SaveSelected.png");
+        Sprite save;
+
         Texture exitNotSelected = new Texture("Pictures/InGameMenu/ExitNotSelected.png");
         Texture exitSelected = new Texture("Pictures/InGameMenu/ExitSelected.png");
         Sprite exit;
@@ -34,15 +38,17 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             return new Vector2f(inGameMenuBackGround.Position.X + (inGameMenuBackGround.Texture.Size.X / 2) - (continueGame.Texture.Size.X / 2), inGameMenuBackGround.Position.Y + 100);
         }
 
+        public Vector2f getSavePosition()
+        {
+            return new Vector2f(inGameMenuBackGround.Position.X + (inGameMenuBackGround.Texture.Size.X / 2) - (continueGame.Texture.Size.X / 2), inGameMenuBackGround.Position.Y + 200);
+        }
+
         public Vector2f getExitPosition()
         {
             return new Vector2f(inGameMenuBackGround.Position.X + (inGameMenuBackGround.Texture.Size.X / 2) - (exit.Texture.Size.X / 2), inGameMenuBackGround.Position.Y + 300);
         }
 
-        public int getX()
-        {
-            return this.x;
-        }
+        public int getX() { return this.x; }
 
         public InGameMenu()
         {
@@ -51,6 +57,9 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
             continueGame = new Sprite(continueSelected);
             continueGame.Position = getContinueGamePosition();
+
+            save = new Sprite(saveNotSelected);
+            save.Position = getSavePosition();
 
             exit = new Sprite(exitNotSelected);
             exit.Position = getExitPosition();
@@ -62,6 +71,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
             inGameMenuBackGround.Position = getInGameMenuBackGroundPosition();
             continueGame.Position = getContinueGamePosition();
+            save.Position = getSavePosition();
             exit.Position = getExitPosition();
         }
 
@@ -69,13 +79,13 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.Up) && !isPressed)
             {
-                x = (x + 1) % 2;
+                x = (x + 2) % 3;
                 isPressed = true;
             }
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Down) && !isPressed)
             {
-                x = (x + 1) % 2;
+                x = (x + 1) % 3;
                 isPressed = true;
             }
 
@@ -85,12 +95,21 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             if (x == 0)
             {
                 continueGame = new Sprite(continueSelected);
+                save = new Sprite(saveNotSelected);
                 exit = new Sprite(exitNotSelected);
             }
 
             if (x == 1)
             {
                 continueGame = new Sprite(continueNotSelected);
+                save = new Sprite(saveSelected);
+                exit = new Sprite(exitNotSelected);
+            }
+
+            if (x == 2)
+            {
+                continueGame = new Sprite(continueNotSelected);
+                save = new Sprite(saveNotSelected);
                 exit = new Sprite(exitSelected);
             }
         }
@@ -99,6 +118,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         {
             window.Draw(inGameMenuBackGround);
             window.Draw(continueGame);
+            window.Draw(save);
             window.Draw(exit);
         }
     }

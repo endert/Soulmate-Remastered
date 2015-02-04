@@ -26,10 +26,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         View view;
 
-        public int getX()
-        {
-            return this.x;
-        }
+        public int getX() { return this.x; }
 
         public void initialize()
         {
