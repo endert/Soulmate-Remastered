@@ -35,7 +35,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             {
                 isKlicked = true;
                 Console.WriteLine("change to instance");
-                savePlayerForMapChange(saveFile);
+                SaveGame.saveGame(savePlayer);
                 return EnumGameStates.inGame;
             }
 
@@ -46,7 +46,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 2) //if exit clicked
             {
-                savePlayerForMapChange(saveFile);
+                SaveGame.saveGame(savePlayer);
                 gameObjectHandler.deleate();
                 return EnumGameStates.mainMenu;
             }

@@ -19,7 +19,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     abstract class AbstractGamePlay : GameState
     {
-        protected String saveFile = "Saves/player.soul";
+        protected readonly String savePlayer = "Saves/player.soul";
+        protected readonly String saveFile = "Saves/save.soul";
         protected GameTime time = new GameTime();
         protected View viewInventory;
         protected Map map;
@@ -40,15 +41,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         protected int index = 0;
 
-        //public void save(String path)
-        //{
-        //    StreamWriter writer = new StreamWriter(path);
-        //    writer.WriteLine(PlayerHandler.player.ToString());
-
-        //    writer.Flush();
-        //    writer.Close();
-        //}
-
         //public void load(String path)
         //{
         //    StreamReader reader = new StreamReader(path);
@@ -57,15 +49,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         //    reader.Close();
         //}
-
-        public void savePlayerForMapChange(String path)
-        {
-            StreamWriter writer = new StreamWriter(path);
-            writer.WriteLine(PlayerHandler.player.toStringForMapChange());
-
-            writer.Flush();
-            writer.Close();
-        }
 
         public bool getInventoryOpen()
         {
@@ -105,19 +88,22 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 return inGameMenuOpen = true;
             }
 
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.Escape))
-                isKlickedInGameMenu = false;
-
             if (((Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isKlickedInGameMenu) || (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 0)) && inGameMenuOpen == true)
             {
                 isKlickedInGameMenu = true;
                 return inGameMenuOpen = false;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1 && inGameMenuOpen == true)
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1 && inGameMenuOpen == true) //saveGame
             {
                 isKlickedInGameMenu = true;
+                Console.WriteLine("saving Game");
+                SaveGame.saveGame(saveFile);
+                Console.WriteLine("successfuly saved Game");
             }
+
+            if (!Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+                isKlickedInGameMenu = false;
 
             return false;
         }

@@ -25,7 +25,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         protected bool visible = true;  //standart is visible
         public bool isVisible { get { return true; } }
 
-        public static Char lineBreak { get { return ';'; } }
+        public Char lineBreak { get { return ';'; } }
 
         public int CompareTo(GameObject gameObject) //for sort in the ObjectList
         {

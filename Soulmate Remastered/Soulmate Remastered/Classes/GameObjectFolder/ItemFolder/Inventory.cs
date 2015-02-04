@@ -13,6 +13,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 {
     class Inventory
     {
+        Char lineBreak = ':';
+
         Texture goldTexture = new Texture("Pictures/Items/Money/Gold.png");
         Sprite goldSprite;
 
@@ -49,17 +51,17 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public String toStringForSave()
         {
-            String inventoryForSave = "inv" + GameObject.lineBreak.ToString();
+            String inventoryForSave = "inv" + lineBreak.ToString();
 
             foreach  (AbstractItem item in inventoryMatrix)
             {
                 try
                 {
-                    inventoryForSave += item.toStringForSave() + GameObject.lineBreak.ToString();
+                    inventoryForSave += item.toStringForSave() + lineBreak.ToString();
                 }
                 catch (NullReferenceException)
                 {
-                    inventoryForSave += null + GameObject.lineBreak.ToString();
+                    inventoryForSave += null + lineBreak.ToString();
                 }
             }
 

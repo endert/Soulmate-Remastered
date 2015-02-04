@@ -10,6 +10,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {
     class TestItem : AbstractItem
     {
+        public override string type { get { return base.type + ".Pete"; } }
+
         public TestItem()
         {
             textureList.Add(new Texture("Pictures/Items/TestItem(Pete).png"));

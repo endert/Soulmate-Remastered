@@ -25,7 +25,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         {
             String itemForSave = "it" + lineBreak.ToString();
 
-            itemForSave += type.Split('.')[type.Split('.').Length] + lineBreak.ToString();
+            itemForSave += type.Split('.')[type.Split('.').Length-1] + lineBreak.ToString();
 
             return itemForSave;
         }
