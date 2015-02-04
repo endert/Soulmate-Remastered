@@ -44,7 +44,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 isKlicked = false;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1) //if exit clicked
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 2) //if exit clicked
             {
                 savePlayerForMapChange(saveFile);
                 gameObjectHandler.deleate();

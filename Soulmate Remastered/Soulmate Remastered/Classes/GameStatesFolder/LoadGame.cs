@@ -26,10 +26,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         View view;
 
-        public int getX()
-        {
-            return this.x;
-        }
+        public int getX() { return this.x; }
 
         public void initialize()
         {
@@ -98,7 +95,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (x == 1 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
             {
                 isPressedEnter = true;
-                Console.WriteLine("load Game");
+                Console.WriteLine("new Game");
                 return EnumGameStates.village;
             }
 

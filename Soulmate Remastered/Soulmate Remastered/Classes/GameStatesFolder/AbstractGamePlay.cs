@@ -114,6 +114,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 return inGameMenuOpen = false;
             }
 
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1 && inGameMenuOpen == true)
+            {
+                isKlickedInGameMenu = true;
+            }
+
             return false;
         }
 
