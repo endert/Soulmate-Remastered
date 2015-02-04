@@ -38,6 +38,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         protected bool isKlicked = false;
 
+        protected int index = 0;
+
         //public void save(String path)
         //{
         //    StreamWriter writer = new StreamWriter(path);
@@ -134,8 +136,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             dialoges = new DialogeHandler();
             inGameMenu = new InGameMenu();
             hud = new HUD();
-            EnemyHandler.enemyUpdate();
-            gameObjectHandler = new GameObjectHandler(map, 0);
+            gameObjectHandler = new GameObjectHandler(map, GameObjectHandler.lvl);
+            EnemyHandler.enemyInitialize();
         }
 
         public abstract EnumGameStates update(GameTime gameTime);
@@ -143,7 +145,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public void GameUpdate(GameTime gameTime)
         {
             time.Update();
-
+            Console.WriteLine(GameObjectHandler.lvl);
             inventoryUpdate(gameTime);
             inGameMenuUpdate(gameTime);
         }

@@ -65,7 +65,7 @@
     <Compile Include="Classes\GameObjectFolder\EntityFolder\EntityHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PetFolder\AbstractPet.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PetFolder\PetHandler.cs" />
-    <Compile Include="Classes\GameObjectFolder\EntityFolder\PetFolder\PetStorageGuy.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\NPCFolder\PetStorageGuy.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PetFolder\PetWolf.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PlayerFolder\AbstractPlayer.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PlayerFolder\HumanPlayer.cs" />
@@ -402,9 +402,7 @@
     <Content Include="sfmlnet-graphics-2.dll" />
     <Content Include="sfmlnet-window-2.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\GameObjectFolder\EntityFolder\NPCFolder\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

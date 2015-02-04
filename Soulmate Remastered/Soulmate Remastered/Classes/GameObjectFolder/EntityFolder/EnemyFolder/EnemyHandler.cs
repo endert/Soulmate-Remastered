@@ -21,7 +21,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             enemyList = new List<AbstractEnemy>();
         }
 
-        public static void enemyUpdate()
+        public static void enemyInitialize()
         {
             switch (GameObjectHandler.lvl)
             {
