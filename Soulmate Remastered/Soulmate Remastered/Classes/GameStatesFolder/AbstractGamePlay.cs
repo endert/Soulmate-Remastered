@@ -76,9 +76,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (!Keyboard.IsKeyPressed(Keyboard.Key.I))
                 isKlickedInventory = false;
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.I) && !isKlickedInventory && inventoryOpen == true)
+            if ((Keyboard.IsKeyPressed(Keyboard.Key.I)||Keyboard.IsKeyPressed(Keyboard.Key.Escape)) && !isKlickedInventory && inventoryOpen == true)
             {
                 isKlickedInventory = true;
+                isKlickedInGameMenu = true;
                 return inventoryOpen = false;
             }
 
@@ -96,7 +97,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         
         public bool getInGameMenuOpen()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isKlickedInGameMenu && !inGameMenuOpen)
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isKlickedInGameMenu && !inGameMenuOpen && !inventoryOpen)
             {
                 isKlickedInGameMenu = true;
                 return inGameMenuOpen = true;
