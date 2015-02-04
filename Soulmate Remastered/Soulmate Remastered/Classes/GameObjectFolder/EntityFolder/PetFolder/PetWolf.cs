@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.HUDFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 {
@@ -19,6 +20,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             textureList.Add(new Texture("Pictures/Pet/Wolf/WolfBack.png"));
             textureList.Add(new Texture("Pictures/Pet/Wolf/WolfRight.png"));
             textureList.Add(new Texture("Pictures/Pet/Wolf/WolfLeft.png"));
+
+            drops = new AbstractItem[] {new PetItem() };
 
             movementSpeedConstant = 0.4f;
             sprite = new Sprite(textureList[0]);

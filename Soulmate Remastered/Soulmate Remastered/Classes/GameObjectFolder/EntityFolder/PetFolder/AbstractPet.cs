@@ -1,5 +1,6 @@
 ﻿using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
     abstract class AbstractPet : Entity
     {
         public override String type { get { return base.type + ".Pet"; } }
+
+        
 
         public String toStringForSave()
         {
@@ -194,8 +197,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             }
             return false;
         }
+
+        public override void drop()
+        {
+            drops[0].drop(position);
+        }
+
         public override void update(GameTime gameTime)
         {
+            if (getCurrentHP <= 0)
+            {
+                drop();
+                isAlive = false;
+            }
+
             if (hitBox.distanceTo(PlayerHandler.player.hitBox) >= 800f)
             {
                 position = PlayerHandler.player.position;

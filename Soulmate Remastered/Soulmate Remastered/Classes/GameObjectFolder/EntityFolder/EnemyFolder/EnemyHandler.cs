@@ -1,4 +1,5 @@
 ﻿using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.MapFolder;
 using System;
@@ -77,7 +78,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                 }
                 else
                 {
-                    if (enemyList[i].hitBox.hit(PlayerHandler.player.getAttackHitBox)&&PlayerHandler.player.isAttacking)
+                    if (enemyList[i].hitBox.hit(PlayerHandler.player.getAttackHitBox) && PlayerHandler.player.isAttacking)
                     {
                         enemyList[i].takeDmg(PlayerHandler.player.getAtt);
                     }
@@ -85,6 +86,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                     if (enemyList[i].touchedPlayer())
                     {
                         PlayerHandler.player.takeDmg(enemyList[i].getAtt);
+                    }
+
+                    if (enemyList[i].hitBox.hit(PetHandler.pet.hitBox))  //if touched object equals pet
+                    {
+                        PetHandler.pet.takeDmg(enemyList[i].getAtt);
                     }
                 }
             }

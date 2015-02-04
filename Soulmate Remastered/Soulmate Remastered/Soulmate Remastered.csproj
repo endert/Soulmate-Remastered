@@ -82,6 +82,7 @@
     <Compile Include="Classes\GameObjectFolder\EntityFolder\ProjectileFolder\AbstractProjectile.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\ProjectileFolder\ProjectileHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\MoneyFolder\Money.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\PetItem.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\TestItem.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameStatesFolder\AbstractGamePlay.cs" />
@@ -298,6 +299,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Map\Wald.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Items\PetItem.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Pet\PetStorageGuy\PetStorageGuyBackTest.png">
