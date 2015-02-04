@@ -21,6 +21,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         protected Stopwatch decay = new Stopwatch();
         protected int decayingIn = 60000; //60sec
 
+        public String toStringForSave()
+        {
+            String itemForSave = "it" + lineBreak.ToString();
+
+            itemForSave += type.Split('.')[type.Split('.').Length] + lineBreak.ToString();
+
+            return itemForSave;
+        }
+
         public void setPositionMatrix(int x, int y)
         {
             position = new Vector2f(x * ItemHandler.playerInventory.FIELDSIZE + ItemHandler.playerInventory.inventoryMatrixPosition.X,

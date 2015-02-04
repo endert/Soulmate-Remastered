@@ -12,6 +12,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
     {
         public override String type { get { return base.type + ".Pet"; } }
 
+        public String toStringForSave()
+        {
+            String petForSave = "pt" + lineBreak.ToString();
+
+            petForSave += getCurrentHP + lineBreak.ToString();   //splitPetString[1]
+            petForSave += position.X + lineBreak.ToString(); //splitPetString[2]
+            petForSave += position.Y + lineBreak.ToString(); //splitPetString[3]
+            petForSave += type.Split('.')[type.Split('.').Length];  //splitPetString[4]
+
+            return petForSave;
+        }
+
         public virtual void spritePositionUpdate()
         {
             switch (numFacingDirection)

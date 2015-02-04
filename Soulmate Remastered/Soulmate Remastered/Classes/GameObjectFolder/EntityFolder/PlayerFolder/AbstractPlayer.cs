@@ -21,6 +21,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         protected int arrowCd = 1; //in sec
         protected bool arrowOnCoolDown = false;
         public List<Texture> getTexture { get { return textureList; } }
+        public int MaxLvl { get { return 100; } }
         protected int lvl;
             public int getLvl { get { return lvl; } }
         //FusionBar fusionBar;
@@ -43,21 +44,29 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         protected bool transforming = false;
         protected bool animating = false;
-        Char lineBreak = ';';
         //Inventory???
 
-        public String toString()
+        public String toStringForMapChange()
         {
-            String playerString = "Player:" + lineBreak.ToString();
+            String playerString = "pl" + lineBreak.ToString();
 
             playerString += lvl + lineBreak.ToString();    //splitPlayerString[1]
             playerString += currentFusionValue + lineBreak.ToString(); //splitPlayerString[2]
             playerString += gold + lineBreak.ToString();   //splitPlayerString[3]
-            playerString += getMaxEXP + lineBreak.ToString();  //splitPlayerString[4]
-            playerString += currentEXP + lineBreak.ToString(); //splitPlayerString[5]
-            playerString += getCurrentHP;   //splitPlayerString[6]
+            playerString += currentEXP + lineBreak.ToString(); //splitPlayerString[4]
+            playerString += getCurrentHP + lineBreak.ToString();   //splitPlayerString[5]
 
             return playerString;
+        }
+
+        public String toStringForSave()
+        {
+            String playerForSave = toStringForMapChange();
+
+            playerForSave += position.X + lineBreak.ToString(); //splitPlayerString[6]
+            playerForSave += position.Y + lineBreak.ToString(); //splitPlayerString[7]
+
+            return playerForSave;
         }
 
         public void toPlayer(String playerString)
@@ -68,9 +77,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             statsUpdate();
             currentFusionValue = Convert.ToSingle(splitPlayerString[2]);
             gold = Convert.ToSingle(splitPlayerString[3]);
-            maxEXP = Convert.ToSingle(splitPlayerString[4]);
-            currentEXP = Convert.ToSingle(splitPlayerString[5]);
-            currentHP = Convert.ToSingle(splitPlayerString[6]);
+            currentEXP = Convert.ToSingle(splitPlayerString[4]);
+            currentHP = Convert.ToSingle(splitPlayerString[5]);
         }
 
         public virtual Vector2f getKeyPressed(float movementSpeed)
@@ -194,21 +202,33 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void lvlUp()
         {
-            if (currentEXP >= maxEXP)
+            if (lvl < MaxLvl)
             {
-                lvl += ((int)currentEXP / (int)maxEXP);
-                currentEXP %= maxEXP;
-                statsUpdate();
-                currentHP = maxHP;
+                if (currentEXP >= maxEXP)
+                {
+                    lvl += ((int)currentEXP / (int)maxEXP);
+                    currentEXP %= maxEXP;
+                    statsUpdate();
+                    currentHP = maxHP;
+                }
             }
         }
 
         public void statsUpdate()
         {
-            maxEXP += 1000 * ( lvl);
-            att = baseAtt + (lvl - 1) * 1;
-            def = baseDef + (lvl - 1) * 0.5f;
-            maxHP = baseHp + (lvl - 1) * 50;
+            if (lvl >= MaxLvl)
+            {
+                lvl = MaxLvl;
+                maxEXP = 0;
+                currentEXP = 0;
+            }
+            else
+            {
+                maxEXP = (float)Math.Round(((5 * (float)Math.Pow(lvl + 1, 3)) / 4) * 10);
+            }
+            att = baseAtt + (lvl) * 1;
+            def = baseDef + (lvl) * 0.5f;
+            maxHP = baseHp + (lvl) * 50;
         }
 
         public void cheatUpdate()
@@ -275,6 +295,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 movement = new Vector2f(0, 0);
                 movement = getKeyPressed(movementSpeed);
                 move(movement);
+            }
+
+            if (lvl >= MaxLvl)
+            {
+                lvl = MaxLvl;
+                currentEXP = 0;
             }
 
             hitFromDirections.Clear();

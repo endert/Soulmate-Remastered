@@ -7,6 +7,7 @@ using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder;
 using SFML.Graphics;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.InGameMenuFolder;
+using Soulmate_Remastered.Classes.ItemFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {

@@ -7,8 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder;
 
-namespace Soulmate_Remastered.Classes.InGameMenuFolder
+namespace Soulmate_Remastered.Classes.ItemFolder
 {
     class Inventory
     {
@@ -31,7 +32,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         Texture selectedTexture = new Texture("Pictures/Inventory/Selected.png");
         Sprite selected;
 
-        public Vector2f inventoryMatrixPosition { get { return new Vector2f(inventory.Position.X + 5 * selected.Texture.Size.X, inventory.Position.Y); } }
+        public Vector2f inventoryMatrixPosition { get { return new Vector2f(inventory.Position.X + 5 * selected.Texture.Size.X, inventory.Position.Y + 1 * selected.Texture.Size.Y); } }
 
         bool isPressed = false;
         int x = 0, y = 0; //Inventarsteurung
@@ -46,6 +47,24 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         int selectedItemX;
         int selectedItemY;
 
+        public String toStringForSave()
+        {
+            String inventoryForSave = "inv" + GameObject.lineBreak.ToString();
+
+            foreach  (AbstractItem item in inventoryMatrix)
+            {
+                try
+                {
+                    inventoryForSave += item.toStringForSave() + GameObject.lineBreak.ToString();
+                }
+                catch (NullReferenceException)
+                {
+                    inventoryForSave += null + GameObject.lineBreak.ToString();
+                }
+            }
+
+            return inventoryForSave;
+        }
 
         public Inventory()
         {
@@ -65,8 +84,8 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             selected = new Sprite(selectedTexture);
             selected.Position = inventoryMatrixPosition;
 
-            inventoryWidth = inventoryTexture.Size.X / selectedTexture.Size.X - 5;
-            inventoryLength = inventoryTexture.Size.Y / selectedTexture.Size.Y - 3;
+            inventoryWidth = inventoryTexture.Size.X / selectedTexture.Size.X - 6;
+            inventoryLength = inventoryTexture.Size.Y / selectedTexture.Size.Y - 4;
 
             inventoryMatrix = new AbstractItem[inventoryLength, inventoryWidth];
 
@@ -93,6 +112,8 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             exp.Position = new Vector2f(defense.Position.X, defense.Position.Y + defense.CharacterSize);
 
             lvl.DisplayedString = "Lvl: " + PlayerHandler.player.getLvl;
+            if (PlayerHandler.player.getLvl == PlayerHandler.player.MaxLvl)
+                lvl.DisplayedString += "°";
             lvl.Position = new Vector2f(exp.Position.X, exp.Position.Y + exp.CharacterSize);
         }
 

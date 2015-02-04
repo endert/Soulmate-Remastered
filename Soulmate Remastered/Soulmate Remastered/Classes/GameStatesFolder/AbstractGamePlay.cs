@@ -61,7 +61,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public void savePlayerForMapChange(String path)
         {
             StreamWriter writer = new StreamWriter(path);
-            writer.WriteLine(PlayerHandler.player.toString());
+            writer.WriteLine(PlayerHandler.player.toStringForMapChange());
 
             writer.Flush();
             writer.Close();
@@ -146,7 +146,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public void GameUpdate(GameTime gameTime)
         {
             time.Update();
-            Console.WriteLine(GameObjectHandler.lvl);
             inventoryUpdate(gameTime);
             inGameMenuUpdate(gameTime);
         }
