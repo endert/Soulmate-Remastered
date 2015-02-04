@@ -27,7 +27,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         DialogeHandler dialoges;
         InGameMenu inGameMenu;
         HUD hud;
-        private readonly String savePath = "save.soul";
+        private readonly String savePath = "Saves/player.soul";
 
         public static View VIEW
         {
@@ -50,14 +50,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
             viewInventory = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
 
-            if(File.Exists(savePath))
-                load("save.soul");
-            else
-            {
 
-
-
-            }
         }
 
         public void loadContent()
@@ -113,11 +106,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
             return false;
         }
 
-        public void save(String path)
+        public void savePlayerForMapChange(String path)
         {
             StreamWriter writer = new StreamWriter(path);
-            writer.WriteLine("Bacon");
-            writer.WriteLine("Reiswaffel");
+            writer.WriteLine(PlayerHandler.player.toString());
 
             writer.Flush();
             writer.Close();
@@ -127,12 +119,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
         {
             StreamReader reader = new StreamReader(path);
 
-            while(!reader.EndOfStream)
-            {
-                Console.WriteLine(reader.ReadLine());
-            }
-            reader.Close();
 
+            reader.Close();
         }
 
 
@@ -150,6 +138,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolders
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1) //if exit clicked
             {
+                savePlayerForMapChange(savePath);
                 gameObjectHandler.deleate();
                 return EnumGameStates.mainMenu;
             }
