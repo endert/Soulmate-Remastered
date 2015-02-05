@@ -13,7 +13,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
     {
         public override String type { get { return base.type + ".Pet"; } }
 
-        
+        protected bool isDroping = false;
 
         public String toStringForSave()
         {
@@ -208,7 +208,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 
         public override void drop()
         {
-            drops[0].drop(position);
+            if (!isDroping)
+            {
+                drops[0].cloneAndDrop(position);
+                isDroping = true;
+            }
         }
 
         public override void update(GameTime gameTime)
