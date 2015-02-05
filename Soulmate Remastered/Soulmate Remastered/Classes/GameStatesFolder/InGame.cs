@@ -24,7 +24,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             map = new Map(new Bitmap("Pictures/Map/Map2.bmp"));            
             GameObjectHandler.lvl = 1;
-            GameObjectHandler.lvlMap = map;
             base.loadContent();
         }
 

@@ -120,6 +120,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             dialoges = new DialogeHandler();
             inGameMenu = new InGameMenu();
             hud = new HUD();
+            GameObjectHandler.lvlMap = map;
             gameObjectHandler = new GameObjectHandler(map, GameObjectHandler.lvl);
             EnemyHandler.enemyInitialize();
         }
@@ -155,7 +156,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             hud.draw(window);
             gameObjectHandler.draw(window);
             dialoges.draw(window);
-
 
             if (inventoryOpen == true)
             {
