@@ -41,7 +41,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             }
         protected float knockBack;
         protected AbstractItem[] drops;
-       
+
         protected float baseHp;
             public float getBaseHp { get { return baseHp; } }
         protected float maxHP;

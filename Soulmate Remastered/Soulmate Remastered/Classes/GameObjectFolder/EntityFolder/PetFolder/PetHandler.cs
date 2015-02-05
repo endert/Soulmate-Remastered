@@ -27,6 +27,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             petList.Add(pet);
         }
 
+        public static void load(String petString)
+        {
+            if (!petString.Split(AbstractPet.lineBreak)[4].Equals(pet.type.Split('.')[pet.type.Split('.').Length-1]))
+            {
+                deleate();
+                // pet = ...
+            }
+
+            pet.load(petString);
+        }
+
         public static void add(AbstractPet pet)
         {
             petList.Add(pet);

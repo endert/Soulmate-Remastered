@@ -42,15 +42,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         protected int index = 0;
         protected int returnValue = 0;
 
-        //public void load(String path)
-        //{
-        //    StreamReader reader = new StreamReader(path);
-
-        //        PlayerHandler.player.toPlayer(reader.ReadLine());
-
-        //    reader.Close();
-        //}
-
         public bool getInventoryOpen()
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.I) && !isKlickedInventory && !inventoryOpen)

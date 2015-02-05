@@ -69,6 +69,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             return playerForSave;
         }
 
+        public void load(String playerString)
+        {
+            String[] splitPlayerString = playerString.Split(lineBreak);
+
+            toPlayer(playerString);
+            position = new Vector2f(Convert.ToSingle(splitPlayerString[6]), Convert.ToSingle(splitPlayerString[7]));
+        }
+
         public void toPlayer(String playerString)
         {
             String[] splitPlayerString = playerString.Split(lineBreak);

@@ -61,11 +61,24 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 }
                 catch (NullReferenceException)
                 {
-                    inventoryForSave += null + lineBreak.ToString();
+                    inventoryForSave += " " + lineBreak.ToString();
                 }
             }
 
             return inventoryForSave;
+        }
+
+        public void load(String inventoryString)
+        {
+            String[] splitInventoryString = inventoryString.Split(lineBreak);
+
+            for (int i = 0; i < inventoryMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < inventoryMatrix.GetLength(1); j++)
+                {
+                    inventoryMatrix[i, j] = ItemHandler.load(splitInventoryString[i + j + 1]);
+                }
+            }
         }
 
         public Inventory()

@@ -24,6 +24,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             equipmentHandler = new EquipmentHandler();
         }
 
+        public static AbstractItem load(String itemString)
+        {
+            if (itemString.Split(AbstractItem.lineBreak)[1].Equals("Pete"))
+            {
+                return new TestItem();
+            }
+            //if....
+
+
+            return null;
+        }
+
         static public void add(AbstractItem aItem)
         {
             itemList.Add(aItem);
