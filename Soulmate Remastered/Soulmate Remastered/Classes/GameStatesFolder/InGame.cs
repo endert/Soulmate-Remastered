@@ -28,8 +28,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             base.loadContent();
         }
 
-       
-
         public override EnumGameStates update(GameTime gameTime)
         {
             GameUpdate(gameTime);
@@ -54,20 +52,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 return EnumGameStates.mainMenu;
             }
 
-            if (!inventoryOpen && !inGameMenuOpen)
+            if (returnValue == 1)
             {
-                view.Move(new Vector2f((PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)),
-                                       (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height * 5 / 6))) - view.Center); //View als letztes updaten und der sprite springt nicht mehr 
-
-                gameObjectHandler.update(gameTime);
-                hud.update(gameTime);
-                dialoges.update();
-
-                if (PlayerHandler.player.getCurrentHP <= 0)
-                {
-                    gameObjectHandler.deleate();
-                    return EnumGameStates.mainMenu;
-                }
+                return EnumGameStates.mainMenu;
             }
 
             return EnumGameStates.inGame;

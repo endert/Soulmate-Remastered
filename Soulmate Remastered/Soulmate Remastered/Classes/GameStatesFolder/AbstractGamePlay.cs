@@ -40,6 +40,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         protected bool isKlicked = false;
 
         protected int index = 0;
+        protected int returnValue = 0;
 
         //public void load(String path)
         //{
@@ -139,6 +140,21 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             time.Update();
             inventoryUpdate(gameTime);
             inGameMenuUpdate(gameTime);
+
+            if (!inventoryOpen && !inGameMenuOpen)
+            {
+                view.Move(new Vector2f((PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)),
+                                       (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height * 5 / 6))) - view.Center); //View als letztes updaten und der sprite springt nicht mehr 
+
+                gameObjectHandler.update(gameTime);
+                hud.update(gameTime);
+
+                if (PlayerHandler.player.getCurrentHP <= 0)
+                {
+                    gameObjectHandler.deleate();
+                    returnValue = 1;
+                }
+            }
         }
 
         public void draw(SFML.Graphics.RenderWindow window)
