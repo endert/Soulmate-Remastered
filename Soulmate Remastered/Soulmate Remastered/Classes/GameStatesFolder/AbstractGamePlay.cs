@@ -133,6 +133,26 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             inventoryUpdate(gameTime);
             inGameMenuUpdate(gameTime);
 
+            if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !isKlicked)
+            {
+                isKlicked = true;
+                
+                SaveGame.saveGame(savePlayer);
+                returnValue = 2;
+            }
+
+            if (!Keyboard.IsKeyPressed(Keyboard.Key.L))
+            {
+                isKlicked = false;
+            }
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 2) //if exit clicked
+            {
+                SaveGame.saveGame(savePlayer);
+                gameObjectHandler.deleate();
+                returnValue = 1;
+            }
+
             if (!inventoryOpen && !inGameMenuOpen)
             {
                 view.Move(new Vector2f((PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)),
