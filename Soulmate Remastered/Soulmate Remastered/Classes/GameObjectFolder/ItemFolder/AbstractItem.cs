@@ -45,7 +45,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                     if (ItemHandler.playerInventory.inventoryMatrix[i, j] == null)
                     {
                         ItemHandler.playerInventory.inventoryMatrix[i, j] = this;
-                        position = new Vector2f((j * 50 + ItemHandler.playerInventory.inventoryMatrixPosition.X), (i * 50 + ItemHandler.playerInventory.inventoryMatrixPosition.Y));
+                        position = new Vector2f((j * ItemHandler.playerInventory.FIELDSIZE + ItemHandler.playerInventory.inventoryMatrixPosition.X), 
+                            (i * ItemHandler.playerInventory.FIELDSIZE + ItemHandler.playerInventory.inventoryMatrixPosition.Y));
                         onMap = false;
                         GameObjectHandler.removeAt(indexObjectList);
                         if (type.Equals("Object.Item.Gold"))

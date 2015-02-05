@@ -26,14 +26,22 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
         public static AbstractItem load(String itemString)
         {
-            if (itemString.Split(AbstractItem.lineBreak)[1].Equals("Pete"))
+            try
             {
-                return new TestItem();
+                if (itemString.Split(AbstractItem.lineBreak)[1].Equals("Pete"))
+                {
+                    return new TestItem();
+                }
+                //else if....
+                else
+                {
+                    return null;
+                }
             }
-            //if....
-
-
-            return null;
+            catch (IndexOutOfRangeException)
+            {
+                return null;
+            }
         }
 
         static public void add(AbstractItem aItem)

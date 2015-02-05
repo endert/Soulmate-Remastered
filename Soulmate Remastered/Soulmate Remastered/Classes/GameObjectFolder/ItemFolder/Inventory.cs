@@ -76,7 +76,9 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             {
                 for (int j = 0; j < inventoryMatrix.GetLength(1); j++)
                 {
-                    inventoryMatrix[i, j] = ItemHandler.load(splitInventoryString[i + j + 1]);
+                    inventoryMatrix[i, j] = ItemHandler.load(splitInventoryString[i * inventoryMatrix.GetLength(1) + j + 1]);
+                    if (inventoryMatrix[i, j] != null)
+                        inventoryMatrix[i, j].position = new Vector2f((j * FIELDSIZE + inventoryMatrixPosition.X), (i * FIELDSIZE + inventoryMatrixPosition.Y));
                 }
             }
         }
