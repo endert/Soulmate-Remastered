@@ -139,6 +139,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
                 gameObjectHandler.update(gameTime);
                 hud.update(gameTime);
+                dialoges.update();
 
                 if (PlayerHandler.player.getCurrentHP <= 0)
                 {
