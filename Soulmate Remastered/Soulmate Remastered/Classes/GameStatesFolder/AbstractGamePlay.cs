@@ -132,6 +132,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 Console.WriteLine("successfully loaded");
                 loading = false;
             }
+            if (File.Exists(savePlayer))
+            {
+                SaveGame.loadPath = savePlayer;
+                SaveGame.loadMapChange();
+            }
         }
 
         public abstract EnumGameStates update(GameTime gameTime);

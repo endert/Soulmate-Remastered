@@ -8,6 +8,7 @@ using SFML.Graphics;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.InGameMenuFolder;
 using Soulmate_Remastered.Classes.ItemFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {
@@ -32,7 +33,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 {
                     return new TestItem();
                 }
-                //else if....
+                else if (itemString.Split(AbstractItem.lineBreak)[1].Equals("PetItem"))
+                {
+                    return new PetItem(PetHandler.pet);
+                }
                 else
                 {
                     return null;
@@ -82,6 +86,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 {
                     itemList.RemoveAt(i);
                     i--;
+                    break;
                 }
                 
                 if (!playerInventory.isFull() && itemList[i].hitBox.distanceTo(PlayerHandler.player.hitBox) <= itemList[i].pickUpRange && itemList[i].onMap)

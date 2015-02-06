@@ -35,6 +35,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             position = new Vector2f(Convert.ToSingle(splitPetString[2]), Convert.ToSingle(splitPetString[3]));
         }
 
+        public void revive()
+        {
+            currentHP = maxHP;
+            position = PlayerHandler.player.position;
+            sprite.Position = PlayerHandler.player.position;
+            isAlive = true;
+        }
+
         public virtual void spritePositionUpdate()
         {
             switch (numFacingDirection)

@@ -30,6 +30,7 @@ namespace Soulmate_Remastered.Classes
 
             writer.Flush();
             writer.Close();
+            //File.Encrypt(savePath);
         }
 
         public static void loadGame()
@@ -63,6 +64,18 @@ namespace Soulmate_Remastered.Classes
 
                 reader.Close();
             }
+        }
+
+        public static void loadMapChange()
+        {
+            StreamReader reader = new StreamReader(loadPath);
+
+            PlayerHandler.player.loadMapChange(reader.ReadLine());
+            PetHandler.load(reader.ReadLine());
+            reader.ReadLine();
+            ItemHandler.playerInventory.load(reader.ReadLine());
+
+            reader.Close();
         }
     }
      /* player + position
