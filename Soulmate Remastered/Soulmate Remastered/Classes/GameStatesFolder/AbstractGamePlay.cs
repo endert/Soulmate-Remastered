@@ -48,6 +48,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (Keyboard.IsKeyPressed(Keyboard.Key.I) && !isKlickedInventory && !inventoryOpen)
             {
                 isKlickedInventory = true;
+                ItemHandler.playerInventory.setOpen();
                 return inventoryOpen = true;
             }
 

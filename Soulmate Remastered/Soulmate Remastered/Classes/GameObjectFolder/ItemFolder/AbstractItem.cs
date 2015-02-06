@@ -21,7 +21,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         protected Stopwatch decay = new Stopwatch();
         protected int decayingIn = 60000; //60sec
 
-        public String toStringForSave()
+        public virtual String toStringForSave()
         {
             String itemForSave = "it" + lineBreak.ToString();
 

@@ -69,6 +69,12 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             return inventoryForSave;
         }
 
+        public void setOpen()
+        {
+            x = 0;
+            y = 0;
+        }
+
         public void load(String inventoryString)
         {
             String[] splitInventoryString = inventoryString.Split(lineBreak);

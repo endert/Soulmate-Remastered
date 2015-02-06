@@ -35,7 +35,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 }
                 else if (itemString.Split(AbstractItem.lineBreak)[1].Equals("PetItem"))
                 {
-                    return new PetItem(PetHandler.pet);
+                    return new PetItem(itemString.Split(AbstractItem.lineBreak)[2]);
                 }
                 else
                 {

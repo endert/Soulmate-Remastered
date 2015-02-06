@@ -29,6 +29,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 
         public static void load(String petString)
         {
+            if (petString.Equals("null"))
+            {
+                EntityHandler.deleateType(pet.type);
+                pet = null;
+                return;
+            }
+
             if (!petString.Split(AbstractPet.lineBreak)[4].Equals(pet.type.Split('.')[pet.type.Split('.').Length-1]))
             {
                 deleate();
@@ -47,9 +54,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 
         static public void deleate()
         {
+            EntityHandler.deleateType(pet.type);
             pet = null;
+        }
 
-            EntityHandler.deleateType("Pet");
+        public void update()
+        {
+            if (pet != null && !pet.isAlive)
+            {
+                EntityHandler.deleateType(pet.type);
+                pet = null;
+            }
         }
     }
 }

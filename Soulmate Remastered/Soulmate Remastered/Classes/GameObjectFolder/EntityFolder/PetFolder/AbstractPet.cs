@@ -14,6 +14,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         public override String type { get { return base.type + ".Pet"; } }
 
         protected bool isDroping = false;
+        protected override AbstractItem[] drops { get { return new AbstractItem[] { new PetItem(PetHandler.pet) }; } }
 
         public String toStringForSave()
         {
@@ -42,6 +43,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             sprite.Position = PlayerHandler.player.position;
             isAlive = true;
         }
+
+        public abstract AbstractPet Clone();
 
         public virtual void spritePositionUpdate()
         {

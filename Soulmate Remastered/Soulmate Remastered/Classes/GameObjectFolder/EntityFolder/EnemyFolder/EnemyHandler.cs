@@ -88,7 +88,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                         PlayerHandler.player.takeDmg(enemyList[i].getAtt);
                     }
 
-                    if (enemyList[i].hitBox.hit(PetHandler.pet.hitBox))  //if touched object equals pet
+                    if (PetHandler.pet != null && enemyList[i].hitBox.hit(PetHandler.pet.hitBox))  //if touched object equals pet
                     {
                         PetHandler.pet.takeDmg(enemyList[i].getAtt);
                     }
