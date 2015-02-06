@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,8 +92,19 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             {
                 isPressedEnter = true;
                 Console.WriteLine("load Game");
-                //SaveGame.loadGame(loadFile);
-                return EnumGameStates.village;
+                AbstractGamePlay.loading = true;
+                SaveGame.loadPath = loadFile;
+                SaveGame.loadGame();
+
+                switch (GameObjectHandler.lvl)
+                {
+                    case 0:
+                        return EnumGameStates.village;
+                    case 1:
+                        return EnumGameStates.inGame;
+                    default:
+                        return EnumGameStates.village;
+                }
             }
             if (x == 1 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
             {

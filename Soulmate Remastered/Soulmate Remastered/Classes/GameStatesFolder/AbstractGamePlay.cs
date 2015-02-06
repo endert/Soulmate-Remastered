@@ -19,6 +19,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     abstract class AbstractGamePlay : GameState
     {
+        public static bool loading = false;
         protected readonly String savePlayer = "Saves/player.soul";
         protected readonly String saveFile = "Saves/save.soul";
         protected GameTime time = new GameTime();
@@ -90,7 +91,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             {
                 isKlickedInGameMenu = true;
                 Console.WriteLine("saving Game");
-                SaveGame.saveGame(saveFile);
+                SaveGame.savePath = saveFile;
+                SaveGame.saveGame();
                 Console.WriteLine("successfuly saved Game");
             }
 
@@ -123,6 +125,18 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             GameObjectHandler.lvlMap = map;
             gameObjectHandler = new GameObjectHandler(map, GameObjectHandler.lvl);
             EnemyHandler.enemyInitialize();
+            if (loading)
+            {
+                Console.WriteLine("is loading...");
+                SaveGame.loadGame();
+                Console.WriteLine("successfully loaded");
+                loading = false;
+            }
+            if (File.Exists(savePlayer))
+            {
+                SaveGame.loadPath = savePlayer;
+                SaveGame.loadMapChange();
+            }
         }
 
         public abstract EnumGameStates update(GameTime gameTime);
@@ -136,8 +150,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !isKlicked)
             {
                 isKlicked = true;
-                
-                SaveGame.saveGame(savePlayer);
+                SaveGame.savePath = savePlayer;
+                SaveGame.saveGame();
                 returnValue = 2;
             }
 
@@ -148,8 +162,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 2) //if exit clicked
             {
-                SaveGame.saveGame(savePlayer);
                 gameObjectHandler.deleate();
+                File.Delete(savePlayer);
                 returnValue = 1;
             }
 

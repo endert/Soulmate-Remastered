@@ -17,9 +17,12 @@ namespace Soulmate_Remastered.Classes
 {
     class SaveGame
     {
-        public static void saveGame(String path)
+        public static String savePath { get; set; }
+        public static String loadPath { get; set; }
+
+        public static void saveGame()
         {
-            StreamWriter writer = new StreamWriter(path);
+            StreamWriter writer = new StreamWriter(savePath);
             writer.WriteLine(PlayerHandler.player.toStringForSave());
             writer.WriteLine(PetHandler.pet.toStringForSave());
             writer.WriteLine(GameObjectHandler.lvl);
@@ -27,16 +30,50 @@ namespace Soulmate_Remastered.Classes
 
             writer.Flush();
             writer.Close();
+            //File.Encrypt(savePath);
         }
 
-        public static void loadGame(String path)
+        public static void loadGame()
         {
-            StreamReader reader = new StreamReader(path);
+            if (File.Exists(loadPath))
+            {
+                StreamReader reader = new StreamReader(loadPath);
 
-            PlayerHandler.player.load(reader.ReadLine());
+                if (PlayerHandler.player != null)
+                {
+                    PlayerHandler.player.load(reader.ReadLine());
+                }
+                else
+                    reader.ReadLine();
+
+                if (PetHandler.pet != null)
+                {
+                    PetHandler.load(reader.ReadLine());
+                }
+                else
+                    reader.ReadLine();
+
+                GameObjectHandler.lvl = Convert.ToInt32(reader.ReadLine());
+
+                if (ItemHandler.playerInventory != null)
+                {
+                    ItemHandler.playerInventory.load(reader.ReadLine());
+                }
+                else
+                    reader.ReadLine();
+
+                reader.Close();
+            }
+        }
+
+        public static void loadMapChange()
+        {
+            StreamReader reader = new StreamReader(loadPath);
+
+            PlayerHandler.player.loadMapChange(reader.ReadLine());
             PetHandler.load(reader.ReadLine());
-            GameObjectHandler.lvl = Convert.ToInt32(reader.ReadLine());
-            ItemHandler.load(reader.ReadLine());
+            reader.ReadLine();
+            ItemHandler.playerInventory.load(reader.ReadLine());
 
             reader.Close();
         }

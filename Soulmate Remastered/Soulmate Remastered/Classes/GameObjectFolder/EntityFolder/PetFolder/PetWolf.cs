@@ -21,7 +21,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             textureList.Add(new Texture("Pictures/Pet/Wolf/WolfRight.png"));
             textureList.Add(new Texture("Pictures/Pet/Wolf/WolfLeft.png"));
 
-            drops = new AbstractItem[] {new PetItem() };
+            drops = new AbstractItem[] {new PetItem(this) };
 
             movementSpeedConstant = 0.4f;
             sprite = new Sprite(textureList[0]);

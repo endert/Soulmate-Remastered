@@ -29,19 +29,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 default:
                     break;
             }
-            loadPlayerForMapChange();
-        }
-
-        public void loadPlayerForMapChange()
-        {
-            if (File.Exists("Saves/player.soul"))
-            {
-                StreamReader reader = new StreamReader("Saves/player.soul");
-
-                player.toPlayer(reader.ReadLine());
-
-                reader.Close();
-            }
         }
 
         public static void deleate()
