@@ -22,6 +22,15 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture displayedPlayerTexture = new Texture("Pictures/Inventory/PlayerFrontInventory.png");
         Sprite displayedPlayer;
 
+        Texture inventoryReiterNotSelected = new Texture("Pictures/Inventory/InventoryReiterNotSelected.png");
+        Texture inventoryReiterSelected = new Texture("Pictures/Inventory/InventoryReiterSelected.png");
+        Sprite inventoryReiter;
+
+        Texture petReiterNotSelected = new Texture("Pictures/Inventory/petReiterNotSelected.png");
+        Texture petReiterSelected = new Texture("Pictures/Inventory/petReiterSelected.png");
+        Sprite petReiter;
+
+
         Font font = new Font("FontFolder/arial_narrow_7.ttf");
         Text gold;
         Text attack;
@@ -101,6 +110,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
             selected = new Sprite(selectedTexture);
             selected.Position = inventoryMatrixPosition;
+
+            inventoryReiter = new Sprite()
 
             inventoryWidth = inventoryTexture.Size.X / selectedTexture.Size.X - 6;
             inventoryLength = inventoryTexture.Size.Y / selectedTexture.Size.Y - 4;
