@@ -82,7 +82,6 @@
     <Compile Include="Classes\GameObjectFolder\EntityFolder\ProjectileFolder\AbstractProjectile.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\ProjectileFolder\ProjectileHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\MoneyFolder\Money.cs" />
-    <Compile Include="Classes\GameObjectFolder\ItemFolder\PetItem.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\TestItem.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameStatesFolder\AbstractGamePlay.cs" />
@@ -102,6 +101,7 @@
     <Compile Include="Classes\MapFolder\Blocks.cs" />
     <Compile Include="Classes\MapFolder\Map.cs" />
     <Compile Include="Classes\GameObjectFolder\HitBox.cs" />
+    <Compile Include="Classes\MouseHelp.cs" />
     <Compile Include="Classes\SaveGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,17 +111,11 @@
     <None Include="FontFolder\arial_narrow_7.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pictures\MainMenu\Controls\ControlsText.docx">
+    <None Include="Pictures\Menu\MainMenu\Controls\ControlsText.docx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Pictures\InGameMenu\SaveNotSelected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\InGameMenu\SaveSelected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="csfml-audio-2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -136,229 +130,292 @@
     <Content Include="Pictures\Bars\BarBackground.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Pictures\Bars\BarBackgroundHead.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pictures\Bars\FusionBar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Bars\LifeBar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\DialogeBox\DialogeBoxBackground.png">
+    <Content Include="Pictures\Bars\LifeBarHead.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Blott\BlottBack.png">
+    <Content Include="Pictures\Entities\DialogeBox\DialogeBoxBackground.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Blott\Invulnerable\BlottBackInvulnerable.png">
+    <Content Include="Pictures\Entities\Enemy\Blott\Invulnerable\BlottBackInvulnerable.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Blott\BlottFront.png">
+    <Content Include="Pictures\Entities\Enemy\Blott\Invulnerable\BlottFrontInvulnerable.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Blott\Invulnerable\BlottFrontInvulnerable.png">
+    <Content Include="Pictures\Entities\Enemy\Blott\Invulnerable\BlottLeftInvulnerable.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Blott\BlottLeft.png">
+    <Content Include="Pictures\Entities\Enemy\Blott\Invulnerable\BlottRightInvulnerable.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Blott\Invulnerable\BlottLeftInvulnerable.png">
+    <Content Include="Pictures\Entities\Enemy\Blott\Vulnerable\BlottBack.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Blott\BlottRight.png">
+    <Content Include="Pictures\Entities\Enemy\Blott\Vulnerable\BlottFront.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Blott\Invulnerable\BlottRightInvulnerable.png">
+    <Content Include="Pictures\Entities\Enemy\Blott\Vulnerable\BlottLeft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Drakoco\DrakocoBack.png">
+    <Content Include="Pictures\Entities\Enemy\Blott\Vulnerable\BlottRight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Drakoco\Invulnerable\DrakocoBackInvulnerable.png">
+    <Content Include="Pictures\Entities\Enemy\Drakoco\Invulnerable\DrakocoBackInvulnerable.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Drakoco\DrakocoFront.png">
+    <Content Include="Pictures\Entities\Enemy\Drakoco\Invulnerable\DrakocoFrontInvulnerable.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Drakoco\Invulnerable\DrakocoFrontInvulnerable.png">
+    <Content Include="Pictures\Entities\Enemy\Drakoco\Invulnerable\DrakocoLeftInvulnerable.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Drakoco\DrakocoLeft.png">
+    <Content Include="Pictures\Entities\Enemy\Drakoco\Invulnerable\DrakocoRightInvulnerable.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Drakoco\Invulnerable\DrakocoLeftInvulnerable.png">
+    <Content Include="Pictures\Entities\Enemy\Drakoco\Vulnerable\DrakocoBack.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Drakoco\DrakocoRight.png">
+    <Content Include="Pictures\Entities\Enemy\Drakoco\Vulnerable\DrakocoFront.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Drakoco\Invulnerable\DrakocoRightInvulnerable.png">
+    <Content Include="Pictures\Entities\Enemy\Drakoco\Vulnerable\DrakocoLeft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Echsa\EchsaBack.png">
+    <Content Include="Pictures\Entities\Enemy\Drakoco\Vulnerable\DrakocoRight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Echsa\EchsaFront.png">
+    <Content Include="Pictures\Entities\Enemy\Echsa\Vulnerable\EchsaBack.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Echsa\EchsaFrontLeft.png">
+    <Content Include="Pictures\Entities\Enemy\Echsa\Vulnerable\EchsaFront.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Enemy\Echsa\EchsaFrontRight.png">
+    <Content Include="Pictures\Entities\Enemy\Echsa\Vulnerable\EchsaFrontLeft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\InGameMenu\ContinueNotSelected.png">
+    <Content Include="Pictures\Entities\Enemy\Echsa\Vulnerable\EchsaFrontRight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\InGameMenu\ContinueSelected.png">
+    <Content Include="Pictures\Entities\NPC\PetStorageGuy\PetStorageGuyBackTest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\InGameMenu\ExitNotSelected.png">
+    <Content Include="Pictures\Entities\NPC\PetStorageGuy\PetStorageGuyFrontTest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\InGameMenu\ExitSelected.png">
+    <Content Include="Pictures\Entities\NPC\PetStorageGuy\PetStorageGuyLeftTest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\InGameMenu\InGameMenuBackground.png">
+    <Content Include="Pictures\Entities\NPC\PetStorageGuy\PetStorageGuyRightTest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Pet\Bird\BirdFront.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Pet\Bird\BirdRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Pet\Wolf\WolfBack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Pet\Wolf\WolfFront.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Pet\Wolf\WolfLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Pet\Wolf\WolfRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Player\Fusion\Werewolf\FusionWerewolf1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Player\Fusion\Werewolf\FusionWerewolf2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Player\Fusion\Werewolf\WerewolfBack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Player\Fusion\Werewolf\WerewolfFront.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Player\Fusion\Werewolf\WerewolfLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Player\Fusion\Werewolf\WerewolfRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Player\PlayerBack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Player\PlayerFront.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Player\PlayerLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Player\PlayerLeftSword.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Player\PlayerRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Entities\Player\PlayerRightSword.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Inventory\Inventory.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Inventory\Selected.png">
+    <Content Include="Pictures\Inventory\InventoryReiterNotSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Inventory\InventoryReiterSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Inventory\PetReiterNotSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Inventory\PetReiterSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Inventory\PlayerFrontInventory.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Pictures\Inventory\Selected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Items\Equipment\Pet\PetItem.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Items\Equipment\Player\Schwert.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Items\InventoryReiterNotSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Items\InventoryReiterSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pictures\Items\Money\Gold.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Items\Equipment\Schwert.png">
+    <Content Include="Pictures\Items\PetReiterNotSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Items\PetReiterSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Items\TestItem%28Pete%29.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Life\BarBackground.png">
+    <Content Include="Pictures\Map\BitMap\Map.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Life\LifeBar.png">
+    <Content Include="Pictures\Map\BitMap\Map2.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\Controls\ControlsMenu.png">
+    <Content Include="Pictures\Map\BitMap\Village.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\Controls\ControlsNotSelected.png">
+    <Content Include="Pictures\Map\Ground\Boden.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\Controls\ControlsSelected.png">
+    <Content Include="Pictures\Map\Ground\Sand.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\End\EndNotSelected.png">
+    <Content Include="Pictures\Map\Ground\Wald.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\End\EndSelected.png">
+    <Content Include="Pictures\Map\Setting\Fir.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\Load\LoadNotSelected.png">
+    <Content Include="Pictures\Menu\InGameMenu\Continue\ContinueNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\Load\LoadSelected.png">
+    <Content Include="Pictures\Menu\InGameMenu\Continue\ContinueSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\NewGame\NewGameNotSelected.png">
+    <Content Include="Pictures\Menu\InGameMenu\Exit\ExitNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\NewGame\NewGameSelected.png">
+    <Content Include="Pictures\Menu\InGameMenu\Exit\ExitSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\Options\OptionsMenu.png">
+    <Content Include="Pictures\Menu\InGameMenu\InGameMenuBackground.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\Options\OptionsNotSelected.png">
+    <Content Include="Pictures\Menu\InGameMenu\Save\SaveNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\Options\OptionsSelected.png">
+    <Content Include="Pictures\Menu\InGameMenu\Save\SaveSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\Start\StartNotSelected.png">
+    <Content Include="Pictures\Menu\MainMenu\Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\MainMenu\Start\StartSelected.png">
+    <Content Include="Pictures\Menu\MainMenu\Controls\ControlsMenu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Map\Boden.png">
+    <Content Include="Pictures\Menu\MainMenu\Controls\ControlsNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Map\Map.bmp">
+    <Content Include="Pictures\Menu\MainMenu\Controls\ControlsSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Map\Map2.bmp">
+    <Content Include="Pictures\Menu\MainMenu\Credits\CreditsMenu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Map\Sand.png">
+    <Content Include="Pictures\Menu\MainMenu\Credits\CreditsNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Map\Wald.png">
+    <Content Include="Pictures\Menu\MainMenu\Credits\CreditsSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Items\PetItem.png">
+    <Content Include="Pictures\Menu\MainMenu\End\EndNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\PetStorageGuy\PetStorageGuyBackTest.png">
+    <Content Include="Pictures\Menu\MainMenu\End\EndSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\PetStorageGuy\PetStorageGuyFrontTest.png">
+    <Content Include="Pictures\Menu\MainMenu\Enter\Enter.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\PetStorageGuy\PetStorageGuyLeftTest.png">
+    <Content Include="Pictures\Menu\MainMenu\Enter\EnterSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\PetStorageGuy\PetStorageGuyRightTest.png">
+    <Content Include="Pictures\Menu\MainMenu\Load\LoadNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\Wolf\WolfBack.png">
+    <Content Include="Pictures\Menu\MainMenu\Load\LoadSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\Wolf\WolfFront.png">
+    <Content Include="Pictures\Menu\MainMenu\NewGame\NewGameNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\Wolf\WolfLeft.png">
+    <Content Include="Pictures\Menu\MainMenu\NewGame\NewGameSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Pet\Wolf\WolfRight.png">
+    <Content Include="Pictures\Menu\MainMenu\Options\OptionsMenu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Player\PlayerWerewolf\VerwandlungWerwolf1.png">
+    <Content Include="Pictures\Menu\MainMenu\Options\OptionsNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Player\PlayerWerewolf\VerwandlungWerwolf2.png">
+    <Content Include="Pictures\Menu\MainMenu\Options\OptionsSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Player\PlayerWerewolf\WerwolfFront.png">
+    <Content Include="Pictures\Menu\MainMenu\Start\StartNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Player\PlayerWerewolf\WerwolfRueck.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Player\PlayerWerewolf\WerwolfSeiteLinks.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Player\PlayerWerewolf\WerwolfSeiteRechts.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Player\SpielerFront.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Player\SpielerRueck.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Player\SpielerSeiteLinksSchwert.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Player\SpielerSeiteRechts.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Player\SpielerSeiteRechtsSchwert.png">
+    <Content Include="Pictures\Menu\MainMenu\Start\StartSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Projectile\Arrow\ArrowBottom.png">
@@ -407,18 +464,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Projectile\Fireball\FireballTop3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Map\Village.bmp">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\StartScreen\Enter\Enter.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\StartScreen\Enter\EnterSelected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\StartScreen\StartScreen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="sfmlnet-audio-2.dll" />

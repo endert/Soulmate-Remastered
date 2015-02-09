@@ -29,7 +29,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public void loadContent()
         {
-            optionsTexture = new Texture("Pictures/MainMenu/Options/OptionsMenu.png");
+            optionsTexture = new Texture("Pictures/Menu/MainMenu/Options/OptionsMenu.png");
         }
 
         public EnumGameStates update(GameTime gameTime)

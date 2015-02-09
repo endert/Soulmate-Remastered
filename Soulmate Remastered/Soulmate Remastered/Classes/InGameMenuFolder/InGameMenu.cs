@@ -10,23 +10,25 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 {
     class InGameMenu
     {
-        Texture inGameMenuBackGroundTexture = new Texture("Pictures/InGameMenu/InGameMenuBackground.png");
+        Texture inGameMenuBackGroundTexture = new Texture("Pictures/Menu/InGameMenu/InGameMenuBackground.png");
         Sprite inGameMenuBackGround;
 
-        Texture continueNotSelected = new Texture("Pictures/InGameMenu/ContinueNotSelected.png");
-        Texture continueSelected = new Texture("Pictures/InGameMenu/ContinueSelected.png");
+        Texture continueNotSelected = new Texture("Pictures/Menu/InGameMenu/Continue/ContinueNotSelected.png");
+        Texture continueSelected = new Texture("Pictures/Menu/InGameMenu/Continue/ContinueSelected.png");
         Sprite continueGame;
 
-        Texture saveNotSelected = new Texture("Pictures/InGameMenu/SaveNotSelected.png");
-        Texture saveSelected = new Texture("Pictures/InGameMenu/SaveSelected.png");
+        Texture saveNotSelected = new Texture("Pictures/Menu/InGameMenu/Save/SaveNotSelected.png");
+        Texture saveSelected = new Texture("Pictures/Menu/InGameMenu/Save/SaveSelected.png");
         Sprite save;
 
-        Texture exitNotSelected = new Texture("Pictures/InGameMenu/ExitNotSelected.png");
-        Texture exitSelected = new Texture("Pictures/InGameMenu/ExitSelected.png");
+        Texture exitNotSelected = new Texture("Pictures/Menu/InGameMenu/Exit/ExitNotSelected.png");
+        Texture exitSelected = new Texture("Pictures/Menu/InGameMenu/Exit/ExitSelected.png");
         Sprite exit;
 
         bool isPressed = false;
+        bool isMouseKlicked;
         int x = 0; //Inventarsteurung
+        int xMouse = 0;
 
         public Vector2f getInGameMenuBackGroundPosition()
         {
@@ -40,15 +42,16 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public Vector2f getSavePosition()
         {
-            return new Vector2f(inGameMenuBackGround.Position.X + (inGameMenuBackGround.Texture.Size.X / 2) - (continueGame.Texture.Size.X / 2), inGameMenuBackGround.Position.Y + 200);
+            return new Vector2f(getContinueGamePosition().X, inGameMenuBackGround.Position.Y + 200);
         }
 
         public Vector2f getExitPosition()
         {
-            return new Vector2f(inGameMenuBackGround.Position.X + (inGameMenuBackGround.Texture.Size.X / 2) - (exit.Texture.Size.X / 2), inGameMenuBackGround.Position.Y + 300);
+            return new Vector2f(getContinueGamePosition().X, inGameMenuBackGround.Position.Y + 300);
         }
 
         public int getX() { return this.x; }
+        public int getXMouse() { return this.xMouse; }
 
         public InGameMenu()
         {
@@ -77,6 +80,30 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public void selected()
         {
+            if (!Mouse.IsButtonPressed(Mouse.Button.Left))
+            {
+                isMouseKlicked = false;
+                xMouse = 0;
+            }
+
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && MouseHelp.isMouseInSprite(continueGame) && !isMouseKlicked) //Continue
+            {
+                xMouse = 1;
+                isMouseKlicked = true;
+            }
+
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && MouseHelp.isMouseInSprite(save) && !isMouseKlicked) //Save
+            {
+                xMouse = 2;
+                isMouseKlicked = true;
+            }
+
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && MouseHelp.isMouseInSprite(exit) && !isMouseKlicked) //Exit
+            {
+                xMouse = 3;
+                isMouseKlicked = true;
+            }
+            
             if (Keyboard.IsKeyPressed(Keyboard.Key.Up) && !isPressed)
             {
                 x = (x + 2) % 3;

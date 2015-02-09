@@ -12,8 +12,8 @@ namespace Soulmate_Remastered.Classes.HUDFolder
 {
     class LifeBarForOthers
     {
-        Texture lifeTextureBackground = new Texture("Pictures/Life/BarBackground.png");
-        Texture lifeTextureBar = new Texture("Pictures/Life/LifeBar.png");
+        Texture lifeTextureBackground = new Texture("Pictures/Bars/BarBackgroundHead.png");
+        Texture lifeTextureBar = new Texture("Pictures/Bars/LifeBarHead.png");
         Sprite lifeSpriteBackground;
         Sprite lifeSpriteBar;
 
