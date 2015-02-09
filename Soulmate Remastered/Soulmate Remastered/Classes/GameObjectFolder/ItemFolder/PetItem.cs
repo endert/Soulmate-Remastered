@@ -2,6 +2,7 @@
 using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,37 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             position = new Vector2f();
             hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
             dropRate = 100;
-            pet = _pet;
+            pet = _pet.Clone();
+        }
+
+        public PetItem(String petType)
+        {
+            pet = evaluatingPet(petType);
+            textureList.Add(new Texture("Pictures/Items/PetItem.png"));
+            sprite = new Sprite(textureList[0]);
+            visible = false;
+            position = new Vector2f();
+            hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
+            dropRate = 100;
+        }
+
+        public override string toStringForSave()
+        {
+            String result = base.toStringForSave();
+
+            result += pet.type.Split('.')[pet.type.Split('.').Length - 1] + lineBreak.ToString();
+
+            return result;
+        }
+
+        private AbstractPet evaluatingPet(String petType)
+        {
+            if (petType.Equals("PetWolf"))
+            {
+                return new PetWolf(PlayerHandler.player);
+            }
+
+            return null;
         }
 
         public override void cloneAndDrop(Vector2f dropPosition)

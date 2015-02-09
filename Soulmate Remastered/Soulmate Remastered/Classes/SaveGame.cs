@@ -24,7 +24,10 @@ namespace Soulmate_Remastered.Classes
         {
             StreamWriter writer = new StreamWriter(savePath);
             writer.WriteLine(PlayerHandler.player.toStringForSave());
-            writer.WriteLine(PetHandler.pet.toStringForSave());
+            if (PetHandler.pet == null)
+                writer.WriteLine("null");
+            else
+                writer.WriteLine(PetHandler.pet.toStringForSave());
             writer.WriteLine(GameObjectHandler.lvl);
             writer.WriteLine(ItemHandler.playerInventory.toStringForSave());
 
