@@ -14,7 +14,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         public override String type { get { return base.type + ".Pet"; } }
 
         protected bool isDroping = false;
-        protected override AbstractItem[] drops { get { return new AbstractItem[] { new PetItem(PetHandler.pet) }; } }
 
         public String toStringForSave()
         {

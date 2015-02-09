@@ -17,7 +17,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
     {
         public override void loadContent()
         {
-            map = new Map(new Bitmap("Pictures/Map/Map.bmp"));
+            map = new Map(new Bitmap("Pictures/Map/Bitmap/Map.bmp"));
             GameObjectHandler.lvl = 0;
             base.loadContent();
         }

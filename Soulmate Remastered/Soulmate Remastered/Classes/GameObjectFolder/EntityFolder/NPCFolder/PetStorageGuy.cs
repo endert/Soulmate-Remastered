@@ -24,10 +24,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 
         public PetStorageGuy(Vector2f _position)
         {
-            textureList.Add(new Texture("Pictures/Pet/PetStorageGuy/PetStorageGuyFrontTest.png"));
-            textureList.Add(new Texture("Pictures/Pet/PetStorageGuy/PetStorageGuyBackTest.png"));
-            textureList.Add(new Texture("Pictures/Pet/PetStorageGuy/PetStorageGuyRightTest.png"));
-            textureList.Add(new Texture("Pictures/Pet/PetStorageGuy/PetStorageGuyLeftTest.png"));
+            textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyFrontTest.png"));
+            textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyBackTest.png"));
+            textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyRightTest.png"));
+            textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyLeftTest.png"));
 
             facingDirection = new Vector2f(0, 1);
 

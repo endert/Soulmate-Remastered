@@ -58,19 +58,19 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public void loadContent()
         {
-            backGroundTexture = new Texture("Pictures/StartScreen/StartScreen.png");
+            backGroundTexture = new Texture("Pictures/Menu/MainMenu/Background.png");
 
-            startSelected = new Texture("Pictures/MainMenu/Start/StartSelected.png");
-            startNotSelected = new Texture("Pictures/MainMenu/Start/StartNotSelected.png");
+            startSelected = new Texture("Pictures/Menu/MainMenu/Start/StartSelected.png");
+            startNotSelected = new Texture("Pictures/Menu/MainMenu/Start/StartNotSelected.png");
 
-            endSelected = new Texture("Pictures/MainMenu/End/EndSelected.png");
-            endNotSelected = new Texture("Pictures/MainMenu/End/EndNotSelected.png");
+            endSelected = new Texture("Pictures/Menu/MainMenu/End/EndSelected.png");
+            endNotSelected = new Texture("Pictures/Menu/MainMenu/End/EndNotSelected.png");
 
-            optionsSelected = new Texture("Pictures/MainMenu/Options/OptionsSelected.png");
-            optionsNotSelected = new Texture("Pictures/MainMenu/Options/OptionsNotSelected.png");
+            optionsSelected = new Texture("Pictures/Menu/MainMenu/Options/OptionsSelected.png");
+            optionsNotSelected = new Texture("Pictures/Menu/MainMenu/Options/OptionsNotSelected.png");
 
-            controlsSelected = new Texture("Pictures/MainMenu/Controls/ControlsSelected.png");
-            controlsNotSelected = new Texture("Pictures/MainMenu/Controls/ControlsNotSelected.png");
+            controlsSelected = new Texture("Pictures/Menu/MainMenu/Controls/ControlsSelected.png");
+            controlsNotSelected = new Texture("Pictures/Menu/MainMenu/Controls/ControlsNotSelected.png");
         }
 
         public EnumGameStates update(GameTime gameTime)

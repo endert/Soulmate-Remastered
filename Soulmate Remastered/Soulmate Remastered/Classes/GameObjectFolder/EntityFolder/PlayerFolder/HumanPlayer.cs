@@ -15,10 +15,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public HumanPlayer(Vector2f spawnPosition, int spawnFacingDirection)
         {
-            textureList.Add(new Texture("Pictures/Player/SpielerFront.png")); 
-            textureList.Add(new Texture("Pictures/Player/SpielerRueck.png"));
-            textureList.Add(new Texture("Pictures/Player/SpielerSeiteRechtsSchwert.png"));
-            textureList.Add(new Texture("Pictures/Player/SpielerSeiteLinksSchwert.png"));
+            textureList.Add(new Texture("Pictures/Entities/Player/PlayerFront.png")); 
+            textureList.Add(new Texture("Pictures/Entities/Player/PlayerBack.png"));
+            textureList.Add(new Texture("Pictures/Entities/Player/PlayerRightSword.png"));
+            textureList.Add(new Texture("Pictures/Entities/Player/PlayerLeftSword.png"));
             
             numFacingDirection = spawnFacingDirection;
             facingDirection = new Vector2f(1, 0); // RECHTS

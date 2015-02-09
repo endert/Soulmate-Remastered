@@ -22,13 +22,13 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture displayedPlayerTexture = new Texture("Pictures/Inventory/PlayerFrontInventory.png");
         Sprite displayedPlayer;
 
-        Texture inventoryReiterNotSelected = new Texture("Pictures/Inventory/InventoryReiterNotSelected.png");
-        Texture inventoryReiterSelected = new Texture("Pictures/Inventory/InventoryReiterSelected.png");
-        Sprite inventoryReiter;
+        Texture inventoryTabNotSelected = new Texture("Pictures/Inventory/InventoryReiterNotSelected.png");
+        Texture inventoryTabSelected = new Texture("Pictures/Inventory/InventoryReiterSelected.png");
+        Sprite inventoryTab;
 
-        Texture petReiterNotSelected = new Texture("Pictures/Inventory/petReiterNotSelected.png");
-        Texture petReiterSelected = new Texture("Pictures/Inventory/petReiterSelected.png");
-        Sprite petReiter;
+        Texture petTabNotSelected = new Texture("Pictures/Inventory/petReiterNotSelected.png");
+        Texture petTabSelected = new Texture("Pictures/Inventory/petReiterSelected.png");
+        Sprite petTab;
 
 
         Font font = new Font("FontFolder/arial_narrow_7.ttf");
@@ -47,6 +47,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         public Vector2f inventoryMatrixPosition { get { return new Vector2f(inventory.Position.X + 5 * selected.Texture.Size.X, inventory.Position.Y + 1 * selected.Texture.Size.Y); } }
 
         bool isPressed = false;
+        bool isMouseKlicked;
         int x = 0, y = 0; //Inventarsteurung
 
         uint inventoryWidth;
@@ -117,7 +118,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             selected = new Sprite(selectedTexture);
             selected.Position = inventoryMatrixPosition;
 
-            inventoryReiter = new Sprite()
+            inventoryTab = new Sprite(inventoryTabNotSelected);
+            inventoryTab.Position = new Vector2f(inventoryMatrixPosition.X, inventory.Position.Y + 5);
+            petTab = new Sprite(petTabNotSelected);
+            petTab.Position = new Vector2f(inventoryTab.Position.X + 110, inventoryTab.Position.Y);
 
             inventoryWidth = inventoryTexture.Size.X / selectedTexture.Size.X - 6;
             inventoryLength = inventoryTexture.Size.Y / selectedTexture.Size.Y - 4;
@@ -166,6 +170,19 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void managment()
         {
+            if (!Mouse.IsButtonPressed(Mouse.Button.Left))
+                isMouseKlicked = false;
+
+            if(Mouse.IsButtonPressed(Mouse.Button.Left) && MouseHelp.isMouseInSprite(inventoryTab) && !isMouseKlicked)
+            {
+                isMouseKlicked = true;
+            }
+
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && MouseHelp.isMouseInSprite(petTab) && !isMouseKlicked)
+            {
+                isMouseKlicked = true;
+            }
+            
             if (Keyboard.IsKeyPressed(Keyboard.Key.Up) && !isPressed)
             {
                 y = (y + (inventoryMatrix.GetLength(0) - 1)) % inventoryMatrix.GetLength(0);
@@ -267,6 +284,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         {
             window.Draw(inventory);
             ItemHandler.drawInventoryItems(window);
+            window.Draw(inventoryTab);
+            window.Draw(petTab);
             drawTexts(window);
             window.Draw(selected);
         }
