@@ -60,11 +60,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 
         public void update()
         {
-            if (pet != null && !pet.isAlive)
-            {
-                EntityHandler.deleateType(pet.type);
-                pet = null;
-            }
+            
         }
     }
 }
