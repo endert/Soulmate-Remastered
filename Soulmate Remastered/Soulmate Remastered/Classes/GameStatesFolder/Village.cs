@@ -5,14 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
+using System.Drawing;
 using Soulmate_Remastered.Classes.MapFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder;
-using Soulmate_Remastered.Classes.HUDFolder;
-using System.Drawing;
-using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
-using Soulmate_Remastered.Classes.InGameMenuFolder;
-using Soulmate_Remastered.Classes.DialogeBoxFolder;
 using Soulmate_Remastered.Classes.GameStatesFolder;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
@@ -21,7 +17,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
     {
         public override void loadContent()
         {
-            map = new Map(new Bitmap("Pictures/Map/Map.bmp"));
+            map = new Map(new Bitmap("Pictures/Map/Bitmap/Map.bmp"));
             GameObjectHandler.lvl = 0;
             base.loadContent();
         }

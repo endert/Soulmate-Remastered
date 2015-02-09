@@ -13,7 +13,7 @@ namespace Soulmate_Remastered.Classes
 {
     abstract class AbstractGame
     {
-        public RenderWindow window;
+        public static RenderWindow window;
         GameTime gameTime;
 
         public AbstractGame(uint width, uint height, String title)

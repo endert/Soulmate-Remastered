@@ -40,9 +40,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public void loadContent()
         {
-            titleScreenTexture = new Texture("Pictures//StartScreen/StartScreen.png");
-            pressEnter = new Texture("Pictures/StartScreen/Enter/Enter.png");
-            pressEnter2 = new Texture("Pictures/StartScreen/Enter/EnterSelected.png");
+            titleScreenTexture = new Texture("Pictures/Menu/MainMenu/Background.png");
+            pressEnter = new Texture("Pictures/Menu/MainMenu/Enter/Enter.png");
+            pressEnter2 = new Texture("Pictures/Menu/MainMenu/Enter/EnterSelected.png");
         }
 
         public EnumGameStates update(GameTime gameTime)

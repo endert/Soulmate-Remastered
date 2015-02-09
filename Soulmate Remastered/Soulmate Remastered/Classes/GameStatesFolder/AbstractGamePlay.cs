@@ -82,13 +82,13 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 return inGameMenuOpen = true;
             }
 
-            if (((Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isKlickedInGameMenu) || (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 0)) && inGameMenuOpen == true)
+            if ((((Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isKlickedInGameMenu) || (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 0)) || inGameMenu.getXMouse() == 1) && inGameMenuOpen == true)
             {
                 isKlickedInGameMenu = true;
                 return inGameMenuOpen = false;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1 && inGameMenuOpen == true) //saveGame
+            if ((Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1 || inGameMenu.getXMouse() == 2) && inGameMenuOpen == true) //saveGame
             {
                 isKlickedInGameMenu = true;
                 Console.WriteLine("saving Game");
@@ -161,7 +161,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 isKlicked = false;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 2) //if exit clicked
+            if ((Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 2) || inGameMenu.getXMouse() == 3) //if exit clicked
             {
                 gameObjectHandler.deleate();
                 File.Delete(savePlayer);
@@ -185,7 +185,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             }
         }
 
-        public void draw(SFML.Graphics.RenderWindow window)
+        public void draw(RenderWindow window)
         {
             window.SetView(view);
             map.draw(window);

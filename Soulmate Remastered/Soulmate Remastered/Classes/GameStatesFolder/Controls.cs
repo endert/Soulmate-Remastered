@@ -28,7 +28,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public void loadContent()
         {
-            controlsTexture = new Texture("Pictures/MainMenu/Controls/ControlsMenu.png");
+            controlsTexture = new Texture("Pictures/Menu/MainMenu/Controls/ControlsMenu.png");
         }
 
         public EnumGameStates update(GameTime gameTime)

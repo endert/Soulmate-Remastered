@@ -37,7 +37,7 @@ namespace Soulmate_Remastered.Classes.MapFolder
                     }
                 case 1://Wald
                     {
-                        this.blockSprite = new Sprite(new Texture("Pictures/Map/Wald.png"));
+                        this.blockSprite = new Sprite(new Texture("Pictures/Map/Ground/Wald.png"));
                         this.blockSprite.Position = position;
                         this.walkable = false;
                         //blockHitBox = new HitBox(this);

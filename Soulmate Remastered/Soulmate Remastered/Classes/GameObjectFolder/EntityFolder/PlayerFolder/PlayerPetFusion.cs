@@ -47,13 +47,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             if (pet.type.Split('.')[3].Equals("PetWolf"))
             {
-                textureList.Add(new Texture("Pictures/Player/PlayerWerewolf/WerwolfFront.png"));
-                textureList.Add(new Texture("Pictures/Player/PlayerWerewolf/WerwolfRueck.png"));
-                textureList.Add(new Texture("Pictures/Player/PlayerWerewolf/WerwolfSeiteRechts.png"));
-                textureList.Add(new Texture("Pictures/Player/PlayerWerewolf/WerwolfSeiteLinks.png"));
+                textureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfFront.png"));
+                textureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfBack.png"));
+                textureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfRight.png"));
+                textureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfLeft.png"));
 
-                fusionAnimationList.Add(new Texture("Pictures/Player/PlayerWerewolf/VerwandlungWerwolf1.png"));
-                fusionAnimationList.Add(new Texture("Pictures/Player/PlayerWerewolf/VerwandlungWerwolf2.png"));
+                fusionAnimationList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/FusionWerewolf1.png"));
+                fusionAnimationList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/FusionWerewolf2.png"));
             }
         }
 
