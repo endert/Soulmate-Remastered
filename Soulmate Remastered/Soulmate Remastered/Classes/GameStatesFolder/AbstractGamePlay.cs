@@ -21,7 +21,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
     {
         public static bool loading = false;
         protected readonly String savePlayer = "Saves/player.soul";
-        protected readonly String saveFile = "Saves/save.soul";
         protected GameTime time = new GameTime();
         protected View viewInventory;
         protected Map map;
@@ -34,9 +33,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         protected bool inventoryOpen;
         protected bool isKlickedInventory = false;
-
-        protected bool inGameMenuOpen;
-        protected bool isKlickedInGameMenu = false;
 
         protected bool isKlicked = false;
 
@@ -58,7 +54,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if ((Keyboard.IsKeyPressed(Keyboard.Key.I)||Keyboard.IsKeyPressed(Keyboard.Key.Escape)) && !isKlickedInventory && inventoryOpen == true)
             {
                 isKlickedInventory = true;
-                isKlickedInGameMenu = true;
                 return inventoryOpen = false;
             }
 
@@ -73,43 +68,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 ItemHandler.playerInventory.update(gameTime);
             }
         }
-        
-        public bool getInGameMenuOpen()
-        {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isKlickedInGameMenu && !inGameMenuOpen && !inventoryOpen)
-            {
-                isKlickedInGameMenu = true;
-                return inGameMenuOpen = true;
-            }
-
-            if ((((Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isKlickedInGameMenu) || (Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 0)) || inGameMenu.getXMouse() == 1) && inGameMenuOpen == true)
-            {
-                isKlickedInGameMenu = true;
-                return inGameMenuOpen = false;
-            }
-
-            if ((Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 1 || inGameMenu.getXMouse() == 2) && inGameMenuOpen == true) //saveGame
-            {
-                isKlickedInGameMenu = true;
-                Console.WriteLine("saving Game");
-                SaveGame.savePath = saveFile;
-                SaveGame.saveGame();
-                Console.WriteLine("successfuly saved Game");
-            }
-
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.Escape))
-                isKlickedInGameMenu = false;
-
-            return false;
-        }
-
-        public void inGameMenuUpdate(GameTime gameTime)
-        {
-            getInGameMenuOpen();
-            if (inGameMenuOpen == true)
-                inGameMenu.update(gameTime);
-        }
-        
+                
         public void initialize()
         {
             time = new GameTime();
@@ -146,7 +105,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             time.Update();
             inventoryUpdate(gameTime);
-            inGameMenuUpdate(gameTime);
+            inGameMenu.update(gameTime);
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !isKlicked)
             {
@@ -161,14 +120,14 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 isKlicked = false;
             }
 
-            if ((Keyboard.IsKeyPressed(Keyboard.Key.Return) && inGameMenu.getX() == 2) || inGameMenu.getXMouse() == 3) //if exit clicked
+            if (inGameMenu.closeGame) //if exit clicked
             {
                 gameObjectHandler.deleate();
                 File.Delete(savePlayer);
                 returnValue = 1;
             }
 
-            if (!inventoryOpen && !inGameMenuOpen)
+            if (!inventoryOpen && !inGameMenu.inGameMenuOpen)
             {
                 view.Move(new Vector2f((PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)),
                                        (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height * 5 / 6))) - view.Center); //View als letztes updaten und der sprite springt nicht mehr 
@@ -199,7 +158,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 ItemHandler.playerInventory.draw(window);
             }
 
-            if (inGameMenuOpen == true)
+            if (inGameMenu.inGameMenuOpen == true)
             {
                 window.SetView(viewInventory);
                 inGameMenu.draw(window);

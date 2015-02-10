@@ -52,6 +52,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         int yInEquipmentSlots = 0;
         int xInTabs = 0;
 
+        public static bool inventoryOpen { get; set; }
+
         uint inventoryWidth;
         uint inventoryLength;
 
