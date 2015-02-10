@@ -40,11 +40,11 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         Texture inventoryTexture = new Texture("Pictures/Inventory/Inventory.PNG");
         public Sprite inventory { get; set; }
-        public float FIELDSIZE { get { return 50f; } }
+        public float FIELDSIZE { get { return 49f; } }
         Texture selectedTexture = new Texture("Pictures/Inventory/Selected.png");
         Sprite selected;
 
-        public Vector2f inventoryMatrixPosition { get { return new Vector2f(inventory.Position.X + 5 * selected.Texture.Size.X, inventory.Position.Y + 1 * selected.Texture.Size.Y); } }
+        public Vector2f inventoryMatrixPosition { get { return new Vector2f(inventory.Position.X + 6 * selected.Texture.Size.X+6, inventory.Position.Y + 2 * selected.Texture.Size.Y+1); } }
 
         bool isPressed = false;
         bool isMouseKlicked;
@@ -95,7 +95,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 {
                     inventoryMatrix[i, j] = ItemHandler.load(splitInventoryString[i * inventoryMatrix.GetLength(1) + j + 1]);
                     if (inventoryMatrix[i, j] != null)
-                        inventoryMatrix[i, j].position = new Vector2f((j * FIELDSIZE + inventoryMatrixPosition.X), (i * FIELDSIZE + inventoryMatrixPosition.Y));
+                        inventoryMatrix[i, j].position = new Vector2f((j * FIELDSIZE+1 + inventoryMatrixPosition.X), (i * FIELDSIZE+1 + inventoryMatrixPosition.Y));
                 }
             }
         }
@@ -123,8 +123,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             petTab = new Sprite(petTabNotSelected);
             petTab.Position = new Vector2f(inventoryTab.Position.X + 110, inventoryTab.Position.Y);
 
-            inventoryWidth = inventoryTexture.Size.X / selectedTexture.Size.X - 6;
-            inventoryLength = inventoryTexture.Size.Y / selectedTexture.Size.Y - 4;
+            inventoryWidth = 9;
+            inventoryLength = 7;
 
             inventoryMatrix = new AbstractItem[inventoryLength, inventoryWidth];
 
