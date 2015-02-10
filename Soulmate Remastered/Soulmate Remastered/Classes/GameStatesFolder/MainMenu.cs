@@ -11,7 +11,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
     class MainMenu : GameState
     {
         bool isPressed;
-        bool isPressedEnter;
+        bool isMouseKlicked;
         int x; //für Menüsteuerung
 
         Texture backGroundTexture;
@@ -35,7 +35,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public void initialize()
         {
             isPressed = false;
-            isPressedEnter = true;
+            isPressed = true;
             x = 0;
 
             backGround = new Sprite(backGroundTexture);
@@ -74,7 +74,24 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         }
 
         public EnumGameStates update(GameTime gameTime)
-        {
+        {            
+            if (NavigationHelp.isMouseInSprite(start))
+            {
+                x = 0;
+            }
+            if (NavigationHelp.isMouseInSprite(optionsButton))
+            {
+                x = 1;
+            }
+            if (NavigationHelp.isMouseInSprite(controls))
+            {
+                x = 2;
+            }
+            if (NavigationHelp.isMouseInSprite(end))
+            {
+                x = 3;
+            }
+
             if (Keyboard.IsKeyPressed(Keyboard.Key.Up) && !isPressed)
             {
                 x = (x + 3) % 4;
@@ -86,9 +103,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 x = (x + 1) % 4;
                 isPressed = true;
             }
-
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.Down) && !Keyboard.IsKeyPressed(Keyboard.Key.Up))
-                isPressed = false;
 
             if (x == 0)
             {
@@ -122,32 +136,32 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 end.Texture = endSelected;
             }
 
-            if (x == 0 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
+            if (NavigationHelp.isSpriteKlicked(x, 0, isPressed))
             {
-                isPressedEnter = true;
+                isPressed = true;
                 return EnumGameStates.loadGame;
             }
-            if (x == 1 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
+            if (NavigationHelp.isSpriteKlicked(x, 1, isPressed))
             {
-                isPressedEnter = true;
+                isPressed = true;
                 Console.WriteLine("load Options");
                 return EnumGameStates.options;
             }
-            if (x == 2 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
+            if (NavigationHelp.isSpriteKlicked(x, 2, isPressed))
             {
-                isPressedEnter = true;
+                isPressed = true;
                 Console.WriteLine("load Controls");
                 return EnumGameStates.controls;
             }
-            if (x == 3 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
+            if (NavigationHelp.isSpriteKlicked(x, 3, isPressed))
             {
-                isPressedEnter = true;
+                isPressed = true;
                 return EnumGameStates.none;
             }
-            
-            if(!Keyboard.IsKeyPressed(Keyboard.Key.Return))
+
+            if (!Keyboard.IsKeyPressed(Keyboard.Key.Return) && !Mouse.IsButtonPressed(Mouse.Button.Left) && !Keyboard.IsKeyPressed(Keyboard.Key.Down) && !Keyboard.IsKeyPressed(Keyboard.Key.Up))
             {
-                isPressedEnter = false;
+                isPressed = false;
             }
 
             return EnumGameStates.mainMenu;

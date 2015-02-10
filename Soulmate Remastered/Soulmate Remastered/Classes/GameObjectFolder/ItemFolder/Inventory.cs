@@ -173,12 +173,12 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             if (!Mouse.IsButtonPressed(Mouse.Button.Left))
                 isMouseKlicked = false;
 
-            if(Mouse.IsButtonPressed(Mouse.Button.Left) && MouseHelp.isMouseInSprite(inventoryTab) && !isMouseKlicked)
+            if(Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(inventoryTab) && !isMouseKlicked)
             {
                 isMouseKlicked = true;
             }
 
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && MouseHelp.isMouseInSprite(petTab) && !isMouseKlicked)
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(petTab) && !isMouseKlicked)
             {
                 isMouseKlicked = true;
             }
