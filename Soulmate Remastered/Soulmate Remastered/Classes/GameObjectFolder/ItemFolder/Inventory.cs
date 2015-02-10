@@ -9,6 +9,7 @@ using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using System.IO;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder;
 
 namespace Soulmate_Remastered.Classes.ItemFolder
 {
@@ -30,7 +31,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture petTabSelected = new Texture("Pictures/Inventory/petTabSelected.png");
         Sprite petTab;
 
-
         Font font = new Font("FontFolder/arial_narrow_7.ttf");
         Text gold;
         Text attack;
@@ -44,11 +44,13 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture selectedTexture = new Texture("Pictures/Inventory/Selected.png");
         Sprite selected;
 
-        public Vector2f inventoryMatrixPosition { get { return new Vector2f(inventory.Position.X + 6 * selected.Texture.Size.X+6, inventory.Position.Y + 2 * selected.Texture.Size.Y+1); } }
+        public Vector2f inventoryMatrixPosition { get { return new Vector2f(inventory.Position.X + 306, inventory.Position.Y + 101); } }
 
         bool isPressed = false;
         bool isMouseKlicked;
-        int x = 0, y = 0; //Inventarsteurung
+        int xInInventory = 0, yInInventory = 0; //Inventarsteurung
+        int yInEquipmentSlots = 0;
+        int xInTabs = 0;
 
         public static bool inventoryOpen { get; set; }
 
@@ -56,11 +58,20 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         uint inventoryLength;
 
         public AbstractItem[,] inventoryMatrix { get; set; }
+        public Equipment[] equipment { get; set; }
 
         AbstractItem selectedItem;
         bool itemIsSelected = false;
         int selectedItemX;
         int selectedItemY;
+
+        bool inInventory = true;
+        bool inTab = false;
+        bool inEquipmentSlots = false;
+
+        Vector2f equipmentSlotsBase { get { return new Vector2f(inventory.Position.X + 306 - 99, 
+            (inventory.Position.Y + 101 - 5)); } } // copied x and y coordinates from inventoryMatrixPosition
+
 
         public String toStringForSave()
         {
@@ -83,8 +94,9 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void setOpen()
         {
-            x = 0;
-            y = 0;
+            xInInventory = 0;
+            yInInventory = 0;
+            inInventory = true;
         }
 
         public void load(String inventoryString)
@@ -131,20 +143,18 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             inventoryMatrix = new AbstractItem[inventoryLength, inventoryWidth];
 
             spriteAndTextPositionUpdate();
-            goldSprite.Position = new Vector2f(inventory.Position.X + (inventory.Texture.Size.X - (goldSprite.Texture.Size.X - 20)), gold.Position.Y);
+            inInventory = true;
+
+            equipment = new Equipment[6];
         }
 
         public void spriteAndTextPositionUpdate()
         {
-            gold.DisplayedString = "Gold: " + PlayerHandler.player.gold;
-            gold.Position = new Vector2f((inventory.Position.X + inventory.Texture.Size.X) - ((gold.CharacterSize / 2) * gold.DisplayedString.Length) - (goldSprite.Texture.Size.X - 20),
-                                        (inventory.Position.Y + inventory.Texture.Size.Y) - (gold.CharacterSize + 10));
-
             displayedPlayer = new Sprite(displayedPlayerTexture);
-            displayedPlayer.Position = new Vector2f(inventory.Position.X + 20, inventory.Position.Y + FIELDSIZE);
+            displayedPlayer.Position = new Vector2f(inventory.Position.X + 67, inventory.Position.Y + 82);
 
             attack.DisplayedString = "Attack: " + PlayerHandler.player.getAtt;
-            attack.Position = new Vector2f(inventory.Position.X + 20, inventory.Position.Y + 9 * FIELDSIZE + 20);
+            attack.Position = new Vector2f(inventory.Position.X + 65, inventoryMatrixPosition.Y + 7 * FIELDSIZE + 10);
 
             defense.DisplayedString = "Defense: " + PlayerHandler.player.getDef;
             defense.Position = new Vector2f(attack.Position.X, attack.Position.Y + attack.CharacterSize);
@@ -156,6 +166,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             if (PlayerHandler.player.getLvl == PlayerHandler.player.MaxLvl)
                 lvl.DisplayedString += "°";
             lvl.Position = new Vector2f(exp.Position.X, exp.Position.Y + exp.CharacterSize);
+
+            gold.DisplayedString = "Gold: " + PlayerHandler.player.gold;
+            gold.Position = new Vector2f(lvl.Position.X, lvl.Position.Y + 45);
+            goldSprite.Position = new Vector2f(gold.Position.X + gold.DisplayedString.Length * (gold.CharacterSize / 2.3f), gold.Position.Y);
         }
 
         public bool isFull()
@@ -184,78 +198,157 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             {
                 isMouseKlicked = true;
             }
-            
+
             if (Keyboard.IsKeyPressed(Keyboard.Key.Up) && !isPressed)
             {
-                y = (y + (inventoryMatrix.GetLength(0) - 1)) % inventoryMatrix.GetLength(0);
+                if (yInInventory == 0 && inInventory)  // enter Tabs
+                {
+                    inInventory = false;
+                    inTab = true;
+                    xInTabs = xInInventory % 2;
+                }
+                else if (inEquipmentSlots)
+                {
+                    yInEquipmentSlots = (yInEquipmentSlots + (equipment.Length - 1)) % equipment.Length;
+                }
+                else
+                {
+                    yInInventory = (yInInventory + (inventoryMatrix.GetLength(0) - 1)) % inventoryMatrix.GetLength(0);
+                    inTab = false;
+                    inInventory = true;
+                }
                 isPressed = true;
             }
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Down) && !isPressed)
             {
-                y = (y + 1) % inventoryMatrix.GetLength(0);
+                if (inTab)
+                {
+                    inInventory = true;
+                    inTab = false;
+                }
+                else if(inInventory)
+                {
+                    yInInventory = (yInInventory + 1) % inventoryMatrix.GetLength(0);
+                }
+                else
+                {
+                    yInEquipmentSlots = (yInEquipmentSlots + 1) % equipment.Length;
+                }
                 isPressed = true;
             }
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Right) && !isPressed)
             {
-                x = (x + 1) % inventoryMatrix.GetLength(1);
+                if (inEquipmentSlots)
+                {
+                    inInventory = true;
+                    inEquipmentSlots = false;
+                }
+                else if(inInventory)
+                {
+                    xInInventory = (xInInventory + 1) % inventoryMatrix.GetLength(1);
+                }
+                else
+                {
+                    xInTabs = (xInTabs + 1) % 2;
+                }
                 isPressed = true;
             }
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Left) && !isPressed)
             {
-                x = (x + (inventoryMatrix.GetLength(1) - 1)) % inventoryMatrix.GetLength(1);
-                isPressed = true;
-            }
-
-            if (Keyboard.IsKeyPressed(Keyboard.Key.A) && !isPressed)    //Item Swaps
-            {
-                if (!itemIsSelected)
+                if (xInInventory == 0 && inInventory)  //enter equipmentSlots
                 {
-                    selectedItem = inventoryMatrix[y, x];
-                    itemIsSelected = true;
-                    selectedItemX = x;
-                    selectedItemY = y;
+                    inInventory = false;
+                    inEquipmentSlots = true;
+                    yInEquipmentSlots = yInInventory % equipment.Length;
+                }
+                else if(inTab)
+                {
+                    xInTabs = (xInTabs + 1) % 2;
                 }
                 else
                 {
-                    inventoryMatrix[selectedItemY, selectedItemX] = inventoryMatrix[y, x];
-                    if (inventoryMatrix[selectedItemY, selectedItemX] != null)
-                    {
-                        inventoryMatrix[selectedItemY, selectedItemX].setPositionMatrix(selectedItemX, selectedItemY);
-                    }
-
-                    inventoryMatrix[y, x] = selectedItem;
-
-                    if (inventoryMatrix[y, x] != null)
-                    {
-                        inventoryMatrix[y, x].setPositionMatrix(x, y);
-                    }
-                    selectedItem = null;
-                    itemIsSelected = false;
+                    xInInventory = (xInInventory + (inventoryMatrix.GetLength(1) - 1)) % inventoryMatrix.GetLength(1);
+                    inInventory = true;
+                    inEquipmentSlots = false;
                 }
                 isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.U) && !isPressed)
+//inInventory management (Matrix[x,y]) =============================================================================
+            if (inInventory)    
             {
-                if (inventoryMatrix[y, x] != null)
+                if (Keyboard.IsKeyPressed(Keyboard.Key.A) && !isPressed)    //Item Swaps
                 {
-                    inventoryMatrix[y, x].use();
+                    if (!itemIsSelected)
+                    {
+                        selectedItem = inventoryMatrix[yInInventory, xInInventory];
+                        itemIsSelected = true;
+                        selectedItemX = xInInventory;
+                        selectedItemY = yInInventory;
+                    }
+                    else
+                    {
+                        inventoryMatrix[selectedItemY, selectedItemX] = inventoryMatrix[yInInventory, xInInventory];
+                        if (inventoryMatrix[selectedItemY, selectedItemX] != null)
+                        {
+                            inventoryMatrix[selectedItemY, selectedItemX].setPositionMatrix(selectedItemX, selectedItemY);
+                        }
+
+                        inventoryMatrix[yInInventory, xInInventory] = selectedItem;
+
+                        if (inventoryMatrix[yInInventory, xInInventory] != null)
+                        {
+                            inventoryMatrix[yInInventory, xInInventory].setPositionMatrix(xInInventory, yInInventory);
+                        }
+                        selectedItem = null;
+                        itemIsSelected = false;
+                    }
+                    isPressed = true;
+                }
+
+                if (Keyboard.IsKeyPressed(Keyboard.Key.U) && !isPressed)
+                {
+                    if (inventoryMatrix[yInInventory, xInInventory] != null)
+                    {
+                        inventoryMatrix[yInInventory, xInInventory].use();
+                    }
+                }
+
+                if (inventoryMatrix[yInInventory, xInInventory] != null && !inventoryMatrix[yInInventory, xInInventory].isAlive)
+                {
+                    inventoryMatrix[yInInventory, xInInventory] = null;
                 }
             }
+//=====================================================================================================================
 
             if (!Keyboard.IsKeyPressed(Keyboard.Key.Down) && !Keyboard.IsKeyPressed(Keyboard.Key.Up) && !Keyboard.IsKeyPressed(Keyboard.Key.Right) 
                 && !Keyboard.IsKeyPressed(Keyboard.Key.Left) && !Keyboard.IsKeyPressed(Keyboard.Key.A) && !Keyboard.IsKeyPressed(Keyboard.Key.U))
                 isPressed = false;
 
-            if (inventoryMatrix[y, x] != null && !inventoryMatrix[y, x].isAlive)
+            if (inInventory)
             {
-                inventoryMatrix[y, x] = null;
+                selected.Position = new Vector2f(xInInventory * FIELDSIZE + inventoryMatrixPosition.X, yInInventory * FIELDSIZE + inventoryMatrixPosition.Y);
+            }
+            else if (inEquipmentSlots)
+            {
+                if (yInEquipmentSlots<2)
+                {
+                    selected.Position = new Vector2f(equipmentSlotsBase.X, equipmentSlotsBase.Y + yInEquipmentSlots * (FIELDSIZE + 5));
+                }
+                else if (yInEquipmentSlots < 4)
+                {
+                    selected.Position = new Vector2f(equipmentSlotsBase.X + 15, (equipmentSlotsBase.Y + 6) + yInEquipmentSlots * (FIELDSIZE + 5));
+                }
+                else
+                {
+                    selected.Position = new Vector2f(equipmentSlotsBase.X - 4, (equipmentSlotsBase.Y + 12) + yInEquipmentSlots * (FIELDSIZE + 5));
+                }
             }
 
-            selected.Position = new Vector2f(x * FIELDSIZE + inventoryMatrixPosition.X, y * FIELDSIZE + inventoryMatrixPosition.Y);
+            setTabs();
         }
 
         public void deleate()
@@ -271,11 +364,41 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             managment();
         }
 
+        public void setTabs()
+        {
+            setInventoryTab();
+            setPetTab();
+        }
+
+        public void setInventoryTab()
+        {
+            if (xInTabs == 0 && inTab)
+            {
+                inventoryTab.Texture = inventoryTabSelected;
+            }
+            else
+            {
+                inventoryTab.Texture = inventoryTabNotSelected;
+            }
+        }
+
+        public void setPetTab()
+        {
+            if (xInTabs == 1 && inTab)
+            {
+                petTab.Texture = petTabSelected;
+            }
+            else
+            {
+                petTab.Texture = petTabNotSelected;
+            }
+        }
+
         public void drawTexts(RenderWindow window)
         {
             window.Draw(gold);
             window.Draw(goldSprite);
-            //window.Draw(displayedPlayer);
+            window.Draw(displayedPlayer);
             window.Draw(attack);
             window.Draw(defense);
             window.Draw(exp);
@@ -289,7 +412,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             window.Draw(inventoryTab);
             window.Draw(petTab);
             drawTexts(window);
-            window.Draw(selected);
+            if (!inTab)
+            {
+                window.Draw(selected);
+            }
         }
     }
 }
