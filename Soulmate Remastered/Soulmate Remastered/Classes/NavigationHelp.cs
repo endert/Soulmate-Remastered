@@ -8,13 +8,18 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes
 {
-    class MouseHelp
+    class NavigationHelp
     {
         public static bool isMouseInSprite(Sprite sprite)
         {
             RenderWindow window = AbstractGame.window;
             return (Mouse.GetPosition(window).X >= sprite.Position.X && Mouse.GetPosition(window).X <= sprite.Position.X + sprite.Texture.Size.X
                  && Mouse.GetPosition(window).Y >= sprite.Position.Y && Mouse.GetPosition(window).Y <= sprite.Position.Y + sprite.Texture.Size.Y);
+        }
+
+        public static bool isSpriteKlicked(int x, int y, bool isPressed)
+        {
+            return (x == y && (Keyboard.IsKeyPressed(Keyboard.Key.Return) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !isPressed);
         }
 
     }

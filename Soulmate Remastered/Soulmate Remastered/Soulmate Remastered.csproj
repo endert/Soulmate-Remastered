@@ -101,7 +101,7 @@
     <Compile Include="Classes\MapFolder\Blocks.cs" />
     <Compile Include="Classes\MapFolder\Map.cs" />
     <Compile Include="Classes\GameObjectFolder\HitBox.cs" />
-    <Compile Include="Classes\MouseHelp.cs" />
+    <Compile Include="Classes\NavigationHelp.cs" />
     <Compile Include="Classes\SaveGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

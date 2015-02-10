@@ -86,19 +86,19 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 xMouse = 0;
             }
 
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && MouseHelp.isMouseInSprite(continueGame) && !isMouseKlicked) //Continue
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(continueGame) && !isMouseKlicked) //Continue
             {
                 xMouse = 1;
                 isMouseKlicked = true;
             }
 
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && MouseHelp.isMouseInSprite(save) && !isMouseKlicked) //Save
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(save) && !isMouseKlicked) //Save
             {
                 xMouse = 2;
                 isMouseKlicked = true;
             }
 
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && MouseHelp.isMouseInSprite(exit) && !isMouseKlicked) //Exit
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(exit) && !isMouseKlicked) //Exit
             {
                 xMouse = 3;
                 isMouseKlicked = true;

@@ -13,7 +13,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
     {
         private readonly String loadFile = "Saves/save.soul";
         bool isPressed;
-        bool isPressedEnter;
         int x; //für Menüsteuerung
 
         Texture backGroundTexture;
@@ -33,7 +32,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public void initialize()
         {
             isPressed = false;
-            isPressedEnter = true;
+            isPressed = true;
             x = 0;
 
             backGround = new Sprite(backGroundTexture);
@@ -61,6 +60,15 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public EnumGameStates update(GameTime gameTime)
         {
+            if (NavigationHelp.isMouseInSprite(load))
+            {
+                x = 0;
+            }
+            if (NavigationHelp.isMouseInSprite(newGame))
+            {
+                x = 1;
+            }
+
             if (Keyboard.IsKeyPressed(Keyboard.Key.Up) && !isPressed)
             {
                 x = (x + 1) % 2;
@@ -72,9 +80,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 x = (x + 1) % 2;
                 isPressed = true;
             }
-
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.Down) && !Keyboard.IsKeyPressed(Keyboard.Key.Up))
-                isPressed = false;
 
             if (x == 0)
             {
@@ -88,9 +93,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 newGame.Texture = newGameSelected;
             }
 
-            if (x == 0 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
+            if (NavigationHelp.isSpriteKlicked(x, 0, isPressed))
             {
-                isPressedEnter = true;
+                isPressed = true;
                 Console.WriteLine("load Game");
                 AbstractGamePlay.loading = true;
                 SaveGame.loadPath = loadFile;
@@ -106,16 +111,16 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                         return EnumGameStates.village;
                 }
             }
-            if (x == 1 && Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
+            if (NavigationHelp.isSpriteKlicked(x, 1, isPressed))
             {
-                isPressedEnter = true;
+                isPressed = true;
                 Console.WriteLine("new Game");
                 return EnumGameStates.village;
             }
 
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            if (!Keyboard.IsKeyPressed(Keyboard.Key.Return) && !Mouse.IsButtonPressed(Mouse.Button.Left) && !Keyboard.IsKeyPressed(Keyboard.Key.Down) && !Keyboard.IsKeyPressed(Keyboard.Key.Up))
             {
-                isPressedEnter = false;
+                isPressed = false;
             }
 
             return EnumGameStates.loadGame;
