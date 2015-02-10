@@ -140,7 +140,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
                 }
             }
         }
-
+        
         public bool isBehindPlayer()
         {
             Vector2f playerMovingDirection = PlayerHandler.player.getFacingDirection;
