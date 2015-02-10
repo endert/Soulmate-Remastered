@@ -11,7 +11,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
     class MainMenu : GameState
     {
         bool isPressed;
-        bool isMouseKlicked;
         int x; //für Menüsteuerung
 
         Texture backGroundTexture;
@@ -159,7 +158,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 return EnumGameStates.none;
             }
 
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.Return) && !Mouse.IsButtonPressed(Mouse.Button.Left) && !Keyboard.IsKeyPressed(Keyboard.Key.Down) && !Keyboard.IsKeyPressed(Keyboard.Key.Up))
+            if (!Mouse.IsButtonPressed(Mouse.Button.Left) && !NavigationHelp.isAnyKeyPressed())
             {
                 isPressed = false;
             }

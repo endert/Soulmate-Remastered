@@ -22,5 +22,16 @@ namespace Soulmate_Remastered.Classes
             return (x == y && (Keyboard.IsKeyPressed(Keyboard.Key.Return) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !isPressed);
         }
 
+        public static bool isAnyKeyPressed()
+        {
+            for (int i = 0; i < (int)Keyboard.Key.KeyCount; i++)
+            {
+                if (Keyboard.IsKeyPressed((Keyboard.Key)i))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

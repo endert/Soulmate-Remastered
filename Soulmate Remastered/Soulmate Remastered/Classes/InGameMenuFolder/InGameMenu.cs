@@ -1,5 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder;
+using Soulmate_Remastered.Classes.ItemFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +28,12 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         Sprite exit;
 
         bool isPressed = false;
-        bool isMouseKlicked;
         int x = 0; //Inventarsteurung
-        int xMouse = 0;
+
+        readonly String saveFile = "Saves/save.soul";
+        
+        public bool inGameMenuOpen { get; set; }
+        public bool closeGame { get; set; }
 
         public Vector2f getInGameMenuBackGroundPosition()
         {
@@ -50,9 +55,19 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             return new Vector2f(getContinueGamePosition().X, inGameMenuBackGround.Position.Y + 300);
         }
 
-        public int getX() { return this.x; }
-        public int getXMouse() { return this.xMouse; }
-
+        public bool getInGameMenuOpen()
+        {
+            if (!Mouse.IsButtonPressed(Mouse.Button.Left) && !NavigationHelp.isAnyKeyPressed())
+                isPressed = false;
+            
+            if(Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isPressed && !inGameMenuOpen && !Inventory.inventoryOpen)
+            {
+                isPressed = true;
+                inGameMenuOpen = true;
+            }
+            return inGameMenuOpen;
+        }
+        
         public InGameMenu()
         {
             inGameMenuBackGround = new Sprite(inGameMenuBackGroundTexture);
@@ -70,38 +85,33 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public void update(GameTime gameTime)
         {
-            selected();
+            getInGameMenuOpen();
+            if (inGameMenuOpen)
+            {
+                manage();
 
-            inGameMenuBackGround.Position = getInGameMenuBackGroundPosition();
-            continueGame.Position = getContinueGamePosition();
-            save.Position = getSavePosition();
-            exit.Position = getExitPosition();
+                inGameMenuBackGround.Position = getInGameMenuBackGroundPosition();
+                continueGame.Position = getContinueGamePosition();
+                save.Position = getSavePosition();
+                exit.Position = getExitPosition();
+            }
         }
 
-        public void selected()
+        public void manage()
         {
-            if (!Mouse.IsButtonPressed(Mouse.Button.Left))
+            if (NavigationHelp.isMouseInSprite(continueGame)) //Continue
             {
-                isMouseKlicked = false;
-                xMouse = 0;
+                x = 0;
             }
 
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(continueGame) && !isMouseKlicked) //Continue
+            if (NavigationHelp.isMouseInSprite(save)) //Save
             {
-                xMouse = 1;
-                isMouseKlicked = true;
+                x = 1;
             }
 
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(save) && !isMouseKlicked) //Save
+            if (NavigationHelp.isMouseInSprite(exit)) //Exit
             {
-                xMouse = 2;
-                isMouseKlicked = true;
-            }
-
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(exit) && !isMouseKlicked) //Exit
-            {
-                xMouse = 3;
-                isMouseKlicked = true;
+                x = 2;
             }
             
             if (Keyboard.IsKeyPressed(Keyboard.Key.Up) && !isPressed)
@@ -116,7 +126,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 isPressed = true;
             }
 
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.Down) && !Keyboard.IsKeyPressed(Keyboard.Key.Up))
+            if (!Mouse.IsButtonPressed(Mouse.Button.Left) && !NavigationHelp.isAnyKeyPressed())
                 isPressed = false;
 
             if (x == 0)
@@ -139,6 +149,29 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 save = new Sprite(saveNotSelected);
                 exit = new Sprite(exitSelected);
             }
+
+            if (NavigationHelp.isSpriteKlicked(x, 0, isPressed) || (Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isPressed))
+            {
+                isPressed = true;
+                inGameMenuOpen = false;
+            }
+
+            if (NavigationHelp.isSpriteKlicked(x, 1, isPressed))
+            {
+                isPressed = true;
+                Console.WriteLine("saving Game");
+                SaveGame.savePath = saveFile;
+                SaveGame.saveGame();
+                Console.WriteLine("successfuly saved Game");
+            }
+
+            if (NavigationHelp.isSpriteKlicked(x, 2, isPressed))
+            {
+                isPressed = true;
+                inGameMenuOpen = false;
+                closeGame = true;
+            }
+            closeGame = false;
         }
 
         public void draw(RenderWindow window)

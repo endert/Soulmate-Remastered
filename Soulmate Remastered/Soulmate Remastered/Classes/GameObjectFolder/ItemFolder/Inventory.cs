@@ -50,6 +50,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         bool isMouseKlicked;
         int x = 0, y = 0; //Inventarsteurung
 
+        public static bool inventoryOpen { get; set; }
+
         uint inventoryWidth;
         uint inventoryLength;
 
