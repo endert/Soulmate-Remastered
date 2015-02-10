@@ -22,12 +22,12 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture displayedPlayerTexture = new Texture("Pictures/Inventory/PlayerFrontInventory.png");
         Sprite displayedPlayer;
 
-        Texture inventoryTabNotSelected = new Texture("Pictures/Inventory/InventoryReiterNotSelected.png");
-        Texture inventoryTabSelected = new Texture("Pictures/Inventory/InventoryReiterSelected.png");
+        Texture inventoryTabNotSelected = new Texture("Pictures/Inventory/InventoryTabNotSelected.png");
+        Texture inventoryTabSelected = new Texture("Pictures/Inventory/InventoryTabSelected.png");
         Sprite inventoryTab;
 
-        Texture petTabNotSelected = new Texture("Pictures/Inventory/petReiterNotSelected.png");
-        Texture petTabSelected = new Texture("Pictures/Inventory/petReiterSelected.png");
+        Texture petTabNotSelected = new Texture("Pictures/Inventory/petTabNotSelected.png");
+        Texture petTabSelected = new Texture("Pictures/Inventory/petTabSelected.png");
         Sprite petTab;
 
 
@@ -119,7 +119,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             selected.Position = inventoryMatrixPosition;
 
             inventoryTab = new Sprite(inventoryTabNotSelected);
-            inventoryTab.Position = new Vector2f(inventoryMatrixPosition.X, inventory.Position.Y + 5);
+            inventoryTab.Position = new Vector2f(inventoryMatrixPosition.X + 5, inventoryMatrixPosition.Y - 25);
             petTab = new Sprite(petTabNotSelected);
             petTab.Position = new Vector2f(inventoryTab.Position.X + 110, inventoryTab.Position.Y);
 
@@ -273,7 +273,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         {
             window.Draw(gold);
             window.Draw(goldSprite);
-            window.Draw(displayedPlayer);
+            //window.Draw(displayedPlayer);
             window.Draw(attack);
             window.Draw(defense);
             window.Draw(exp);

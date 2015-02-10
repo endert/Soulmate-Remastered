@@ -274,16 +274,16 @@
     <Content Include="Pictures\Inventory\Inventory.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Inventory\InventoryReiterNotSelected.png">
+    <Content Include="Pictures\Inventory\InventoryTabNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Inventory\InventoryReiterSelected.png">
+    <Content Include="Pictures\Inventory\InventoryTabSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Inventory\PetReiterNotSelected.png">
+    <Content Include="Pictures\Inventory\PetTabNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Inventory\PetReiterSelected.png">
+    <Content Include="Pictures\Inventory\PetTabSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Inventory\PlayerFrontInventory.png">
@@ -295,22 +295,10 @@
     <Content Include="Pictures\Items\Equipment\Pet\PetItem.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Items\Equipment\Player\Schwert.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Items\InventoryReiterNotSelected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Items\InventoryReiterSelected.png">
+    <Content Include="Pictures\Items\Equipment\Player\Weapon\Sword.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Items\Money\Gold.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Items\PetReiterNotSelected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Items\PetReiterSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Items\TestItem%28Pete%29.png">
