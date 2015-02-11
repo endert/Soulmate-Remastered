@@ -17,9 +17,9 @@ namespace Soulmate_Remastered.Classes
                  && Mouse.GetPosition(window).Y >= sprite.Position.Y && Mouse.GetPosition(window).Y <= sprite.Position.Y + sprite.Texture.Size.Y);
         }
 
-        public static bool isSpriteKlicked(int x, int y, bool isPressed)
+        public static bool isSpriteKlicked(int x, int y, bool isPressed, Sprite sprite)
         {
-            return (x == y && (Keyboard.IsKeyPressed(Keyboard.Key.Return) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !isPressed);
+            return (x == y && (Keyboard.IsKeyPressed(Keyboard.Key.Return) || (Mouse.IsButtonPressed(Mouse.Button.Left) && isMouseInSprite(sprite))) && !isPressed);
         }
 
         public static bool isAnyKeyPressed()

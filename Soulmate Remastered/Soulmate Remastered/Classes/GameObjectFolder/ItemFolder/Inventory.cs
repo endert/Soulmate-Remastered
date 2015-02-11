@@ -46,7 +46,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public Vector2f inventoryMatrixPosition { get { return new Vector2f(inventory.Position.X + 306, inventory.Position.Y + 101); } }
 
-        bool isPressed = false;
+        public bool isPressed = false;
         bool isMouseKlicked;
         int xInInventory = 0, yInInventory = 0; //Inventarsteurung
         int yInEquipmentSlots = 0;
@@ -97,6 +97,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             xInInventory = 0;
             yInInventory = 0;
             inInventory = true;
+            inTab = false;
+            inEquipmentSlots = false;
         }
 
         public void load(String inventoryString)
@@ -184,8 +186,29 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             return true;
         }
 
+        public bool getInventoryOpen()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.I) && !isPressed && !inventoryOpen)
+            {
+                isPressed = true;
+                setOpen();
+                inventoryOpen = true;
+            }
+
+            if (!NavigationHelp.isAnyKeyPressed())
+                isPressed = false;
+
+            return inventoryOpen;
+        }
+
         public void managment()
         {
+            if ((Keyboard.IsKeyPressed(Keyboard.Key.I) || Keyboard.IsKeyPressed(Keyboard.Key.Escape)) && !isPressed)
+            {
+                isPressed = true;
+                inventoryOpen = false;
+            }
+            
             if (!Mouse.IsButtonPressed(Mouse.Button.Left))
                 isMouseKlicked = false;
 
@@ -324,8 +347,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             }
 //=====================================================================================================================
 
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.Down) && !Keyboard.IsKeyPressed(Keyboard.Key.Up) && !Keyboard.IsKeyPressed(Keyboard.Key.Right) 
-                && !Keyboard.IsKeyPressed(Keyboard.Key.Left) && !Keyboard.IsKeyPressed(Keyboard.Key.A) && !Keyboard.IsKeyPressed(Keyboard.Key.U))
+            if (!NavigationHelp.isAnyKeyPressed() && !Mouse.IsButtonPressed(Mouse.Button.Left))
                 isPressed = false;
 
             if (inInventory)
@@ -358,10 +380,14 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void update(GameTime gameTime)
         {
-            spriteAndTextPositionUpdate();
-            PlayerHandler.player.cheatUpdate();
-            ItemHandler.updateInventoryMatrix(gameTime);
-            managment();
+            getInventoryOpen();
+            if (inventoryOpen)
+            {
+                spriteAndTextPositionUpdate();
+                PlayerHandler.player.cheatUpdate();
+                ItemHandler.updateInventoryMatrix(gameTime);
+                managment();
+            }
         }
 
         public void setTabs()

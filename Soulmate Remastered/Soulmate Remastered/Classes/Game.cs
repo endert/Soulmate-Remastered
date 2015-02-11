@@ -13,6 +13,8 @@ namespace Soulmate_Remastered.Classes
         public static uint windowSizeX = 1280;
         public static uint windowSizeY = 720;
 
+        public static bool isPressed;
+
         EnumGameStates currentGameState = EnumGameStates.titleSreen;
         EnumGameStates prevGameState;
 
@@ -62,6 +64,9 @@ namespace Soulmate_Remastered.Classes
                     break;
                 case EnumGameStates.loadGame:
                     gameState = new LoadGame();
+                    break;
+                case EnumGameStates.credits:
+                    gameState = new Credits();
                     break;
                 //case EGameStates.gameWon:
                 //    gameState = new GameWon();

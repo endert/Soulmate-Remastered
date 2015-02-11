@@ -229,7 +229,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         {
             if (getCurrentHP <= 0)
             {
-                drop();
                 isAlive = false;
             }
 

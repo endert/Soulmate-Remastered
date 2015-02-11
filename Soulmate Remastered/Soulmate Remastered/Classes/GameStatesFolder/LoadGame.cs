@@ -20,9 +20,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         Texture loadNotSelected;
         Texture newGameSelected;
         Texture newGameNotSelected;
+        Texture backSelected;
+        Texture backNotSelected;
 
         Sprite load;
         Sprite newGame;
+        Sprite back;
         Sprite backGround;
 
         View view;
@@ -42,7 +45,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             load.Position = new Vector2f(300, 250);
 
             newGame = new Sprite(newGameNotSelected);
-            newGame.Position = new Vector2f(300, 400);
+            newGame.Position = new Vector2f(load.Position.X, load.Position.Y + 150);
+
+            back = new Sprite(backNotSelected);
+            back.Position = MainMenu.getBackPostion();
 
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
@@ -56,6 +62,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             newGameSelected = new Texture("Pictures/Menu/MainMenu/NewGame/NewGameSelected.png");
             newGameNotSelected = new Texture("Pictures/Menu/MainMenu/NewGame/NewGameNotSelected.png");
+
+            backSelected = new Texture("Pictures/Menu/MainMenu/Back/BackSelected.png");
+            backNotSelected = new Texture("Pictures/Menu/MainMenu/Back/BackNotSelected.png");
         }
 
         public EnumGameStates update(GameTime gameTime)
@@ -93,7 +102,23 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 newGame.Texture = newGameSelected;
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 0, isPressed))
+            if (NavigationHelp.isMouseInSprite(back))
+            {
+                back.Texture = backSelected;
+            }
+
+            if (!NavigationHelp.isMouseInSprite(back))
+            {
+                back.Texture = backNotSelected;
+            }
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Back) || (NavigationHelp.isMouseInSprite(back) && Mouse.IsButtonPressed(Mouse.Button.Left)))
+            {
+                isPressed = true;
+                return EnumGameStates.mainMenu;
+            }
+
+            if (NavigationHelp.isSpriteKlicked(x, 0, isPressed, load))
             {
                 isPressed = true;
                 Console.WriteLine("load Game");
@@ -111,10 +136,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                         return EnumGameStates.village;
                 }
             }
-            if (NavigationHelp.isSpriteKlicked(x, 1, isPressed))
+            if (NavigationHelp.isSpriteKlicked(x, 1, isPressed, newGame))
             {
                 isPressed = true;
                 Console.WriteLine("new Game");
+                AbstractGamePlay.startNewGame = true;
                 return EnumGameStates.village;
             }
 
@@ -132,6 +158,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             window.SetView(view);
             window.Draw(load);
             window.Draw(newGame);
+            window.Draw(back);
         }
     }
 }

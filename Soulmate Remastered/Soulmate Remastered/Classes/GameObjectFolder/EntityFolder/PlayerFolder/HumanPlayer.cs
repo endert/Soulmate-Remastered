@@ -26,7 +26,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             sprite.Position = spawnPosition;
             position = spawnPosition;
             hitBox = new HitBox(sprite.Position, textureList[0].Size.X, textureList[0].Size.Y);
-            attackHitBox = new HitBox(attckHitBoxPositionUpdate(), textureList[2].Size.X - textureList[0].Size.X, 85);
+            attackHitBox = new HitBox(attackHitBoxPositionUpdate(), textureList[2].Size.X - textureList[0].Size.X, 85);
             movementSpeedConstant = 0.4f;
 
             lvl = 1;
@@ -49,7 +49,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             }
         }
 
-        public override Vector2f attckHitBoxPositionUpdate()
+        public override Vector2f attackHitBoxPositionUpdate()
         {
             if (numFacingDirection == 2)
             {

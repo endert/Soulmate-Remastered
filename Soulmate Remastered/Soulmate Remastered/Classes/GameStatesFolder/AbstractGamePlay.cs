@@ -7,6 +7,7 @@ using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.HUDFolder;
 using Soulmate_Remastered.Classes.InGameMenuFolder;
+using Soulmate_Remastered.Classes.ItemFolder;
 using Soulmate_Remastered.Classes.MapFolder;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
     abstract class AbstractGamePlay : GameState
     {
         public static bool loading = false;
+        public static bool startNewGame = false;
         protected readonly String savePlayer = "Saves/player.soul";
         protected GameTime time = new GameTime();
         protected View viewInventory;
@@ -31,43 +33,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public static View view;
             public static View VIEW { get { return view; } }
 
-        protected bool inventoryOpen;
-        protected bool isKlickedInventory = false;
-
         protected bool isKlicked = false;
 
         protected int index = 0;
         protected int returnValue = 0;
-
-        public bool getInventoryOpen()
-        {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.I) && !isKlickedInventory && !inventoryOpen)
-            {
-                isKlickedInventory = true;
-                ItemHandler.playerInventory.setOpen();
-                return inventoryOpen = true;
-            }
-
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.I))
-                isKlickedInventory = false;
-
-            if ((Keyboard.IsKeyPressed(Keyboard.Key.I) || Keyboard.IsKeyPressed(Keyboard.Key.Escape)) && !isKlickedInventory && inventoryOpen == true)
-            {
-                isKlickedInventory = true;
-                return inventoryOpen = false;
-            }
-
-            return false;
-        }
-
-        public void inventoryUpdate(GameTime gameTime)
-        {
-            getInventoryOpen();
-            if (inventoryOpen == true)
-            {
-                ItemHandler.playerInventory.update(gameTime);
-            }
-        }
                 
         public void initialize()
         {
@@ -92,7 +61,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 Console.WriteLine("successfully loaded");
                 loading = false;
             }
-            if (File.Exists(savePlayer))
+            if (File.Exists(savePlayer) && !startNewGame)
             {
                 SaveGame.loadPath = savePlayer;
                 SaveGame.loadMapChange();
@@ -104,7 +73,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public void GameUpdate(GameTime gameTime)
         {
             time.Update();
-            inventoryUpdate(gameTime);
+            ItemHandler.playerInventory.update(gameTime);
             inGameMenu.update(gameTime);
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !isKlicked)
@@ -120,14 +89,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 isKlicked = false;
             }
 
-            if (inGameMenu.closeGame) //if exit clicked
-            {
-                gameObjectHandler.deleate();
-                File.Delete(savePlayer);
-                returnValue = 1;
-            }
-
-            if (!inventoryOpen && !inGameMenu.inGameMenuOpen)
+            if (!Inventory.inventoryOpen && !inGameMenu.inGameMenuOpen)
             {
                 view.Move(new Vector2f((PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)),
                                        (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height * 5 / 6))) - view.Center); //View als letztes updaten und der sprite springt nicht mehr 
@@ -142,6 +104,13 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                     returnValue = 1;
                 }
             }
+
+            if (inGameMenu.closeGame) //if exit clicked
+            {
+                gameObjectHandler.deleate();
+                File.Delete(savePlayer);
+                returnValue = 1;
+            }
         }
 
         public void draw(RenderWindow window)
@@ -152,7 +121,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             gameObjectHandler.draw(window);
             dialoges.draw(window);
 
-            if (inventoryOpen == true)
+            if (Inventory.inventoryOpen == true)
             {
                 window.SetView(viewInventory);
                 ItemHandler.playerInventory.draw(window);
