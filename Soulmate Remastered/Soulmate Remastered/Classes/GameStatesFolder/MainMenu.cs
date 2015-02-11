@@ -124,13 +124,13 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 x = 4;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Up) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Up) && !isPressed)
             {
                 x = (x + 4) % 5;
                 isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Down) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Down) && !isPressed)
             {
                 x = (x + 1) % 5;
                 isPressed = true;
@@ -220,7 +220,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 back.Texture = backNotSelected;
             }
 
-            if(Keyboard.IsKeyPressed(Keyboard.Key.Back) || (NavigationHelp.isMouseInSprite(back) && Mouse.IsButtonPressed(Mouse.Button.Left)))
+            if(Keyboard.IsKeyPressed(Controls.Escape) || (NavigationHelp.isMouseInSprite(back) && Mouse.IsButtonPressed(Mouse.Button.Left)))
             {
                 isPressed = true;
                 return EnumGameStates.titleSreen;

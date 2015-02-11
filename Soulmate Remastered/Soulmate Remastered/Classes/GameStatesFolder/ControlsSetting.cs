@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
-    class Controls : GameState
+    class ControlsSetting : GameState
     {
         bool isPressed;
      
@@ -65,7 +65,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 back.Texture = backNotSelected;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Back) || (NavigationHelp.isMouseInSprite(back) && Mouse.IsButtonPressed(Mouse.Button.Left)))
+            if (Keyboard.IsKeyPressed(Controls.Escape) || (NavigationHelp.isMouseInSprite(back) && Mouse.IsButtonPressed(Mouse.Button.Left)))
             {
                 isPressed = true;
                 return EnumGameStates.mainMenu;

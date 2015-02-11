@@ -78,13 +78,13 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 x = 1;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Up) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Up) && !isPressed)
             {
                 x = (x + 1) % 2;
                 isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Down) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Down) && !isPressed)
             {
                 x = (x + 1) % 2;
                 isPressed = true;
@@ -112,7 +112,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 back.Texture = backNotSelected;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Back) || (NavigationHelp.isMouseInSprite(back) && Mouse.IsButtonPressed(Mouse.Button.Left)))
+            if (Keyboard.IsKeyPressed(Controls.Escape) || (NavigationHelp.isMouseInSprite(back) && Mouse.IsButtonPressed(Mouse.Button.Left)))
             {
                 isPressed = true;
                 return EnumGameStates.mainMenu;
@@ -144,7 +144,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 return EnumGameStates.village;
             }
 
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.Return) && !Mouse.IsButtonPressed(Mouse.Button.Left) && !Keyboard.IsKeyPressed(Keyboard.Key.Down) && !Keyboard.IsKeyPressed(Keyboard.Key.Up))
+            if (!Keyboard.IsKeyPressed(Keyboard.Key.Return) && !Mouse.IsButtonPressed(Mouse.Button.Left) && !Keyboard.IsKeyPressed(Controls.Down) && !Keyboard.IsKeyPressed(Controls.Up))
             {
                 isPressed = false;
             }

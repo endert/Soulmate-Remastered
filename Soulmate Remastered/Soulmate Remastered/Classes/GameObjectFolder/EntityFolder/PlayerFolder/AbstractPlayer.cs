@@ -94,16 +94,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             Vector2f result = new Vector2f(0, 0);
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.A))
+            if (Keyboard.IsKeyPressed(Controls.Left))
                 result.X = -movementSpeed;
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.W))
+            if (Keyboard.IsKeyPressed(Controls.Up))
                 result.Y = -movementSpeed;
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.S))
+            if (Keyboard.IsKeyPressed(Controls.Down))
                 result.Y = movementSpeed;
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.D))
+            if (Keyboard.IsKeyPressed(Controls.Right))
                 result.X = movementSpeed;
 
             return result;
@@ -155,13 +155,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public bool pressedKeyForAttack()
         {
-            if ((Keyboard.IsKeyPressed(Keyboard.Key.Q) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !isPressedForAttack)
+            if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !isPressedForAttack)
             {
                 isPressedForAttack = true;
                 return true;
             }
 
-            if (isPressedForAttack && !Keyboard.IsKeyPressed(Keyboard.Key.Q) && !Mouse.IsButtonPressed(Mouse.Button.Left))
+            if (isPressedForAttack && !Keyboard.IsKeyPressed(Controls.ButtonForAttack) && !Mouse.IsButtonPressed(Mouse.Button.Left))
             {
                 isPressedForAttack = false;
             }
@@ -170,13 +170,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public bool pressedKeyForShoot()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.E) && !isPressedForShoot)
+            if (Keyboard.IsKeyPressed(Controls.ButtonForShoot) && !isPressedForShoot)
             {
                 isPressedForShoot = true;
                 return true;
             }
 
-            if (isPressedForShoot && !Keyboard.IsKeyPressed(Keyboard.Key.E))
+            if (isPressedForShoot && !Keyboard.IsKeyPressed(Controls.ButtonForShoot))
             {
                 isPressedForShoot = false;
             }
@@ -322,7 +322,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         //Cheats==============================================================
         public void moreHP()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.H))
+            if (Keyboard.IsKeyPressed(Controls.MoreHp))
             {
                 float c = 50;
                 maxHP += c;
@@ -332,7 +332,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void makeHeile()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.B))
+            if (Keyboard.IsKeyPressed(Controls.Heal))
             {
                 currentHP = maxHP;
             }
@@ -340,7 +340,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void expCheat()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.X))
+            if (Keyboard.IsKeyPressed(Controls.MoreExp))
             {
                 currentEXP += 500;
             }
@@ -348,7 +348,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void moneyMoneyMoney()
         {
-            if(Keyboard.IsKeyPressed(Keyboard.Key.M))
+            if(Keyboard.IsKeyPressed(Controls.MoreMoney))
             {
                 gold += 500;
             }
@@ -356,7 +356,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void cheatDef()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.K))
+            if (Keyboard.IsKeyPressed(Controls.MoreDef))
             {
                 def += 1;
             }
@@ -364,7 +364,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void cheatAtt()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.O))
+            if (Keyboard.IsKeyPressed(Controls.MoreAtt))
             {
                 att += 1;
             }
@@ -372,7 +372,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void cheatFusionValue()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.F))
+            if (Keyboard.IsKeyPressed(Controls.MoreFusionValue))
             {
                 setCurrentFusionValue();
             }
@@ -380,7 +380,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void drawHitBoxOnOff()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.F1) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.ShowHitBox) && !isPressed)
             {
                 if (HitBox.VISIBLE == false)
                 {
@@ -394,7 +394,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 isPressed = true;
             }
 
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.F1))
+            if (!Keyboard.IsKeyPressed(Controls.ShowHitBox))
                 isPressed = false;
         }
         //====================================================================

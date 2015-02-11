@@ -63,7 +63,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             if (!Mouse.IsButtonPressed(Mouse.Button.Left) && !NavigationHelp.isAnyKeyPressed())
                 isPressed = false;
             
-            if (!isPressed && Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !ItemHandler.playerInventory.isPressed && !inGameMenuOpen && !Inventory.inventoryOpen)
+            if (!isPressed && Keyboard.IsKeyPressed(Controls.Escape) && !ItemHandler.playerInventory.isPressed && !inGameMenuOpen && !Inventory.inventoryOpen)
             {
                 isPressed = true;
                 inGameMenuOpen = true;
@@ -117,13 +117,13 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 x = 2;
             }
             
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Up) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Up) && !isPressed)
             {
                 x = (x + 2) % 3;
                 isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Down) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Down) && !isPressed)
             {
                 x = (x + 1) % 3;
                 isPressed = true;
@@ -153,7 +153,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 exit = new Sprite(exitSelected);
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 0, isPressed, continueGame) || (Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isPressed))
+            if (NavigationHelp.isSpriteKlicked(x, 0, isPressed, continueGame) || (Keyboard.IsKeyPressed(Controls.Escape) && !isPressed))
             {
                 isPressed = true;
                 inGameMenuOpen = false;

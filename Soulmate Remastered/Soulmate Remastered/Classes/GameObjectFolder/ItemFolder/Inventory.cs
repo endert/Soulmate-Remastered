@@ -170,8 +170,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             lvl.Position = new Vector2f(exp.Position.X, exp.Position.Y + exp.CharacterSize);
 
             gold.DisplayedString = "Gold: " + PlayerHandler.player.gold;
-            gold.Position = new Vector2f(lvl.Position.X, lvl.Position.Y + 45);
-            goldSprite.Position = new Vector2f(gold.Position.X + gold.DisplayedString.Length * (gold.CharacterSize / 2.3f), gold.Position.Y);
+            goldSprite.Position = new Vector2f(lvl.Position.X - 10, lvl.Position.Y + 45);
+            gold.Position = new Vector2f(goldSprite.Position.X + (goldSprite.Texture.Size.X / 2), goldSprite.Position.Y);
         }
 
         public bool isFull()
@@ -188,7 +188,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public bool getInventoryOpen()
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.I) && !isPressed && !inventoryOpen)
+            if (Keyboard.IsKeyPressed(Controls.OpenInventar) && !isPressed && !inventoryOpen)
             {
                 isPressed = true;
                 setOpen();
@@ -203,7 +203,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void managment()
         {
-            if ((Keyboard.IsKeyPressed(Keyboard.Key.I) || Keyboard.IsKeyPressed(Keyboard.Key.Escape)) && !isPressed)
+            if ((Keyboard.IsKeyPressed(Controls.OpenInventar) || Keyboard.IsKeyPressed(Controls.Escape)) && !isPressed)
             {
                 isPressed = true;
                 inventoryOpen = false;
@@ -222,7 +222,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 isMouseKlicked = true;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Up) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Up) && !isPressed)
             {
                 if (yInInventory == 0 && inInventory)  // enter Tabs
                 {
@@ -243,7 +243,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Down) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Down) && !isPressed)
             {
                 if (inTab)
                 {
@@ -261,7 +261,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Right) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Right) && !isPressed)
             {
                 if (inEquipmentSlots)
                 {
@@ -279,7 +279,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Left) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Left) && !isPressed)
             {
                 if (xInInventory == 0 && inInventory)  //enter equipmentSlots
                 {
@@ -303,7 +303,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 //inInventory management (Matrix[x,y]) =============================================================================
             if (inInventory)    
             {
-                if (Keyboard.IsKeyPressed(Keyboard.Key.A) && !isPressed)    //Item Swaps
+                if (Keyboard.IsKeyPressed(Controls.ButtonForAttack) && !isPressed)    //Item Swaps
                 {
                     if (!itemIsSelected)
                     {
@@ -332,7 +332,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     isPressed = true;
                 }
 
-                if (Keyboard.IsKeyPressed(Keyboard.Key.U) && !isPressed)
+                if (Keyboard.IsKeyPressed(Controls.UseItem) && !isPressed)
                 {
                     if (inventoryMatrix[yInInventory, xInInventory] != null)
                     {

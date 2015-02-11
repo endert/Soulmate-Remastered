@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AbstractGame.cs" />
+    <Compile Include="Classes\Controls.cs" />
     <Compile Include="Classes\DialogeBoxFolder\DialogeHandler.cs" />
     <Compile Include="Classes\Game.cs" />
     <Compile Include="Classes\DialogeBoxFolder\DialogeBox.cs" />
@@ -85,7 +86,7 @@
     <Compile Include="Classes\GameObjectFolder\ItemFolder\TestItem.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameStatesFolder\AbstractGamePlay.cs" />
-    <Compile Include="Classes\GameStatesFolder\Controls.cs" />
+    <Compile Include="Classes\GameStatesFolder\ControlsSetting.cs" />
     <Compile Include="Classes\GameStatesFolder\Credits.cs" />
     <Compile Include="Classes\GameStatesFolder\InGame.cs" />
     <Compile Include="Classes\GameStatesFolder\LoadGame.cs" />

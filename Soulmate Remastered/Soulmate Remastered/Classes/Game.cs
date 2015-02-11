@@ -51,7 +51,7 @@ namespace Soulmate_Remastered.Classes
                     gameState = new InGame();
                     break;
                 case EnumGameStates.controls:
-                    gameState = new Controls();
+                    gameState = new ControlsSetting();
                     break;
                 case EnumGameStates.options:
                     gameState = new Options();
