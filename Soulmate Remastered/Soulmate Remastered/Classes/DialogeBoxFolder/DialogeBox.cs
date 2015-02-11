@@ -12,7 +12,7 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
     {
         public bool isOpen { get; set; }
         Vector2f position;
-        Texture background = new Texture("Pictures/DialogeBox/DialogeBoxBackground.png");
+        Texture background = new Texture("Pictures/Entities/DialogeBox/DialogeBoxBackground.png");
         Sprite dialogeBox;
         String theWholeDialoge;
         String oneLine;
