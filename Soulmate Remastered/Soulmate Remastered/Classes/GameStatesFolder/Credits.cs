@@ -8,15 +8,15 @@ using SFML.Window;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
-    class Options : GameState
+    class Credits : GameState
     {
         bool isPressed;
 
-        Texture optionsTexture;
+        Texture creditsTexture;
         Texture backSelected;
         Texture backNotSelected;
 
-        Sprite options;
+        Sprite credits;
         Sprite back;
 
         View view;
@@ -25,8 +25,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             isPressed = true;
 
-            options = new Sprite(optionsTexture);
-            options.Position = new Vector2f(0, 0);
+            credits = new Sprite(creditsTexture);
+            credits.Position = new Vector2f(0, 0);
 
             back = new Sprite(backNotSelected);
             back.Position = MainMenu.getBackPostion();
@@ -36,7 +36,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public void loadContent()
         {
-            optionsTexture = new Texture("Pictures/Menu/MainMenu/Options/OptionsMenu.png");
+            creditsTexture = new Texture("Pictures/Menu/MainMenu/Credits/CreditsMenu.png");
 
             backSelected = new Texture("Pictures/Menu/MainMenu/Back/BackSelected.png");
             backNotSelected = new Texture("Pictures/Menu/MainMenu/Back/BackNotSelected.png");
@@ -71,12 +71,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 return EnumGameStates.mainMenu;
             }
 
-            return EnumGameStates.options;
+            return EnumGameStates.credits;
         }
 
         public void draw(RenderWindow window)
         {
-            window.Draw(options);
+            window.Draw(credits);
             window.Draw(back);
         }
     }

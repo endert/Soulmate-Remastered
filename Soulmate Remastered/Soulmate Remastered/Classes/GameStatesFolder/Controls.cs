@@ -10,18 +10,26 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class Controls : GameState
     {
-        bool isPressedEnter;
+        bool isPressed;
      
         Texture controlsTexture;
+        Texture backSelected;
+        Texture backNotSelected;
+
         Sprite controls;
+        Sprite back;
 
         View view;
 
         public void initialize()
         {
-            isPressedEnter = true;
+            isPressed = true;
+
             controls = new Sprite(controlsTexture);
             controls.Position = new Vector2f(0, 0);
+
+            back = new Sprite(backNotSelected);
+            back.Position = MainMenu.getBackPostion();
 
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
@@ -29,19 +37,38 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public void loadContent()
         {
             controlsTexture = new Texture("Pictures/Menu/MainMenu/Controls/ControlsMenu.png");
+
+            backSelected = new Texture("Pictures/Menu/MainMenu/Back/BackSelected.png");
+            backNotSelected = new Texture("Pictures/Menu/MainMenu/Back/BackNotSelected.png");
         }
 
         public EnumGameStates update(GameTime gameTime)
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressedEnter)
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressed)
             {
-                isPressedEnter = true;
+                isPressed = true;
                 return EnumGameStates.mainMenu;
             }
 
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            if (!NavigationHelp.isAnyKeyPressed())
             {
-                isPressedEnter = false;
+                isPressed = false;
+            }
+
+            if (NavigationHelp.isMouseInSprite(back))
+            {
+                back.Texture = backSelected;
+            }
+
+            if (!NavigationHelp.isMouseInSprite(back))
+            {
+                back.Texture = backNotSelected;
+            }
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Back) || (NavigationHelp.isMouseInSprite(back) && Mouse.IsButtonPressed(Mouse.Button.Left)))
+            {
+                isPressed = true;
+                return EnumGameStates.mainMenu;
             }
 
             return EnumGameStates.controls;
@@ -50,6 +77,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public void draw(RenderWindow window)
         {
             window.Draw(controls);
+            window.Draw(back);
         }
     }
 }

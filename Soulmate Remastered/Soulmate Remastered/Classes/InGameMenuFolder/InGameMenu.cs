@@ -1,6 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.ItemFolder;
 using System;
 using System.Collections.Generic;
@@ -57,10 +58,12 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public bool getInGameMenuOpen()
         {
+            //isPressed = true;
+
             if (!Mouse.IsButtonPressed(Mouse.Button.Left) && !NavigationHelp.isAnyKeyPressed())
                 isPressed = false;
             
-            if(Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isPressed && !inGameMenuOpen && !Inventory.inventoryOpen)
+            if (!isPressed && Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !ItemHandler.playerInventory.isPressed && !inGameMenuOpen && !Inventory.inventoryOpen)
             {
                 isPressed = true;
                 inGameMenuOpen = true;
@@ -150,13 +153,13 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 exit = new Sprite(exitSelected);
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 0, isPressed) || (Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isPressed))
+            if (NavigationHelp.isSpriteKlicked(x, 0, isPressed, continueGame) || (Keyboard.IsKeyPressed(Keyboard.Key.Escape) && !isPressed))
             {
                 isPressed = true;
                 inGameMenuOpen = false;
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 1, isPressed))
+            if (NavigationHelp.isSpriteKlicked(x, 1, isPressed, save))
             {
                 isPressed = true;
                 Console.WriteLine("saving Game");
@@ -165,13 +168,14 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 Console.WriteLine("successfuly saved Game");
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 2, isPressed))
+            closeGame = false;
+            if (NavigationHelp.isSpriteKlicked(x, 2, isPressed, exit))
             {
                 isPressed = true;
                 inGameMenuOpen = false;
                 closeGame = true;
             }
-            closeGame = false;
+            
         }
 
         public void draw(RenderWindow window)
