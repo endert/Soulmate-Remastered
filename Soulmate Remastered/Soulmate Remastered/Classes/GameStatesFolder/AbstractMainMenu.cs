@@ -44,9 +44,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public virtual void loadContent()
         {
             backGroundTexture = new Texture("Pictures/Menu/MainMenu/Background.png");
-            
-            backSelected = new Texture("Pictures/Menu/MainMenu/Back/BackSelected.png");
+
             backNotSelected = new Texture("Pictures/Menu/MainMenu/Back/BackNotSelected.png");
+            backSelected = new Texture("Pictures/Menu/MainMenu/Back/BackSelected.png");
         }
 
         public abstract EnumGameStates update(GameTime gameTime);

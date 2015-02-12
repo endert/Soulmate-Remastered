@@ -10,8 +10,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class Options : AbstractMainMenu
     {
-        Texture optionsTexture;
-        Sprite options;
+        protected Texture optionsTexture;
+        protected Sprite options;
         
         public override void initialize()
         {

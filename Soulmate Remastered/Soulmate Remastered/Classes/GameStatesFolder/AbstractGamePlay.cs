@@ -107,6 +107,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 File.Delete(savePlayer);
                 returnValue = 1;
             }
+
+            if (inGameMenu.optionsOpen)
+            {
+                returnValue = 3;
+            }
         }
 
         public void draw(RenderWindow window)
