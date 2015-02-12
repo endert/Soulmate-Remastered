@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Classes.CheatConsoleFolder;
 using Soulmate_Remastered.Classes.DialogeBoxFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder;
@@ -20,6 +21,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     abstract class AbstractGamePlay : GameState
     {
+        public static CheatConsole cheatConsole;
         public static bool loading = false;
         public static bool startNewGame = false;
         protected readonly String savePlayer = "Saves/player.soul";
@@ -42,6 +44,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             time.Start();
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
             viewInventory = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
+            cheatConsole = new CheatConsole();
         }
 
         public virtual void loadContent()

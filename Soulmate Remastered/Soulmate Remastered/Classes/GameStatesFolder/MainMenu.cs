@@ -55,7 +55,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             backGround.Position = new Vector2f(0, 0);
 
             start = new Sprite(startNotSelected);
-            start.Position = new Vector2f(300, 225);
+            start.Position = new Vector2f(300, 300);
 
             optionsButton = new Sprite(optionsNotSelected);
             optionsButton.Position = new Vector2f(start.Position.X, start.Position.Y + 75 * 1);

@@ -42,17 +42,17 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public Vector2f getContinueGamePosition()
         {
-            return new Vector2f(inGameMenuBackGround.Position.X + (inGameMenuBackGround.Texture.Size.X / 2) - (continueGame.Texture.Size.X / 2), inGameMenuBackGround.Position.Y + 100);
+            return new Vector2f(inGameMenuBackGround.Position.X + (inGameMenuBackGround.Texture.Size.X / 2) - (continueGame.Texture.Size.X / 2), inGameMenuBackGround.Position.Y + 150);
         }
 
         public Vector2f getSavePosition()
         {
-            return new Vector2f(getContinueGamePosition().X, inGameMenuBackGround.Position.Y + 200);
+            return new Vector2f(getContinueGamePosition().X, inGameMenuBackGround.Position.Y + 250);
         }
 
         public Vector2f getExitPosition()
         {
-            return new Vector2f(getContinueGamePosition().X, inGameMenuBackGround.Position.Y + 300);
+            return new Vector2f(getContinueGamePosition().X, inGameMenuBackGround.Position.Y + 350);
         }
 
         public bool getInGameMenuOpen()

@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AbstractGame.cs" />
+    <Compile Include="Classes\CheatConsoleFolder\CheatConsole.cs" />
     <Compile Include="Classes\Controls.cs" />
     <Compile Include="Classes\DialogeBoxFolder\DialogeHandler.cs" />
     <Compile Include="Classes\Game.cs" />
@@ -387,7 +388,7 @@
     <Content Include="Pictures\Menu\MainMenu\End\EndSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Menu\MainMenu\Enter\Enter.png">
+    <Content Include="Pictures\Menu\MainMenu\Enter\EnterNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Menu\MainMenu\Enter\EnterSelected.png">
