@@ -25,11 +25,6 @@ namespace Soulmate_Remastered.Classes
 
         public override void update(GameTime time)
         {
-            if (AbstractGamePlay.cheatConsole != null)
-            {
-                AbstractGamePlay.cheatConsole.update();
-            }
-
             if (currentGameState != prevGameState)
             {
                 handleGameState();

@@ -213,10 +213,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             if (lvl < MaxLvl)
             {
-                if (currentEXP >= maxEXP)
+                while (currentEXP >= maxEXP)
                 {
-                    lvl += ((int)currentEXP / (int)maxEXP);
-                    currentEXP %= maxEXP;
+                    lvl++;
+                    currentEXP -= maxEXP;
                     statsUpdate();
                     currentHP = maxHP;
                 }
@@ -243,10 +243,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         public void cheatUpdate()
         {
             drawHitBoxOnOff();
-            moreHP();
-            makeHeile();
-            expCheat();
-            moneyMoneyMoney();
             cheatDef();
             cheatAtt();
             cheatFusionValue();
@@ -320,38 +316,51 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         }
 
         //Cheats==============================================================
-        public void moreHP()
+        public void setHp(float value)
         {
-            if (Keyboard.IsKeyPressed(Controls.MoreHp))
+            currentHP = value;
+
+            if (currentHP > maxHP)
             {
-                float c = 50;
-                maxHP += c;
-                currentHP += c;
+                maxHP = currentHP;
             }
         }
 
-        public void makeHeile()
+        public void heal()
         {
-            if (Keyboard.IsKeyPressed(Controls.Heal))
-            {
-                currentHP = maxHP;
-            }
+            currentHP = maxHP;
         }
 
-        public void expCheat()
+        public void setExp(float value)
         {
-            if (Keyboard.IsKeyPressed(Controls.MoreExp))
-            {
-                currentEXP += 500;
-            }
+            currentEXP = value;
+
+            lvlUp();
         }
 
-        public void moneyMoneyMoney()
+        public void setLvl(int value)
         {
-            if(Keyboard.IsKeyPressed(Controls.MoreMoney))
+            if (value > 0 && value <= MaxLvl)
             {
-                gold += 500;
+                lvl = value;
             }
+            else
+            {
+                if (value <= 0)
+                {
+                    lvl = 1;
+                }
+                else
+                {
+                    lvl = MaxLvl;
+                }
+            }
+            statsUpdate();
+        }
+
+        public void setMoney(float value)
+        {
+            gold = value;
         }
 
         public void cheatDef()

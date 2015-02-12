@@ -8,11 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Classes;
 using Soulmate_Remastered.Classes.GameObjectFolder;
+using Soulmate_Remastered.Classes.GameStatesFolder;
+using Soulmate_Remastered.Classes.CheatConsoleFolder;
 
 namespace Soulmate_Remastered.Classes
 {
     abstract class AbstractGame
     {
+        public static CheatConsoleThread cheatConsole;
         public static RenderWindow window;
         GameTime gameTime;
 
@@ -22,6 +25,7 @@ namespace Soulmate_Remastered.Classes
             window.Closed += window_Close;
 
             gameTime = new GameTime();
+            cheatConsole = new CheatConsoleThread();
         }
 
         public void run()
@@ -34,9 +38,12 @@ namespace Soulmate_Remastered.Classes
                 window.DispatchEvents();
                 gameTime.Update();
                 update(gameTime);
+                cheatConsole.update();
                 draw(window);
                 window.Display();
             }
+
+            cheatConsole.delete();
         }
 
         public abstract void draw(RenderWindow window);
