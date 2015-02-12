@@ -10,8 +10,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class Credits : GameState
     {
-        bool isPressed;
-
         Texture creditsTexture;
         Texture backSelected;
         Texture backNotSelected;
@@ -23,8 +21,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public void initialize()
         {
-            isPressed = true;
-
             credits = new Sprite(creditsTexture);
             credits.Position = new Vector2f(0, 0);
 
@@ -44,17 +40,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public EnumGameStates update(GameTime gameTime)
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressed)
-            {
-                isPressed = true;
-                return EnumGameStates.mainMenu;
-            }
-
-            if (!NavigationHelp.isAnyKeyPressed())
-            {
-                isPressed = false;
-            }
-
             if (NavigationHelp.isMouseInSprite(back))
             {
                 back.Texture = backSelected;
@@ -65,9 +50,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 back.Texture = backNotSelected;
             }
 
-            if (Keyboard.IsKeyPressed(Controls.Escape) || (NavigationHelp.isMouseInSprite(back) && Mouse.IsButtonPressed(Mouse.Button.Left)))
+            if (NavigationHelp.isSpriteKlicked(0, 0, Game.isPressed, back, Controls.Escape))
             {
-                isPressed = true;
+                Game.isPressed = true;
                 return EnumGameStates.mainMenu;
             }
 

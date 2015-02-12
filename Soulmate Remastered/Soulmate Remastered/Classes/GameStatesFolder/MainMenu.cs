@@ -10,7 +10,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class MainMenu : GameState
     {
-        public static bool isPressed;
         int x; //für Menüsteuerung
 
         Texture backGroundTexture;
@@ -50,8 +49,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public void initialize()
         {
-            isPressed = false;
-            isPressed = true;
             x = 0;
 
             backGround = new Sprite(backGroundTexture);
@@ -124,16 +121,16 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 x = 4;
             }
 
-            if (Keyboard.IsKeyPressed(Controls.Up) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
             {
                 x = (x + 4) % 5;
-                isPressed = true;
+                Game.isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Controls.Down) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.isPressed)
             {
                 x = (x + 1) % 5;
-                isPressed = true;
+                Game.isPressed = true;
             }
 
             if (x == 0)
@@ -181,32 +178,32 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 end.Texture = endSelected;
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 0, isPressed, start))
+            if (NavigationHelp.isSpriteKlicked(x, 0, Game.isPressed, start, Controls.Return))
             {
-                isPressed = true;
+                Game.isPressed = true;
                 return EnumGameStates.loadGame;
             }
-            if (NavigationHelp.isSpriteKlicked(x, 1, isPressed, optionsButton))
+            if (NavigationHelp.isSpriteKlicked(x, 1, Game.isPressed, optionsButton, Controls.Return))
             {
-                isPressed = true;
+                Game.isPressed = true;
                 Console.WriteLine("load Options");
                 return EnumGameStates.options;
             }
-            if (NavigationHelp.isSpriteKlicked(x, 2, isPressed, controls))
+            if (NavigationHelp.isSpriteKlicked(x, 2, Game.isPressed, controls, Controls.Return))
             {
-                isPressed = true;
+                Game.isPressed = true;
                 Console.WriteLine("load Controls");
                 return EnumGameStates.controls;
             }
-            if (NavigationHelp.isSpriteKlicked(x, 3, isPressed, credits))
+            if (NavigationHelp.isSpriteKlicked(x, 3, Game.isPressed, credits, Controls.Return))
             {
-                isPressed = true;
+                Game.isPressed = true;
                 Console.WriteLine("load Credits");
                 return EnumGameStates.credits;
             }
-            if (NavigationHelp.isSpriteKlicked(x, 4, isPressed, end))
+            if (NavigationHelp.isSpriteKlicked(x, 4, Game.isPressed, end, Controls.Return))
             {
-                isPressed = true;
+                Game.isPressed = true;
                 return EnumGameStates.none;
             }
 
@@ -220,15 +217,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 back.Texture = backNotSelected;
             }
 
-            if(Keyboard.IsKeyPressed(Controls.Escape) || (NavigationHelp.isMouseInSprite(back) && Mouse.IsButtonPressed(Mouse.Button.Left)))
+            if(NavigationHelp.isSpriteKlicked(0, 0, Game.isPressed, back, Controls.Escape))
             {
-                isPressed = true;
+                Game.isPressed = true;
                 return EnumGameStates.titleSreen;
-            }
-
-            if (!Mouse.IsButtonPressed(Mouse.Button.Left) && !NavigationHelp.isAnyKeyPressed())
-            {
-                isPressed = false;
             }
 
             return EnumGameStates.mainMenu;

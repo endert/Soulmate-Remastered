@@ -31,6 +31,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture petTabSelected = new Texture("Pictures/Inventory/petTabSelected.png");
         Sprite petTab;
 
+        Texture closeButtonNotSelected = new Texture("Pictures/Inventory/CloseButton/CloseButtonNotSelected.png");
+        Texture closeButtonSelected = new Texture("Pictures/Inventory/CloseButton/CloseButtonSelected.png");
+        Sprite closeButton;
+
         Font font = new Font("FontFolder/arial_narrow_7.ttf");
         Text gold;
         Text attack;
@@ -46,8 +50,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public Vector2f inventoryMatrixPosition { get { return new Vector2f(inventory.Position.X + 306, inventory.Position.Y + 101); } }
 
-        public bool isPressed = false;
-        bool isMouseKlicked;
         int xInInventory = 0, yInInventory = 0; //Inventarsteurung
         int yInEquipmentSlots = 0;
         int xInTabs = 0;
@@ -111,7 +113,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 {
                     inventoryMatrix[i, j] = ItemHandler.load(splitInventoryString[i * inventoryMatrix.GetLength(1) + j + 1]);
                     if (inventoryMatrix[i, j] != null)
-                        inventoryMatrix[i, j].position = new Vector2f((j * FIELDSIZE+1 + inventoryMatrixPosition.X), (i * FIELDSIZE+1 + inventoryMatrixPosition.Y));
+                        inventoryMatrix[i, j].position = new Vector2f((j * FIELDSIZE + 1 + inventoryMatrixPosition.X), (i * FIELDSIZE + 1 + inventoryMatrixPosition.Y));
                 }
             }
         }
@@ -136,8 +138,12 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
             inventoryTab = new Sprite(inventoryTabNotSelected);
             inventoryTab.Position = new Vector2f(inventoryMatrixPosition.X + 5, inventoryMatrixPosition.Y - 25);
+
             petTab = new Sprite(petTabNotSelected);
             petTab.Position = new Vector2f(inventoryTab.Position.X + 110, inventoryTab.Position.Y);
+
+            closeButton = new Sprite(closeButtonNotSelected);
+            closeButton.Position = new Vector2f(inventory.Position.X + inventory.Texture.Size.X - closeButton.Texture.Size.X - 3, inventory.Position.Y + 3);
 
             inventoryWidth = 9;
             inventoryLength = 7;
@@ -188,41 +194,36 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public bool getInventoryOpen()
         {
-            if (Keyboard.IsKeyPressed(Controls.OpenInventar) && !isPressed && !inventoryOpen)
+            if (Keyboard.IsKeyPressed(Controls.OpenInventar) && !Game.isPressed && !inventoryOpen)
             {
-                isPressed = true;
+                Game.isPressed = true;
                 setOpen();
                 inventoryOpen = true;
             }
-
-            if (!NavigationHelp.isAnyKeyPressed())
-                isPressed = false;
 
             return inventoryOpen;
         }
 
         public void managment()
         {
-            if ((Keyboard.IsKeyPressed(Controls.OpenInventar) || Keyboard.IsKeyPressed(Controls.Escape)) && !isPressed)
+            if ((Keyboard.IsKeyPressed(Controls.OpenInventar) || Keyboard.IsKeyPressed(Controls.Escape)) && !Game.isPressed)
             {
-                isPressed = true;
+                Game.isPressed = true;
                 inventoryOpen = false;
             }
-            
-            if (!Mouse.IsButtonPressed(Mouse.Button.Left))
-                isMouseKlicked = false;
 
-            if(Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(inventoryTab) && !isMouseKlicked)
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(closeButton) && !Game.isPressed)
             {
-                isMouseKlicked = true;
+                Game.isPressed = true;
+                inventoryOpen = false;
             }
 
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(petTab) && !isMouseKlicked)
-            {
-                isMouseKlicked = true;
-            }
+            if (NavigationHelp.isMouseInSprite(closeButton))
+                closeButton.Texture = closeButtonSelected;
+            else
+                closeButton.Texture = closeButtonNotSelected;
 
-            if (Keyboard.IsKeyPressed(Controls.Up) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
             {
                 if (yInInventory == 0 && inInventory)  // enter Tabs
                 {
@@ -240,10 +241,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     inTab = false;
                     inInventory = true;
                 }
-                isPressed = true;
+                Game.isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Controls.Down) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.isPressed)
             {
                 if (inTab)
                 {
@@ -258,10 +259,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 {
                     yInEquipmentSlots = (yInEquipmentSlots + 1) % equipment.Length;
                 }
-                isPressed = true;
+                Game.isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Controls.Right) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Right) && !Game.isPressed)
             {
                 if (inEquipmentSlots)
                 {
@@ -276,10 +277,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 {
                     xInTabs = (xInTabs + 1) % 2;
                 }
-                isPressed = true;
+                Game.isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Controls.Left) && !isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Left) && !Game.isPressed)
             {
                 if (xInInventory == 0 && inInventory)  //enter equipmentSlots
                 {
@@ -297,13 +298,13 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     inInventory = true;
                     inEquipmentSlots = false;
                 }
-                isPressed = true;
+                Game.isPressed = true;
             }
 
 //inInventory management (Matrix[x,y]) =============================================================================
             if (inInventory)    
             {
-                if (Keyboard.IsKeyPressed(Controls.ButtonForAttack) && !isPressed)    //Item Swaps
+                if (Keyboard.IsKeyPressed(Controls.ButtonForAttack) && !Game.isPressed)    //Item Swaps
                 {
                     if (!itemIsSelected)
                     {
@@ -329,10 +330,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                         selectedItem = null;
                         itemIsSelected = false;
                     }
-                    isPressed = true;
+                    Game.isPressed = true;
                 }
 
-                if (Keyboard.IsKeyPressed(Controls.UseItem) && !isPressed)
+                if (Keyboard.IsKeyPressed(Controls.UseItem) && !Game.isPressed)
                 {
                     if (inventoryMatrix[yInInventory, xInInventory] != null)
                     {
@@ -346,9 +347,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 }
             }
 //=====================================================================================================================
-
-            if (!NavigationHelp.isAnyKeyPressed() && !Mouse.IsButtonPressed(Mouse.Button.Left))
-                isPressed = false;
 
             if (inInventory)
             {
@@ -437,6 +435,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             ItemHandler.drawInventoryItems(window);
             window.Draw(inventoryTab);
             window.Draw(petTab);
+            window.Draw(closeButton);
             drawTexts(window);
             if (!inTab)
             {
