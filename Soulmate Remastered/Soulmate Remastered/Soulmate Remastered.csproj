@@ -86,6 +86,7 @@
     <Compile Include="Classes\GameObjectFolder\ItemFolder\TestItem.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameStatesFolder\AbstractGamePlay.cs" />
+    <Compile Include="Classes\GameStatesFolder\AbstractMainMenu.cs" />
     <Compile Include="Classes\GameStatesFolder\ControlsSetting.cs" />
     <Compile Include="Classes\GameStatesFolder\Credits.cs" />
     <Compile Include="Classes\GameStatesFolder\InGame.cs" />
