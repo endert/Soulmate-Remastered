@@ -9,67 +9,49 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
-    class LoadGame : GameState
+    class LoadGame : AbstractMainMenu
     {
         private readonly String loadFile = "Saves/save.soul";
-        int x; //für Menüsteuerung
 
-        Texture backGroundTexture;
         Texture loadSelected;
         Texture loadNotSelected;
+        Sprite load;
+
         Texture newGameSelected;
         Texture newGameNotSelected;
-        Texture backSelected;
-        Texture backNotSelected;
-
-        Sprite load;
         Sprite newGame;
-        Sprite back;
-        Sprite backGround;
 
-        View view;
-
-        public int getX() { return this.x; }
-
-        public void initialize()
+        public override void initialize()
         {
-            x = 0;
-
-            backGround = new Sprite(backGroundTexture);
-            backGround.Position = new Vector2f(0, 0);
-
+            base.initialize();
+            
             load = new Sprite(loadNotSelected);
             load.Position = new Vector2f(300, 300);
 
             newGame = new Sprite(newGameNotSelected);
             newGame.Position = new Vector2f(load.Position.X, load.Position.Y + 150);
-
-            back = new Sprite(backNotSelected);
-            back.Position = MainMenu.getBackPostion();
-
-            view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
 
-        public void loadContent()
+        public override void loadContent()
         {
-            backGroundTexture = new Texture("Pictures/Menu/MainMenu/Background.png");
-
+            base.loadContent();
+            
             loadSelected = new Texture("Pictures/Menu/MainMenu/Load/LoadSelected.png");
             loadNotSelected = new Texture("Pictures/Menu/MainMenu/Load/LoadNotSelected.png");
 
             newGameSelected = new Texture("Pictures/Menu/MainMenu/NewGame/NewGameSelected.png");
             newGameNotSelected = new Texture("Pictures/Menu/MainMenu/NewGame/NewGameNotSelected.png");
-
-            backSelected = new Texture("Pictures/Menu/MainMenu/Back/BackSelected.png");
-            backNotSelected = new Texture("Pictures/Menu/MainMenu/Back/BackNotSelected.png");
         }
 
-        public EnumGameStates update(GameTime gameTime)
-        {            
+        public override EnumGameStates update(GameTime gameTime)
+        {
+            gameUpdate(gameTime);
+            
             if (NavigationHelp.isMouseInSprite(load))
             {
                 x = 0;
             }
+
             if (NavigationHelp.isMouseInSprite(newGame))
             {
                 x = 1;
@@ -99,21 +81,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 newGame.Texture = newGameSelected;
             }
 
-            if (NavigationHelp.isMouseInSprite(back))
-            {
-                back.Texture = backSelected;
-            }
-
-            if (!NavigationHelp.isMouseInSprite(back))
-            {
-                back.Texture = backNotSelected;
-            }
-
-            if (NavigationHelp.isSpriteKlicked(0, 0, Game.isPressed, back, Controls.Escape))
-            {
-                Game.isPressed = true;
+            if (backValueSelected == 1)
                 return EnumGameStates.mainMenu;
-            }
 
             if (NavigationHelp.isSpriteKlicked(x, 0, Game.isPressed, load, Controls.Return))
             {
@@ -133,6 +102,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                         return EnumGameStates.village;
                 }
             }
+
             if (NavigationHelp.isSpriteKlicked(x, 1, Game.isPressed, newGame, Controls.Return))
             {
                 Game.isPressed = true;
@@ -144,13 +114,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             return EnumGameStates.loadGame;
         }
 
-        public void draw(RenderWindow window)
+        public override void draw(RenderWindow window)
         {
-            window.Draw(backGround);
-            window.SetView(view);
+            base.draw(window);
+
             window.Draw(load);
             window.Draw(newGame);
-            window.Draw(back);
         }
     }
 }
