@@ -24,21 +24,20 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public override EnumGameStates update(GameTime gameTime)
         {
-            returnValue = 0;
             GameUpdate(gameTime);
 
-            if (returnValue == 2)
+            switch (returnValue)
             {
-                Console.WriteLine("change to instance");
-                return EnumGameStates.inGame;
-            }
+                case 1:
+                    return EnumGameStates.mainMenu;
 
-            if (returnValue == 1)
-            {
-                return EnumGameStates.mainMenu;
-            }
+                case 2:
+                    Console.WriteLine("change to instance");
+                    return EnumGameStates.inGame;
 
-            return EnumGameStates.village;
+                default:
+                    return EnumGameStates.village;
+            }          
         }
     }
 }

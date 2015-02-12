@@ -54,6 +54,15 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         int yInEquipmentSlots = 0;
         int xInTabs = 0;
 
+        Vector2f firstEquipmentSlotPostion = new Vector2f(447, 156);
+        Vector2f secondEquipmentSlotPostion = new Vector2f(447, 210);
+        Vector2f thirdEquipmentSlotPostion = new Vector2f(462, 270);
+        Vector2f fourthEquipmentSlotPostion = new Vector2f(462, 324);
+        Vector2f fifthEquipmentSlotPostion = new Vector2f(443, 384);
+        Vector2f sixthEquipmentSlotPostion = new Vector2f(443, 438);
+
+        RenderWindow window = AbstractGame.window;
+
         public static bool inventoryOpen { get; set; }
 
         uint inventoryWidth;
@@ -304,7 +313,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 //inInventory management (Matrix[x,y]) =============================================================================
             if (inInventory)    
             {
-                if (Keyboard.IsKeyPressed(Controls.ButtonForAttack) && !Game.isPressed)    //Item Swaps
+                if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !Game.isPressed)    //Item Swaps
                 {
                     if (!itemIsSelected)
                     {
@@ -350,11 +359,11 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
             if (inInventory)
             {
-                selected.Position = new Vector2f(xInInventory * FIELDSIZE + inventoryMatrixPosition.X, yInInventory * FIELDSIZE + inventoryMatrixPosition.Y);
+                selected.Position = getSelectedPosition(xInInventory, yInInventory);
             }
             else if (inEquipmentSlots)
             {
-                if (yInEquipmentSlots<2)
+                if (yInEquipmentSlots < 2)
                 {
                     selected.Position = new Vector2f(equipmentSlotsBase.X, equipmentSlotsBase.Y + yInEquipmentSlots * (FIELDSIZE + 5));
                 }
@@ -367,8 +376,119 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     selected.Position = new Vector2f(equipmentSlotsBase.X - 4, (equipmentSlotsBase.Y + 12) + yInEquipmentSlots * (FIELDSIZE + 5));
                 }
             }
-
+            Console.Clear();
+            Console.WriteLine(selected.Position);
             setTabs();
+        }
+
+        public Vector2f getSelectedPosition(int xCoordinate, int yCoordinate)
+        {
+            return new Vector2f(xCoordinate * FIELDSIZE + inventoryMatrixPosition.X, yCoordinate * FIELDSIZE + inventoryMatrixPosition.Y);
+        }
+
+        public Vector2f mousePositionInInventoryMatrix()
+        {
+            return new Vector2f(((Mouse.GetPosition(window).X - inventoryMatrixPosition.X) / FIELDSIZE), (Mouse.GetPosition(window).Y - inventoryMatrixPosition.Y) / FIELDSIZE);
+        }
+
+        public bool mouseInInventoryMatrix()
+        {            
+            return (0 <= (mousePositionInInventoryMatrix().X) && inventoryWidth >= (mousePositionInInventoryMatrix().X)
+                 && 0 <= (mousePositionInInventoryMatrix().Y) && inventoryLength >= (mousePositionInInventoryMatrix().Y));
+        }
+
+        public bool mouseInFirstEquipmentSlot()
+        {
+            return (Mouse.GetPosition(window).X >= firstEquipmentSlotPostion.X && Mouse.GetPosition(window).X <= (firstEquipmentSlotPostion.X + FIELDSIZE)
+                 && Mouse.GetPosition(window).Y >= firstEquipmentSlotPostion.Y && Mouse.GetPosition(window).Y <= (firstEquipmentSlotPostion.Y + FIELDSIZE));
+        }
+
+        public bool mouseInSecondEquipmentSlot()
+        {
+            return (Mouse.GetPosition(window).X >= secondEquipmentSlotPostion.X && Mouse.GetPosition(window).X <= (secondEquipmentSlotPostion.X + FIELDSIZE)
+                 && Mouse.GetPosition(window).Y >= secondEquipmentSlotPostion.Y && Mouse.GetPosition(window).Y <= (secondEquipmentSlotPostion.Y + FIELDSIZE));
+        }
+
+        public bool mouseInThirdEquipmentSlot()
+        {
+            return (Mouse.GetPosition(window).X >= thirdEquipmentSlotPostion.X && Mouse.GetPosition(window).X <= (thirdEquipmentSlotPostion.X + FIELDSIZE)
+                 && Mouse.GetPosition(window).Y >= thirdEquipmentSlotPostion.Y && Mouse.GetPosition(window).Y <= (thirdEquipmentSlotPostion.Y + FIELDSIZE));
+        }
+
+        public bool mouseInFourthEquipmentSlot()
+        {
+            return (Mouse.GetPosition(window).X >= fourthEquipmentSlotPostion.X && Mouse.GetPosition(window).X <= (fourthEquipmentSlotPostion.X + FIELDSIZE)
+                 && Mouse.GetPosition(window).Y >= fourthEquipmentSlotPostion.Y && Mouse.GetPosition(window).Y <= (fourthEquipmentSlotPostion.Y + FIELDSIZE));
+        }
+
+        public bool mouseInFifthEquipmentSlot()
+        {
+            return (Mouse.GetPosition(window).X >= fifthEquipmentSlotPostion.X && Mouse.GetPosition(window).X <= (fifthEquipmentSlotPostion.X + FIELDSIZE)
+                 && Mouse.GetPosition(window).Y >= fifthEquipmentSlotPostion.Y && Mouse.GetPosition(window).Y <= (fifthEquipmentSlotPostion.Y + FIELDSIZE));
+        }
+
+        public bool mouseInSixthEquipmentSlot()
+        {
+            return (Mouse.GetPosition(window).X >= sixthEquipmentSlotPostion.X && Mouse.GetPosition(window).X <= (sixthEquipmentSlotPostion.X + FIELDSIZE)
+                 && Mouse.GetPosition(window).Y >= sixthEquipmentSlotPostion.Y && Mouse.GetPosition(window).Y <= (sixthEquipmentSlotPostion.Y + FIELDSIZE));
+        }
+
+        public bool mouseInEquipmentSlots()
+        {
+            return (mouseInFirstEquipmentSlot() || mouseInSecondEquipmentSlot()
+                 || mouseInThirdEquipmentSlot() || mouseInFourthEquipmentSlot()
+                 || mouseInFifthEquipmentSlot() || mouseInSixthEquipmentSlot());
+        }
+
+        public void mouseManagment()
+        {
+            if (mouseInInventoryMatrix())
+            {
+                inInventory = true;
+                inTab = false;
+                inEquipmentSlots = false;
+
+                xInInventory = (int)mousePositionInInventoryMatrix().X;
+                yInInventory = (int)mousePositionInInventoryMatrix().Y;
+            }
+
+            if (NavigationHelp.isMouseInSprite(inventoryTab))
+            {
+                inTab = true;
+                inInventory = false;
+                inEquipmentSlots = false;
+
+                xInTabs = 0;
+            }
+
+            if (NavigationHelp.isMouseInSprite(petTab))
+            {
+                inTab = true;
+                inInventory = false;
+                inEquipmentSlots = false;
+
+                xInTabs = 1;
+            }
+
+            if(mouseInEquipmentSlots())
+            {
+                inEquipmentSlots = true;
+                inTab = false;
+                inInventory = false;
+
+                if (mouseInFirstEquipmentSlot())
+                    yInEquipmentSlots = 0;
+                if (mouseInSecondEquipmentSlot())
+                    yInEquipmentSlots = 1;
+                if (mouseInThirdEquipmentSlot())
+                    yInEquipmentSlots = 2;
+                if (mouseInFourthEquipmentSlot())
+                    yInEquipmentSlots = 3;
+                if (mouseInFifthEquipmentSlot())
+                    yInEquipmentSlots = 4;
+                if (mouseInSixthEquipmentSlot())
+                    yInEquipmentSlots = 5;
+            }
         }
 
         public void deleate()
@@ -385,6 +505,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 PlayerHandler.player.cheatUpdate();
                 ItemHandler.updateInventoryMatrix(gameTime);
                 managment();
+                mouseManagment();
             }
         }
 

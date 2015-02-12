@@ -31,7 +31,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             enter = new Sprite(pressEnter);
             enter.Position = new Vector2f((Game.windowSizeX / 2) - (pressEnter.Size.X / 2), (Game.windowSizeY - pressEnter.Size.Y) - 50);
             animationTime.Start();
-            Console.WriteLine(enter.Position);
 
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
@@ -39,8 +38,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public void loadContent()
         {
             titleScreenTexture = new Texture("Pictures/Menu/MainMenu/Background.png");
-            pressEnter = new Texture("Pictures/Menu/MainMenu/Enter/EnterNotSelected.png");
-            pressEnter2 = new Texture("Pictures/Menu/MainMenu/Enter/EnterSelected.png");
+            pressEnter = new Texture("Pictures/Menu/MainMenu/AnyKey/AnyKeyNotSelected.png");
+            pressEnter2 = new Texture("Pictures/Menu/MainMenu/AnyKey/AnyKeySelected.png");
         }
 
         public EnumGameStates update(GameTime gameTime)

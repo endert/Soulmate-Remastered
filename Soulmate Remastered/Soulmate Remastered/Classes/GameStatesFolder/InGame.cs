@@ -27,18 +27,18 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             GameUpdate(gameTime);
 
-            if (returnValue == 2)
+            switch (returnValue)
             {
-                Console.WriteLine("change to village");
-                return EnumGameStates.village;
-            }
+                case 1:
+                    return EnumGameStates.mainMenu;
 
-            if (returnValue == 1)
-            {
-                return EnumGameStates.mainMenu;
-            }
+                case 2:
+                    Console.WriteLine("change to village");
+                    return EnumGameStates.village;
 
-            return EnumGameStates.inGame;
+                default:
+                    return EnumGameStates.inGame;
+            }            
         }        
     }
 }

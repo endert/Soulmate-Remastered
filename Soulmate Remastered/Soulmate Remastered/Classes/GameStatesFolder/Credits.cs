@@ -8,61 +8,41 @@ using SFML.Window;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
-    class Credits : GameState
+    class Credits : AbstractMainMenu
     {
         Texture creditsTexture;
-        Texture backSelected;
-        Texture backNotSelected;
-
         Sprite credits;
-        Sprite back;
-
-        View view;
-
-        public void initialize()
+        
+        public override void initialize()
         {
+            base.initialize();
+            
             credits = new Sprite(creditsTexture);
             credits.Position = new Vector2f(0, 0);
-
-            back = new Sprite(backNotSelected);
-            back.Position = MainMenu.getBackPostion();
-
-            view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
 
-        public void loadContent()
+        public override void loadContent()
         {
+            base.loadContent();
+            
             creditsTexture = new Texture("Pictures/Menu/MainMenu/Credits/CreditsMenu.png");
-
-            backSelected = new Texture("Pictures/Menu/MainMenu/Back/BackSelected.png");
-            backNotSelected = new Texture("Pictures/Menu/MainMenu/Back/BackNotSelected.png");
         }
 
-        public EnumGameStates update(GameTime gameTime)
+        public override EnumGameStates update(GameTime gameTime)
         {
-            if (NavigationHelp.isMouseInSprite(back))
-            {
-                back.Texture = backSelected;
-            }
-
-            if (!NavigationHelp.isMouseInSprite(back))
-            {
-                back.Texture = backNotSelected;
-            }
-
-            if (NavigationHelp.isSpriteKlicked(0, 0, Game.isPressed, back, Controls.Escape))
-            {
-                Game.isPressed = true;
+            gameUpdate(gameTime);
+            
+            if (backValueSelected == 1)
                 return EnumGameStates.mainMenu;
-            }
 
             return EnumGameStates.credits;
         }
 
-        public void draw(RenderWindow window)
+        public override void draw(RenderWindow window)
         {
+            base.draw(window);
+            
             window.Draw(credits);
-            window.Draw(back);
         }
     }
 }
