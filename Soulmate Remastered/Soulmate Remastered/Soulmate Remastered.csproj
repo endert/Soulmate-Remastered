@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AbstractGame.cs" />
+    <Compile Include="Classes\CheatConsoleFolder\CheatConsole.cs" />
     <Compile Include="Classes\Controls.cs" />
     <Compile Include="Classes\DialogeBoxFolder\DialogeHandler.cs" />
     <Compile Include="Classes\Game.cs" />
