@@ -39,7 +39,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             backGround.Position = new Vector2f(0, 0);
 
             load = new Sprite(loadNotSelected);
-            load.Position = new Vector2f(300, 250);
+            load.Position = new Vector2f(300, 300);
 
             newGame = new Sprite(newGameNotSelected);
             newGame.Position = new Vector2f(load.Position.X, load.Position.Y + 150);

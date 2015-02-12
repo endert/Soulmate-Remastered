@@ -29,8 +29,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             titleScreen = new Sprite(titleScreenTexture);
            
             enter = new Sprite(pressEnter);
-            enter.Position = new Vector2f((Game.windowSizeX / 2) - (pressEnter.Size.X / 2), (Game.windowSizeY + 25) - pressEnter.Size.Y);
+            enter.Position = new Vector2f((Game.windowSizeX / 2) - (pressEnter.Size.X / 2), (Game.windowSizeY - pressEnter.Size.Y) - 50);
             animationTime.Start();
+            Console.WriteLine(enter.Position);
 
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
