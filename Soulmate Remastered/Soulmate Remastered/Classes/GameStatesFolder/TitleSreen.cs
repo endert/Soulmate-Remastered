@@ -11,8 +11,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class TitleScreen : GameState
     {
-        bool isPressed;
-
         Stopwatch animationTime;
 
         Texture titleScreenTexture;
@@ -29,8 +27,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             animationTime = new Stopwatch();
 
             titleScreen = new Sprite(titleScreenTexture);
-            isPressed = false;
-
+           
             enter = new Sprite(pressEnter);
             enter.Position = new Vector2f((Game.windowSizeX / 2) - (pressEnter.Size.X / 2), (Game.windowSizeY + 25) - pressEnter.Size.Y);
             animationTime.Start();
@@ -60,15 +57,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 animationTime.Restart();
             }
 
-            if ((NavigationHelp.isAnyKeyPressed() || Mouse.IsButtonPressed(Mouse.Button.Left)) && !isPressed)
+            if ((NavigationHelp.isAnyKeyPressed() || Mouse.IsButtonPressed(Mouse.Button.Left)) && !Game.isPressed)
             {
-                isPressed = true;
+                Game.isPressed = true;
                 return EnumGameStates.mainMenu;
-            }
-
-            if (!NavigationHelp.isAnyKeyPressed() && !Mouse.IsButtonPressed(Mouse.Button.Left))
-            {
-                isPressed = false;
             }
 
             return EnumGameStates.titleSreen;

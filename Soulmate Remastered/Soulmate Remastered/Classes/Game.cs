@@ -1,4 +1,5 @@
 ﻿using SFML.Graphics;
+using SFML.Window;
 using Soulmate_Remastered.Classes.GameStatesFolder;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Soulmate_Remastered.Classes
         public static uint windowSizeX = 1280;
         public static uint windowSizeY = 720;
 
-        public static bool isPressed;
+        public static bool isPressed { get; set; }
 
         EnumGameStates currentGameState = EnumGameStates.titleSreen;
         EnumGameStates prevGameState;
@@ -33,6 +34,9 @@ namespace Soulmate_Remastered.Classes
             {
                 handleGameState();
             }
+
+            if (!NavigationHelp.isAnyKeyPressed() && !Mouse.IsButtonPressed(Mouse.Button.Left))
+                isPressed = false;
 
             currentGameState = gameState.update(time);
         }

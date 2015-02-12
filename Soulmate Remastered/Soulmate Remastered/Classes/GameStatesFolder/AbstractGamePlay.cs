@@ -33,9 +33,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         protected InGameMenu inGameMenu;
         protected HUD hud;
         public static View view;
-            public static View VIEW { get { return view; } }
-
-        protected bool isKlicked = false;
+        public static View VIEW { get { return view; } }
 
         protected int index = 0;
         protected int returnValue = 0;
@@ -79,17 +77,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             ItemHandler.playerInventory.update(gameTime);
             inGameMenu.update(gameTime);
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !isKlicked)
+            if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !Game.isPressed)
             {
-                isKlicked = true;
+                Game.isPressed = true;
                 SaveGame.savePath = savePlayer;
                 SaveGame.saveGame();
                 returnValue = 2;
-            }
-
-            if (!Keyboard.IsKeyPressed(Keyboard.Key.L))
-            {
-                isKlicked = false;
             }
 
             if (!Inventory.inventoryOpen && !inGameMenu.inGameMenuOpen)
