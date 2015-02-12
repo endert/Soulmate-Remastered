@@ -10,8 +10,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class ControlsSetting : GameState
     {
-        bool isPressed;
-     
         Texture controlsTexture;
         Texture backSelected;
         Texture backNotSelected;
@@ -23,8 +21,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public void initialize()
         {
-            isPressed = true;
-
             controls = new Sprite(controlsTexture);
             controls.Position = new Vector2f(0, 0);
 
@@ -44,17 +40,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public EnumGameStates update(GameTime gameTime)
         {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && !isPressed)
-            {
-                isPressed = true;
-                return EnumGameStates.mainMenu;
-            }
-
-            if (!NavigationHelp.isAnyKeyPressed())
-            {
-                isPressed = false;
-            }
-
             if (NavigationHelp.isMouseInSprite(back))
             {
                 back.Texture = backSelected;
@@ -65,9 +50,15 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 back.Texture = backNotSelected;
             }
 
-            if (Keyboard.IsKeyPressed(Controls.Escape) || (NavigationHelp.isMouseInSprite(back) && Mouse.IsButtonPressed(Mouse.Button.Left)))
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Return) && !Game.isPressed)
             {
-                isPressed = true;
+                Game.isPressed = true;
+                return EnumGameStates.mainMenu;
+            }
+
+            if (NavigationHelp.isSpriteKlicked(0, 0, Game.isPressed, back, Controls.Escape))
+            {
+                Game.isPressed = true;
                 return EnumGameStates.mainMenu;
             }
 

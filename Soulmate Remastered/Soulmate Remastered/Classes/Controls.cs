@@ -10,7 +10,8 @@ namespace Soulmate_Remastered.Classes
     static class Controls
     {
         public static Keyboard.Key Escape = Keyboard.Key.Escape;
-        public static Keyboard.Key Enter = Keyboard.Key.Return;
+        public static Keyboard.Key Return = Keyboard.Key.Return;
+        public static Keyboard.Key Back = Keyboard.Key.Back;
 
         public static Keyboard.Key Up = Keyboard.Key.W;
         public static Keyboard.Key Down = Keyboard.Key.S;
