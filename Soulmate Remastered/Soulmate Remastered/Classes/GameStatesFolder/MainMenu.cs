@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
-    class MainMenu : GameState
+    class MainMenu : AbstractMainMenu
     {
-        int x; //für Menüsteuerung
-
-        Texture backGroundTexture;
-
         Texture startSelected;
         Texture startNotSelected;
                         
@@ -29,30 +25,19 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         Texture endSelected;
         Texture endNotSelected;
 
-        Texture backSelected;
-        Texture backNotSelected;
-
-        Sprite backGround;
         Sprite start;
         Sprite optionsButton;
         Sprite controls;
         Sprite credits;
         Sprite end;
-        static Sprite back;
-
+        
         View view;
-
-        public static Vector2f getBackPostion()
-        {
-            return new Vector2f(Game.windowSizeX - back.Texture.Size.X - 10, 650);
-        }
 
         public void initialize()
         {
             x = 0;
 
-            backGround = new Sprite(backGroundTexture);
-            backGround.Position = new Vector2f(0, 0);
+            
 
             start = new Sprite(startNotSelected);
             start.Position = new Vector2f(300, 225);

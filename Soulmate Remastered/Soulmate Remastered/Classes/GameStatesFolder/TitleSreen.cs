@@ -38,7 +38,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public void loadContent()
         {
             titleScreenTexture = new Texture("Pictures/Menu/MainMenu/Background.png");
-            pressEnter = new Texture("Pictures/Menu/MainMenu/Enter/Enter.png");
+            pressEnter = new Texture("Pictures/Menu/MainMenu/Enter/EnterNotSelected.png");
             pressEnter2 = new Texture("Pictures/Menu/MainMenu/Enter/EnterSelected.png");
         }
 
