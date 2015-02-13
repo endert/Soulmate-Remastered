@@ -12,11 +12,11 @@ ToDoList
 	- Options in IngameMenu einfuegen
 	- Story (*hust* Lisa *hust*) 
 	- Quest log erstellen
-	- Maussteuerung verbessern
+	- Maussteuerung verbessern  *DONE*
 	- Inventar sortierung ^^ (*da besteh ich drauf XP*) nach alphabet und kategorie
 	- Sounds implementieren?
-	- Hilfsdatei (.txt reicht aus) für SaveDatei anlegen (*damit man demnächst weiß welcher wert für was gut ist... -_- *)
-	- Gebietswechsel RICHTIG abspeichern/laden
+	- Hilfsdatei (.txt reicht aus) für SaveDatei anlegen (*damit man demnächst weiß welcher wert für was           gut ist... -_- *)
+	- Gebietswechsel RICHTIG abspeichern/laden  *DONE*
 	- Level/Instanzen Designe
 	- Boss KI 
 	- Blotts Foxtrott
@@ -30,7 +30,7 @@ ToDoList
 	- "Zum betrunkenen Rechenschieber" nicht vergessen ^^ XD
 	- Quests ausdenken
 	- Mehr Eastereggs ausdenken
-	- abstrackte klasse mainmenu punkte (Joshua)
+	- abstrackte klasse mainmenu punkte (Joshua) *DONE*
 	- Skills
 	- Quickslot (Schnellauswahl)
 	- 

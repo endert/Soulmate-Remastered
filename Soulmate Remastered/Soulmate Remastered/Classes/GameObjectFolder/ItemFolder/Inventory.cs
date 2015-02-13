@@ -317,8 +317,35 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 Game.isPressed = true;
             }
 
-//inInventory management (Matrix[x,y]) =============================================================================
-            if (inInventory)    
+            inInventoryManagement();
+
+            if (inInventory)
+            {
+                selected.Position = getSelectedPosition(xInInventory, yInInventory);
+            }
+            else if (inEquipmentSlots)
+            {
+                if (yInEquipmentSlots < 2)
+                {
+                    selected.Position = new Vector2f(equipmentSlotsBase.X, equipmentSlotsBase.Y + yInEquipmentSlots * (FIELDSIZE + 5));
+                }
+                else if (yInEquipmentSlots < 4)
+                {
+                    selected.Position = new Vector2f(equipmentSlotsBase.X + 15, (equipmentSlotsBase.Y + 6) + yInEquipmentSlots * (FIELDSIZE + 5));
+                }
+                else
+                {
+                    selected.Position = new Vector2f(equipmentSlotsBase.X - 4, (equipmentSlotsBase.Y + 12) + yInEquipmentSlots * (FIELDSIZE + 5));
+                }
+            }
+            Console.Clear();
+            Console.WriteLine(selected.Position);
+            setTabs();
+        }
+
+        public void inInventoryManagement()
+        {
+            if (inInventory)
             {
                 if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !Game.isPressed)    //Item Swaps
                 {
@@ -362,30 +389,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     inventoryMatrix[yInInventory, xInInventory] = null;
                 }
             }
-//=====================================================================================================================
-
-            if (inInventory)
-            {
-                selected.Position = getSelectedPosition(xInInventory, yInInventory);
-            }
-            else if (inEquipmentSlots)
-            {
-                if (yInEquipmentSlots < 2)
-                {
-                    selected.Position = new Vector2f(equipmentSlotsBase.X, equipmentSlotsBase.Y + yInEquipmentSlots * (FIELDSIZE + 5));
-                }
-                else if (yInEquipmentSlots < 4)
-                {
-                    selected.Position = new Vector2f(equipmentSlotsBase.X + 15, (equipmentSlotsBase.Y + 6) + yInEquipmentSlots * (FIELDSIZE + 5));
-                }
-                else
-                {
-                    selected.Position = new Vector2f(equipmentSlotsBase.X - 4, (equipmentSlotsBase.Y + 12) + yInEquipmentSlots * (FIELDSIZE + 5));
-                }
-            }
-            Console.Clear();
-            Console.WriteLine(selected.Position);
-            setTabs();
         }
 
         public Vector2f getSelectedPosition(int xCoordinate, int yCoordinate)
