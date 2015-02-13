@@ -12,6 +12,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
     {
         protected Texture optionsTexture;
         protected Sprite options;
+
+        Text Controls = new Text("Controls", Game.font, 100);
         
         public override void initialize()
         {
@@ -19,6 +21,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             options = new Sprite(optionsTexture);
             options.Position = new Vector2f(0, 0);
+
+            Controls.Position = new Vector2f(200, 200);
         }
 
         public override void loadContent()
@@ -43,6 +47,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             base.draw(window);
 
             window.Draw(options);
+            window.Draw(Controls);
         }
     }
 }
