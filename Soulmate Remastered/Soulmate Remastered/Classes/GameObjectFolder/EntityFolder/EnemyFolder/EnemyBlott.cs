@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 {

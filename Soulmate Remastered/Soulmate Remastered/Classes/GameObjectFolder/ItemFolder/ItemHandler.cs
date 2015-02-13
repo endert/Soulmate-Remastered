@@ -10,6 +10,7 @@ using Soulmate_Remastered.Classes.InGameMenuFolder;
 using Soulmate_Remastered.Classes.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {
@@ -54,6 +55,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                         AbstractItem loadedItem = evaluateLoadedItem(i);
                         loadedItem.position = new Vector2f(Convert.ToSingle(itemString.Split(AbstractItem.lineBreak)[2]),
                                                            Convert.ToSingle(itemString.Split(AbstractItem.lineBreak)[3]));
+
                         for (int j = 0; j < Convert.ToInt32(itemString.Split(AbstractItem.lineBreak)[itemString.Split(AbstractItem.lineBreak).Length - 1]); j++)
                         {
                             loadedStack.Push(loadedItem);
@@ -111,7 +113,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                     break;
                 }
                 
-                if (!playerInventory.isFullWith() && itemList[i].hitBox.distanceTo(PlayerHandler.player.hitBox) <= itemList[i].pickUpRange && itemList[i].onMap)
+                if (itemList[i].onMap && itemList[i].hitBox.distanceTo(PlayerHandler.player.hitBox) <= itemList[i].pickUpRange && !playerInventory.isFullWith(itemList[i]))
                 {
                     itemList[i].pickUp(gameTime);
                     itemList.RemoveAt(i);
@@ -122,26 +124,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             playerInventory.update(gameTime);
         }
 
-        static public void updateInventoryMatrix(GameTime gameTime)
-        {
-            foreach (Stack<AbstractItem> itemStack in playerInventory.inventoryMatrix)
-            {
-                if (itemStack != null)
-                {
-                    foreach (AbstractItem item in itemStack)
-                    {
-                        item.sprite.Position = item.position;
-                        item.setVisible(true);
-                    }
-                }
-            }
-        }
-
         static public void drawInventoryItems(RenderWindow window)
         {
             foreach (Stack<AbstractItem> itemStack in playerInventory.inventoryMatrix)
             {
-                if (itemStack.Peek() != null)
+                if (itemStack != null && itemStack.Peek() != null)
                 {
                     itemStack.Peek().draw(window);
                 }

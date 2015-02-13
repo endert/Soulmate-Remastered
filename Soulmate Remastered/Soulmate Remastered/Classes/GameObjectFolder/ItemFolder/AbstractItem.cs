@@ -1,5 +1,6 @@
 ﻿using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+using Soulmate_Remastered.Classes.ItemFolder;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +13,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
     abstract class AbstractItem : GameObject, IComparable<AbstractItem>
     {
         public override String type { get { return base.type + ".Item"; } }
-        public override float ID { get { return 0; } }
+        public virtual float ID { get { return 0; } }
         public override bool walkable { get { return true; } }
         protected int dropRate; // in percent
         public int DROPRATE { get { return dropRate; } }
@@ -50,8 +51,27 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             {
                 for (int j = 0; j < ItemHandler.playerInventory.inventoryMatrix.GetLength(1); j++) //collum -> y-coordinate
                 {
-                    if (ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().CompareTo(this) == 0 || ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() == null)
+                    if (ItemHandler.playerInventory.inventoryMatrix[i,j] == null)
                     {
+                        ItemHandler.playerInventory.inventoryMatrix[i, j] = new Stack<AbstractItem>();
+                        ItemHandler.playerInventory.inventoryMatrix[i, j].Push(this);
+                        position = new Vector2f((j * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X),
+                                                (i * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.Y));
+                        onMap = false;
+                        GameObjectHandler.removeAt(indexObjectList);
+                        return;
+
+                    }
+                    if (ItemHandler.playerInventory.inventoryMatrix[i, j].Count < Inventory.MaxStackCount && 
+                       (ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() == null || ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().CompareTo(this) == 0))
+                    {
+                        try
+                        {
+                            ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().setVisible(false);
+                        }
+                        catch (Exception)
+                        {
+                        }
                         ItemHandler.playerInventory.inventoryMatrix[i, j].Push(this);
                         position = new Vector2f((j * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X),
                             (i * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.Y));

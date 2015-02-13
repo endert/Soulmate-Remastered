@@ -73,10 +73,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         public Stack<AbstractItem>[,] inventoryMatrix { get; set; }
         public Equipment[] equipment { get; set; }
 
-        AbstractItem selectedItem;
+        Stack<AbstractItem> selectedItemStack;
         bool itemIsSelected = false;
-        int selectedItemX;
-        int selectedItemY;
+        int selectedItemStackX;
+        int selectedItemStackY;
 
         bool inInventory = true;
         bool inTab = false;
@@ -94,7 +94,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             {
                 try
                 {
-                    inventoryForSave += itemStack.Peek().toStringForSave() + AbstractItem.lineBreak + itemStack.Count + lineBreak.ToString();
+                    inventoryForSave += itemStack.Peek().toStringForSave() + itemStack.Count + lineBreak.ToString();
                 }
                 catch (NullReferenceException)
                 {
@@ -202,7 +202,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 }
                 catch (NullReferenceException)
                 {
-                   
+                    return false;
                 }
             }
             return true;
@@ -351,26 +351,27 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 {
                     if (!itemIsSelected)
                     {
-                        selectedItem = inventoryMatrix[yInInventory, xInInventory];
+                        selectedItemStack = inventoryMatrix[yInInventory, xInInventory];
                         itemIsSelected = true;
-                        selectedItemX = xInInventory;
-                        selectedItemY = yInInventory;
+                        selectedItemStackX = xInInventory;
+                        selectedItemStackY = yInInventory;
                     }
                     else
                     {
-                        inventoryMatrix[selectedItemY, selectedItemX] = inventoryMatrix[yInInventory, xInInventory];
-                        if (inventoryMatrix[selectedItemY, selectedItemX] != null)
+                        inventoryMatrix[selectedItemStackY, selectedItemStackX] = inventoryMatrix[yInInventory, xInInventory];
+
+                        if (inventoryMatrix[selectedItemStackY, selectedItemStackX] != null && inventoryMatrix[selectedItemStackY, selectedItemStackX].Peek() != null)
                         {
-                            inventoryMatrix[selectedItemY, selectedItemX].setPositionMatrix(selectedItemX, selectedItemY);
+                            inventoryMatrix[selectedItemStackY, selectedItemStackX].Peek().setPositionMatrix(selectedItemStackX, selectedItemStackY);
                         }
 
-                        inventoryMatrix[yInInventory, xInInventory] = selectedItem;
+                        inventoryMatrix[yInInventory, xInInventory] = selectedItemStack;
 
                         if (inventoryMatrix[yInInventory, xInInventory] != null)
                         {
-                            inventoryMatrix[yInInventory, xInInventory].setPositionMatrix(xInInventory, yInInventory);
+                            inventoryMatrix[yInInventory, xInInventory].Peek().setPositionMatrix(xInInventory, yInInventory);
                         }
-                        selectedItem = null;
+                        selectedItemStack = null;
                         itemIsSelected = false;
                     }
                     Game.isPressed = true;
@@ -378,15 +379,17 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
                 if (Keyboard.IsKeyPressed(Controls.UseItem) && !Game.isPressed)
                 {
-                    if (inventoryMatrix[yInInventory, xInInventory] != null)
+                    if (inventoryMatrix[yInInventory, xInInventory].Peek() != null)
                     {
-                        inventoryMatrix[yInInventory, xInInventory].use();
+                        inventoryMatrix[yInInventory, xInInventory].Peek().use();
                     }
                 }
 
-                if (inventoryMatrix[yInInventory, xInInventory] != null && !inventoryMatrix[yInInventory, xInInventory].isAlive)
+                if (inventoryMatrix[yInInventory, xInInventory] != null && !inventoryMatrix[yInInventory, xInInventory].Peek().isAlive)
                 {
-                    inventoryMatrix[yInInventory, xInInventory] = null;
+                    inventoryMatrix[yInInventory, xInInventory].Pop();
+                    inventoryMatrix[yInInventory, xInInventory].Peek().position = getSelectedPosition(xInInventory, yInInventory);
+                    inventoryMatrix[yInInventory, xInInventory].Peek().setVisible(true);
                 }
             }
         }
@@ -501,6 +504,18 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             }
         }
 
+        public void updateMatrix()
+        {
+            foreach (Stack<AbstractItem> itemStack in inventoryMatrix)
+            {
+                if (itemStack != null && itemStack.Peek() != null)
+                {
+                    itemStack.Peek().sprite.Position = itemStack.Peek().position;
+                    itemStack.Peek().setVisible(true);
+                }
+            }
+        }
+
         public void deleate()
         {
             inventoryMatrix = new Stack<AbstractItem>[inventoryLength, inventoryWidth];
@@ -512,7 +527,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             if (inventoryOpen)
             {
                 spriteAndTextPositionUpdate();
-                ItemHandler.updateInventoryMatrix(gameTime);
+                updateMatrix();
                 managment();
                 mouseManagment();
             }
