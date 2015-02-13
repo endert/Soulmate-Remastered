@@ -502,7 +502,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             if (inventoryOpen)
             {
                 spriteAndTextPositionUpdate();
-                PlayerHandler.player.cheatUpdate();
                 ItemHandler.updateInventoryMatrix(gameTime);
                 managment();
                 mouseManagment();

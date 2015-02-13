@@ -240,20 +240,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             maxHP = baseHp + (lvl) * 50;
         }
 
-        public void cheatUpdate()
-        {
-            drawHitBoxOnOff();
-            cheatDef();
-            cheatAtt();
-            cheatFusionValue();
-        }
-
         public override void update(GameTime gameTime)
         {
             lvlUp();
-            //Cheats==============
-            cheatUpdate();
-            //====================
 
             if (currentHP > maxHP)
                 currentHP = maxHP;
@@ -363,28 +352,34 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             gold = value;
         }
 
-        public void cheatDef()
+        public void setDef(float value)
         {
-            if (Keyboard.IsKeyPressed(Controls.MoreDef))
-            {
-                def += 1;
-            }
+            def = value;
         }
 
-        public void cheatAtt()
+        public void setAtt(float value)
         {
-            if (Keyboard.IsKeyPressed(Controls.MoreAtt))
-            {
-                att += 1;
-            }
+            att = value;
         }
 
-        public void cheatFusionValue()
+        public void setFusionValue(float value)
         {
-            if (Keyboard.IsKeyPressed(Controls.MoreFusionValue))
+            if (value > 0 && value <= maxFusionValue)
             {
-                setCurrentFusionValue();
+                currentFusionValue = value;
             }
+            else
+            {
+                if (value <= 0)
+                {
+                    currentFusionValue = 1;
+                }
+                else
+                {
+                    currentFusionValue = maxFusionValue;
+                }
+            }
+
         }
 
         public void drawHitBoxOnOff()
