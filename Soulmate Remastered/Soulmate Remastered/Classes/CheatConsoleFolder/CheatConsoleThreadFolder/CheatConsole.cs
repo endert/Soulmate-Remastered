@@ -12,6 +12,9 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
 {
     class CheatConsole
     {
+        Texture cursorTexture = new Texture("Pictures/CheatConsole/Cursor.png");
+        Sprite cursor;
+
         public static Stopwatch watch = new Stopwatch();
         public static uint windowSizeX = 300;
         public static uint windowSizeY = 100;
@@ -23,11 +26,13 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
 
         public CheatConsole()
         {
+            cursor = new Sprite(cursorTexture);
             window = new RenderWindow(new VideoMode(windowSizeX, windowSizeY), "CheatConsole");
             window.Closed += window_Close;
             window.SetVisible(false);
-            closeWithEnter = new Text("close with Enter", font, 13);
-            closeWithEnter.Position = new Vector2f(window.Size.X / 2 - 30, window.Size.Y / 2 - 20);
+            closeWithEnter = new Text("close with Enter", font, 15);
+            closeWithEnter.Position = new Vector2f((window.Size.X / 2) - (42),
+                                                  (window.Size.Y / 2) - 30);
             text = new Text("", font, 10);
             text.Position = new Vector2f(3, windowSizeY - 40);
         }
@@ -70,6 +75,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             //window.DispatchEvents();
 
             Input.InputHandle();
+            cursor.Position = new Vector2f(text.FindCharacterPos((UInt32)text.DisplayedString.Length).X + cursor.Texture.Size.X, text.Position.Y);
 
             if (!NavigationHelp.isAnyKeyPressed() || watch.ElapsedMilliseconds > 150)
             {
@@ -78,6 +84,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
 
             window.Draw(closeWithEnter);
             window.Draw(text);
+            window.Draw(cursor);
             window.Display();
         }
 

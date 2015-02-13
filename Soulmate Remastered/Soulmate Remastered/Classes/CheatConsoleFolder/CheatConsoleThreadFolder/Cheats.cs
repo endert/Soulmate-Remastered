@@ -17,7 +17,10 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             "/SETMONEY",
             "/HEAL",
             "/SETEXP",
-            "/SETLVL"
+            "/SETLVL",
+            "/SETDEF",
+            "/SETATT",
+            "/SETFUSIONVALUE"
         };
 
         public static void setHp(String parameter)
@@ -73,14 +76,50 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             }
         }
 
+        public static void setDef(String parameter)
+        {
+            try
+            {
+                PlayerHandler.player.setDef(Convert.ToSingle(parameter));
+            }
+            catch (InvalidCastException)
+            {
+                Console.WriteLine(parameter + invalidInput + cheatNames[5]);
+            }
+        }
+
+        public static void setAtt(String parameter)
+        {
+            try
+            {
+                PlayerHandler.player.setAtt(Convert.ToSingle(parameter));
+            }
+            catch (InvalidCastException)
+            {
+                Console.WriteLine(parameter + invalidInput + cheatNames[6]);
+            }
+        }
+
+        public static void setFusionValue(String parameter)
+        {
+            try
+            {
+                PlayerHandler.player.setFusionValue(Convert.ToSingle(parameter));
+            }
+            catch (InvalidCastException)
+            {
+                Console.WriteLine(parameter + invalidInput + cheatNames[7]);
+            }
+        }
+
         public static void activateCheat(String input)
         {
-            String[] inputSplitt = input.Split();
+            String[] inputSplit = input.Split();
             int selectedCheat = -1;
 
             for (int i = 0; i < cheatNames.Length; i++)
             {
-                if (cheatNames[i].Equals(inputSplitt[0]))
+                if (cheatNames[i].Equals(inputSplit[0]))
                 {
                     selectedCheat = i;
                     break;
@@ -90,19 +129,28 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             switch (selectedCheat)
             {
                 case 0:
-                    setHp(inputSplitt[1]);
+                    setHp(inputSplit[1]);
                     break;
                 case 1:
-                    setMoney(inputSplitt[1]);
+                    setMoney(inputSplit[1]);
                     break;
                 case 2:
                     heal();
                     break;
                 case 3:
-                    setExp(inputSplitt[1]);
+                    setExp(inputSplit[1]);
                     break;
                 case 4:
-                    setLvl(inputSplitt[1]);
+                    setLvl(inputSplit[1]);
+                    break;
+                case 5:
+                    setDef(inputSplit[1]);
+                    break;
+                case 6:
+                    setAtt(inputSplit[1]);
+                    break;
+                case 7:
+                    setFusionValue(inputSplit[1]);
                     break;
                 default:
                     break;
