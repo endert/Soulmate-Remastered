@@ -7,7 +7,7 @@ ToDoList
 	- Pfeile neu machen (*hust* Joshua *hust*)
 	- Equipment stats
 	- Verkäufer
-	- Konsole
+	- Konsole (done)
 	- Option Settings
 	- Options in IngameMenu einfuegen
 	- Story (*hust* Lisa *hust*) 
