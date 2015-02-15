@@ -321,7 +321,7 @@
     <Content Include="Pictures\Items\Money\Gold.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Items\Potion\HealPotion\SmallPotion.png">
+    <Content Include="Pictures\Items\Potion\HealPotion\PotionSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Items\TestItem%28Pete%29.png">

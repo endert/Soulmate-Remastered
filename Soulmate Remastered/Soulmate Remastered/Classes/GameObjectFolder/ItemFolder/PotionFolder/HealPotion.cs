@@ -38,7 +38,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
             {
                 case healPotionSize.small:
                     recoveryValue = 20;
-                    textureList.Add(new Texture("Pictures/Items/Potion/HealPotion/SmallPotion.png"));
+                    textureList.Add(new Texture("Pictures/Items/Potion/HealPotion/PotionSmall.png"));
                     break;
                 case healPotionSize.middle:
                     recoveryValue = 50;
