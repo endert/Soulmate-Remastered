@@ -72,7 +72,14 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public void GameUpdate(GameTime gameTime)
         {
-           
+            if (inGameMenu.closeGame) //if exit clicked
+            {
+                gameObjectHandler.deleate();
+                File.Delete(savePlayer);
+                returnValue = 1;
+                return;
+            }
+
             time.Update();
             ItemHandler.playerInventory.update(gameTime);
             inGameMenu.update(gameTime);
@@ -100,17 +107,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 }
             }
 
-            if (inGameMenu.closeGame) //if exit clicked
-            {
-                gameObjectHandler.deleate();
-                File.Delete(savePlayer);
-                returnValue = 1;
-            }
-
             if (inGameMenu.optionsOpen)
             {
                 returnValue = 3;
             }
+
             hud.update(gameTime);
         }
 
