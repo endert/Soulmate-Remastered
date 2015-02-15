@@ -307,8 +307,12 @@
     <Content Include="Pictures\Inventory\ScrollArrow\ScrollArrowBottomNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Inventory\ScrollArrow\ScrollArrowBottomSelected.png" />
-    <Content Include="Pictures\Inventory\ScrollArrow\ScrollArrowTopNotSelected.png" />
+    <Content Include="Pictures\Inventory\ScrollArrow\ScrollArrowBottomSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Inventory\ScrollArrow\ScrollArrowTopNotSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pictures\Inventory\ScrollArrow\ScrollArrowTopSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
