@@ -81,10 +81,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             }
         }
 
-        public virtual void use()
-        {
-
-        } 
+        public virtual void use() { } 
 
         public void drop(Vector2f dropPosition)
         {
