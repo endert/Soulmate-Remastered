@@ -50,7 +50,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture closeButtonSelected = new Texture("Pictures/Inventory/CloseButton/CloseButtonSelected.png");
         Sprite closeButton;
 
-        Vector2f scrollArrowScaleValue = new Vector2f(0.45f, 0.45f);
+        Vector2f scrollArrowScaleValue = new Vector2f(0.43f, 0.43f);
 
         bool characterMenuActivated;
         bool petMenuActivated;
@@ -180,13 +180,13 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             questTab = new Sprite(questTabNotSelected);
             questTab.Position = new Vector2f(characterTab.Position.X + 210, characterTab.Position.Y);
 
-            scrollArrowBottom = new Sprite(scrollArrowBottomSelected);
+            scrollArrowBottom = new Sprite(scrollArrowBottomNotSelected);
             scrollArrowBottom.Scale = scrollArrowScaleValue;
-            scrollArrowBottom.Position = new Vector2f(character_pet_questSprite.Position.X + 745, character_pet_questSprite.Position.Y + 420);
+            scrollArrowBottom.Position = new Vector2f(character_pet_questSprite.Position.X + 727, character_pet_questSprite.Position.Y + 420);
 
-            scrollArrowTop = new Sprite(scrollArrowTopSelected);
+            scrollArrowTop = new Sprite(scrollArrowTopNotSelected);
             scrollArrowTop.Scale = scrollArrowScaleValue;
-            scrollArrowTop.Position = new Vector2f(scrollArrowBottom.Position.X - 25, scrollArrowBottom.Position.Y);
+            scrollArrowTop.Position = new Vector2f(scrollArrowBottom.Position.X - 19, scrollArrowBottom.Position.Y);
 
             closeButton = new Sprite(closeButtonNotSelected);
             closeButton.Position = new Vector2f(character_pet_questSprite.Position.X + character_pet_questSprite.Texture.Size.X - closeButton.Texture.Size.X - 3, character_pet_questSprite.Position.Y + 3);
@@ -276,6 +276,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void characterMenuManagment()
         {
+            mouseCharacterManagment();
+            
             if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
             {
                 if (yInInventory == 0 && inInventory)  // enter Tabs
@@ -387,6 +389,16 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             }
         }
 
+        public void petMenuManagment()
+        {
+
+        }
+
+        public void questLogManagment()
+        {
+            mouseQuestLogManagment();
+        }
+
         public void managment()
         {
             if ((Keyboard.IsKeyPressed(Controls.OpenInventar) || Keyboard.IsKeyPressed(Controls.Escape)) && !Game.isPressed)
@@ -408,6 +420,12 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             
             if(characterMenuActivated)
                 characterMenuManagment();
+
+            if (petMenuActivated)
+                petMenuManagment();
+
+            if (questLogActivated)
+                questLogManagment();
 
             setTabs();
         }
@@ -562,7 +580,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             }
         }
 
-        public void mouseManagment()
+        public void mouseCharacterManagment()
         {            
             if (mouseInInventoryMatrix())
             {
@@ -593,6 +611,19 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 if (mouseInSixthEquipmentSlot())
                     yInEquipmentSlots = 5;
             }
+        }
+
+        public void mouseQuestLogManagment()
+        {
+            if (NavigationHelp.isMouseInSprite(scrollArrowBottom))
+                scrollArrowBottom.Texture = scrollArrowBottomSelected;
+            else
+                scrollArrowBottom.Texture = scrollArrowBottomNotSelected;
+
+            if (NavigationHelp.isMouseInSprite(scrollArrowTop))
+                scrollArrowTop.Texture = scrollArrowTopSelected;
+            else
+                scrollArrowTop.Texture = scrollArrowTopNotSelected;
         }
 
         public void changeTab()
@@ -681,8 +712,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 updateMatrix();
                 managment();
                 mouseTabManagment();
-                if(characterMenuActivated)
-                    mouseManagment();
                 changeTab();
             }
         }
