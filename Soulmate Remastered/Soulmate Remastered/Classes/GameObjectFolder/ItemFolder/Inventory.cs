@@ -42,11 +42,15 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Text exp;
         Text lvl;
 
+        List<Text> StackCount = new List<Text>();
+
         Texture inventoryTexture = new Texture("Pictures/Inventory/Inventory.PNG");
         public Sprite inventory { get; set; }
         public float FIELDSIZE { get { return 49f; } }
         Texture selectedTexture = new Texture("Pictures/Inventory/Selected.png");
         Sprite selected;
+
+        public static int MaxStackCount { get { return 99; } }
 
         public Vector2f inventoryMatrixPosition { get { return new Vector2f(inventory.Position.X + 306, inventory.Position.Y + 101); } }
 
@@ -68,13 +72,13 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         uint inventoryWidth;
         uint inventoryLength;
 
-        public AbstractItem[,] inventoryMatrix { get; set; }
+        public Stack<AbstractItem>[,] inventoryMatrix { get; set; }
         public Equipment[] equipment { get; set; }
 
-        AbstractItem selectedItem;
+        Stack<AbstractItem> selectedItemStack;
         bool itemIsSelected = false;
-        int selectedItemX;
-        int selectedItemY;
+        int selectedItemStackX;
+        int selectedItemStackY;
 
         bool inInventory = true;
         bool inTab = false;
@@ -88,11 +92,11 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         {
             String inventoryForSave = "inv" + lineBreak.ToString();
 
-            foreach  (AbstractItem item in inventoryMatrix)
+            foreach  (Stack<AbstractItem> itemStack in inventoryMatrix)
             {
                 try
                 {
-                    inventoryForSave += item.toStringForSave() + lineBreak.ToString();
+                    inventoryForSave += itemStack.Peek().toStringForSave() + itemStack.Count + lineBreak.ToString();
                 }
                 catch (NullReferenceException)
                 {
@@ -121,8 +125,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 for (int j = 0; j < inventoryMatrix.GetLength(1); j++)
                 {
                     inventoryMatrix[i, j] = ItemHandler.load(splitInventoryString[i * inventoryMatrix.GetLength(1) + j + 1]);
-                    if (inventoryMatrix[i, j] != null)
-                        inventoryMatrix[i, j].position = new Vector2f((j * FIELDSIZE + 1 + inventoryMatrixPosition.X), (i * FIELDSIZE + 1 + inventoryMatrixPosition.Y));
                 }
             }
         }
@@ -157,12 +159,19 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             inventoryWidth = 9;
             inventoryLength = 7;
 
-            inventoryMatrix = new AbstractItem[inventoryLength, inventoryWidth];
+            inventoryMatrix = new Stack<AbstractItem>[inventoryLength, inventoryWidth];
 
             spriteAndTextPositionUpdate();
             inInventory = true;
 
             equipment = new Equipment[6];
+
+            foreach (Stack<AbstractItem> itemStack in inventoryMatrix)
+            {
+                StackCount.Add(new Text("", Game.font, 15));
+                StackCount[StackCount.Count - 1].Color = Color.Black;
+                StackCount[StackCount.Count - 1].Style = Text.Styles.Bold;
+            }
         }
 
         public void spriteAndTextPositionUpdate()
@@ -187,13 +196,26 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             gold.DisplayedString = "Gold: " + PlayerHandler.player.gold;
             goldSprite.Position = new Vector2f(lvl.Position.X - 10, lvl.Position.Y + 45);
             gold.Position = new Vector2f(goldSprite.Position.X + (goldSprite.Texture.Size.X / 2), goldSprite.Position.Y);
+
+            for (int i = 0; i < StackCount.Count; i++)
+            {
+                StackCount[i].Position = new Vector2f(inventoryMatrixPosition.X + ((i % inventoryWidth) * FIELDSIZE) + 35, 
+                                                      inventoryMatrixPosition.Y + ((i / inventoryWidth) * FIELDSIZE) + FIELDSIZE - StackCount[i].CharacterSize);
+            }
         }
 
-        public bool isFull()
+        public bool isFullWith(AbstractItem item)
         {
-            foreach (AbstractItem item in inventoryMatrix)
+            foreach (Stack<AbstractItem> itemStack in inventoryMatrix)
             {
-                if (item == null)
+                try
+                {
+                    if (itemStack.Count < MaxStackCount && item.CompareTo(itemStack.Peek()) == 0)
+                    {
+                        return false;
+                    }
+                }
+                catch (NullReferenceException)
                 {
                     return false;
                 }
@@ -344,26 +366,27 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 {
                     if (!itemIsSelected)
                     {
-                        selectedItem = inventoryMatrix[yInInventory, xInInventory];
+                        selectedItemStack = inventoryMatrix[yInInventory, xInInventory];
                         itemIsSelected = true;
-                        selectedItemX = xInInventory;
-                        selectedItemY = yInInventory;
+                        selectedItemStackX = xInInventory;
+                        selectedItemStackY = yInInventory;
                     }
                     else
                     {
-                        inventoryMatrix[selectedItemY, selectedItemX] = inventoryMatrix[yInInventory, xInInventory];
-                        if (inventoryMatrix[selectedItemY, selectedItemX] != null)
+                        inventoryMatrix[selectedItemStackY, selectedItemStackX] = inventoryMatrix[yInInventory, xInInventory];
+
+                        if (inventoryMatrix[selectedItemStackY, selectedItemStackX] != null && inventoryMatrix[selectedItemStackY, selectedItemStackX].Peek() != null)
                         {
-                            inventoryMatrix[selectedItemY, selectedItemX].setPositionMatrix(selectedItemX, selectedItemY);
+                            inventoryMatrix[selectedItemStackY, selectedItemStackX].Peek().setPositionMatrix(selectedItemStackX, selectedItemStackY);
                         }
 
-                        inventoryMatrix[yInInventory, xInInventory] = selectedItem;
+                        inventoryMatrix[yInInventory, xInInventory] = selectedItemStack;
 
                         if (inventoryMatrix[yInInventory, xInInventory] != null)
                         {
-                            inventoryMatrix[yInInventory, xInInventory].setPositionMatrix(xInInventory, yInInventory);
+                            inventoryMatrix[yInInventory, xInInventory].Peek().setPositionMatrix(xInInventory, yInInventory);
                         }
-                        selectedItem = null;
+                        selectedItemStack = null;
                         itemIsSelected = false;
                     }
                     Game.isPressed = true;
@@ -371,15 +394,17 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
                 if (Keyboard.IsKeyPressed(Controls.UseItem) && !Game.isPressed)
                 {
-                    if (inventoryMatrix[yInInventory, xInInventory] != null)
+                    if (inventoryMatrix[yInInventory, xInInventory].Peek() != null)
                     {
-                        inventoryMatrix[yInInventory, xInInventory].use();
+                        inventoryMatrix[yInInventory, xInInventory].Peek().use();
                     }
                 }
 
-                if (inventoryMatrix[yInInventory, xInInventory] != null && !inventoryMatrix[yInInventory, xInInventory].isAlive)
+                if (inventoryMatrix[yInInventory, xInInventory] != null && !inventoryMatrix[yInInventory, xInInventory].Peek().isAlive)
                 {
-                    inventoryMatrix[yInInventory, xInInventory] = null;
+                    inventoryMatrix[yInInventory, xInInventory].Pop();
+                    inventoryMatrix[yInInventory, xInInventory].Peek().position = getSelectedPosition(xInInventory, yInInventory);
+                    inventoryMatrix[yInInventory, xInInventory].Peek().setVisible(true);
                 }
             }
         }
@@ -396,8 +421,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public bool mouseInInventoryMatrix()
         {            
-            return (0 <= (mousePositionInInventoryMatrix().X) && inventoryWidth >= (mousePositionInInventoryMatrix().X)
-                 && 0 <= (mousePositionInInventoryMatrix().Y) && inventoryLength >= (mousePositionInInventoryMatrix().Y));
+            return (0 <= (mousePositionInInventoryMatrix().X) && inventoryWidth > (mousePositionInInventoryMatrix().X)
+                 && 0 <= (mousePositionInInventoryMatrix().Y) && inventoryLength > (mousePositionInInventoryMatrix().Y));
         }
 
         public bool mouseInFirstEquipmentSlot()
@@ -494,9 +519,39 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             }
         }
 
+        public void updateMatrix()
+        {
+            int i = 0;
+            foreach (Stack<AbstractItem> itemStack in inventoryMatrix)
+            {
+                if (itemStack != null)
+                {
+                    if (itemStack.Count < 10)
+                    {
+                        StackCount[i].DisplayedString = "0" + Convert.ToString(itemStack.Count);
+                    }
+                    else
+                    {
+                        StackCount[i].DisplayedString = Convert.ToString(itemStack.Count);
+                    }
+                }
+                else
+                {
+                    StackCount[i].DisplayedString = "";
+                }
+                i++;
+
+                if (itemStack != null && itemStack.Peek() != null)
+                {
+                    itemStack.Peek().sprite.Position = itemStack.Peek().position;
+                    itemStack.Peek().setVisible(true);
+                }
+            }
+        }
+
         public void deleate()
         {
-            inventoryMatrix = new AbstractItem[inventoryLength, inventoryWidth];
+            inventoryMatrix = new Stack<AbstractItem>[inventoryLength, inventoryWidth];
         }
 
         public void update(GameTime gameTime)
@@ -505,7 +560,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             if (inventoryOpen)
             {
                 spriteAndTextPositionUpdate();
-                ItemHandler.updateInventoryMatrix(gameTime);
+                updateMatrix();
                 managment();
                 mouseManagment();
             }
@@ -550,6 +605,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             window.Draw(defense);
             window.Draw(exp);
             window.Draw(lvl);
+            foreach (Text txt in StackCount)
+            {
+                window.Draw(txt);
+            }
         }
 
         public void draw(RenderWindow window)
@@ -559,11 +618,11 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             window.Draw(inventoryTab);
             window.Draw(petTab);
             window.Draw(closeButton);
-            drawTexts(window);
             if (!inTab)
             {
                 window.Draw(selected);
             }
+            drawTexts(window);
         }
     }
 }

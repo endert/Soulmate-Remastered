@@ -22,7 +22,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             petForSave += getCurrentHP + lineBreak.ToString();   //splitPetString[1]
             petForSave += position.X + lineBreak.ToString(); //splitPetString[2]
             petForSave += position.Y + lineBreak.ToString(); //splitPetString[3]
-            petForSave += type.Split('.')[type.Split('.').Length-1];  //splitPetString[4]
+            petForSave += type.Split('.')[type.Split('.').Length - 1] + lineBreak.ToString();  //splitPetString[4]
 
             return petForSave;
         }
