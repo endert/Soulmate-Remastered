@@ -11,6 +11,7 @@ using Soulmate_Remastered.Classes.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {
@@ -22,15 +23,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
         static String[] loadableItems = new String[]
         {
-            "Pete"
+            "Pete",
+            "HealPotion"
         };
 
-        private static AbstractItem evaluateLoadedItem(int index)
+        private static AbstractItem evaluateLoadedItem(int index, int size)
         {
             switch (index)
             {
                 case 0:
                     return new TestItem();
+                case 1:
+                    return new HealPotion((HealPotion.healPotionSize)size);
                 default:
                     return null;
             }
@@ -52,7 +56,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 {
                     if (itemString.Split(AbstractItem.lineBreak)[1].Equals(loadableItems[i]))
                     {
-                        AbstractItem loadedItem = evaluateLoadedItem(i);
+                        AbstractItem loadedItem = null;
+                        switch (i)
+                        {
+                            case 0:
+                                loadedItem = evaluateLoadedItem(i, 0);
+                                break;
+                            case 1:
+                                loadedItem = evaluateLoadedItem(i, Convert.ToInt32(itemString.Split(AbstractItem.lineBreak)[4]));
+                                break;
+                            default:
+                                break;
+                        }
                         loadedItem.position = new Vector2f(Convert.ToSingle(itemString.Split(AbstractItem.lineBreak)[2]),
                                                            Convert.ToSingle(itemString.Split(AbstractItem.lineBreak)[3]));
 
