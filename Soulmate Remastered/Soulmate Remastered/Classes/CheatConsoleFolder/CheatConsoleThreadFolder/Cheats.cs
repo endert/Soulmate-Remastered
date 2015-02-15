@@ -121,7 +121,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             }
             catch (InvalidCastException)
             {
-                Console.WriteLine(parameter + invalidInput + cheatNames[8])
+                Console.WriteLine(parameter + invalidInput + cheatNames[8]);
             }
         }
 

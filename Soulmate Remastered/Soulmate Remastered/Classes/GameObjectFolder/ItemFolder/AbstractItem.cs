@@ -23,6 +23,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         public float pickUpRange { get { return 50f; } }
         protected Stopwatch decay = new Stopwatch();
         protected int decayingIn = 60000; //60sec
+        protected float recoveryValue;
 
         public virtual String toStringForSave()
         {

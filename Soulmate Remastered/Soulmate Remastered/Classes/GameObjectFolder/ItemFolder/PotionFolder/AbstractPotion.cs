@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 {
-    class AbstractPotion : AbstractItem
+    abstract class AbstractPotion : AbstractItem
     {
         public override string type
         {
