@@ -28,5 +28,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
             ItemHandler.add(gold);
             gold.drop(dropPosition);
         }
+
+        public override AbstractItem clone()
+        {
+            return new Gold();
+        }
     }
 }

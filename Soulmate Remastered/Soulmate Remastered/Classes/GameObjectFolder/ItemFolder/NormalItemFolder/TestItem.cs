@@ -36,5 +36,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
             ItemHandler.add(test);
             test.drop(dropPosition);
         }
+
+        public override AbstractItem clone()
+        {
+            return new TestItem();
+        }
     }
 }

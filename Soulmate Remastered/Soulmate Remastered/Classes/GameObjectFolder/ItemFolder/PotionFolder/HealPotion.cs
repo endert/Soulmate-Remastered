@@ -65,5 +65,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
             PlayerHandler.player.HealFor(recoveryValue);
             isAlive = false;
         }
+
+        public override AbstractItem clone()
+        {
+            return new HealPotion((healPotionSize)size);
+        }
     }
 }

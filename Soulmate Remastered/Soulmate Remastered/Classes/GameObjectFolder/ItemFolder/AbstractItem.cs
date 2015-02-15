@@ -36,6 +36,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             return itemForSave;
         }
 
+        public abstract AbstractItem clone();
+
         public void setPositionMatrix(int x, int y)
         {
             position = new Vector2f(x * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X,
