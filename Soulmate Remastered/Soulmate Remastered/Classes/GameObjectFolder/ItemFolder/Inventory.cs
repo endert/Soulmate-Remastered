@@ -582,6 +582,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 petMenuActivated = false;
                 questLogActivated = false;
                 character_pet_questSprite.Texture = characterMenu;
+                selectedTab = 0;
             }
 
             if (NavigationHelp.isSpriteKlicked(xInTabs, 1, Game.isPressed, petTab, Controls.Return))
@@ -591,6 +592,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 petMenuActivated = true;
                 questLogActivated = false;
                 character_pet_questSprite.Texture = petMenu;
+                selectedTab = 1;
             }
 
             if (NavigationHelp.isSpriteKlicked(xInTabs, 2, Game.isPressed, questTab, Controls.Return))
@@ -600,6 +602,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 petMenuActivated = false;
                 questLogActivated = true;
                 character_pet_questSprite.Texture = questLog;
+                selectedTab = 2;
             }
         }
 
