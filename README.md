@@ -2,12 +2,12 @@
 
 ToDoList
 
-	- Stack
+--------- Stack
 	- Pet Futzi
 	- Pfeile neu machen (*hust* Joshua *hust*)
 	- Equipment stats
 	- Verkäufer
-	- Konsole
+--------- Konsole
 	- Option Settings
 	- Options in IngameMenu einfuegen
 	- Story (*hust* Lisa *hust*) 
@@ -46,7 +46,7 @@ ToDoList
 ToDoList Picture
 
 	- Main Menu Bilder
-	- Schriftzüge anpassen
+--------- Schriftzüge anpassen
 	- Wolf, Vogel, Werwolf, ... farbig malen
 	- Pet Menü
 	- Quest log Menü + Reiter
