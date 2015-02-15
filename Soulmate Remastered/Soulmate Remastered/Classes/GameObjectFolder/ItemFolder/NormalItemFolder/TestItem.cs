@@ -39,7 +39,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
 
         public override AbstractItem clone()
         {
-            return new TestItem();
+            AbstractItem clonedItem = new TestItem();
+            clonedItem.position = this.position;
+            return clonedItem;
         }
     }
 }

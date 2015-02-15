@@ -68,7 +68,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 
         public override AbstractItem clone()
         {
-            return new HealPotion((healPotionSize)size);
+            AbstractItem clonedItem = new HealPotion((healPotionSize)size);
+            clonedItem.position = this.position;
+            return clonedItem;
         }
     }
 }
