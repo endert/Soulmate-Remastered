@@ -305,6 +305,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         }
 
         //Cheats==============================================================
+        public void HealFor(float value)
+        {
+            currentHP += value;
+            if (currentHP > maxHP)
+            {
+                currentHP = maxHP;
+            }
+        }
+
         public void setHp(float value)
         {
             currentHP = value;

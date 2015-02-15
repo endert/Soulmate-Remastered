@@ -9,6 +9,8 @@ using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.InGameMenuFolder;
 using Soulmate_Remastered.Classes.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
+using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {
@@ -18,6 +20,22 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         public static Inventory playerInventory { get; set; }
         public static EquipmentHandler equipmentHandler { get; set; }
 
+        static String[] loadableItems = new String[]
+        {
+            "Pete"
+        };
+
+        private static AbstractItem evaluateLoadedItem(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    return new TestItem();
+                default:
+                    return null;
+            }
+        } 
+
         public ItemHandler()
         {
             itemList = new List<AbstractItem>();
@@ -25,18 +43,28 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             equipmentHandler = new EquipmentHandler();
         }
 
-        public static AbstractItem load(String itemString)
+        public static Stack<AbstractItem> load(String itemString)
         {
+            Stack<AbstractItem> loadedStack = new Stack<AbstractItem>();
             try
             {
-                if (itemString.Split(AbstractItem.lineBreak)[1].Equals("Pete"))
+                for (int i = 0; i < loadableItems.Length; i++)
                 {
-                    return new TestItem();
+                    if (itemString.Split(AbstractItem.lineBreak)[1].Equals(loadableItems[i]))
+                    {
+                        AbstractItem loadedItem = evaluateLoadedItem(i);
+                        loadedItem.position = new Vector2f(Convert.ToSingle(itemString.Split(AbstractItem.lineBreak)[2]),
+                                                           Convert.ToSingle(itemString.Split(AbstractItem.lineBreak)[3]));
+
+                        for (int j = 0; j < Convert.ToInt32(itemString.Split(AbstractItem.lineBreak)[itemString.Split(AbstractItem.lineBreak).Length - 1]); j++)
+                        {
+                            loadedStack.Push(loadedItem);
+                        }
+
+                        break;
+                    }
                 }
-                else
-                {
-                    return null;
-                }
+                return loadedStack;
             }
             catch (IndexOutOfRangeException)
             {
@@ -85,7 +113,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                     break;
                 }
                 
-                if (!playerInventory.isFull() && itemList[i].hitBox.distanceTo(PlayerHandler.player.hitBox) <= itemList[i].pickUpRange && itemList[i].onMap)
+                if (itemList[i].onMap && itemList[i].hitBox.distanceTo(PlayerHandler.player.hitBox) <= itemList[i].pickUpRange && !playerInventory.isFullWith(itemList[i]))
                 {
                     itemList[i].pickUp(gameTime);
                     itemList.RemoveAt(i);
@@ -96,25 +124,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             playerInventory.update(gameTime);
         }
 
-        static public void updateInventoryMatrix(GameTime gameTime)
-        {
-            foreach (AbstractItem item in playerInventory.inventoryMatrix)
-            {
-                if (item != null)
-                {
-                    item.sprite.Position = item.position;
-                    item.setVisible(true);
-                }
-            }
-        }
-
         static public void drawInventoryItems(RenderWindow window)
         {
-            foreach (AbstractItem item in playerInventory.inventoryMatrix)
+            foreach (Stack<AbstractItem> itemStack in playerInventory.inventoryMatrix)
             {
-                if (item != null)
+                if (itemStack != null && itemStack.Count != 0 && itemStack.Peek() != null)
                 {
-                    item.draw(window);
+                    itemStack.Peek().draw(window);
                 }
             }
         }
