@@ -12,11 +12,11 @@ ToDoList
 	- Options in IngameMenu einfuegen
 	- Story (*hust* Lisa *hust*) 
 	- Quest log erstellen
-	- Maussteuerung verbessern  *DONE*
+--------- Maussteuerung verbessern
 	- Inventar sortierung ^^ (*da besteh ich drauf XP*) nach alphabet und kategorie
 	- Sounds implementieren?
-	- Hilfsdatei (.txt reicht aus) für SaveDatei anlegen (*damit man demnächst weiß welcher wert für was           gut ist... -_- *)
-	- Gebietswechsel RICHTIG abspeichern/laden  *DONE*
+	- Hilfsdatei (.txt reicht aus) für SaveDatei anlegen (*damit man demnächst weiß welcher wert für was gut ist... -_- *)
+--------- Gebietswechsel RICHTIG abspeichern/laden
 	- Level/Instanzen Designe
 	- Boss KI 
 	- Blotts Foxtrott
