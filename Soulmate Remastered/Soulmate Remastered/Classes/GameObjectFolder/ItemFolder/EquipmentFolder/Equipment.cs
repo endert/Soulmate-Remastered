@@ -9,21 +9,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
     abstract class Equipment : AbstractItem
     {
         public override String type { get { return base.type + ".Equipment"; } }
-        public override float ID
-        {
-            get
-            {
-                return base.ID * 10 + 1;
-            }
-        }
-
-        public override bool stackable
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public override float ID { get { return base.ID * 10 + 1; } }
+        public override bool stackable { get { return false; } }
 
         protected float attBonus;
             public float bonusAtt { get { return attBonus; } }
@@ -39,7 +26,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
 
         public void equip()
         {
+            if (ItemHandler.playerInventory.equipment[((int)ID) % 10] == null)
+            {
+                ItemHandler.playerInventory.equipment[((int)ID) % 10] = this;
+            }
+            else
+            {
 
+            }
         }
     }
 }
