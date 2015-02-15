@@ -80,6 +80,7 @@
     <Compile Include="Classes\GameObjectFolder\GameObject.cs" />
     <Compile Include="Classes\GameObjectFolder\GameObjectHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\AbstractItem.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\EquipmentFolder\Sword.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\PotionFolder\AbstractPotion.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\EquipmentFolder\Equipment.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\EquipmentFolder\EquipmentHandler.cs" />

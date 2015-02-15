@@ -29,6 +29,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
             if (ItemHandler.playerInventory.equipment[((int)ID) % 10] == null)
             {
                 ItemHandler.playerInventory.equipment[((int)ID) % 10] = this;
+
             }
             else
             {

@@ -10,6 +10,7 @@ using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 {
@@ -25,7 +26,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             textureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottLeft.png"));
             textureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Invulnerable/BlottFrontInvulnerable.png"));
 
-            drops = new AbstractItem[] {new Gold(), new TestItem(), new HealPotion(HealPotion.healPotionSize.small)};
+            drops = new AbstractItem[] { new Gold(), new TestItem(), new HealPotion(HealPotion.healPotionSize.small), new Sword(10, 0, 0) };
 
             sprite = new Sprite(textureList[0]);
             position = spawnPos;
