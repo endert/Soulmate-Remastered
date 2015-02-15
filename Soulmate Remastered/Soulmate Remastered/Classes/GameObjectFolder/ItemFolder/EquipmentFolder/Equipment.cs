@@ -16,7 +16,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
                 return base.ID * 10 + 1;
             }
         }
-        
+
+        public override bool stackable
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         protected float attBonus;
             public float bonusAtt { get { return attBonus; } }
         protected float defBonus;

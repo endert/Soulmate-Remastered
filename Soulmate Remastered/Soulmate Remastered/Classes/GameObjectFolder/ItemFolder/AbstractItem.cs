@@ -14,6 +14,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
     {
         public override String type { get { return base.type + ".Item"; } }
         public virtual float ID { get { return 0; } }
+        public virtual bool stackable { get { return true; } }
         public override bool walkable { get { return true; } }
         protected int dropRate; // in percent
         public int DROPRATE { get { return dropRate; } }
@@ -62,15 +63,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                         return;
 
                     }
-                    if (ItemHandler.playerInventory.inventoryMatrix[i, j].Count < Inventory.MaxStackCount && 
+                    if (ItemHandler.playerInventory.inventoryMatrix[i, j].Count < Inventory.MaxStackCount &&
                        (ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() == null || ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().CompareTo(this) == 0))
                     {
-                        try
+                        if (ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() != null)
                         {
                             ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().setVisible(false);
-                        }
-                        catch (Exception)
-                        {
                         }
                         ItemHandler.playerInventory.inventoryMatrix[i, j].Push(this);
                         position = new Vector2f((j * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X),
@@ -130,7 +128,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
         public int CompareTo(AbstractItem other)
         {
-            return (int)(ID - other.ID);
+            if (stackable)
+            {
+                return (int)(ID - other.ID);
+            }
+            else
+            {
+                return -1;
+            }
         }
     }
 }

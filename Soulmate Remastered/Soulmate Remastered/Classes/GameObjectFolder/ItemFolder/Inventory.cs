@@ -42,6 +42,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Text exp;
         Text lvl;
 
+        List<Text> StackCount = new List<Text>();
+
         Texture inventoryTexture = new Texture("Pictures/Inventory/Inventory.PNG");
         public Sprite inventory { get; set; }
         public float FIELDSIZE { get { return 49f; } }
@@ -163,6 +165,13 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             inInventory = true;
 
             equipment = new Equipment[6];
+
+            foreach (Stack<AbstractItem> itemStack in inventoryMatrix)
+            {
+                StackCount.Add(new Text("", Game.font, 15));
+                StackCount[StackCount.Count - 1].Color = Color.Black;
+                StackCount[StackCount.Count - 1].Style = Text.Styles.Bold;
+            }
         }
 
         public void spriteAndTextPositionUpdate()
@@ -187,6 +196,12 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             gold.DisplayedString = "Gold: " + PlayerHandler.player.gold;
             goldSprite.Position = new Vector2f(lvl.Position.X - 10, lvl.Position.Y + 45);
             gold.Position = new Vector2f(goldSprite.Position.X + (goldSprite.Texture.Size.X / 2), goldSprite.Position.Y);
+
+            for (int i = 0; i < StackCount.Count; i++)
+            {
+                StackCount[i].Position = new Vector2f(inventoryMatrixPosition.X + ((i % inventoryWidth) * FIELDSIZE) + 35, 
+                                                      inventoryMatrixPosition.Y + ((i / inventoryWidth) * FIELDSIZE) + FIELDSIZE - StackCount[i].CharacterSize);
+            }
         }
 
         public bool isFullWith(AbstractItem item)
@@ -406,8 +421,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public bool mouseInInventoryMatrix()
         {            
-            return (0 <= (mousePositionInInventoryMatrix().X) && inventoryWidth >= (mousePositionInInventoryMatrix().X)
-                 && 0 <= (mousePositionInInventoryMatrix().Y) && inventoryLength >= (mousePositionInInventoryMatrix().Y));
+            return (0 <= (mousePositionInInventoryMatrix().X) && inventoryWidth > (mousePositionInInventoryMatrix().X)
+                 && 0 <= (mousePositionInInventoryMatrix().Y) && inventoryLength > (mousePositionInInventoryMatrix().Y));
         }
 
         public bool mouseInFirstEquipmentSlot()
@@ -506,8 +521,26 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void updateMatrix()
         {
+            int i = 0;
             foreach (Stack<AbstractItem> itemStack in inventoryMatrix)
             {
+                if (itemStack != null)
+                {
+                    if (itemStack.Count < 10)
+                    {
+                        StackCount[i].DisplayedString = "0" + Convert.ToString(itemStack.Count);
+                    }
+                    else
+                    {
+                        StackCount[i].DisplayedString = Convert.ToString(itemStack.Count);
+                    }
+                }
+                else
+                {
+                    StackCount[i].DisplayedString = "";
+                }
+                i++;
+
                 if (itemStack != null && itemStack.Peek() != null)
                 {
                     itemStack.Peek().sprite.Position = itemStack.Peek().position;
@@ -572,6 +605,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             window.Draw(defense);
             window.Draw(exp);
             window.Draw(lvl);
+            foreach (Text txt in StackCount)
+            {
+                window.Draw(txt);
+            }
         }
 
         public void draw(RenderWindow window)
@@ -581,11 +618,11 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             window.Draw(inventoryTab);
             window.Draw(petTab);
             window.Draw(closeButton);
-            drawTexts(window);
             if (!inTab)
             {
                 window.Draw(selected);
             }
+            drawTexts(window);
         }
     }
 }
