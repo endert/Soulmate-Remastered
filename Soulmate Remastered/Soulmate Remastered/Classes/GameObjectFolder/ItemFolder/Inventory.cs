@@ -57,6 +57,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture selectedTexture = new Texture("Pictures/Inventory/Selected.png");
         Sprite selected;
 
+        int selectedTab;
+
         public static int MaxStackCount { get { return 99; } }
 
         public Vector2f inventoryMatrixPosition { get { return new Vector2f(inventory.Position.X + 306, inventory.Position.Y + 106); } }
@@ -140,6 +142,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public Inventory()
         {
+            selectedTab = 0;
             gold = new Text("Gold: ", font, 20);
             goldSprite = new Sprite(goldTexture);
             goldSprite.Scale = new Vector2f(0.25f, 0.25f);
@@ -192,7 +195,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             displayedPlayer.Position = new Vector2f(inventory.Position.X + 67, inventory.Position.Y + 82);
 
             attack.DisplayedString = "Attack: " + PlayerHandler.player.getAtt;
-            attack.Position = new Vector2f(inventory.Position.X + 65, inventoryMatrixPosition.Y + 7 * FIELDSIZE + 10);
+            attack.Position = new Vector2f(inventory.Position.X + 65, inventoryMatrixPosition.Y + 7 * FIELDSIZE + 5);
 
             defense.DisplayedString = "Defense: " + PlayerHandler.player.getDef;
             defense.Position = new Vector2f(attack.Position.X, attack.Position.Y + attack.CharacterSize);
@@ -206,8 +209,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             lvl.Position = new Vector2f(exp.Position.X, exp.Position.Y + exp.CharacterSize);
 
             gold.DisplayedString = "Gold: " + PlayerHandler.player.gold;
-            goldSprite.Position = new Vector2f(lvl.Position.X - 10, lvl.Position.Y + 45);
-            gold.Position = new Vector2f(goldSprite.Position.X + (goldSprite.Texture.Size.X / 2), goldSprite.Position.Y);
+            goldSprite.Position = new Vector2f(lvl.Position.X - 10, lvl.Position.Y + 50);
+            gold.Position = new Vector2f(goldSprite.Position.X + (goldSprite.Texture.Size.X / 2), goldSprite.Position.Y - 5);
 
             for (int i = 0; i < StackCount.Count; i++)
             {
@@ -273,6 +276,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     inInventory = false;
                     inTab = true;
                     xInTabs = xInInventory % 2;
+                    if (xInTabs == selectedTab)
+                    {
+                        xInTabs++;
+                    }
                 }
                 else if (inEquipmentSlots)
                 {
@@ -318,7 +325,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 }
                 else
                 {
-                    xInTabs = (xInTabs + 1) % 3;
+                    do
+                    {
+                        xInTabs = (xInTabs + 1) % 3;
+                    } while (xInTabs == selectedTab);
                 }
                 Game.isPressed = true;
             }
@@ -333,7 +343,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 }
                 else if(inTab)
                 {
-                    xInTabs = (xInTabs + 2) % 3;
+                    do
+                    {
+                        xInTabs = (xInTabs + 2) % 3;
+                    } while (xInTabs == selectedTab);
                 }
                 else
                 {
@@ -405,7 +418,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 if (Keyboard.IsKeyPressed(Controls.UseItem) && !Game.isPressed)
                 {
                     Game.isPressed = true;
-                    if (inventoryMatrix[yInInventory, xInInventory].Peek() != null)
+                    if (inventoryMatrix[yInInventory, xInInventory] != null && inventoryMatrix[yInInventory, xInInventory].Count != 0 && inventoryMatrix[yInInventory, xInInventory].Peek() != null)
                     {
                         inventoryMatrix[yInInventory, xInInventory].Peek().use();
                         PlayerHandler.player.statsUpdate();
@@ -603,7 +616,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void setInventoryTab()
         {
-            if (xInTabs == 0 && inTab)
+            if (inTab && xInTabs != selectedTab && xInTabs == 0)
             {
                 characterTab.Texture = characterTabSelected;
             }
@@ -615,7 +628,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void setPetTab()
         {
-            if (xInTabs == 1 && inTab)
+            if (inTab && xInTabs != selectedTab && xInTabs == 1)
             {
                 petTab.Texture = petTabSelected;
             }
@@ -627,7 +640,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void setQuestTab()
         {
-            if (xInTabs == 2 && inTab)
+            if (inTab && xInTabs != selectedTab && xInTabs == 2)
             {
                 questTab.Texture = questTabSelected;
             }
