@@ -291,25 +291,45 @@
     <Content Include="Pictures\Inventory\CloseButton\CloseButtonSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Inventory\Inventory.PNG">
+    <Content Include="Pictures\Inventory\Inventory.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Inventory\InventoryTabNotSelected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Inventory\InventoryTabSelected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Inventory\PetTabNotSelected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Inventory\PetTabSelected.png">
+    <Content Include="Pictures\Inventory\PetMenu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Inventory\PlayerFrontInventory.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Pictures\Inventory\QuestLog.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Inventory\ScrollArrow\ScrollArrowBottomNotSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Inventory\ScrollArrow\ScrollArrowBottomSelected.png" />
+    <Content Include="Pictures\Inventory\ScrollArrow\ScrollArrowTopNotSelected.png" />
+    <Content Include="Pictures\Inventory\ScrollArrow\ScrollArrowTopSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pictures\Inventory\Selected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Inventory\Tabs\CharacterTabNotSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Inventory\Tabs\CharacterTabSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Inventory\Tabs\PetTabNotSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Inventory\Tabs\PetTabSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Inventory\Tabs\QuestTabNotSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Inventory\Tabs\QuestTabSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Items\Equipment\Pet\PetItem.png">
