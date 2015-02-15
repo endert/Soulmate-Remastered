@@ -21,7 +21,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Sprite goldSprite;
 
         Texture characterMenu = new Texture("Pictures/Inventory/Inventory.png");
-        Texture petMenu = new Texture("Pictures/Inventory/Inventory.png");
+        Texture petMenu = new Texture("Pictures/Inventory/PetMenu.png");
         Texture questLog = new Texture("Pictures/Inventory/QuestLog.png");
         Texture displayedPlayerTexture = new Texture("Pictures/Inventory/PlayerFrontInventory.png");
         Sprite displayedPlayer;
@@ -258,11 +258,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void characterMenuManagment()
         {
-
-        }
-
-        public void managment()
-        {
             if ((Keyboard.IsKeyPressed(Controls.OpenInventar) || Keyboard.IsKeyPressed(Controls.Escape)) && !Game.isPressed)
             {
                 Game.isPressed = true;
@@ -312,7 +307,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     inInventory = true;
                     inTab = false;
                 }
-                else if(inInventory)
+                else if (inInventory)
                 {
                     yInInventory = (yInInventory + 1) % inventoryMatrix.GetLength(0);
                 }
@@ -330,7 +325,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     inInventory = true;
                     inEquipmentSlots = false;
                 }
-                else if(inInventory)
+                else if (inInventory)
                 {
                     xInInventory = (xInInventory + 1) % inventoryMatrix.GetLength(1);
                 }
@@ -352,7 +347,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     inEquipmentSlots = true;
                     yInEquipmentSlots = yInInventory % equipment.Length;
                 }
-                else if(inTab)
+                else if (inTab)
                 {
                     do
                     {
@@ -389,6 +384,13 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     selected.Position = new Vector2f(equipmentSlotsBase.X - 4, (equipmentSlotsBase.Y + 12) + yInEquipmentSlots * (FIELDSIZE + 5));
                 }
             }
+        }
+
+        public void managment()
+        {
+            if(characterMenuActivated)
+                characterMenuManagment();
+
             setTabs();
         }
 
@@ -599,10 +601,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 questLogActivated = true;
                 character_pet_questSprite.Texture = questLog;
             }
-            Console.Clear();
-            Console.WriteLine("chara " + characterMenuActivated);
-            Console.WriteLine("pet " + petMenuActivated);
-            Console.WriteLine("quest " + questLogActivated);
         }
 
         public void updateMatrix()
@@ -655,12 +653,12 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void setTabs()
         {
-            setInventoryTab();
+            setCharacterTab();
             setPetTab();
             setQuestTab();
         }
 
-        public void setInventoryTab()
+        public void setCharacterTab()
         {
             if (inTab && xInTabs != selectedTab && xInTabs == 0)
             {
@@ -714,16 +712,23 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         public void draw(RenderWindow window)
         {
             window.Draw(character_pet_questSprite);
-            ItemHandler.drawInventoryItems(window);
+
+            if (characterMenuActivated)
+            {
+                ItemHandler.drawInventoryItems(window);
+                if (!inTab)
+                {
+                    window.Draw(selected);
+                }
+                drawTexts(window);
+            }
+
             window.Draw(characterTab);
             window.Draw(petTab);
             window.Draw(questTab);
             window.Draw(closeButton);
-            if (!inTab)
-            {
-                window.Draw(selected);
-            }
-            drawTexts(window);
+           
+            
         }
     }
 }
