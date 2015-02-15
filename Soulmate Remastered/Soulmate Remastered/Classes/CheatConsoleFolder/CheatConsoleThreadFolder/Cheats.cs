@@ -21,7 +21,8 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             "/SETDEF",
             "/SETATT",
             "/SETFUSIONVALUE",
-            "/HEALFOR"
+            "/HEALFOR",
+            "/TAKEDAMAGE"
         };
 
         public static void setHp(String parameter)
@@ -121,7 +122,19 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             }
             catch (InvalidCastException)
             {
-                Console.WriteLine(parameter + invalidInput + cheatNames[8])
+                Console.WriteLine(parameter + invalidInput + cheatNames[8]);
+            }
+        }
+
+        public static void takeDamage(String parameter) 
+        {
+            try
+            {
+                PlayerHandler.player.HealFor(-Convert.ToSingle(parameter));
+            }
+            catch (InvalidCastException)
+            {
+                Console.WriteLine(parameter + invalidInput + cheatNames[9]);
             }
         }
 
@@ -167,6 +180,9 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
                     break;
                 case 8:
                     healFor(inputSplit[1]);
+                    break;
+                case 9:
+                    takeDamage(inputSplit[1]);
                     break;
                 default:
                     break;
