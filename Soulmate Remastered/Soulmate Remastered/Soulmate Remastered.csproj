@@ -82,6 +82,7 @@
     <Compile Include="Classes\GameObjectFolder\ItemFolder\AbstractItem.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\EquipmentFolder\Equipment.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\EquipmentFolder\EquipmentHandler.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\HealPotion.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\MoneyFolder\Gold.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\ItemHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\ProjectileFolder\AbstractProjectile.cs" />
