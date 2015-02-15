@@ -58,12 +58,12 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         int yInEquipmentSlots = 0;
         int xInTabs = 0;
 
-        Vector2f firstEquipmentSlotPostion = new Vector2f(447, 156);
-        Vector2f secondEquipmentSlotPostion = new Vector2f(447, 210);
-        Vector2f thirdEquipmentSlotPostion = new Vector2f(462, 270);
-        Vector2f fourthEquipmentSlotPostion = new Vector2f(462, 324);
-        Vector2f fifthEquipmentSlotPostion = new Vector2f(443, 384);
-        Vector2f sixthEquipmentSlotPostion = new Vector2f(443, 438);
+        static Vector2f firstEquipmentSlotPostion = new Vector2f(447, 156);
+        Vector2f secondEquipmentSlotPostion = new Vector2f(firstEquipmentSlotPostion.X, firstEquipmentSlotPostion.Y + 54);
+        Vector2f thirdEquipmentSlotPostion = new Vector2f(firstEquipmentSlotPostion.X + 15, firstEquipmentSlotPostion.Y + 114);
+        Vector2f fourthEquipmentSlotPostion = new Vector2f(firstEquipmentSlotPostion.X + 15, firstEquipmentSlotPostion.Y + 168);
+        Vector2f fifthEquipmentSlotPostion = new Vector2f(firstEquipmentSlotPostion.X - 4, firstEquipmentSlotPostion.Y + 228);
+        Vector2f sixthEquipmentSlotPostion = new Vector2f(firstEquipmentSlotPostion.X -4 , firstEquipmentSlotPostion.Y + 282);
 
         RenderWindow window = AbstractGame.window;
 
@@ -87,7 +87,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Vector2f equipmentSlotsBase { get { return new Vector2f(inventory.Position.X + 306 - 99, 
             (inventory.Position.Y + 101 - 5)); } } // copied x and y coordinates from inventoryMatrixPosition
 
-
         public String toStringForSave()
         {
             String inventoryForSave = "inv" + lineBreak.ToString();
@@ -96,6 +95,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             {
                 try
                 {
+                    if (itemStack.Count == 0)
+                    {
+                        throw new NullReferenceException();
+                    }
                     inventoryForSave += itemStack.Peek().toStringForSave() + itemStack.Count + lineBreak.ToString();
                 }
                 catch (NullReferenceException)
@@ -210,7 +213,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             {
                 try
                 {
-                    if (itemStack.Count < MaxStackCount && item.CompareTo(itemStack.Peek()) == 0)
+                    if (itemStack.Count == 0 || itemStack.Count < MaxStackCount && item.CompareTo(itemStack.Peek()) == 0)
                     {
                         return false;
                     }
@@ -394,17 +397,26 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
                 if (Keyboard.IsKeyPressed(Controls.UseItem) && !Game.isPressed)
                 {
+                    Game.isPressed = true;
                     if (inventoryMatrix[yInInventory, xInInventory].Peek() != null)
                     {
                         inventoryMatrix[yInInventory, xInInventory].Peek().use();
+                        PlayerHandler.player.statsUpdate();
                     }
                 }
 
-                if (inventoryMatrix[yInInventory, xInInventory] != null && !inventoryMatrix[yInInventory, xInInventory].Peek().isAlive)
+                if (inventoryMatrix[yInInventory, xInInventory] != null && inventoryMatrix[yInInventory, xInInventory].Count != 0 && !inventoryMatrix[yInInventory, xInInventory].Peek().isAlive)
                 {
                     inventoryMatrix[yInInventory, xInInventory].Pop();
-                    inventoryMatrix[yInInventory, xInInventory].Peek().position = getSelectedPosition(xInInventory, yInInventory);
-                    inventoryMatrix[yInInventory, xInInventory].Peek().setVisible(true);
+                    if (inventoryMatrix[yInInventory, xInInventory].Count != 0)
+                    {
+                        inventoryMatrix[yInInventory, xInInventory].Peek().position = getSelectedPosition(xInInventory, yInInventory);
+                        inventoryMatrix[yInInventory, xInInventory].Peek().setVisible(true);
+                    }
+                    else
+                    {
+                        inventoryMatrix[yInInventory, xInInventory] = null;
+                    }
                 }
             }
         }
@@ -541,7 +553,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 }
                 i++;
 
-                if (itemStack != null && itemStack.Peek() != null)
+                if (itemStack != null && itemStack.Count != 0 && itemStack.Peek() != null)
                 {
                     itemStack.Peek().sprite.Position = itemStack.Peek().position;
                     itemStack.Peek().setVisible(true);

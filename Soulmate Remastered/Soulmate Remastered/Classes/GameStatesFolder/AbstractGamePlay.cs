@@ -91,7 +91,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                                        (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height * 5 / 6))) - view.Center); //View als letztes updaten und der sprite springt nicht mehr 
 
                 gameObjectHandler.update(gameTime);
-                hud.update(gameTime);
                 dialoges.update();
 
                 if (PlayerHandler.player.getCurrentHP <= 0)
@@ -112,6 +111,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             {
                 returnValue = 3;
             }
+            hud.update(gameTime);
         }
 
         public void draw(RenderWindow window)

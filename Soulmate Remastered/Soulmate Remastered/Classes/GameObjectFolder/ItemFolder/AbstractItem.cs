@@ -23,6 +23,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         public float pickUpRange { get { return 50f; } }
         protected Stopwatch decay = new Stopwatch();
         protected int decayingIn = 60000; //60sec
+        protected float recoveryValue;
 
         public virtual String toStringForSave()
         {
@@ -64,9 +65,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
                     }
                     if (ItemHandler.playerInventory.inventoryMatrix[i, j].Count < Inventory.MaxStackCount &&
-                       (ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() == null || ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().CompareTo(this) == 0))
+                       (ItemHandler.playerInventory.inventoryMatrix[i,j].Count == 0 || ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() == null || ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().CompareTo(this) == 0))
                     {
-                        if (ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() != null)
+                        if (ItemHandler.playerInventory.inventoryMatrix[i,j].Count != 0 && ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() != null)
                         {
                             ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().setVisible(false);
                         }
@@ -81,10 +82,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             }
         }
 
-        public virtual void use()
-        {
-
-        } 
+        public virtual void use() { } 
 
         public void drop(Vector2f dropPosition)
         {
