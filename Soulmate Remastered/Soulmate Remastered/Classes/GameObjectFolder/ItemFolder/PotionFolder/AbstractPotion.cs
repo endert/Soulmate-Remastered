@@ -22,5 +22,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
                 return base.ID * 10 + 2;
             }
         }
+
+        protected int size;
+
+        public override string toStringForSave()
+        {
+            return base.toStringForSave() + size + lineBreak.ToString();
+        }
     }
 }

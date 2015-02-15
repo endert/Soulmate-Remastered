@@ -20,8 +20,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
             }
         }
 
-        int size;
-
         public enum healPotionSize
         {
             small,
