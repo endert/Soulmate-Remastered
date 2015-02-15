@@ -31,11 +31,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 
         public HealPotion(healPotionSize healPotionSize)
         {
-            textureList.Add(new Texture("Pictures/Items/Potion/HealPotion.png"));
-            sprite = new Sprite(textureList[0]);
             visible = false;
             position = new Vector2f();
-            hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
             dropRate = 100;
             size = (int)healPotionSize;
 
@@ -43,6 +40,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
             {
                 case healPotionSize.small:
                     recoveryValue = 20;
+                    textureList.Add(new Texture("Pictures/Items/Potion/HealPotion/SmallPotion.png"));
                     break;
                 case healPotionSize.middle:
                     recoveryValue = 50;
@@ -53,7 +51,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
                 default:
                     throw new NotFiniteNumberException();
             }
-
+            sprite = new Sprite(textureList[0]);
+            hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
         }
 
         public override void cloneAndDrop(Vector2f dropPosition)
@@ -65,7 +64,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 
         public override void use()
         {
-            PlayerHandler.player.HealFor(20);
+            PlayerHandler.player.HealFor(recoveryValue);
+            isAlive = false;
         }
     }
 }

@@ -65,9 +65,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
                     }
                     if (ItemHandler.playerInventory.inventoryMatrix[i, j].Count < Inventory.MaxStackCount &&
-                       (ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() == null || ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().CompareTo(this) == 0))
+                       (ItemHandler.playerInventory.inventoryMatrix[i,j].Count == 0 || ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() == null || ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().CompareTo(this) == 0))
                     {
-                        if (ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() != null)
+                        if (ItemHandler.playerInventory.inventoryMatrix[i,j].Count != 0 && ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() != null)
                         {
                             ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().setVisible(false);
                         }

@@ -128,7 +128,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         {
             foreach (Stack<AbstractItem> itemStack in playerInventory.inventoryMatrix)
             {
-                if (itemStack != null && itemStack.Peek() != null)
+                if (itemStack != null && itemStack.Count != 0 && itemStack.Peek() != null)
                 {
                     itemStack.Peek().draw(window);
                 }
