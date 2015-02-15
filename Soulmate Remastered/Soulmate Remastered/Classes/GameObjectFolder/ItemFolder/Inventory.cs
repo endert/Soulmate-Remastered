@@ -50,6 +50,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture closeButtonSelected = new Texture("Pictures/Inventory/CloseButton/CloseButtonSelected.png");
         Sprite closeButton;
 
+        Vector2f scrollArrowScaleValue = new Vector2f(0.45f, 0.45f);
+
         bool characterMenuActivated;
         bool petMenuActivated;
         bool questLogActivated;
@@ -178,11 +180,13 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             questTab = new Sprite(questTabNotSelected);
             questTab.Position = new Vector2f(characterTab.Position.X + 210, characterTab.Position.Y);
 
-            scrollArrowBottom = new Sprite(scrollArrowBottomNotSelected);
-            scrollArrowBottom.Position = new Vector2f(character_pet_questSprite.Position.X + 740, character_pet_questSprite.Position.Y + 420);
+            scrollArrowBottom = new Sprite(scrollArrowBottomSelected);
+            scrollArrowBottom.Scale = scrollArrowScaleValue;
+            scrollArrowBottom.Position = new Vector2f(character_pet_questSprite.Position.X + 745, character_pet_questSprite.Position.Y + 420);
 
-            scrollArrowTop = new Sprite(scrollArrowTopNotSelected);
-            scrollArrowTop.Position = new Vector2f(scrollArrowBottom.Position.X - 50, scrollArrowBottom.Position.Y);
+            scrollArrowTop = new Sprite(scrollArrowTopSelected);
+            scrollArrowTop.Scale = scrollArrowScaleValue;
+            scrollArrowTop.Position = new Vector2f(scrollArrowBottom.Position.X - 25, scrollArrowBottom.Position.Y);
 
             closeButton = new Sprite(closeButtonNotSelected);
             closeButton.Position = new Vector2f(character_pet_questSprite.Position.X + character_pet_questSprite.Texture.Size.X - closeButton.Texture.Size.X - 3, character_pet_questSprite.Position.Y + 3);
@@ -527,18 +531,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                  || mouseInFifthEquipmentSlot() || mouseInSixthEquipmentSlot());
         }
 
-        public void mouseManagment()
+        public void mouseTabManagment()
         {
-            if (mouseInInventoryMatrix())
-            {
-                inInventory = true;
-                inTab = false;
-                inEquipmentSlots = false;
-
-                xInInventory = (int)mousePositionInInventoryMatrix().X;
-                yInInventory = (int)mousePositionInInventoryMatrix().Y;
-            }
-
             if (NavigationHelp.isMouseInSprite(characterTab))
             {
                 inTab = true;
@@ -564,6 +558,19 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 inEquipmentSlots = false;
 
                 xInTabs = 2;
+            }
+        }
+
+        public void mouseManagment()
+        {            
+            if (mouseInInventoryMatrix())
+            {
+                inInventory = true;
+                inTab = false;
+                inEquipmentSlots = false;
+
+                xInInventory = (int)mousePositionInInventoryMatrix().X;
+                yInInventory = (int)mousePositionInInventoryMatrix().Y;
             }
 
             if(mouseInEquipmentSlots())
@@ -663,7 +670,9 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 spriteAndTextPositionUpdate();
                 updateMatrix();
                 managment();
-                mouseManagment();
+                mouseTabManagment();
+                if(characterMenuActivated)
+                    mouseManagment();
                 changeTab();
             }
         }
