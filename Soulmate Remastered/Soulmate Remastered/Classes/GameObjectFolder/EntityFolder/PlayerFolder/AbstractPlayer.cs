@@ -213,10 +213,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             if (lvl < MaxLvl)
             {
-                if (currentEXP >= maxEXP)
+                while (currentEXP >= maxEXP)
                 {
-                    lvl += ((int)currentEXP / (int)maxEXP);
-                    currentEXP %= maxEXP;
+                    lvl++;
+                    currentEXP -= maxEXP;
                     statsUpdate();
                     currentHP = maxHP;
                 }
@@ -240,24 +240,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             maxHP = baseHp + (lvl) * 50;
         }
 
-        public void cheatUpdate()
-        {
-            drawHitBoxOnOff();
-            moreHP();
-            makeHeile();
-            expCheat();
-            moneyMoneyMoney();
-            cheatDef();
-            cheatAtt();
-            cheatFusionValue();
-        }
-
         public override void update(GameTime gameTime)
         {
             lvlUp();
-            //Cheats==============
-            cheatUpdate();
-            //====================
 
             if (currentHP > maxHP)
                 currentHP = maxHP;
@@ -320,62 +305,81 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         }
 
         //Cheats==============================================================
-        public void moreHP()
+        public void setHp(float value)
         {
-            if (Keyboard.IsKeyPressed(Controls.MoreHp))
+            currentHP = value;
+
+            if (currentHP > maxHP)
             {
-                float c = 50;
-                maxHP += c;
-                currentHP += c;
+                maxHP = currentHP;
             }
         }
 
-        public void makeHeile()
+        public void heal()
         {
-            if (Keyboard.IsKeyPressed(Controls.Heal))
-            {
-                currentHP = maxHP;
-            }
+            currentHP = maxHP;
         }
 
-        public void expCheat()
+        public void setExp(float value)
         {
-            if (Keyboard.IsKeyPressed(Controls.MoreExp))
-            {
-                currentEXP += 500;
-            }
+            currentEXP = value;
+
+            lvlUp();
         }
 
-        public void moneyMoneyMoney()
+        public void setLvl(int value)
         {
-            if(Keyboard.IsKeyPressed(Controls.MoreMoney))
+            if (value > 0 && value <= MaxLvl)
             {
-                gold += 500;
+                lvl = value;
             }
+            else
+            {
+                if (value <= 0)
+                {
+                    lvl = 1;
+                }
+                else
+                {
+                    lvl = MaxLvl;
+                }
+            }
+            statsUpdate();
         }
 
-        public void cheatDef()
+        public void setMoney(float value)
         {
-            if (Keyboard.IsKeyPressed(Controls.MoreDef))
-            {
-                def += 1;
-            }
+            gold = value;
         }
 
-        public void cheatAtt()
+        public void setDef(float value)
         {
-            if (Keyboard.IsKeyPressed(Controls.MoreAtt))
-            {
-                att += 1;
-            }
+            def = value;
         }
 
-        public void cheatFusionValue()
+        public void setAtt(float value)
         {
-            if (Keyboard.IsKeyPressed(Controls.MoreFusionValue))
+            att = value;
+        }
+
+        public void setFusionValue(float value)
+        {
+            if (value > 0 && value <= maxFusionValue)
             {
-                setCurrentFusionValue();
+                currentFusionValue = value;
             }
+            else
+            {
+                if (value <= 0)
+                {
+                    currentFusionValue = 1;
+                }
+                else
+                {
+                    currentFusionValue = maxFusionValue;
+                }
+            }
+
         }
 
         public void drawHitBoxOnOff()

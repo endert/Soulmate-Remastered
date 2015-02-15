@@ -8,61 +8,46 @@ using SFML.Window;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
-    class Options : GameState
+    class Options : AbstractMainMenu
     {
-        Texture optionsTexture;
-        Texture backSelected;
-        Texture backNotSelected;
+        protected Texture optionsTexture;
+        protected Sprite options;
 
-        Sprite options;
-        Sprite back;
-
-        View view;
-
-        public void initialize()
+        Text Controls = new Text("Controls", Game.font, 100);
+        
+        public override void initialize()
         {
+            base.initialize();
+
             options = new Sprite(optionsTexture);
             options.Position = new Vector2f(0, 0);
 
-            back = new Sprite(backNotSelected);
-            back.Position = MainMenu.getBackPostion();
-
-            view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
+            Controls.Position = new Vector2f(200, 200);
         }
 
-        public void loadContent()
+        public override void loadContent()
         {
+            base.loadContent();
+
             optionsTexture = new Texture("Pictures/Menu/MainMenu/Options/OptionsMenu.png");
-
-            backSelected = new Texture("Pictures/Menu/MainMenu/Back/BackSelected.png");
-            backNotSelected = new Texture("Pictures/Menu/MainMenu/Back/BackNotSelected.png");
         }
 
-        public EnumGameStates update(GameTime gameTime)
+        public override EnumGameStates update(GameTime gameTime)
         {
-            if (NavigationHelp.isMouseInSprite(back))
-            {
-                back.Texture = backSelected;
-            }
+            gameUpdate(gameTime);
 
-            if (!NavigationHelp.isMouseInSprite(back))
-            {
-                back.Texture = backNotSelected;
-            }
-
-            if (NavigationHelp.isSpriteKlicked(0, 0, Game.isPressed, back, Controls.Escape))
-            {
-                Game.isPressed = true;
+            if (backValueSelected == 1)
                 return EnumGameStates.mainMenu;
-            }
 
             return EnumGameStates.options;
         }
 
-        public void draw(RenderWindow window)
+        public override void draw(RenderWindow window)
         {
+            base.draw(window);
+
             window.Draw(options);
-            window.Draw(back);
+            window.Draw(Controls);
         }
     }
 }

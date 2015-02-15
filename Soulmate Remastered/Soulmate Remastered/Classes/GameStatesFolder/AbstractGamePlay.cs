@@ -21,7 +21,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     abstract class AbstractGamePlay : GameState
     {
-        public static CheatConsole cheatConsole;
         public static bool loading = false;
         public static bool startNewGame = false;
         protected readonly String savePlayer = "Saves/player.soul";
@@ -44,7 +43,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             time.Start();
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
             viewInventory = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
-            cheatConsole = new CheatConsole();
+            
         }
 
         public virtual void loadContent()
@@ -73,6 +72,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public void GameUpdate(GameTime gameTime)
         {
+           
             time.Update();
             ItemHandler.playerInventory.update(gameTime);
             inGameMenu.update(gameTime);
@@ -106,6 +106,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 gameObjectHandler.deleate();
                 File.Delete(savePlayer);
                 returnValue = 1;
+            }
+
+            if (inGameMenu.optionsOpen)
+            {
+                returnValue = 3;
             }
         }
 

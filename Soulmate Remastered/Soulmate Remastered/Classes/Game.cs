@@ -15,6 +15,7 @@ namespace Soulmate_Remastered.Classes
         public static uint windowSizeY = 720;
 
         public static bool isPressed { get; set; }
+        public static Font font = new Font("FontFolder/arial_narrow_7.ttf");
 
         EnumGameStates currentGameState = EnumGameStates.titleSreen;
         EnumGameStates prevGameState;
@@ -25,11 +26,6 @@ namespace Soulmate_Remastered.Classes
 
         public override void update(GameTime time)
         {
-            if (AbstractGamePlay.cheatConsole != null)
-            {
-                AbstractGamePlay.cheatConsole.update();
-            }
-
             if (currentGameState != prevGameState)
             {
                 handleGameState();

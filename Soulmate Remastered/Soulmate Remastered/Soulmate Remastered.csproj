@@ -55,7 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AbstractGame.cs" />
-    <Compile Include="Classes\CheatConsoleFolder\CheatConsole.cs" />
+    <Compile Include="Classes\CheatConsoleFolder\CheatConsoleThread.cs" />
+    <Compile Include="Classes\CheatConsoleFolder\CheatConsoleThreadFolder\CheatConsole.cs" />
+    <Compile Include="Classes\CheatConsoleFolder\CheatConsoleThreadFolder\Cheats.cs" />
+    <Compile Include="Classes\CheatConsoleFolder\CheatConsoleThreadFolder\Input.cs" />
     <Compile Include="Classes\Controls.cs" />
     <Compile Include="Classes\DialogeBoxFolder\DialogeHandler.cs" />
     <Compile Include="Classes\Game.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="Classes\GameObjectFolder\ItemFolder\TestItem.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameStatesFolder\AbstractGamePlay.cs" />
+    <Compile Include="Classes\GameStatesFolder\AbstractMainMenu.cs" />
     <Compile Include="Classes\GameStatesFolder\ControlsSetting.cs" />
     <Compile Include="Classes\GameStatesFolder\Credits.cs" />
     <Compile Include="Classes\GameStatesFolder\InGame.cs" />
@@ -101,6 +105,7 @@
     <Compile Include="Classes\HUDFolder\LifeFusionBar.cs" />
     <Compile Include="Classes\InGameMenuFolder\InGameMenu.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\Inventory.cs" />
+    <Compile Include="Classes\InGameMenuFolder\InGameOptions.cs" />
     <Compile Include="Classes\MapFolder\Blocks.cs" />
     <Compile Include="Classes\MapFolder\Map.cs" />
     <Compile Include="Classes\GameObjectFolder\HitBox.cs" />
@@ -143,6 +148,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Bars\LifeBarHead.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\CheatConsole\Cursor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Entities\DialogeBox\DialogeBoxBackground.png">
@@ -334,6 +342,12 @@
     <Content Include="Pictures\Map\Setting\Fir.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Pictures\Menu\MainMenu\AnyKey\AnyKeyNotSelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Menu\MainMenu\AnyKey\AnyKeySelected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pictures\Menu\MainMenu\Back\BackNotSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -386,12 +400,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Menu\MainMenu\End\EndSelected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Menu\MainMenu\Enter\EnterNotSelected.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Pictures\Menu\MainMenu\Enter\EnterSelected.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Menu\MainMenu\Load\LoadNotSelected.png">

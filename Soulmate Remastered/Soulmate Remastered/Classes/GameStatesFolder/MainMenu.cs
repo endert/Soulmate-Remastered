@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
-    class MainMenu : GameState
+    class MainMenu : AbstractMainMenu
     {
-        int x; //für Menüsteuerung
-
-        Texture backGroundTexture;
-
         Texture startSelected;
         Texture startNotSelected;
                         
@@ -29,30 +25,15 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         Texture endSelected;
         Texture endNotSelected;
 
-        Texture backSelected;
-        Texture backNotSelected;
-
-        Sprite backGround;
         Sprite start;
         Sprite optionsButton;
         Sprite controls;
         Sprite credits;
         Sprite end;
-        static Sprite back;
-
-        View view;
-
-        public static Vector2f getBackPostion()
+       
+        public override void initialize()
         {
-            return new Vector2f(Game.windowSizeX - back.Texture.Size.X - 10, 650);
-        }
-
-        public void initialize()
-        {
-            x = 0;
-
-            backGround = new Sprite(backGroundTexture);
-            backGround.Position = new Vector2f(0, 0);
+            base.initialize();
 
             start = new Sprite(startNotSelected);
             start.Position = new Vector2f(300, 300);
@@ -68,16 +49,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             end = new Sprite(endNotSelected);
             end.Position = new Vector2f(start.Position.X, start.Position.Y + 75 * 4);
-
-            back = new Sprite(backNotSelected);
-            back.Position = getBackPostion();
-
-            view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
 
-        public void loadContent()
+        public override void loadContent()
         {
-            backGroundTexture = new Texture("Pictures/Menu/MainMenu/Background.png");
+            base.loadContent();
 
             startSelected = new Texture("Pictures/Menu/MainMenu/Start/StartSelected.png");
             startNotSelected = new Texture("Pictures/Menu/MainMenu/Start/StartNotSelected.png");
@@ -92,14 +68,13 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             controlsNotSelected = new Texture("Pictures/Menu/MainMenu/Controls/ControlsNotSelected.png");
 
             endSelected = new Texture("Pictures/Menu/MainMenu/End/EndSelected.png");
-            endNotSelected = new Texture("Pictures/Menu/MainMenu/End/EndNotSelected.png");
-
-            backSelected = new Texture("Pictures/Menu/MainMenu/Back/BackSelected.png");
-            backNotSelected = new Texture("Pictures/Menu/MainMenu/Back/BackNotSelected.png");
+            endNotSelected = new Texture("Pictures/Menu/MainMenu/End/EndNotSelected.png");   
         }
 
-        public EnumGameStates update(GameTime gameTime)
-        {            
+        public override EnumGameStates update(GameTime gameTime)
+        {
+            gameUpdate(gameTime);
+
             if (NavigationHelp.isMouseInSprite(start))
             {
                 x = 0;
@@ -207,35 +182,21 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 return EnumGameStates.none;
             }
 
-            if (NavigationHelp.isMouseInSprite(back))
-            {
-                back.Texture = backSelected;
-            }
-
-            if(!NavigationHelp.isMouseInSprite(back))
-            {
-                back.Texture = backNotSelected;
-            }
-
-            if(NavigationHelp.isSpriteKlicked(0, 0, Game.isPressed, back, Controls.Escape))
-            {
-                Game.isPressed = true;
+            if (backValueSelected == 1)
                 return EnumGameStates.titleSreen;
-            }
 
             return EnumGameStates.mainMenu;
         }
 
-        public void draw(RenderWindow window)
+        public override void draw(RenderWindow window)
         {
-            window.Draw(backGround);
-            window.SetView(view);
+            base.draw(window);
+
             window.Draw(start);
             window.Draw(optionsButton);
             window.Draw(controls);
             window.Draw(credits);
             window.Draw(end);
-            window.Draw(back);
         }
     }
 }

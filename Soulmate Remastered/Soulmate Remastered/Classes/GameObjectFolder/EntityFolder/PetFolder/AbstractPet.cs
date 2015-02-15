@@ -216,15 +216,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             return false;
         }
 
-        public override void drop()
-        {
-            if (!isDroping)
-            {
-                drops[0].cloneAndDrop(position);
-                isDroping = true;
-            }
-        }
-
         public override void update(GameTime gameTime)
         {
             if (getCurrentHP <= 0)
