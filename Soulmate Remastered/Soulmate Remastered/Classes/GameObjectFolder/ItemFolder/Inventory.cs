@@ -451,6 +451,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     Game.isPressed = true;
                     if (inventoryMatrix[yInInventory, xInInventory] != null && inventoryMatrix[yInInventory, xInInventory].Count != 0 && inventoryMatrix[yInInventory, xInInventory].Peek() != null)
                     {
+                        inventoryMatrix[yInInventory, xInInventory].Peek().giveMatrixPosition(yInInventory, xInInventory);
                         inventoryMatrix[yInInventory, xInInventory].Peek().use();
                         PlayerHandler.player.statsUpdate();
                     }
@@ -632,11 +633,12 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             int i = 0;
             foreach (Stack<AbstractItem> itemStack in inventoryMatrix)
             {
-                if (itemStack != null)
+                if (itemStack != null && itemStack.Count != 0)
                 {
                     if (itemStack.Count < 10)
                     {
-                        StackCount[i].DisplayedString = "0" + Convert.ToString(itemStack.Count);
+                        if (itemStack.Peek().stackable)
+                            StackCount[i].DisplayedString = "0" + Convert.ToString(itemStack.Count);
                     }
                     else
                     {
@@ -654,6 +656,14 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     itemStack.Peek().sprite.Position = itemStack.Peek().position;
                     itemStack.Peek().setVisible(true);
                 }
+            }
+        }
+
+        public void updateEquipment()
+        {
+            for (int i = 0; i < equipment.Length; i++)
+            {
+                
             }
         }
 

@@ -148,6 +148,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                     itemStack.Peek().draw(window);
                 }
             }
+
+            foreach (Equipment equipment in playerInventory.equipment)
+            {
+                if (equipment != null)
+                {
+                    equipment.draw(window);
+                }
+            }
         }
     }
 }
