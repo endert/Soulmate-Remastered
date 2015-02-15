@@ -38,6 +38,14 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture questTabSelected = new Texture("Pictures/Inventory/Tabs/QuestTabSelected.png");
         Sprite questTab;
 
+        Texture scrollArrowBottomNotSelected = new Texture("Pictures/Inventory/ScrollArrow/ScrollArrowBottomNotSelected.png");
+        Texture scrollArrowBottomSelected = new Texture("Pictures/Inventory/ScrollArrow/ScrollArrowBottomSelected.png");
+        Sprite scrollArrowBottom;
+
+        Texture scrollArrowTopNotSelected = new Texture("Pictures/Inventory/ScrollArrow/ScrollArrowTopNotSelected.png");
+        Texture scrollArrowTopSelected = new Texture("Pictures/Inventory/ScrollArrow/ScrollArrowTopSelected.png");
+        Sprite scrollArrowTop;
+
         Texture closeButtonNotSelected = new Texture("Pictures/Inventory/CloseButton/CloseButtonNotSelected.png");
         Texture closeButtonSelected = new Texture("Pictures/Inventory/CloseButton/CloseButtonSelected.png");
         Sprite closeButton;
@@ -170,6 +178,12 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             questTab = new Sprite(questTabNotSelected);
             questTab.Position = new Vector2f(characterTab.Position.X + 210, characterTab.Position.Y);
 
+            scrollArrowBottom = new Sprite(scrollArrowBottomNotSelected);
+            scrollArrowBottom.Position = new Vector2f(character_pet_questSprite.Position.X + 740, character_pet_questSprite.Position.Y + 420);
+
+            scrollArrowTop = new Sprite(scrollArrowTopNotSelected);
+            scrollArrowTop.Position = new Vector2f(scrollArrowBottom.Position.X - 50, scrollArrowBottom.Position.Y);
+
             closeButton = new Sprite(closeButtonNotSelected);
             closeButton.Position = new Vector2f(character_pet_questSprite.Position.X + character_pet_questSprite.Texture.Size.X - closeButton.Texture.Size.X - 3, character_pet_questSprite.Position.Y + 3);
 
@@ -258,23 +272,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void characterMenuManagment()
         {
-            if ((Keyboard.IsKeyPressed(Controls.OpenInventar) || Keyboard.IsKeyPressed(Controls.Escape)) && !Game.isPressed)
-            {
-                Game.isPressed = true;
-                inventoryOpen = false;
-            }
-
-            if (Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(closeButton) && !Game.isPressed)
-            {
-                Game.isPressed = true;
-                inventoryOpen = false;
-            }
-
-            if (NavigationHelp.isMouseInSprite(closeButton))
-                closeButton.Texture = closeButtonSelected;
-            else
-                closeButton.Texture = closeButtonNotSelected;
-
             if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
             {
                 if (yInInventory == 0 && inInventory)  // enter Tabs
@@ -388,6 +385,23 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void managment()
         {
+            if ((Keyboard.IsKeyPressed(Controls.OpenInventar) || Keyboard.IsKeyPressed(Controls.Escape)) && !Game.isPressed)
+            {
+                Game.isPressed = true;
+                inventoryOpen = false;
+            }
+
+            if (Mouse.IsButtonPressed(Mouse.Button.Left) && NavigationHelp.isMouseInSprite(closeButton) && !Game.isPressed)
+            {
+                Game.isPressed = true;
+                inventoryOpen = false;
+            }
+
+            if (NavigationHelp.isMouseInSprite(closeButton))
+                closeButton.Texture = closeButtonSelected;
+            else
+                closeButton.Texture = closeButtonNotSelected;
+            
             if(characterMenuActivated)
                 characterMenuManagment();
 
@@ -726,12 +740,16 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 drawTexts(window);
             }
 
+            if(questLogActivated)
+            {
+                window.Draw(scrollArrowBottom);
+                window.Draw(scrollArrowTop);
+            }
+
             window.Draw(characterTab);
             window.Draw(petTab);
             window.Draw(questTab);
             window.Draw(closeButton);
-           
-            
         }
     }
 }
