@@ -64,6 +64,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Text exp;
         Text lvl;
 
+        Text itemDescription;
+
         List<Text> StackCount = new List<Text>();
 
         public Sprite character_pet_questSprite { get; set; }
@@ -234,6 +236,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
             inventoryMatrix = new Stack<AbstractItem>[inventoryLength, inventoryWidth];
 
+            itemDescription = new Text("", Game.font, 20);
+
             spriteAndTextPositionUpdate();
             inInventory = true;
 
@@ -279,6 +283,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 StackCount[i].Position = new Vector2f(inventoryMatrixPosition.X + ((i % inventoryWidth) * FIELDSIZE) + 35, 
                                                       inventoryMatrixPosition.Y + ((i / inventoryWidth) * FIELDSIZE) + FIELDSIZE - StackCount[i].CharacterSize);
             }
+
+            itemDescription.Position = new Vector2f(inventoryMatrixPosition.X + 5, inventoryMatrixPosition.Y + inventoryMatrix.GetLength(0) * FIELDSIZE + 5);
         }
 
         public bool isFullWith(AbstractItem item)
@@ -516,6 +522,11 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     inventoryMatrix[yInInventory, xInInventory].Peek().use();
                     PlayerHandler.player.statsUpdate();
                 }
+            }
+
+            if (inventoryMatrix[yInInventory, xInInventory] != null && inventoryMatrix[yInInventory, xInInventory].Count != 0)
+            {
+                itemDescription.DisplayedString = inventoryMatrix[yInInventory, xInInventory].Peek().ItemDiscription;
             }
 
             if (inventoryMatrix[yInInventory, xInInventory] != null && inventoryMatrix[yInInventory, xInInventory].Count != 0 && !inventoryMatrix[yInInventory, xInInventory].Peek().isAlive)
@@ -862,6 +873,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             {
                 window.Draw(txt);
             }
+            window.Draw(itemDescription);
         }
 
         public void draw(RenderWindow window)

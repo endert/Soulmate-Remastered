@@ -1,4 +1,5 @@
-﻿using SFML.Window;
+﻿using SFML.Graphics;
+using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.ItemFolder;
 using System;
@@ -27,6 +28,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         protected int inventoryMatrixPositionX;
         protected int inventoryMatrixPositionY;
 
+        public virtual String ItemDiscription 
+        { 
+            get 
+            {
+                String itemDiscription = "";
+
+                return itemDiscription;
+            } 
+        }
 
         public virtual String toStringForSave()
         {

@@ -86,10 +86,6 @@ namespace Soulmate_Remastered.Classes.MapFolder
 
         public void draw(RenderWindow window)
         {
-            foreach (Blocks block in map)
-            {
-                block.draw(window);
-            }
             window.Draw(backGround);
         }
     }

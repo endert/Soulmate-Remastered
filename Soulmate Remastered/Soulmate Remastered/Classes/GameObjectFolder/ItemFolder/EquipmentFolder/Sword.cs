@@ -12,6 +12,22 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
     {
         public override string type { get { return base.type + ".Sword"; } }
         public override float ID { get { return base.ID*10 + 2; } }
+        public override string ItemDiscription
+        {
+            get
+            {
+                String itemDiscription = "";
+
+                itemDiscription += "sword \n";
+                itemDiscription += '"'.ToString() + "an old used sword." + '"'.ToString() + "\n";
+                itemDiscription += "AttBonus: " + attBonus + "      ";
+                itemDiscription += "DefBonus: " + defBonus + "\n";
+                itemDiscription += "HpBonus: " + hpBonus + "      ";
+
+                return itemDiscription;
+            }
+        }
+
 
         public Sword(float _attBonus, float _defBonus, float _hpBonus)
         {

@@ -19,6 +19,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
                 return base.ID * 10 + 0;
             }
         }
+        public override String ItemDiscription
+        {
+            get
+            {
+                String itemDiscription = "";
+
+                itemDiscription += "Pete \n";
+                itemDiscription += "A totaly useless Item";
+
+                return itemDiscription;
+            }
+        }
 
         public TestItem()
         {
