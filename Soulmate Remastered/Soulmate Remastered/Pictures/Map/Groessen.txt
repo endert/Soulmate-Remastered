@@ -1,0 +1,6 @@
+Ein Feld 32 x 32 px
+
+BitMaps				SpielBild		Datei
+
+Map: 40 x 23 px		=>	1280 x 736 px	=>	2560 x 1472 px
+Map2: 75 x 50 px	=>	2400 x 1600 px	=>	4800 x 3200 px
