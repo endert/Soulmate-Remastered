@@ -24,17 +24,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         static String[] loadableItems = new String[]
         {
             "Pete",
-            "HealPotion"
+            "HealPotion",
+            "Sword"
         };
 
-        private static AbstractItem evaluateLoadedItem(int index, int size)
+        private static AbstractItem evaluateLoadedItem(int index, List<String> parameter)
         {
             switch (index)
             {
                 case 0:
                     return new TestItem();
                 case 1:
-                    return new HealPotion((HealPotion.healPotionSize)size);
+                    return new HealPotion((HealPotion.healPotionSize)Convert.ToInt32(parameter[0]));
+                case 2:
+                    return new Sword(Convert.ToSingle(parameter[0]), Convert.ToSingle(parameter[1]), Convert.ToSingle(parameter[2]));
                 default:
                     return null;
             }
@@ -57,13 +60,24 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                     if (itemString.Split(AbstractItem.lineBreak)[1].Equals(loadableItems[i]))
                     {
                         AbstractItem loadedItem = null;
+                        List<String> parameter = new List<String>();
+
+                        if(itemString.Split(AbstractItem.lineBreak).Length > 4)
+                            for (int j = 4; j < itemString.Split(AbstractItem.lineBreak).Length - 1; j++)
+                            {
+                                parameter.Add(itemString.Split(AbstractItem.lineBreak)[j]);
+                            }
+
                         switch (i)
                         {
                             case 0:
-                                loadedItem = evaluateLoadedItem(i, 0);
+                                loadedItem = evaluateLoadedItem(i, parameter);
                                 break;
                             case 1:
-                                loadedItem = evaluateLoadedItem(i, Convert.ToInt32(itemString.Split(AbstractItem.lineBreak)[4]));
+                                loadedItem = evaluateLoadedItem(i, parameter);
+                                break;
+                            case 2:
+                                loadedItem = evaluateLoadedItem(i, parameter);
                                 break;
                             default:
                                 break;
@@ -82,6 +96,51 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 return loadedStack;
             }
             catch (IndexOutOfRangeException)
+            {
+                return null;
+            }
+        }
+
+        public static Equipment loadEquip(String EquipmentString)
+        {
+            Equipment loadedEquip = null;
+            try
+            {
+                for (int i = 0; i < loadableItems.Length; i++)
+                {
+                    if (EquipmentString.Split(AbstractItem.lineBreak)[1].Equals(loadableItems[i]))
+                    {
+                        List<String> parameter = new List<String>();
+
+                        if (EquipmentString.Split(AbstractItem.lineBreak).Length > 4)
+                            for (int j = 4; j < EquipmentString.Split(AbstractItem.lineBreak).Length - 1; j++)
+                            {
+                                parameter.Add(EquipmentString.Split(AbstractItem.lineBreak)[j]);
+                            }
+
+                        switch (i)
+                        {
+                            case 0:
+                                loadedEquip = (Equipment)evaluateLoadedItem(i, parameter);
+                                break;
+                            case 1:
+                                loadedEquip = (Equipment)evaluateLoadedItem(i, parameter);
+                                break;
+                            case 2:
+                                loadedEquip = (Equipment)evaluateLoadedItem(i, parameter);
+                                break;
+                            default:
+                                break;
+                        }
+                        loadedEquip.position = new Vector2f(Convert.ToSingle(EquipmentString.Split(AbstractItem.lineBreak)[2]),
+                                                           Convert.ToSingle(EquipmentString.Split(AbstractItem.lineBreak)[3]));
+                        loadedEquip.sprite.Position = loadedEquip.position;
+                        break;
+                    }
+                }
+                return loadedEquip;
+            }
+            catch (Exception)
             {
                 return null;
             }
@@ -130,7 +189,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 
                 if (itemList[i].onMap && itemList[i].hitBox.distanceTo(PlayerHandler.player.hitBox) <= itemList[i].pickUpRange && !playerInventory.isFullWith(itemList[i]))
                 {
-                    itemList[i].pickUp(gameTime);
+                    itemList[i].pickUp();
                     itemList.RemoveAt(i);
                     i--;
                 }

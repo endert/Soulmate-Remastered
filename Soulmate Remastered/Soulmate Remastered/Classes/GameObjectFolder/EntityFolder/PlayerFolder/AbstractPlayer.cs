@@ -9,6 +9,7 @@ using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFolder
 using SFML.Graphics;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 using System.Diagnostics;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
@@ -235,9 +236,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             {
                 maxEXP = (float)Math.Round(((5 * (float)Math.Pow(lvl + 1, 3)) / 4) * 10);
             }
-            att = baseAtt + (lvl) * 1;
-            def = baseDef + (lvl) * 0.5f;
-            maxHP = baseHp + (lvl) * 50;
+
+            if (ItemHandler.playerInventory != null)
+            {
+                att = baseAtt + (lvl) * 1 + ItemHandler.playerInventory.getAttBonus();
+                def = baseDef + (lvl) * 0.5f + ItemHandler.playerInventory.getDefBonus();
+                maxHP = baseHp + (lvl) * 50 + ItemHandler.playerInventory.getHpBonus();
+            }
+            else
+            {
+                att = baseAtt + (lvl) * 1;
+                def = baseDef + (lvl) * 0.5f;
+                maxHP = baseHp + (lvl) * 50;
+            }
         }
 
         public override void update(GameTime gameTime)

@@ -16,6 +16,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
     class Inventory
     {
         Char lineBreak = ':';
+        Char InventoryMatrixSplit = '_';
 
         Texture goldTexture = new Texture("Pictures/Items/Money/Gold.png");
         Sprite goldSprite;
@@ -87,6 +88,22 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Vector2f fifthEquipmentSlotPostion = new Vector2f(firstEquipmentSlotPostion.X - 4, firstEquipmentSlotPostion.Y + 228);
         Vector2f sixthEquipmentSlotPostion = new Vector2f(firstEquipmentSlotPostion.X -4 , firstEquipmentSlotPostion.Y + 282);
 
+        public static Vector2f[] equipmentPosition
+        {
+            get
+            {
+                return new Vector2f[]
+                {
+                    new Vector2f(firstEquipmentSlotPostion.X, firstEquipmentSlotPostion.Y),
+                    new Vector2f(firstEquipmentSlotPostion.X, firstEquipmentSlotPostion.Y + 54),
+                    new Vector2f(firstEquipmentSlotPostion.X + 15, firstEquipmentSlotPostion.Y + 114), 
+                    new Vector2f(firstEquipmentSlotPostion.X + 15, firstEquipmentSlotPostion.Y + 168), 
+                    new Vector2f(firstEquipmentSlotPostion.X - 4, firstEquipmentSlotPostion.Y + 228), 
+                    new Vector2f(firstEquipmentSlotPostion.X -4 , firstEquipmentSlotPostion.Y + 282)
+                };
+            }
+        }
+
         RenderWindow window = AbstractGame.window;
 
         public static bool inventoryOpen { get; set; }
@@ -118,9 +135,21 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 {
                     if (itemStack.Count == 0)
                     {
-                        throw new NullReferenceException();
+                        throw new NullReferenceException(); //deleating Stacks witch a count of 0;
                     }
                     inventoryForSave += itemStack.Peek().toStringForSave() + itemStack.Count + lineBreak.ToString();
+                }
+                catch (NullReferenceException)
+                {
+                    inventoryForSave += " " + lineBreak.ToString();
+                }
+            }
+            inventoryForSave += InventoryMatrixSplit.ToString();
+            foreach (Equipment equip in equipment)
+            {
+                try
+                {
+                    inventoryForSave += equip.toStringForSave() + lineBreak.ToString();
                 }
                 catch (NullReferenceException)
                 {
@@ -142,15 +171,24 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void load(String inventoryString)
         {
-            String[] splitInventoryString = inventoryString.Split(lineBreak);
+            String[] inventoryStringSplit = inventoryString.Split(InventoryMatrixSplit);
+            String[] MatrixString = inventoryStringSplit[0].Split(lineBreak);
+            String[] EquipmentString = inventoryStringSplit[1].Split(lineBreak);
 
             for (int i = 0; i < inventoryMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < inventoryMatrix.GetLength(1); j++)
                 {
-                    inventoryMatrix[i, j] = ItemHandler.load(splitInventoryString[i * inventoryMatrix.GetLength(1) + j + 1]);
+                    inventoryMatrix[i, j] = ItemHandler.load(MatrixString[i * inventoryMatrix.GetLength(1) + j + 1]);
                 }
             }
+
+            for (int i = 0; i < equipment.Length; i++)
+            {
+                equipment[i] = ItemHandler.loadEquip(EquipmentString[i]);
+            }
+
+            PlayerHandler.player.statsUpdate();
         }
 
         public Inventory()
@@ -366,7 +404,14 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 Game.isPressed = true;
             }
 
-            inInventoryManagement();
+            if (inInventory)
+            {
+                inInventoryManagement();
+            }
+            else if (inEquipmentSlots)
+            {
+                equipmentManagement();
+            }
 
             if (inInventory)
             {
@@ -432,60 +477,74 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void inInventoryManagement()
         {
-            if (inInventory)
+            if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !Game.isPressed)    //Item Swaps
             {
-                if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !Game.isPressed)    //Item Swaps
+                if (!itemIsSelected)
                 {
-                    if (!itemIsSelected)
-                    {
-                        selectedItemStack = inventoryMatrix[yInInventory, xInInventory];
-                        itemIsSelected = true;
-                        selectedItemStackX = xInInventory;
-                        selectedItemStackY = yInInventory;
-                    }
-                    else
-                    {
-                        inventoryMatrix[selectedItemStackY, selectedItemStackX] = inventoryMatrix[yInInventory, xInInventory];
-
-                        if (inventoryMatrix[selectedItemStackY, selectedItemStackX] != null && inventoryMatrix[selectedItemStackY, selectedItemStackX].Peek() != null)
-                        {
-                            inventoryMatrix[selectedItemStackY, selectedItemStackX].Peek().setPositionMatrix(selectedItemStackX, selectedItemStackY);
-                        }
-
-                        inventoryMatrix[yInInventory, xInInventory] = selectedItemStack;
-
-                        if (inventoryMatrix[yInInventory, xInInventory] != null)
-                        {
-                            inventoryMatrix[yInInventory, xInInventory].Peek().setPositionMatrix(xInInventory, yInInventory);
-                        }
-                        selectedItemStack = null;
-                        itemIsSelected = false;
-                    }
-                    Game.isPressed = true;
+                    selectedItemStack = inventoryMatrix[yInInventory, xInInventory];
+                    itemIsSelected = true;
+                    selectedItemStackX = xInInventory;
+                    selectedItemStackY = yInInventory;
                 }
-
-                if (Keyboard.IsKeyPressed(Controls.UseItem) && !Game.isPressed)
+                else
                 {
-                    Game.isPressed = true;
-                    if (inventoryMatrix[yInInventory, xInInventory] != null && inventoryMatrix[yInInventory, xInInventory].Count != 0 && inventoryMatrix[yInInventory, xInInventory].Peek() != null)
+                    inventoryMatrix[selectedItemStackY, selectedItemStackX] = inventoryMatrix[yInInventory, xInInventory];
+
+                    if (inventoryMatrix[selectedItemStackY, selectedItemStackX] != null && inventoryMatrix[selectedItemStackY, selectedItemStackX].Peek() != null)
                     {
-                        inventoryMatrix[yInInventory, xInInventory].Peek().giveMatrixPosition(yInInventory, xInInventory);
-                        inventoryMatrix[yInInventory, xInInventory].Peek().use();
+                        inventoryMatrix[selectedItemStackY, selectedItemStackX].Peek().setPositionMatrix(selectedItemStackX, selectedItemStackY);
+                    }
+
+                    inventoryMatrix[yInInventory, xInInventory] = selectedItemStack;
+
+                    if (inventoryMatrix[yInInventory, xInInventory] != null)
+                    {
+                        inventoryMatrix[yInInventory, xInInventory].Peek().setPositionMatrix(xInInventory, yInInventory);
+                    }
+                    selectedItemStack = null;
+                    itemIsSelected = false;
+                }
+                Game.isPressed = true;
+            }
+
+            if ((Keyboard.IsKeyPressed(Controls.UseItem) || Mouse.IsButtonPressed(Mouse.Button.Right)) && !Game.isPressed)
+            {
+                Game.isPressed = true;
+                if (inventoryMatrix[yInInventory, xInInventory] != null && inventoryMatrix[yInInventory, xInInventory].Count != 0 && inventoryMatrix[yInInventory, xInInventory].Peek() != null)
+                {
+                    inventoryMatrix[yInInventory, xInInventory].Peek().giveMatrixPosition(yInInventory, xInInventory);
+                    inventoryMatrix[yInInventory, xInInventory].Peek().use();
+                    PlayerHandler.player.statsUpdate();
+                }
+            }
+
+            if (inventoryMatrix[yInInventory, xInInventory] != null && inventoryMatrix[yInInventory, xInInventory].Count != 0 && !inventoryMatrix[yInInventory, xInInventory].Peek().isAlive)
+            {
+                inventoryMatrix[yInInventory, xInInventory].Pop();
+                if (inventoryMatrix[yInInventory, xInInventory].Count != 0)
+                {
+                    inventoryMatrix[yInInventory, xInInventory].Peek().position = getSelectedPosition(xInInventory, yInInventory);
+                    inventoryMatrix[yInInventory, xInInventory].Peek().setVisible(true);
+                }
+                else
+                {
+                    inventoryMatrix[yInInventory, xInInventory] = null;
+                }
+            }
+
+        }
+
+        public void equipmentManagement()
+        {
+            if ((Keyboard.IsKeyPressed(Controls.UseItem) || Mouse.IsButtonPressed(Mouse.Button.Right)) && !Game.isPressed)
+            {
+                Game.isPressed = true;
+                for (int i = 0; i < equipmentPosition.Length; i++)
+                {
+                    if (equipment[i] != null && selected.Position.Equals(equipmentPosition[i]))
+                    {
+                        equipment[i].use();
                         PlayerHandler.player.statsUpdate();
-                    }
-                }
-
-                if (inventoryMatrix[yInInventory, xInInventory] != null && inventoryMatrix[yInInventory, xInInventory].Count != 0 && !inventoryMatrix[yInInventory, xInInventory].Peek().isAlive)
-                {
-                    inventoryMatrix[yInInventory, xInInventory].Pop();
-                    if (inventoryMatrix[yInInventory, xInInventory].Count != 0)
-                    {
-                        inventoryMatrix[yInInventory, xInInventory].Peek().position = getSelectedPosition(xInInventory, yInInventory);
-                        inventoryMatrix[yInInventory, xInInventory].Peek().setVisible(true);
-                    }
-                    else
-                    {
-                        inventoryMatrix[yInInventory, xInInventory] = null;
                     }
                 }
             }
@@ -690,12 +749,43 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             }
         }
 
-        public void updateEquipment()
+        public float getAttBonus()
         {
-            for (int i = 0; i < equipment.Length; i++)
+            float attBonus = 0;
+            foreach (Equipment equip in equipment)
             {
-                
+                if (equip != null)
+                {
+                    attBonus += equip.bonusAtt;
+                }
             }
+            return attBonus;
+        }
+
+        public float getDefBonus()
+        {
+            float defBonus = 0;
+            foreach (Equipment equip in equipment)
+            {
+                if (equip != null)
+                {
+                    defBonus += equip.bonusDef;
+                }
+            }
+            return defBonus;
+        }
+
+        public float getHpBonus()
+        {
+            float hpBonus = 0;
+            foreach (Equipment equip in equipment)
+            {
+                if (equip != null)
+                {
+                    hpBonus += equip.bonusHp;
+                }
+            }
+            return hpBonus;
         }
 
         public void deleate()

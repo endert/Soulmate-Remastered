@@ -16,8 +16,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         public virtual float ID { get { return 0; } }
         public virtual bool stackable { get { return true; } }
         public override bool walkable { get { return true; } }
-        protected int dropRate; // in percent
-        public int DROPRATE { get { return dropRate; } }
+        protected float dropRate; // in percent
+        public float DROPRATE { get { return dropRate; } }
         public bool onMap { get; set; }
         protected bool wasOnMap = false; //not longer on map but it was droped once
         public float pickUpRange { get { return 50f; } }
@@ -53,7 +53,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             inventoryMatrixPositionY = i;
         }
 
-        public virtual void pickUp(GameTime gameTime)
+        public virtual void pickUp()
         {
             if (type.Equals("Object.Item.Gold"))
             {

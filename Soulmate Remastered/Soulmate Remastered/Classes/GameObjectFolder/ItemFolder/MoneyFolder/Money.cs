@@ -10,7 +10,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
 {
     abstract class Money : AbstractItem
     {
-        public override void pickUp(GameTime gameTime)
+        public override void pickUp()
         {
             onMap = false;
             GameObjectHandler.removeAt(indexObjectList);

@@ -20,10 +20,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
             visible = false;
             position = new Vector2f();
             hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
-            dropRate = 100;
-            attBonus = _attBonus;
-            defBonus = _defBonus;
-            hpBonus = _hpBonus;
+            dropRate = 30 * (100 / (_attBonus + _defBonus + _hpBonus));
+            attBonus = (int)_attBonus;
+            defBonus = (int)_defBonus;
+            hpBonus = (int)_hpBonus;
         }
 
         public override AbstractItem clone()

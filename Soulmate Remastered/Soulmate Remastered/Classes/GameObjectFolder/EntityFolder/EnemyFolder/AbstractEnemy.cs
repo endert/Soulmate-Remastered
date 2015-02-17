@@ -110,7 +110,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             for (int i = 0; i < random.Next(100); i++)
             {
                 int rand = random.Next(drops.Length);
-                if (drops[rand].DROPRATE > random.Next(100))
+                if (drops[rand].DROPRATE > 100*random.NextDouble())
                 {
                     drops[rand].cloneAndDrop(new Vector2f(position.X + random.Next(50), position.Y + random.Next(50)));
                 }
