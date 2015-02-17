@@ -12,6 +12,7 @@ namespace Soulmate_Remastered.Classes.MapFolder
 {
     class Map
     {
+        Sprite backGround = new Sprite(new Texture("Pictures/Map/Village.png"));
         Blocks[,] map;
         Texture blockTex;
         //List<EnemyHandler> EnemyList;
@@ -89,6 +90,7 @@ namespace Soulmate_Remastered.Classes.MapFolder
             {
                 block.draw(window);
             }
+            window.Draw(backGround);
         }
     }
 }
