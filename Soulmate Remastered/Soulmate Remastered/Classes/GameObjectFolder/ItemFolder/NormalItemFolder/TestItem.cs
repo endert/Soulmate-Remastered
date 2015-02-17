@@ -32,9 +32,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
 
         public override void cloneAndDrop(Vector2f dropPosition)
         {
-            TestItem test = new TestItem();
+            AbstractItem test = this.clone();
             ItemHandler.add(test);
             test.drop(dropPosition);
+        }
+
+        public override AbstractItem clone()
+        {
+            AbstractItem clonedItem = new TestItem();
+            clonedItem.position = this.position;
+            return clonedItem;
         }
     }
 }

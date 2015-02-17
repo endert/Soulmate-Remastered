@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SFML.Window;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,13 +27,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
 
         public void equip()
         {
-            if (ItemHandler.playerInventory.equipment[((int)ID) % 10] == null)
+            Equipment swapedItem = ItemHandler.playerInventory.equipment[(int)(ID) % 10];
+            ItemHandler.playerInventory.equipment[(int)(ID) % 10] = this;
+            position = new Vector2f(447 + 15, 161 + 114);
+            sprite.Position = position;
+            if (swapedItem != null)
             {
-                ItemHandler.playerInventory.equipment[((int)ID) % 10] = this;
+                ItemHandler.playerInventory.inventoryMatrix[inventoryMatrixPositionY, inventoryMatrixPositionX].Pop();
+                ItemHandler.playerInventory.inventoryMatrix[inventoryMatrixPositionY, inventoryMatrixPositionX].Push(swapedItem);
             }
             else
             {
-
+                ItemHandler.playerInventory.inventoryMatrix[inventoryMatrixPositionY, inventoryMatrixPositionX] = null;
             }
         }
     }

@@ -31,7 +31,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             {
                 PlayerHandler.player.setHp(Convert.ToSingle(parameter));
             }
-            catch (InvalidCastException)
+            catch (FormatException)
             {
                 Console.WriteLine(parameter + invalidInput + cheatNames[0]);
             }
@@ -43,7 +43,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             {
                 PlayerHandler.player.setMoney(Convert.ToSingle(parameter));
             }
-            catch (InvalidCastException)
+            catch (FormatException)
             {
                 Console.WriteLine(parameter + invalidInput + cheatNames[1]);
             }
@@ -60,7 +60,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             {
                 PlayerHandler.player.setExp(Convert.ToSingle(parameter));
             }
-            catch (InvalidCastException)
+            catch (FormatException)
             {
                 Console.WriteLine(parameter + invalidInput + cheatNames[3]);
             }
@@ -72,7 +72,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             {
                 PlayerHandler.player.setLvl(Convert.ToInt32(parameter));
             }
-            catch (InvalidCastException)
+            catch (FormatException)
             {
                 Console.WriteLine(parameter + invalidInput + cheatNames[4]);
             }
@@ -84,7 +84,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             {
                 PlayerHandler.player.setDef(Convert.ToSingle(parameter));
             }
-            catch (InvalidCastException)
+            catch (FormatException)
             {
                 Console.WriteLine(parameter + invalidInput + cheatNames[5]);
             }
@@ -96,7 +96,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             {
                 PlayerHandler.player.setAtt(Convert.ToSingle(parameter));
             }
-            catch (InvalidCastException)
+            catch (FormatException)
             {
                 Console.WriteLine(parameter + invalidInput + cheatNames[6]);
             }
@@ -108,7 +108,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             {
                 PlayerHandler.player.setFusionValue(Convert.ToSingle(parameter));
             }
-            catch (InvalidCastException)
+            catch (FormatException)
             {
                 Console.WriteLine(parameter + invalidInput + cheatNames[7]);
             }
@@ -120,7 +120,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             {
                 PlayerHandler.player.HealFor(Convert.ToSingle(parameter));
             }
-            catch (InvalidCastException)
+            catch (FormatException)
             {
                 Console.WriteLine(parameter + invalidInput + cheatNames[8]);
             }
@@ -132,7 +132,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             {
                 PlayerHandler.player.HealFor(-Convert.ToSingle(parameter));
             }
-            catch (InvalidCastException)
+            catch (FormatException)
             {
                 Console.WriteLine(parameter + invalidInput + cheatNames[9]);
             }

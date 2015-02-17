@@ -24,6 +24,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         protected Stopwatch decay = new Stopwatch();
         protected int decayingIn = 60000; //60sec
         protected float recoveryValue;
+        protected int inventoryMatrixPositionX;
+        protected int inventoryMatrixPositionY;
+
 
         public virtual String toStringForSave()
         {
@@ -36,10 +39,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             return itemForSave;
         }
 
+        public abstract AbstractItem clone();
+
         public void setPositionMatrix(int x, int y)
         {
             position = new Vector2f(x * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X,
                 y * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.Y);
+        }
+
+        public void giveMatrixPosition(int i, int j)
+        {
+            inventoryMatrixPositionX = j;
+            inventoryMatrixPositionY = i;
         }
 
         public virtual void pickUp(GameTime gameTime)

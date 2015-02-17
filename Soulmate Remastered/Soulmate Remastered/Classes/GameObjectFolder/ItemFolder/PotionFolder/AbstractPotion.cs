@@ -24,6 +24,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
         }
 
         protected int size;
+        public int getSize { get { return size; } }
 
         public override string toStringForSave()
         {

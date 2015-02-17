@@ -73,7 +73,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
                         for (int j = 0; j < Convert.ToInt32(itemString.Split(AbstractItem.lineBreak)[itemString.Split(AbstractItem.lineBreak).Length - 1]); j++)
                         {
-                            loadedStack.Push(loadedItem);
+                            loadedStack.Push(loadedItem.clone());
                         }
 
                         break;
@@ -146,6 +146,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 if (itemStack != null && itemStack.Count != 0 && itemStack.Peek() != null)
                 {
                     itemStack.Peek().draw(window);
+                }
+            }
+
+            foreach (Equipment equipment in playerInventory.equipment)
+            {
+                if (equipment != null)
+                {
+                    equipment.draw(window);
                 }
             }
         }
