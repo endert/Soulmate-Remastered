@@ -40,6 +40,8 @@ namespace Soulmate_Remastered.Classes
         {
             if (File.Exists(loadPath))
             {
+                Console.WriteLine("is loading ...");
+
                 StreamReader reader = new StreamReader(loadPath);
 
                 if (PlayerHandler.player != null)
@@ -67,6 +69,8 @@ namespace Soulmate_Remastered.Classes
 
                 reader.Close();
             }
+            else
+                Console.WriteLine("File don't exist");
         }
 
         public static void loadMapChange()

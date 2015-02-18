@@ -185,7 +185,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         {
             for (int i = 0; i < GameObjectHandler.gameObjectList.Count; i++)
             {
-                if ((i != indexObjectList) && (hitBox.hit(GameObjectHandler.gameObjectList[i].hitBox)) && hitAnotherEnityHelp(i))
+                if ((i != indexObjectList) && !GameObjectHandler.gameObjectList[i].walkable && (hitBox.hit(GameObjectHandler.gameObjectList[i].hitBox)) && hitAnotherEnityHelp(i))
                 {
                     bool notFound = true;
                     for (int j = 0; j < hitFromDirections.Count; j++)

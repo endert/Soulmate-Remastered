@@ -30,7 +30,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                     break;
 
                 case 1:
-                    for (int i = 0; i < 2; i++)
+                    for (int i = 0; i < 10; i++)
                     {
                         float rX = 600 + random.Next(1000);
                         float rY = 400 + random.Next(400);

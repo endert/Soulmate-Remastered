@@ -289,6 +289,11 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public bool isFullWith(AbstractItem item)
         {
+            if (item.type.Equals("Object.Item.Money.Gold"))
+            {
+                return false;
+            }
+
             foreach (Stack<AbstractItem> itemStack in inventoryMatrix)
             {
                 try
