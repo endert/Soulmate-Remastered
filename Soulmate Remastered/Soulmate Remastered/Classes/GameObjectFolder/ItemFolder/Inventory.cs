@@ -24,7 +24,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture characterMenu = new Texture("Pictures/Inventory/Inventory.png");
         Texture petMenu = new Texture("Pictures/Inventory/PetMenu.png");
         Texture questLog = new Texture("Pictures/Inventory/QuestLog.png");
-        Texture displayedPlayerTexture = new Texture("Pictures/Inventory/PlayerFrontInventory.png");
+        Texture displayedPlayerTexture = new Texture("Pictures/Inventory/CharakterSprite/PlayerFrontInventory.png");
         Sprite displayedPlayer;
 
         Texture characterTabNotSelected = new Texture("Pictures/Inventory/Tabs/CharacterTabNotSelected.png");
