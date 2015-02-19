@@ -6,7 +6,7 @@ ToDoList
 	- Game.isPressed aus der navigationHelp entfernen (Übergabe)
 	- Pet Futzi
 	- Pfeile neu machen (*hust* Joshua *hust*)
-	- Equipment stats
+--------- Equipment stats
 	- Verkäufer
 --------- Konsole
 	- Option Settings
@@ -31,7 +31,7 @@ ToDoList
 	- "Zum betrunkenen Rechenschieber" nicht vergessen ^^ XD
 	- Quests ausdenken
 	- Mehr Eastereggs ausdenken
-	- abstrackte klasse mainmenu punkte (Joshua) *DONE*
+--------- abstrackte klasse mainmenu punkte (Joshua) *DONE*
 	- Skills
 	- Quickslot (Schnellauswahl)
 	- 

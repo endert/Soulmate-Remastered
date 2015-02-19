@@ -22,6 +22,14 @@ namespace Soulmate_Remastered.Classes.MapFolder
         public static String white = "ffffffff"; //Boden
         public static String black = "ff000000"; //Wald
 
+        public Vector2f MapSize
+        {
+            get
+            {
+                return new Vector2f(map.GetLength(0) * objectSize, map.GetLength(1) * objectSize);
+            }
+        }
+
         public bool getWalkable(HitBox hitBox, Vector2f vector)
         {
             bool walkable = true;

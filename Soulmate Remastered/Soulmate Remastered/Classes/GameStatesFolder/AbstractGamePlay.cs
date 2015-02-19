@@ -70,6 +70,23 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public abstract EnumGameStates update(GameTime gameTime);
 
+        private Vector2f VectorForViewMove()
+        {
+            float Xmove = (PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)) - view.Center.X;
+            float Ymove = (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height * 5 / 6)) - view.Center.Y;
+
+            if (view.Center.X + Xmove < view.Size.X/2)
+                Xmove = 0;
+            if (view.Center.Y + Ymove < view.Size.Y / 2)
+                Ymove = 0;
+            if (view.Center.X + Xmove + (view.Size.X / 2) > map.MapSize.X)
+                Xmove = 0;
+            if (view.Center.Y + Ymove + (view.Size.Y / 2) > map.MapSize.Y)
+                Ymove = 0;
+
+            return new Vector2f( Xmove, Ymove);
+        }
+
         public void GameUpdate(GameTime gameTime)
         {
             if (inGameMenu.closeGame) //if exit clicked
@@ -94,8 +111,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             if (!Inventory.inventoryOpen && !inGameMenu.inGameMenuOpen)
             {
-                view.Move(new Vector2f((PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)),
-                                       (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height * 5 / 6))) - view.Center);
+                
+                view.Move(VectorForViewMove());
 
                 gameObjectHandler.update(gameTime);
                 dialoges.update();
