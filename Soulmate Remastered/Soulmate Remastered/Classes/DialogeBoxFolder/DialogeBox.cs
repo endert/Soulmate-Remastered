@@ -42,7 +42,7 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
             text = theWholeDialoge.Split();
             for (int i = index; i < text.Length; i++)
             {
-                if ((oneLine.Length + text[i].Length) * txt.CharacterSize / bvft < background.Size.X)
+                if (((oneLine.Length + text[i].Length) * txt.CharacterSize) / bvft < background.Size.X)
                 {
                     txt.DisplayedString += text[i] + " ";
                     oneLine += text[i] + " ";

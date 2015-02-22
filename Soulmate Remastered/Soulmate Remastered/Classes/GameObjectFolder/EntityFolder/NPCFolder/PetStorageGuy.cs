@@ -10,17 +10,13 @@ using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 {
-    class PetStorageGuy : Entity
+    class PetStorageGuy : AbstractNPC
     {
         public override String type { get { return base.type + ".PetStorageGuy"; } }
-        public bool interacted { get; set; }
-        DialogeBox dialoge;
 
         String test = "lulululu ... heiliege Kuh; . . . *trinkt einen Schluck* . . . dieser verkackte INDER XD, "
                     + "n bissl Rassismus muss halt sein außerdem weiß ich nicht wie ich den Text noch strecken kann ;) "
                     + "ist jetzt auch schon lang genug für Testzwecke ^^";
-
-        bool dialogeIsOn = false;
 
         public PetStorageGuy(Vector2f _position)
         {
@@ -37,34 +33,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             sprite.Position = position;
             hitBox = new HitBox(position, sprite.Texture.Size.X, sprite.Texture.Size.Y);
             interacted = false;
-            EntityHandler.add(this);
+            NPCHandler.add(this);
         }
 
-        public void changePet()
+        public override void interact()
         {
+            interacted = true;
             dialoge = new DialogeBox(new Vector2f(position.X, position.Y-100), test);
             DialogeHandler.dialogeList.Add(dialoge);
-        }
-
-        public override void update(GameTime gameTime)
-        {
-            if (hitBox.distanceTo(PlayerHandler.player.hitBox)<= 50 && Keyboard.IsKeyPressed(Keyboard.Key.P) && !dialogeIsOn)
-            {
-                interacted = true;
-                dialogeIsOn = true;
-                changePet();
-            }
-            if (hitBox.distanceTo(PlayerHandler.player.hitBox) > 50)
-            {
-                interacted = false;
-            }
-
-            if (!interacted)
-            {
-                dialoge = null;
-                dialogeIsOn = false;
-                DialogeHandler.dialogeList.Clear();
-            }
         }
     }
 }

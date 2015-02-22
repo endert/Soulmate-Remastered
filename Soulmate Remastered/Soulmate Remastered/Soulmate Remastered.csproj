@@ -68,6 +68,8 @@
     <Compile Include="Classes\GameObjectFolder\EntityFolder\EnemyFolder\EnemyHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\Entity.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\EntityHandler.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\NPCFolder\AbstractNPC.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\NPCFolder\NPCHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PetFolder\AbstractPet.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PetFolder\PetHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\NPCFolder\PetStorageGuy.cs" />
