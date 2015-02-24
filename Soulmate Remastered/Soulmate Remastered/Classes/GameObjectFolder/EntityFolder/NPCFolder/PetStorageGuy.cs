@@ -14,9 +14,23 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
     {
         public override String type { get { return base.type + ".PetStorageGuy"; } }
 
-        String test = "lulululu ... heiliege Kuh; . . . *trinkt einen Schluck* . . . dieser verkackte INDER XD, "
-                    + "n bissl Rassismus muss halt sein außerdem weiß ich nicht wie ich den Text noch strecken kann ;) "
-                    + "ist jetzt auch schon lang genug für Testzwecke ^^";
+        String[] test = new String[]
+        {
+            "lulululu ... heiliege",
+            "Kuh . . .", 
+            "*trinkt einen Schluck*",
+            ". . ." , 
+            "dieser verkackte INDER",
+            "XD, n bissl Rassismus",
+            "muss halt sein außer-",
+            "dem weiß ich nicht wie",
+            "ich den Text noch",
+            "strecken kann ;) " ,
+            "ist jetzt auch schon",
+            "lang genug für",
+            "Testzwecke",
+            "^^"
+        };
 
         public PetStorageGuy(Vector2f _position)
         {

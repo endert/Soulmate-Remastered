@@ -135,6 +135,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                         loadedEquip.position = new Vector2f(Convert.ToSingle(EquipmentString.Split(AbstractItem.lineBreak)[2]),
                                                            Convert.ToSingle(EquipmentString.Split(AbstractItem.lineBreak)[3]));
                         loadedEquip.sprite.Position = loadedEquip.position;
+                        loadedEquip.setEquiped();
                         break;
                     }
                 }
