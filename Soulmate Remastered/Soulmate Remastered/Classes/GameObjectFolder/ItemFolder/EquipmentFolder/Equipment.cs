@@ -43,6 +43,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
                 equip();
         }
 
+        public void setEquiped()
+        {
+            equiped = true;
+        }
+
         public void equip()
         {
             if (ItemHandler.playerInventory.equipment[(int)(ID) % 10] != null)

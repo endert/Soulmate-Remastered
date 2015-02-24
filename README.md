@@ -61,7 +61,7 @@ ToDoList Picture
 	- Life/Fusion Bars farbe ändern
 	- Arrows anpassen
 	- Credits abspann Text erstellen 
-	-
+	-Shop Inteface (2 Listen wären gut, links Player Items zum verkaufen rechts Shop Items zum kaufen)
 
 	. 
 	.
