@@ -61,13 +61,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
 
             if (inRange())
             {
+                att = att;
+                
                 move(facingDirection);
                 animate(textureList);
                 sprite.Position = position;
                 doDamage();
 
-                //Fehlersuche
-                getTouchedObject();
+                if (touchedPlayer())
+                    att = 0;
 
                 if (!touchedPlayer() && hitAnotherEntity())
                 {

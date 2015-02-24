@@ -84,7 +84,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (backValueSelected == 1)
                 return EnumGameStates.mainMenu;
 
-            if (NavigationHelp.isSpriteKlicked(x, 0, Game.isPressed, load, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(x, 0, load, Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("load Game");
@@ -103,7 +103,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 }
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 1, Game.isPressed, newGame, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(x, 1, newGame, Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("new Game");

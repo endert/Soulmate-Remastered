@@ -60,7 +60,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             backValueSelected = 0;
 
-            if (NavigationHelp.isSpriteKlicked(0, 0, Game.isPressed, back, Controls.Escape))
+            if (NavigationHelp.isSpriteKlicked(0, 0, back, Controls.Escape))
             {
                 Game.isPressed = true;
                 backValueSelected = 1;

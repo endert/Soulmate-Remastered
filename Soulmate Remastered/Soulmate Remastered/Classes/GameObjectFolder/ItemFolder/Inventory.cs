@@ -703,7 +703,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void changeTab()
         {
-            if (NavigationHelp.isSpriteKlicked(xInTabs, 0, Game.isPressed, characterTab, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(xInTabs, 0, characterTab, Controls.Return))
             {
                 Game.isPressed = true;
                 characterMenuActivated = true;
@@ -713,7 +713,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 selectedTab = 0;
             }
 
-            if (NavigationHelp.isSpriteKlicked(xInTabs, 1, Game.isPressed, petTab, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(xInTabs, 1, petTab, Controls.Return))
             {
                 Game.isPressed = true;
                 characterMenuActivated = false;
@@ -723,7 +723,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 selectedTab = 1;
             }
 
-            if (NavigationHelp.isSpriteKlicked(xInTabs, 2, Game.isPressed, questTab, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(xInTabs, 2, questTab, Controls.Return))
             {
                 Game.isPressed = true;
                 characterMenuActivated = false;

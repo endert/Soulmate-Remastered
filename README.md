@@ -3,7 +3,7 @@
 ToDoList
 
 --------- Stack
-	- Game.isPressed aus der navigationHelp entfernen (Übergabe)
+--------- Game.isPressed aus der navigationHelp entfernen (Übergabe)
 	- Pet Futzi
 	- Pfeile neu machen (*hust* Joshua *hust*)
 --------- Equipment stats

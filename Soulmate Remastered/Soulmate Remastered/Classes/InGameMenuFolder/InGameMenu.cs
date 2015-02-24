@@ -136,13 +136,13 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 Game.isPressed = true;
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 0, Game.isPressed, continueGame, Controls.Return) || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed))
+            if (NavigationHelp.isSpriteKlicked(x, 0, continueGame, Controls.Return) || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed))
             {
                 Game.isPressed = true;
                 inGameMenuOpen = false;
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 1, Game.isPressed, save, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(x, 1, save, Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("saving Game");
@@ -152,7 +152,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             }
 
             optionsOpen = false;
-            if (NavigationHelp.isSpriteKlicked(x, 2, Game.isPressed, options, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(x, 2, options, Controls.Return))
             {
                 Game.isPressed = true;
                 inGameMenuOpen = false;
@@ -160,7 +160,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             }
 
             closeGame = false;
-            if (NavigationHelp.isSpriteKlicked(x, 3, Game.isPressed, exit, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(x, 3, exit, Controls.Return))
             {
                 Game.isPressed = true;
                 inGameMenuOpen = false;

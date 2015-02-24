@@ -153,30 +153,30 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 end.Texture = endSelected;
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 0, Game.isPressed, start, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(x, 0, start, Controls.Return))
             {
                 Game.isPressed = true;
                 return EnumGameStates.loadGame;
             }
-            if (NavigationHelp.isSpriteKlicked(x, 1, Game.isPressed, optionsButton, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(x, 1, optionsButton, Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("load Options");
                 return EnumGameStates.options;
             }
-            if (NavigationHelp.isSpriteKlicked(x, 2, Game.isPressed, controls, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(x, 2, controls, Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("load Controls");
                 return EnumGameStates.controls;
             }
-            if (NavigationHelp.isSpriteKlicked(x, 3, Game.isPressed, credits, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(x, 3, credits, Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("load Credits");
                 return EnumGameStates.credits;
             }
-            if (NavigationHelp.isSpriteKlicked(x, 4, Game.isPressed, end, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(x, 4, end, Controls.Return))
             {
                 Game.isPressed = true;
                 return EnumGameStates.none;
