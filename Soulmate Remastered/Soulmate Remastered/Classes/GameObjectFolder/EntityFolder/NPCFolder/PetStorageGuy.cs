@@ -7,30 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.DialogeBoxFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+using System.IO;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 {
     class PetStorageGuy : AbstractNPC
     {
         public override String type { get { return base.type + ".PetStorageGuy"; } }
-
-        String[] test = new String[]
-        {
-            "lulululu ... heiliege",
-            "Kuh . . .", 
-            "*trinkt einen Schluck*",
-            ". . ." , 
-            "dieser verkackte INDER",
-            "XD, n bissl Rassismus",
-            "muss halt sein außer-",
-            "dem weiß ich nicht wie",
-            "ich den Text noch",
-            "strecken kann ;) " ,
-            "ist jetzt auch schon",
-            "lang genug für",
-            "Testzwecke",
-            "^^"
-        };
+        protected override string dialogePath{ get { return "Dialoges/Test.txt"; } }
 
         public PetStorageGuy(Vector2f _position)
         {
@@ -53,7 +37,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         public override void interact()
         {
             interacted = true;
-            dialoge = new DialogeBox(new Vector2f(position.X, position.Y-100), test);
             DialogeHandler.dialogeList.Add(dialoge);
         }
     }
