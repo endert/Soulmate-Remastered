@@ -3,6 +3,7 @@
 ToDoList
 
 --------- Stack
+		-Stacks aufteilen ^^ XD
 	- Game.isPressed aus der navigationHelp entfernen (Übergabe)
 	- Pet Futzi
 	- Pfeile neu machen (*hust* Joshua *hust*)
@@ -47,6 +48,7 @@ ToDoList
 ToDoList Picture
 
 	- Main Menu Bilder
+	- Map Village fertigstellen
 --------- Schriftzüge anpassen
 	- Wolf, Vogel, Werwolf, ... farbig malen
 	- Pet Menü
