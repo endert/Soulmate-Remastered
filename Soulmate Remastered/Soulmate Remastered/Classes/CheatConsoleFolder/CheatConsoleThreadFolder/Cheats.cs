@@ -22,7 +22,8 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             "/SETATT",
             "/SETFUSIONVALUE",
             "/HEALFOR",
-            "/TAKEDAMAGE"
+            "/TAKEDAMAGE",
+            "/SETHITBOXVISIBLE"
         };
 
         public static void setHp(String parameter)
@@ -138,6 +139,18 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             }
         }
 
+        public static void setHitboxVisible(String parameter)
+        {
+            try
+            {
+                PlayerHandler.player.setHitboxVisible(Convert.ToBoolean(parameter));
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine(parameter + invalidInput + cheatNames[10]);
+            }
+        }
+
         public static void activateCheat(String input)
         {
             String[] inputSplit = input.Split();
@@ -183,6 +196,9 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
                     break;
                 case 9:
                     takeDamage(inputSplit[1]);
+                    break;
+                case 10:
+                    setHitboxVisible(inputSplit[1]);
                     break;
                 default:
                     break;
