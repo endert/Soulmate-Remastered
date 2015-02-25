@@ -61,7 +61,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 Console.WriteLine("successfully loaded");
                 loading = false;
             }
-            if (File.Exists(savePlayer) && !startNewGame)
+            else if (File.Exists(savePlayer) && !startNewGame)
             {
                 SaveGame.loadPath = savePlayer;
                 SaveGame.loadMapChange();

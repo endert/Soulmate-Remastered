@@ -48,6 +48,7 @@ ToDoList
 ToDoList Picture
 
 	- Main Menu Bilder
+	- Map Village fertigstellen
 --------- Schriftzüge anpassen
 	- Wolf, Vogel, Werwolf, ... farbig malen
 	- Pet Menü

@@ -5,18 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Soulmate_Remastered.Classes.DialogeBoxFolder;
-using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
-using System.IO;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 {
-    class PetStorageGuy : AbstractNPC
+    class Shopkeeper : AbstractNPC
     {
-        public override String type { get { return base.type + ".PetStorageGuy"; } }
-        protected override string dialogePath{ get { return "Dialoges/Test.txt"; } }
+        public override string type { get { return base.type + ".Shopkeeper"; } }
+        protected override string dialogePath { get { return base.dialogePath; } }
 
-        public PetStorageGuy(Vector2f _position)
+        public Shopkeeper(Vector2f _position)
         {
             textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyFrontTest.png"));
             textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyBackTest.png"));
@@ -36,8 +33,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 
         public override void interact()
         {
-            interacted = true;
-            DialogeHandler.dialogeList.Add(dialoge);
+            base.interact();
         }
+
     }
 }

@@ -402,7 +402,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         }
 
-        public void healFusionFor(float value)
+       public void healFusionFor(float value)
         {
             currentFusionValue += value;
 
@@ -410,24 +410,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 currentFusionValue = maxFusionValue;
         }
 
-        public void drawHitBoxOnOff()
+        public void setHitboxVisible(bool visible)
         {
-            if (Keyboard.IsKeyPressed(Controls.ShowHitBox) && !isPressed)
+            if (HitBox.VISIBLE != visible)
             {
-                if (HitBox.VISIBLE == false)
-                {
-                    HitBox.VISIBLE = true;
-                }
-                else
-                {
-                    HitBox.VISIBLE = false;
-                }
-
-                isPressed = true;
+                HitBox.VISIBLE = visible;
             }
-
-            if (!Keyboard.IsKeyPressed(Controls.ShowHitBox))
-                isPressed = false;
         }
         //====================================================================
     }
