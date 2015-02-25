@@ -32,7 +32,7 @@ namespace Soulmate_Remastered.Classes
                 handleGameState();
             }
 
-            if (!NavigationHelp.isAnyKeyPressed() && !Mouse.IsButtonPressed(Mouse.Button.Left))
+            if (!NavigationHelp.isAnyKeyPressed() && !Mouse.IsButtonPressed(Mouse.Button.Left) && !Mouse.IsButtonPressed(Mouse.Button.Right))
                 isPressed = false;
 
             currentGameState = gameState.update(time);

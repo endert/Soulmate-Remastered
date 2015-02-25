@@ -86,6 +86,7 @@
     <Compile Include="Classes\GameObjectFolder\ItemFolder\PotionFolder\AbstractPotion.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\EquipmentFolder\Equipment.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\EquipmentFolder\EquipmentHandler.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\PotionFolder\FusionPotion.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\PotionFolder\HealPotion.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\MoneyFolder\Gold.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\ItemHandler.cs" />
@@ -352,6 +353,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Items\Money\Gold.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Items\Potion\FusionPotion\fusionPotion.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Items\Potion\HealPotion\PotionSmall.png">

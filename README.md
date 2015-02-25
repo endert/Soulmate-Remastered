@@ -5,7 +5,8 @@ ToDoList
 --------- Stack
 --------- Game.isPressed aus der navigationHelp entfernen (Übergabe)
 	- Pet Futzi
-	- Pfeile neu machen (*hust* Joshua *hust*)
+--------- Pfeile neu machen (*hust* Joshua *hust*)
+	- Pfeile noch etwas besser machen
 --------- Equipment stats
 	- Verkäufer
 --------- Konsole

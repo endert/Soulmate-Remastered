@@ -286,7 +286,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 coolDown[0].Start();
                 if (!arrowOnCoolDown)
                 {
-                    new ProjectileArrow((att / 2) + 2, 0.1f, 2f, facingDirection, position);
+                    new ProjectileArrow((att / 2) + 2, 0.8f, 2f, facingDirection, position);
                 }
                 if (coolDown[0].ElapsedMilliseconds < arrowCd * 1000)
                 {
@@ -400,6 +400,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 }
             }
 
+        }
+
+        public void healFusionFor(float value)
+        {
+            currentFusionValue += value;
+
+            if (currentFusionValue > maxFusionValue)
+                currentFusionValue = maxFusionValue;
         }
 
         public void drawHitBoxOnOff()
