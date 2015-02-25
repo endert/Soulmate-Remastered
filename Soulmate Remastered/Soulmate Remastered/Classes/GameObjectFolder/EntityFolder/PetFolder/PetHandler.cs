@@ -19,10 +19,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             petList = new List<AbstractPet>();
 
             pet = new PetWolf(PlayerHandler.player);
-            if (GameObjectHandler.lvl == 0)
-            {
-                new PetStorageGuy(new Vector2f(300, 400));
-            }
             EntityHandler.add(pet);
             petList.Add(pet);
         }

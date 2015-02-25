@@ -11,6 +11,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
     class Gold : Money //should extend another instans (money?)
     {
         public override String type { get { return base.type + ".Gold"; } }
+        public override bool sellable { get { return false; } }
 
         public Gold()
         {

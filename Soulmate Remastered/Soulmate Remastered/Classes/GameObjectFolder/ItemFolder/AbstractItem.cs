@@ -17,6 +17,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         public virtual float ID { get { return 0; } }
         public virtual bool stackable { get { return true; } }
         public override bool walkable { get { return true; } }
+        public virtual bool sellable { get { return true; } }
+        public virtual float sellPrize { get { return 0; } }
         protected float dropRate; // in percent
         public float DROPRATE { get { return dropRate; } }
         public bool onMap { get; set; }

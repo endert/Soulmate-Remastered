@@ -23,7 +23,7 @@ namespace Soulmate_Remastered.Classes
 
         public static Keyboard.Key OpenInventar = Keyboard.Key.I;
         public static Keyboard.Key UseItem = Keyboard.Key.U;
-        //public static Keyboard.Key x;
+        public static Keyboard.Key Interact = Keyboard.Key.P;
         //public static Keyboard.Key x;
         //public static Keyboard.Key x;
 

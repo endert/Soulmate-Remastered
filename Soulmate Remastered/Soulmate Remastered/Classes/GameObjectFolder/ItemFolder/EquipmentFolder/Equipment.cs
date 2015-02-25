@@ -14,6 +14,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
         public override String type { get { return base.type + ".Equipment"; } }
         public override float ID { get { return base.ID * 10 + 1; } }
         public override bool stackable { get { return false; } }
+        public override float sellPrize { get { return (attBonus + bonusDef + bonusHp) * 10 / ((ID % 10) + 1); } }
 
         protected float attBonus;
             public float bonusAtt { get { return attBonus; } }
@@ -40,6 +41,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
                 unequip();
             else
                 equip();
+        }
+
+        public void setEquiped()
+        {
+            equiped = true;
         }
 
         public void equip()

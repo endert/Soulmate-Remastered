@@ -7,6 +7,7 @@ using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 {
@@ -17,6 +18,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         public static EnemyHandler enemyHandler { get; set; }
         public static PetHandler petHandler { get; set; }
         public static ProjectileHandler projectileHandler { get; set; }
+        public static NPCHandler npcHandler { get; set; } 
 
         public EntityHandler()
         {
@@ -26,6 +28,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             enemyHandler = new EnemyHandler();
             petHandler = new PetHandler();
             projectileHandler = new ProjectileHandler();
+            npcHandler = new NPCHandler();
         }
 
         public static void add(Entity entity)
@@ -43,7 +46,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             }
         }
 
-        static public void deleate()
+        public static void deleate()
         {
             foreach (Entity entity in entityList)
             {
@@ -53,6 +56,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             EnemyHandler.deleate();
             PetHandler.deleate();
             ProjectileHandler.deleate();
+            NPCHandler.deleate();
         }
 
         public static void deleateType(String _type)
@@ -88,6 +92,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             enemyHandler.update(gameTime);
             petHandler.update();
             projectileHandler.update(gameTime);
+            npcHandler.update(gameTime);
         }
     }
 }

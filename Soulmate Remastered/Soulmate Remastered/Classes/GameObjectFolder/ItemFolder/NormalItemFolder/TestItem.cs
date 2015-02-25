@@ -12,6 +12,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
     class TestItem : AbstractNormalItem
     {
         public override string type { get { return base.type + ".Pete"; } }
+        public override bool sellable { get { return false; } }
+
         public override float ID
         {
             get

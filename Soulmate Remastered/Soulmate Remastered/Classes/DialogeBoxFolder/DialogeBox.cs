@@ -14,14 +14,11 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
         Vector2f position;
         Texture background = new Texture("Pictures/Entities/DialogeBox/DialogeBoxBackground.png");
         Sprite dialogeBox;
-        String theWholeDialoge;
-        String oneLine;
+        List<String> text;
         Font font = new Font("FontFolder/arial_narrow_7.ttf");
         Text txt;
+        Text testTxt = new Text("", Game.font, 20);
         int index = 0;
-        String[] text;
-        int numberOfLines = 0;
-        float bvft = 1.7f; //stupid Variable For Texts
         bool isPressed = true;
 
         public DialogeBox(Vector2f pos, String dialoge)
@@ -29,28 +26,56 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
             position = pos;
             dialogeBox = new Sprite(background);
             dialogeBox.Position = position;
-            theWholeDialoge = dialoge;
             txt = new Text("", font, 20);
-            oneLine = "";
             txt.Position = new Vector2f(dialogeBox.Position.X + 5, dialogeBox.Position.Y + 5);
-            setDisplayedString();
             isOpen = true;
+            testTxt.Position = txt.Position;
+            testTxt = new Text(txt);
+            Console.WriteLine("background.Size.X = " + background.Size.X);
+            text = createDialoge(dialoge);
+            setDisplayedString();
         }
+
+        private List<String> createDialoge(String s)
+        {
+            List<String> result = new List<string>();
+            Char[] spliString = s.ToCharArray();
+            String oneLine = "";
+
+            for (int i = 0; i < spliString.Length; i++)
+            {
+                testTxt.DisplayedString += spliString[i].ToString();
+                if (testTxt.FindCharacterPos((uint)testTxt.DisplayedString.Length - 1).X < background.Size.X - 15 && !spliString[i].Equals('\n'))
+                {
+                    oneLine += spliString[i].ToString();
+                }
+                else
+                {
+                    result.Add(oneLine);
+                    testTxt.DisplayedString = "";
+                    oneLine = "";
+                    if (!spliString[i].Equals('\n'))
+                    {
+                        i--;
+                    }
+                }
+            }
+
+            if (result.Count > 0 && !oneLine.Equals(result[result.Count - 1]))
+            {
+                result.Add(oneLine);
+            }
+
+            return result;
+        } 
 
         public void setDisplayedString()
         {
-            text = theWholeDialoge.Split();
-            for (int i = index; i < text.Length; i++)
+            for (int i = index; i < text.Count; i++)
             {
-                if ((oneLine.Length + text[i].Length) * txt.CharacterSize / bvft < background.Size.X)
+                if (i - index < 4)
                 {
-                    txt.DisplayedString += text[i] + " ";
-                    oneLine += text[i] + " ";
-                }
-                else if (numberOfLines++ * txt.CharacterSize * bvft < background.Size.Y)
-                {
-                    txt.DisplayedString += "\n" + text[i] + " ";
-                    oneLine = "";
+                    txt.DisplayedString += text[i] + "\n";
                 }
                 else
                 {
@@ -65,8 +90,7 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
             if (Keyboard.IsKeyPressed(Keyboard.Key.P) && !isPressed)
             {
                 txt.DisplayedString = "";
-                oneLine = "";
-                numberOfLines = 0;
+                testTxt.DisplayedString = "";
                 isPressed = true;
                 setDisplayedString();
             }
