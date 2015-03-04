@@ -101,10 +101,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             ItemHandler.playerInventory.update(gameTime);
             inGameMenu.update(gameTime);
 
-            Console.Clear();
-            Console.WriteLine(PlayerHandler.player.getFacingDirection);
-
-
             if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !Game.isPressed)
             {
                 Game.isPressed = true;

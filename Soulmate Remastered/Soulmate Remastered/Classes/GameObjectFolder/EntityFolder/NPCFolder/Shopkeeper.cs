@@ -1,5 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
     {
         public override string type { get { return base.type + ".Shopkeeper"; } }
         protected override string dialogePath { get { return base.dialogePath; } }
+        Shop shop;
+        List<Stack<AbstractItem>> itemsForSell;
 
         public Shopkeeper(Vector2f _position)
         {
@@ -33,8 +37,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 
         public override void interact()
         {
-            base.interact();
+            shop = new Shop(itemsForSell);
         }
 
+        public override void stopIteraction()
+        {
+            shop = null;
+        }
     }
 }
