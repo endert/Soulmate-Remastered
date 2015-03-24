@@ -1,6 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.ItemFolder;
 using System;
@@ -67,7 +68,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public bool getInGameMenuOpen()
         {
-            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed && !inGameMenuOpen && !Inventory.inventoryOpen)
+            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed && !inGameMenuOpen && !Inventory.inventoryOpen && !Shop.shopIsOpen)
             {
                 Game.isPressed = true;
                 inGameMenuOpen = true;

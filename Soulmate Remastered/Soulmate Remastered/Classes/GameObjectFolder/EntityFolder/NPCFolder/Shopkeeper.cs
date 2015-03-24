@@ -27,7 +27,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             facingDirection = new Vector2f(0, 1);
 
             sprite = new Sprite(textureList[getNumFacingDirection]);
-
+            itemsForSell = new List<Stack<AbstractItem>>();
             position = _position;
             sprite.Position = position;
             hitBox = new HitBox(position, sprite.Texture.Size.X, sprite.Texture.Size.Y);
@@ -35,14 +35,39 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             NPCHandler.add(this);
         }
 
+        public void addItemForSell(AbstractItem item, int count)
+        {
+            Stack<AbstractItem> stack = new Stack<AbstractItem>();
+
+            for (int i = 0; i < count; i++)
+            {
+                stack.Push(item.clone());
+            }
+
+            addItemsForSell(stack);
+        }
+
+        void addItemsForSell(Stack<AbstractItem> item)
+        {
+            itemsForSell.Add(item);
+        }
+
         public override void interact()
         {
+            interacted = true;
             shop = new Shop(itemsForSell);
         }
 
         public override void stopIteraction()
         {
+            shop.closeShop();
             shop = null;
+            interacted = false;
+        }
+
+        public override void update(GameTime gameTime)
+        {
+            base.update(gameTime);
         }
     }
 }

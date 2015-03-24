@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.MapFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder
 {

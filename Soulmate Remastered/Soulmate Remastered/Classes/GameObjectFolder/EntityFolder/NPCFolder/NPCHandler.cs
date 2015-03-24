@@ -19,6 +19,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             if (GameObjectHandler.lvl == 0)
             {
                 new PetStorageGuy(new Vector2f(300, 400));
+                new Shopkeeper(new Vector2f(600, 600));
             }
         }
 
@@ -68,12 +69,24 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
                 {
                     NPCList[i].interact();
                 }
-                if (!NPCList[i].InIteractionRange)
+                if (NPCList[i].isInteracting && (!NPCList[i].InIteractionRange || Keyboard.IsKeyPressed(Controls.Escape)))
                 {
                     NPCList[i].stopIteraction();
                 }
             }
         }
 
+        public static void updateShop()
+        {
+            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed)
+            {
+                Game.isPressed = true;
+
+                foreach (AbstractNPC npc in NPCs)
+                {
+                    npc.stopIteraction();
+                }
+            }
+        }
     }
 }

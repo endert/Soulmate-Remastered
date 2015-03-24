@@ -13,7 +13,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
 {
     class Shop
     {
-        public bool shopIsOpen { get; set; }
+        public static bool shopIsOpen { get; set; }
         List<Stack<AbstractItem>> sellableItems;
         List<Stack<AbstractItem>> buayableItems;
         static Texture shopTexture = new Texture("Pictures/Entities/NPC/Shop/ShopInterface.png");
@@ -35,7 +35,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             shopIsOpen = true;
         }
 
-        ~Shop()
+        public void closeShop()
         {
             shopIsOpen = false;
             sprite = null;
