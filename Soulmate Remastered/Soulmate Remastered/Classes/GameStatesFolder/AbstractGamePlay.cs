@@ -71,6 +71,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 SaveGame.loadPath = savePlayer;
                 SaveGame.loadMapChange();
             }
+
+            if (startNewGame)
+            {
+                startNewGame = false;
+            }
         }
 
         public abstract EnumGameStates update(GameTime gameTime);
