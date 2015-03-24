@@ -80,6 +80,9 @@
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PlayerFolder\PlayerHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PlayerFolder\PlayerPetFusion.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\ProjectileFolder\ProjectileArrow.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\TreasureChestFolder\AbstractTreasureChest.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\TreasureChestFolder\TreasureChest.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\TreasureChestFolder\TreasureChestHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\GameObject.cs" />
     <Compile Include="Classes\GameObjectFolder\GameObjectHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\AbstractItem.cs" />
@@ -362,7 +365,7 @@
     <Content Include="Pictures\Items\Money\Gold.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Items\Potion\FusionPotion\fusionPotion.png">
+    <Content Include="Pictures\Items\Potion\FusionPotion\FusionPotionSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Items\Potion\HealPotion\PotionSmall.png">
@@ -528,6 +531,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Pictures\Projectile\Fireball\FireballTop3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\Treasure Chest\Treasure Chest.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="sfmlnet-audio-2.dll" />

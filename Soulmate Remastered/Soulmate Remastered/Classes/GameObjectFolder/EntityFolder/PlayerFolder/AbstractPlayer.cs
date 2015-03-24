@@ -36,7 +36,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         protected bool attacking;
         protected bool isPressedForAttack;
         protected bool isPressedForShoot;
-        protected bool isPressed;
         public bool isAttacking { get { return attacking; } }
         public float gold { get; set; } //money money money...
         protected float currentEXP { get; set; }

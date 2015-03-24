@@ -38,7 +38,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
             {
                 case fusionPotionSize.small:
                     recoveryValue = 20;
-                    textureList.Add(new Texture("Pictures/Items/Potion/FusionPotion/fusionPotion.png"));
+                    textureList.Add(new Texture("Pictures/Items/Potion/FusionPotion/FusionPotionSmall.png"));
                     break;
                 case fusionPotionSize.middle:
                     recoveryValue = 50;
@@ -62,8 +62,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 
         public override void use()
         {
-            PlayerHandler.player.healFusionFor(recoveryValue);
-            isAlive = false;
+            if (PlayerHandler.player.currentFusionValue != PlayerHandler.player.getMaxFusionValue)
+            {
+                PlayerHandler.player.healFusionFor(recoveryValue);
+                isAlive = false;
+            }
         }
 
         public override AbstractItem clone()

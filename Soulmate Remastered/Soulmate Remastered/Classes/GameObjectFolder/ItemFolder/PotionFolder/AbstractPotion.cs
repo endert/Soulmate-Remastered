@@ -15,6 +15,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
                 return base.type + ".Potion";
             }
         }
+
         public override float ID
         {
             get

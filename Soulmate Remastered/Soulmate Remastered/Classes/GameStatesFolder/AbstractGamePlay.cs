@@ -5,6 +5,7 @@ using Soulmate_Remastered.Classes.DialogeBoxFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChestFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.HUDFolder;
 using Soulmate_Remastered.Classes.InGameMenuFolder;
@@ -33,6 +34,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         protected HUD hud;
         public static View view;
         public static View VIEW { get { return view; } }
+        protected AbstractTreasureChest chest;
 
         protected int index = 0;
         protected int returnValue = 0;
@@ -54,6 +56,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             GameObjectHandler.lvlMap = map;
             gameObjectHandler = new GameObjectHandler(map, GameObjectHandler.lvl);
             EnemyHandler.enemyInitialize();
+            chest = new TreasureChest(new Vector2f(500, 500));
             if (loading)
             {
                 Console.WriteLine("is loading...");
@@ -143,6 +146,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             hud.draw(window);
             gameObjectHandler.draw(window);
             dialoges.draw(window);
+            chest.draw(window);
 
             if (Inventory.inventoryOpen == true)
             {

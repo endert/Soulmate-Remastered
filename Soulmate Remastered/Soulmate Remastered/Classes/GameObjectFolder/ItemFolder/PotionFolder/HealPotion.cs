@@ -62,8 +62,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 
         public override void use()
         {
-            PlayerHandler.player.HealFor(recoveryValue);
-            isAlive = false;
+            if (PlayerHandler.player.getCurrentHP != PlayerHandler.player.getMaxHP)
+            {
+                PlayerHandler.player.HealFor(recoveryValue);
+                isAlive = false;
+            }
         }
 
         public override AbstractItem clone()
