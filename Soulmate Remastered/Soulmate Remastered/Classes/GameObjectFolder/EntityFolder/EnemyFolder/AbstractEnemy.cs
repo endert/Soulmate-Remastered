@@ -1,5 +1,6 @@
 ﻿using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -107,13 +108,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 
         public override void drop()
         {
+            int rand = random.Next(drops.Length);
+            if (drops[rand].DROPRATE > 100 * random.NextDouble())
+            {
+                drops[rand].cloneAndDrop(new Vector2f(position.X + random.Next(50), position.Y + random.Next(50)));
+            }
+
             for (int i = 0; i < random.Next(100); i++)
             {
-                int rand = random.Next(drops.Length);
-                if (drops[rand].DROPRATE > 100*random.NextDouble())
-                {
-                    drops[rand].cloneAndDrop(new Vector2f(position.X + random.Next(50), position.Y + random.Next(50)));
-                }
+                new Gold().cloneAndDrop(new Vector2f(position.X + random.Next(50), position.Y + random.Next(50)));
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
     {
         private static List<AbstractNPC> NPCList;
         public static List<AbstractNPC> NPCs { get { return NPCList; } }
+        public static Shop shop { get; set; }
 
         public NPCHandler()
         {
@@ -86,6 +88,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
                 {
                     npc.stopIteraction();
                 }
+                shop = null;
+            }
+            else
+            {
+                if (shop != null)
+                    shop.Shopmanagement();
             }
         }
     }

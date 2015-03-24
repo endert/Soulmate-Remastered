@@ -32,6 +32,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             sprite.Position = position;
             hitBox = new HitBox(position, sprite.Texture.Size.X, sprite.Texture.Size.Y);
             interacted = false;
+            NPCHandler.shop = shop;
             NPCHandler.add(this);
         }
 
