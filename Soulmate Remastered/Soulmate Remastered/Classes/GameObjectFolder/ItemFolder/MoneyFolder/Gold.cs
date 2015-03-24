@@ -20,7 +20,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
             visible = false;
             position = new Vector2f();
             hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
-            dropRate = 100;
+            dropRate = 80;
         }
 
         public override void cloneAndDrop(Vector2f dropPosition)

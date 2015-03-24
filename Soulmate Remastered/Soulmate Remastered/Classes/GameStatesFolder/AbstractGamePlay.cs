@@ -4,6 +4,8 @@ using Soulmate_Remastered.Classes.CheatConsoleFolder;
 using Soulmate_Remastered.Classes.DialogeBoxFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChestFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
@@ -104,10 +106,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             ItemHandler.playerInventory.update(gameTime);
             inGameMenu.update(gameTime);
 
-            Console.Clear();
-            Console.WriteLine(PlayerHandler.player.getFacingDirection);
-
-
             if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !Game.isPressed)
             {
                 Game.isPressed = true;
@@ -116,7 +114,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 returnValue = 2;
             }
 
-            if (!Inventory.inventoryOpen && !inGameMenu.inGameMenuOpen)
+            if (!Inventory.inventoryOpen && !inGameMenu.inGameMenuOpen && !Shop.shopIsOpen)
             {
                 
                 view.Move(VectorForViewMove());
@@ -129,6 +127,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                     gameObjectHandler.deleate();
                     returnValue = 1;
                 }
+            }
+            else if (Shop.shopIsOpen)
+            {
+                NPCHandler.updateShop();
             }
 
             if (inGameMenu.optionsOpen)
@@ -148,13 +150,19 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             dialoges.draw(window);
             chest.draw(window);
 
-            if (Inventory.inventoryOpen == true)
+            if (Inventory.inventoryOpen)
             {
                 window.SetView(viewInventory);
                 ItemHandler.playerInventory.draw(window);
             }
 
-            if (inGameMenu.inGameMenuOpen == true)
+            if (Shop.shopIsOpen)
+            {
+                window.SetView(viewInventory);
+                Shop.draw(window);
+            }
+
+            if (inGameMenu.inGameMenuOpen)
             {
                 window.SetView(viewInventory);
                 inGameMenu.draw(window);
