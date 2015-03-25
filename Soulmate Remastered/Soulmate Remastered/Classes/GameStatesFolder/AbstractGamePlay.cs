@@ -164,7 +164,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (Shop.shopIsOpen)
             {
                 window.SetView(viewInventory);
-                Shop.draw(window);
+                NPCHandler.shop.draw(window);
             }
 
             if (inGameMenu.inGameMenuOpen)
