@@ -18,6 +18,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         public Texture currentTexture { get { return sprite.Texture; } }
         public Vector2f position { get; set; }
         public virtual String type { get { return "Object"; } }
+        protected String customName;
+        public String name { get { if (customName != null) return customName; else return type.Split('.')[type.Split('.').Length - 1]; } }
         protected bool _isAlive = true;
         public bool isAlive { get { return _isAlive; } set { _isAlive = value; } }
         public int indexObjectList { get; set; }

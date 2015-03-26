@@ -18,7 +18,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
             {
                 String itemDiscription = "";
 
-                itemDiscription += "Sword \n";
+                itemDiscription += name + "\n";
                 itemDiscription += '"'.ToString() + "an old used sword." + '"'.ToString() + "\n";
                 itemDiscription += "AttBonus: " + attBonus + "      ";
                 itemDiscription += "DefBonus: " + defBonus + "\n";
@@ -40,6 +40,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
             defBonus = (int)_defBonus;
             hpBonus = (int)_hpBonus;
         }
+
+        public Sword(float _attBonus, float _defBonus, float _hpBonus, String name)
+            : this(_attBonus, _defBonus, _hpBonus)
+        {
+            customName = name;
+        }
+
+        public Sword() : this(1, 0, 0,"broken Sword") { }
 
         public override AbstractItem clone()
         {

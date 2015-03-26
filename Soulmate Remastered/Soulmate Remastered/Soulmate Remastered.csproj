@@ -71,6 +71,7 @@
     <Compile Include="Classes\GameObjectFolder\EntityFolder\NPCFolder\AbstractNPC.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\NPCFolder\NPCHandler.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\NPCFolder\ShopFolder\Shop.cs" />
+    <Compile Include="Classes\GameObjectFolder\EntityFolder\NPCFolder\ShopFolder\ShopItem.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\NPCFolder\Shopkeeper.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PetFolder\AbstractPet.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\PetFolder\PetHandler.cs" />

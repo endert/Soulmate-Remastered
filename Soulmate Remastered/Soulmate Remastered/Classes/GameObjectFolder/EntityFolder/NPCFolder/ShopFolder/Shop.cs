@@ -14,10 +14,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
     class Shop
     {
         public static bool shopIsOpen { get; set; }
-        List<Stack<AbstractItem>> sellableItems;
-        List<Stack<AbstractItem>> buyableItems;
+        List<ShopItem> sellableItems;
+        List<ShopItem> buyableItems;
         Texture shopTexture = new Texture("Pictures/Entities/NPC/Shop/ShopInterface.png");
         Sprite sprite;
+        Texture selectedTexture = new Texture("Pictures/Entities/NPC/Shop/Selected.png");
+        Sprite selectedSprite;
         const int collumCount = 2; //number of collums (sell, buy, maybe later more)
         const int lineCount = 10; //number of Items that can be shown at the same Time within one colum
         int selectedCollum = 0; //0 = sell Items / 1 = buy Items
@@ -27,6 +29,24 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
 
         Text[] sellableItemsText = new Text[lineCount];
         Text[] buyableItemsText = new Text[lineCount];
+
+        Vector2f startSellPosition { get { return new Vector2f(sprite.Position.X, sprite.Position.Y + 100); } }
+        Vector2f startBuyPosition { get { return new Vector2f(sprite.Position.X + 400, sprite.Position.Y + 100); } }
+        Vector2f startPos
+        {
+            get
+            {
+                switch (selectedCollum)
+                {
+                    case 0:
+                        return startSellPosition;
+                    case 1:
+                        return startBuyPosition;
+                    default:
+                        return new Vector2f();
+                }
+            }
+        }
 
         int smallestDisplayedItem
         {
@@ -59,14 +79,32 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                 }
             }
         }
+        int selectedListCount
+        {
+            get
+            {
+                switch (selectedCollum)
+                {
+                    case 0:
+                        return sellableItems.Count;
+                    case 1:
+                        return buyableItems.Count;
+                    default:
+                        return 0;
+                }
+            }
+        }
 
         public Shop(List<Stack<AbstractItem>> itemsToBuy)
         {
             sprite = new Sprite(shopTexture);
             sprite.Position = new Vector2f((Game.windowSizeX - sprite.Texture.Size.X) / 2, (Game.windowSizeY - sprite.Texture.Size.Y) / 2);
 
-            sellableItems = new List<Stack<AbstractItem>>();
-            buyableItems = itemsToBuy;
+            selectedSprite = new Sprite(selectedTexture);
+            selectedSprite.Position = new Vector2f(startSellPosition.X, startSellPosition.Y);
+
+            sellableItems = new List<ShopItem>();
+            buyableItems = ShopItem.ToShopItemList(itemsToBuy);
 
             for (int i = 0; i < sellableItemsText.Length; i++)
             {
@@ -82,9 +120,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                 buyableItemsText[i].Position = new Vector2f(sprite.Position.X + 420, sprite.Position.Y + 110 + i * 50);
             }
 
-            foreach (Stack<AbstractItem> item in ItemHandler.playerInventory.inventoryMatrix)
+            foreach (Stack<AbstractItem> itemStack in ItemHandler.playerInventory.inventoryMatrix)
             {
-                sellableItems.Add(item);
+                if (itemStack != null)
+                    sellableItems.Add(new ShopItem(itemStack));
             }
 
             shopIsOpen = true;
@@ -122,9 +161,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             if (!Game.isPressed && Keyboard.IsKeyPressed(Controls.Down))
             {
                 Game.isPressed = true;
-                if (smallestDisplayedItem + selectedLine < getListLength())
+                if (smallestDisplayedItem + selectedLine < getListLength() - 1)
                 {
-                    if (selectedLine < lineCount)
+                    if (selectedLine < lineCount - 1)
                         selectedLine += 1;
                     else
                     {
@@ -142,7 +181,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             {
                 Game.isPressed = true;
 
-                if (smallestDisplayedItem > 0)
+                if (smallestDisplayedItem > 0 || selectedLine > 0)
                 {
                     if (selectedLine > 0)
                         selectedLine -= 1;
@@ -153,41 +192,45 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                 }
                 else
                 {
-                    selectedLine = lineCount;
+                    if (selectedListCount >= lineCount)
+                        selectedLine = lineCount - 1;
+                    else
+                        selectedLine = selectedListCount - 1;
+
                     smallestDisplayedItem = evaluateIntSmallestDisplayedItem();
                 }
             }
 
-            textUpdate();
+            //text_spriteUpdate();
         }
 
-        private void textUpdate()
-        {
-            for (int i = 0; /*i < sellableItems.Count &&*/ i < sellableItemsText.Length; i++)
-            {
-                //sellableItemsText[i] = new Text(sellableItems[smallestDisplayedItem0 + i].Peek().type, Game.font, 20);
-                sellableItemsText[i].DisplayedString = "Test";
-            }
+        //private void text_spriteUpdate()
+        //{
+        //    for (int i = 0; i < sellableItems.Count - smallestDisplayedItem0 && i < sellableItemsText.Length; i++)
+        //    {
+        //        sellableItemsText[i].DisplayedString = sellableItems[smallestDisplayedItem0 + i].Peek().type + "  " + sellableItems[smallestDisplayedItem0 + i].Count + "x";
+        //    }
 
-            for (int i = 0; i < buyableItems.Count && i < buyableItemsText.Length; i++)
-            {
-                buyableItemsText[i].DisplayedString = buyableItems[smallestDisplayedItem0 + i].Peek().type;
-            }
+        //    for (int i = 0; i < buyableItems.Count - smallestDisplayedItem1 && i < buyableItemsText.Length; i++)
+        //    {
+        //        buyableItemsText[i].DisplayedString = buyableItems[smallestDisplayedItem1 + i].Peek().type + "  " + buyableItems[smallestDisplayedItem1 + i].Count + "x";
+        //    }
 
-        }
+        //    selectedSprite.Position = new Vector2f(startPos.X, startPos.Y + selectedLine * 50);
+        //}
 
         private int evaluateIntSmallestDisplayedItem()
         {
             switch (selectedCollum)
             {
                 case 0:
-                    if (smallestDisplayedItem0 - 10 >= 0)
-                        return smallestDisplayedItem0 - 10;
+                    if (sellableItems.Count - 10 >= 0)
+                        return sellableItems.Count - 10;
                     else
                         return 0;
                 case 1:
-                    if (smallestDisplayedItem1 - 10 >= 0)
-                        return smallestDisplayedItem1 - 10;
+                    if (buyableItems.Count - 10 >= 0)
+                        return buyableItems.Count - 10;
                     else
                         return 0;
                 default:
@@ -206,14 +249,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             if (sprite != null)
             {
                 window.Draw(sprite);
+                window.Draw(selectedSprite);
 
-                foreach (Text txt in sellableItemsText)
-                    if (txt != null)
-                        window.Draw(txt);
+                //foreach (Text txt in sellableItemsText)
+                //    if (txt != null)
+                //        window.Draw(txt);
 
-                foreach (Text txt in buyableItemsText)
-                    if (txt != null)
-                        window.Draw(txt);
+                //foreach (Text txt in buyableItemsText)
+                //    if (txt != null)
+                //        window.Draw(txt);
             }
         }
     }

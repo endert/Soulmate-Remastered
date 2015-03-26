@@ -26,7 +26,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             textureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottLeft.png"));
             textureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Invulnerable/BlottFrontInvulnerable.png"));
 
-            drops = new AbstractItem[] { new TestItem(), new FusionPotion (FusionPotion.fusionPotionSize.small), new HealPotion(HealPotion.healPotionSize.small), new Sword((float)(50 * random.NextDouble()), (float)(50 * random.NextDouble()), (float)(50 * random.NextDouble())) };
+            drops = new AbstractItem[] 
+            { 
+                new Sword(), //broken Sword ;)
+                new TestItem(), 
+                new FusionPotion (FusionPotion.fusionPotionSize.small), 
+                new HealPotion(HealPotion.healPotionSize.small), 
+                new Sword((float)(1+50 * random.NextDouble()), (float)(1+50 * random.NextDouble()), (float)(1+50 * random.NextDouble())) 
+            };
 
             sprite = new Sprite(textureList[0]);
             position = spawnPos;

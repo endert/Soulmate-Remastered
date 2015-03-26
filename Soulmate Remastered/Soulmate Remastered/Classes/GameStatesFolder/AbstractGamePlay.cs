@@ -26,7 +26,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
     {
         public static bool loading = false;
         public static bool startNewGame = false;
-        protected readonly String savePlayer = "Saves/player.soul";
+        protected static readonly String savePlayer = "Saves/player.soul";
+        public static String savePlayerPath { get { return savePlayer; } }
         protected GameTime time = new GameTime();
         protected View viewInventory;
         protected Map map;
