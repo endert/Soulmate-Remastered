@@ -48,9 +48,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                     return itemStack.Pop().sellPrize;
                 else
                 {
-                    float prize = -itemStack.Peek().sellPrize;
-                    itemStack.Pop().drop(PlayerHandler.player.position);
-                    return prize;
+                    if (PlayerHandler.player.gold >= itemStack.Peek().sellPrize)
+                    {
+                        float prize = -itemStack.Peek().sellPrize;
+                        itemStack.Pop().cloneAndDrop(PlayerHandler.player.hitBox.Position);
+                        return prize;
+                    }
+                    else
+                        return 0;
                 }
             }
             else
