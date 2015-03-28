@@ -2,6 +2,7 @@
 using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             interacted = false;
             NPCHandler.shop = shop;
             NPCHandler.add(this);
+            addItemForSell(new Sword(10, 10, 10), 10);
         }
 
         public void addItemForSell(AbstractItem item, int count)
@@ -57,6 +59,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         {
             interacted = true;
             shop = new Shop(itemsForSell);
+            NPCHandler.shop = shop;
         }
 
         public override void stopIteraction()

@@ -243,6 +243,9 @@
     <Content Include="Pictures\Entities\NPC\PetStorageGuy\PetStorageGuyRightTest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Pictures\Entities\NPC\Shop\Selected.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pictures\Entities\NPC\Shop\ShopInterface.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

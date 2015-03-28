@@ -110,7 +110,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             }
         }
 
-        RenderWindow window = AbstractGame.window;
+        RenderWindow window = Game.window;
 
         public static bool inventoryOpen { get; set; }
 
