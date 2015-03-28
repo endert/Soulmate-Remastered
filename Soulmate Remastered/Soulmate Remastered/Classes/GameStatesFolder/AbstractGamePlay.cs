@@ -36,7 +36,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         protected HUD hud;
         public static View view;
         public static View VIEW { get { return view; } }
-        protected AbstractTreasureChest chest;
 
         protected int index = 0;
         protected int returnValue = 0;
@@ -47,7 +46,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             time.Start();
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
             viewInventory = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
-            
         }
 
         public virtual void loadContent()
@@ -58,7 +56,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             GameObjectHandler.lvlMap = map;
             gameObjectHandler = new GameObjectHandler(map, GameObjectHandler.lvl);
             EnemyHandler.enemyInitialize();
-            chest = new TreasureChest(new Vector2f(500, 500));
+            
             if (loading)
             {
                 Console.WriteLine("is loading...");
@@ -153,7 +151,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             hud.draw(window);
             gameObjectHandler.draw(window);
             dialoges.draw(window);
-            chest.draw(window);
 
             if (Inventory.inventoryOpen)
             {
