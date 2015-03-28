@@ -78,7 +78,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             }
         }
 
-        public static void updateShop()
+        public static void updateShop(GameTime gameTime)
         {
             if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed)
             {
@@ -94,6 +94,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             {
                 if (shop != null)
                     shop.Shopmanagement();
+                PlayerHandler.player.update(gameTime);
             }
         }
     }
