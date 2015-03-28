@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,19 @@ namespace Soulmate_Remastered.Classes
                 }
             }
             return false;
+        }
+
+        public static List<Stack<AbstractItem>> deleteNullObjectFromList(List<Stack<AbstractItem>> list)
+        {
+            for (int i = 0; i < list.Count; ++i)
+            {
+                if (list[i] == null)
+                {
+                    list.RemoveAt(i);
+                    i--;
+                }
+            }
+            return list;
         }
     }
 }

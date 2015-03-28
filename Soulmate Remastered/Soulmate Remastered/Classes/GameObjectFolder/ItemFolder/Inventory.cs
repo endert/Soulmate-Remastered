@@ -51,6 +51,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture closeButtonSelected = new Texture("Pictures/Inventory/CloseButton/CloseButtonSelected.png");
         Sprite closeButton;
 
+        Texture sortNotSelected = new Texture("Pictures/Inventory/Sort/SortNotSelected.png");
+        Texture sortSelected = new Texture("Pictures/Inventory/Sort/SortSelected.png");
+        Sprite sort;
+
         Vector2f scrollArrowScaleValue = new Vector2f(0.43f, 0.43f);
 
         bool characterMenuActivated;
@@ -231,6 +235,9 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             closeButton = new Sprite(closeButtonNotSelected);
             closeButton.Position = new Vector2f(character_pet_questSprite.Position.X + character_pet_questSprite.Texture.Size.X - closeButton.Texture.Size.X - 3, character_pet_questSprite.Position.Y + 3);
 
+            sort = new Sprite(sortNotSelected);
+            sort.Position = new Vector2f(character_pet_questSprite.Position.X + 710, character_pet_questSprite.Position.Y + 460);
+
             inventoryWidth = 9;
             inventoryLength = 7;
 
@@ -311,6 +318,109 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             return true;
         }
 
+        public void sortManagment()
+        {
+            if (NavigationHelp.isMouseInSprite(sort))
+            {
+                sort.Texture = sortSelected;
+
+                if (Mouse.IsButtonPressed(Mouse.Button.Left))
+                {
+                    Game.isPressed = true;
+
+                    for (int i = 0; i < inventoryMatrix.GetLength(0); ++i)
+                    {
+                        for (int j = 0; j < inventoryMatrix.GetLength(1); ++j)
+                        {
+                            try { Console.WriteLine(inventoryMatrix[i, j].Peek().type); }
+
+                            catch (NullReferenceException)
+                            { Console.WriteLine("null"); }
+                        }
+                    }
+
+                    sortItem();
+
+                    Console.WriteLine("----------------------------------");
+                    for (int i = 0; i < inventoryMatrix.GetLength(0); ++i)
+                    {
+                        for (int j = 0; j < inventoryMatrix.GetLength(1); ++j)
+                        {
+                            try { Console.WriteLine(inventoryMatrix[i, j].Peek().type); }
+
+                            catch (NullReferenceException) { Console.WriteLine("null"); }
+                        }
+                    }
+                }
+            }
+            else
+                sort.Texture = sortNotSelected;
+        }
+
+        public void mergeSort(List<Stack<AbstractItem>> inventoryList)
+        {
+            int na = inventoryList.Count / 2;
+            int nb = inventoryList.Count - na;
+
+            List<Stack<AbstractItem>> a = new List<Stack<AbstractItem>>();
+            for (int i = 0; i < na; ++i)
+            { a.Add(inventoryList[i++]); }   
+                //a[i] = inventoryList[i];
+
+            List<Stack<AbstractItem>> b = new List<Stack<AbstractItem>>();
+            for (int j = 0; j < nb; ++j)
+            { b.Add(inventoryList[j++]); }
+                //b[j] = inventoryList[j + na];
+
+            if (a.Count > 1)
+                mergeSort(a);
+            if (b.Count > 1)
+                mergeSort(b);
+
+            merge(a, b, inventoryList);
+        }
+
+        private static void merge(List<Stack<AbstractItem>> a, List<Stack<AbstractItem>> b, List<Stack<AbstractItem>> c)
+        {
+            int i = 0, j = 0;
+            for (int k = 0; k < a.Count + b.Count; ++k)
+            {
+
+                if (i >= a.Count)
+                    c[k] = b[j++];
+                else if (j >= b.Count)
+                    c[k] = a[i++];
+                else if (a[i].Peek().ID <= b[j].Peek().ID)
+                    c[k] = a[i++];
+                else
+                    c[k] = b[j++];
+            }
+        }
+        
+        public void sortItem()
+        {
+            List<Stack<AbstractItem>> inventoryList = inventoryMatrix.Cast<Stack<AbstractItem>>().ToList();
+
+            //inventoryList.OrderBy(x => x.Peek().ID);
+
+            mergeSort(NavigationHelp.deleteNullObjectFromList(inventoryList));
+
+            for (int i = 0; i < inventoryMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < inventoryMatrix.GetLength(1); j++)
+                {
+                    try
+                    {
+                        inventoryMatrix[i, j] = inventoryList[i * inventoryMatrix.GetLength(1) + j];
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        inventoryMatrix[i, j] = null;
+                    }
+                }
+            }
+        }
+
         public bool getInventoryOpen()
         {
             if (Keyboard.IsKeyPressed(Controls.OpenInventar) && !Game.isPressed && !inventoryOpen)
@@ -329,7 +439,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             
             if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
             {
-                if (yInInventory == 0 && inInventory)  // enter Tabs
+                if (yInInventory == 0 && inInventory)  //enter Tabs
                 {
                     inInventory = false;
                     inTab = true;
@@ -473,9 +583,12 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 closeButton.Texture = closeButtonSelected;
             else
                 closeButton.Texture = closeButtonNotSelected;
-            
-            if(characterMenuActivated)
+
+            if (characterMenuActivated)
+            {
                 characterMenuManagment();
+                sortManagment();
+            }
 
             if (petMenuActivated)
                 petMenuManagment();
@@ -893,6 +1006,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     window.Draw(selected);
                 }
                 drawTexts(window);
+                window.Draw(sort);
             }
 
             if(questLogActivated)

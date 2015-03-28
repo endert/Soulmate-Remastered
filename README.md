@@ -23,7 +23,7 @@ ToDoList
 	- Boss KI 
 	- Blotts Foxtrott
 	- Bank für Gold und Items
-	- Schatztruhen
+--------- Schatztruhen
 	- Seelenstein Fusion
 	- Pet (Wolf ist kein Hund!!!!!) KI
 	- Namens eingabe für Spieler und Pet 
@@ -35,7 +35,8 @@ ToDoList
 --------- abstrackte klasse mainmenu punkte (Joshua) *DONE*
 	- Skills
 	- Quickslot (Schnellauswahl)
-	- 
+	- Items aus dem Inventar löschen können
+	- null-Objekte löschen
 
 	.
 	.
@@ -63,11 +64,11 @@ ToDoList Picture
 	- Life/Fusion Bars farbe ändern
 	- Arrows anpassen
 	- Credits abspann Text erstellen 
-	-Shop Inteface (2 Listen wären gut, links Player Items zum verkaufen rechts Shop Items zum kaufen)
+	- Shop Inteface (2 Listen wären gut, links Player Items zum verkaufen rechts Shop Items zum kaufen)
 
 	. 
 	.
-	.
+	. ANIMATIONEN!!!!!!!
 
 
 
