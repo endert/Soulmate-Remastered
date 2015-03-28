@@ -115,7 +115,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 x = 1;
             }
 
-            if (NavigationHelp.isMouseInSprite(options)) //Save
+            if (NavigationHelp.isMouseInSprite(options)) //Options
             {
                 x = 2;
             }

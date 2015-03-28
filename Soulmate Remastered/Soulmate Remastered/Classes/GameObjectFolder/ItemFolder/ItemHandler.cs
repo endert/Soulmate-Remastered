@@ -25,7 +25,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         {
             "Pete",
             "HealPotion",
-            "Sword"
+            "Sword",
+            "FusionPotion"
         };
 
         private static AbstractItem evaluateLoadedItem(int index, List<String> parameter)
@@ -37,7 +38,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 case 1:
                     return new HealPotion((HealPotion.healPotionSize)Convert.ToInt32(parameter[0]));
                 case 2:
-                    return new Sword(Convert.ToSingle(parameter[0]), Convert.ToSingle(parameter[1]), Convert.ToSingle(parameter[2]));
+                    return new Sword(Convert.ToSingle(parameter[0]), Convert.ToSingle(parameter[1]), Convert.ToSingle(parameter[2]), parameter[3]);
+                case 3:
+                    return new FusionPotion((FusionPotion.fusionPotionSize)Convert.ToInt32(parameter[0]));
                 default:
                     return null;
             }
@@ -77,6 +80,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                                 loadedItem = evaluateLoadedItem(i, parameter);
                                 break;
                             case 2:
+                                loadedItem = evaluateLoadedItem(i, parameter);
+                                break;
+                            case 3:
                                 loadedItem = evaluateLoadedItem(i, parameter);
                                 break;
                             default:
@@ -174,6 +180,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 aItem.kill();
             }
             playerInventory.deleate();
+            playerInventory = null;
             equipmentHandler.deleate();
         }
 

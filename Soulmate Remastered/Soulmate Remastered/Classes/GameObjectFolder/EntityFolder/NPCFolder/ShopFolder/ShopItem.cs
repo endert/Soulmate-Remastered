@@ -19,7 +19,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         Sprite itemSprite;
         Text displayedName;
         Text goldValue;
-        Text count;
 
         public ShopItem(Stack<AbstractItem> item)
         {
@@ -28,7 +27,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             itemSprite = new Sprite(itemStack.Peek().currentTexture);
             displayedName = new Text("", Game.font, 20);
             goldValue = new Text("", Game.font, 20);
-            count = new Text("", Game.font, 20);
 
             positionUpdate();
         }
@@ -37,14 +35,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         {
             itemSprite.Position = new Vector2f(position.X + 5, position.Y);
             displayedName.Position = new Vector2f(itemSprite.Position.X + itemSprite.Texture.Size.X + 5, position.Y + 5);
-            count.Position = new Vector2f(displayedName.FindCharacterPos((uint)displayedName.DisplayedString.Length - 1).X + 10, position.Y + 5);
-            goldValue.Position = new Vector2f(position.X + 390 - goldValue.DisplayedString.Length / 2, position.Y + 5);
+            goldValue.Position = new Vector2f(position.X + 390 - (goldValue.DisplayedString.Length * goldValue.CharacterSize) / 2, position.Y + 5);
             
         }
 
         private void textUpdate()
         {
-            displayedName.DisplayedString = itemStack.Peek().name;
+            displayedName.DisplayedString = itemStack.Count + "x " + itemStack.Peek().name;
+            goldValue.DisplayedString = itemStack.Peek().sellPrize.ToString();
         }
 
         public static List<ShopItem> ToShopItemList(List<Stack<AbstractItem>> list)
@@ -61,6 +59,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         {
             positionUpdate();
             textUpdate();
+        }
+
+        public void draw(RenderWindow window)
+        {
+            if (visible)
+            {
+                window.Draw(itemSprite);
+                window.Draw(displayedName);
+                window.Draw(goldValue);
+            }
         }
     }
 }

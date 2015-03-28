@@ -20,7 +20,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
             position = _position;
             sprite.Position = position;
             hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
-            drops = new AbstractItem[] { new Sword(100,100,100)};
+            drops = new AbstractItem[] { new Sword(100,100,100,"Super Awesome Mega Sword of DOOOOOOM!!!!")};
             EntityHandler.add(this);
         }
 

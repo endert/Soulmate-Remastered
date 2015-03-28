@@ -23,13 +23,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
             dropRate = 80;
         }
 
-        public override void cloneAndDrop(Vector2f dropPosition)
-        {
-            Gold gold = new Gold();
-            ItemHandler.add(gold);
-            gold.drop(dropPosition);
-        }
-
         public override AbstractItem clone()
         {
             return new Gold();

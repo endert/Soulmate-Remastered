@@ -31,6 +31,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
             save += bonusAtt + lineBreak.ToString();
             save += bonusDef + lineBreak.ToString();
             save += bonusHp + lineBreak.ToString();
+            save += name + lineBreak.ToString();
 
             return save;
         }
@@ -50,13 +51,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
 
         public void equip()
         {
-            if (ItemHandler.playerInventory.equipment[(int)(ID) % 10] != null)
+            if (ItemHandler.playerInventory.equipment[(int)((ID) / 10) % 10] != null)
             {
-                ItemHandler.playerInventory.equipment[(int)(ID) % 10].unequip();
+                ItemHandler.playerInventory.equipment[(int)((ID) / 10) % 10].unequip();
             }
-            ItemHandler.playerInventory.equipment[(int)(ID) % 10] = this;
+            ItemHandler.playerInventory.equipment[(int)((ID) / 10) % 10] = this;
             ItemHandler.playerInventory.inventoryMatrix[inventoryMatrixPositionY, inventoryMatrixPositionX] = null;
-            position = Inventory.equipmentPosition[(int)(ID) % 10];
+            position = Inventory.equipmentPosition[(int)((ID) / 10) % 10];
             sprite.Position = position;
             equiped = true;
         }

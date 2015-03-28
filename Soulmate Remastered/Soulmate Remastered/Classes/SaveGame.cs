@@ -40,12 +40,11 @@ namespace Soulmate_Remastered.Classes
         {
             if (File.Exists(loadPath))
             {
-                Console.WriteLine("is loading ...");
-
                 StreamReader reader = new StreamReader(loadPath);
 
                 if (PlayerHandler.player != null)
                 {
+                    Console.WriteLine("loading: Player");
                     PlayerHandler.player.load(reader.ReadLine());
                 }
                 else
@@ -53,15 +52,18 @@ namespace Soulmate_Remastered.Classes
 
                 if (PetHandler.pet != null)
                 {
+                    Console.WriteLine("loading: Pet");
                     PetHandler.load(reader.ReadLine());
                 }
                 else
                     reader.ReadLine();
 
+                Console.WriteLine("loading: lvlCount");
                 GameObjectHandler.lvl = Convert.ToInt32(reader.ReadLine());
 
                 if (ItemHandler.playerInventory != null)
                 {
+                    Console.WriteLine("loading: Inventar");
                     ItemHandler.playerInventory.load(reader.ReadLine());
                 }
                 else

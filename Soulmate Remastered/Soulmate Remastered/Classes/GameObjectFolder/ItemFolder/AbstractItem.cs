@@ -14,7 +14,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
     abstract class AbstractItem : GameObject, IComparable<AbstractItem>
     {
         public override String type { get { return base.type + ".Item"; } }
-        public virtual float ID { get { return 0; } }
+        public virtual float ID { get { return 1; } }
         public virtual bool stackable { get { return true; } }
         public override bool walkable { get { return true; } }
         public virtual bool sellable { get { return true; } }
@@ -119,7 +119,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             visible = _visible;
         }
 
-        public abstract void cloneAndDrop(Vector2f dropPosition);
+        public void cloneAndDrop(Vector2f dropPosition)
+        {
+            AbstractItem dropedItem = this.clone();
+            ItemHandler.add(dropedItem);
+            dropedItem.drop(dropPosition);
+        }
 
         public override void update(GameTime gameTime)
         {

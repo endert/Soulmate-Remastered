@@ -62,10 +62,18 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             chest = new TreasureChest(new Vector2f(500, 500));
             if (loading)
             {
-                Console.WriteLine("is loading...");
-                SaveGame.loadGame();
-                Console.WriteLine("successfully loaded");
-                loading = false;
+                try
+                {
+                    SaveGame.loadGame();
+                    Console.WriteLine("successfully loaded");
+                    loading = false;
+                }
+                catch
+                {
+                    Console.WriteLine("Loading failed ;(");
+                    loading = false;
+                    loadContent();
+                }
             }
             else if (File.Exists(savePlayer) && !startNewGame)
             {

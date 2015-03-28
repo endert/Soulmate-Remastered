@@ -53,13 +53,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
             hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
         }
 
-        public override void cloneAndDrop(Vector2f dropPosition)
-        {
-            FusionPotion fusionPotion = new FusionPotion((fusionPotionSize)size);
-            ItemHandler.add(fusionPotion);
-            fusionPotion.drop(dropPosition);
-        }
-
         public override void use()
         {
             if (PlayerHandler.player.currentFusionValue != PlayerHandler.player.getMaxFusionValue)

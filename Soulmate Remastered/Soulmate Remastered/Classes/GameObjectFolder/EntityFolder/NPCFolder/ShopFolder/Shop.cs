@@ -27,8 +27,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         int smallestDisplayedItem0 = 0;
         int smallestDisplayedItem1 = 0;
 
-        Text[] sellableItemsText = new Text[lineCount];
-        Text[] buyableItemsText = new Text[lineCount];
+        //Text[] sellableItemsText = new Text[lineCount];
+        //Text[] buyableItemsText = new Text[lineCount];
 
         Vector2f startSellPosition { get { return new Vector2f(sprite.Position.X, sprite.Position.Y + 100); } }
         Vector2f startBuyPosition { get { return new Vector2f(sprite.Position.X + 400, sprite.Position.Y + 100); } }
@@ -106,24 +106,40 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             sellableItems = new List<ShopItem>();
             buyableItems = ShopItem.ToShopItemList(itemsToBuy);
 
-            for (int i = 0; i < sellableItemsText.Length; i++)
-            {
-                sellableItemsText[i] = new Text("", Game.font, 20);
-                sellableItemsText[i].Color = Color.Black;
-                sellableItemsText[i].Position = new Vector2f(sprite.Position.X + 20, sprite.Position.Y + 110 + i * 50);
-            }
+            //for (int i = 0; i < sellableItemsText.Length; i++)
+            //{
+            //    sellableItemsText[i] = new Text("", Game.font, 20);
+            //    sellableItemsText[i].Color = Color.Black;
+            //    sellableItemsText[i].Position = new Vector2f(sprite.Position.X + 20, sprite.Position.Y + 110 + i * 50);
+            //}
 
-            for (int i = 0; i < buyableItemsText.Length; i++)
-            {
-                buyableItemsText[i] = new Text("", Game.font, 20);
-                buyableItemsText[i].Color = Color.Black;
-                buyableItemsText[i].Position = new Vector2f(sprite.Position.X + 420, sprite.Position.Y + 110 + i * 50);
-            }
+            //for (int i = 0; i < buyableItemsText.Length; i++)
+            //{
+            //    buyableItemsText[i] = new Text("", Game.font, 20);
+            //    buyableItemsText[i].Color = Color.Black;
+            //    buyableItemsText[i].Position = new Vector2f(sprite.Position.X + 420, sprite.Position.Y + 110 + i * 50);
+            //}
 
             foreach (Stack<AbstractItem> itemStack in ItemHandler.playerInventory.inventoryMatrix)
             {
                 if (itemStack != null)
                     sellableItems.Add(new ShopItem(itemStack));
+            }
+
+            for (int i = 0; i < sellableItems.Count; i++)
+            {
+                sellableItems[i].position = new Vector2f(startSellPosition.X, startSellPosition.Y + i * 50);
+
+                if (i >= lineCount)
+                    sellableItems[i].visible = false;
+            }
+
+            for (int i = 0; i < buyableItems.Count; i++)
+            {
+                buyableItems[i].position = new Vector2f(startBuyPosition.X, startBuyPosition.Y + i * 50);
+
+                if (i >= lineCount)
+                    buyableItems[i].visible = false;
             }
 
             shopIsOpen = true;
@@ -201,7 +217,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                 }
             }
 
+            shopItemUpdate();
             //text_spriteUpdate();
+            selectedSprite.Position = new Vector2f(startPos.X, startPos.Y + selectedLine * 50);
         }
 
         //private void text_spriteUpdate()
@@ -218,6 +236,41 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
 
         //    selectedSprite.Position = new Vector2f(startPos.X, startPos.Y + selectedLine * 50);
         //}
+
+        private void shopItemUpdate()
+        {
+            for (int i = 0; i < sellableItems.Count - smallestDisplayedItem0 && i < lineCount; i++)
+            {
+                sellableItems[smallestDisplayedItem0 + i].position = new Vector2f(startSellPosition.X, startSellPosition.Y + i * 50);
+                sellableItems[smallestDisplayedItem0 + i].update();
+                sellableItems[smallestDisplayedItem0 + i].visible = true;
+            }
+
+            for (int i = 0; i < sellableItems.Count; i++)
+            {
+                if (i < smallestDisplayedItem0)
+                    sellableItems[i].visible = false;
+
+                if (i >= smallestDisplayedItem0 + lineCount)
+                    sellableItems[i].visible = false;
+            }
+
+            for (int i = 0; i < buyableItems.Count - smallestDisplayedItem1 && i < lineCount; i++)
+            {
+                buyableItems[smallestDisplayedItem1 + i].position = new Vector2f(startBuyPosition.X, startBuyPosition.Y + i * 50);
+                buyableItems[smallestDisplayedItem1 + i].update();
+                buyableItems[smallestDisplayedItem1 + i].visible = true;
+            }
+
+            for (int i = 0; i < buyableItems.Count; i++)
+            {
+                if (i < smallestDisplayedItem1)
+                    buyableItems[i].visible = false;
+
+                if (i >= smallestDisplayedItem1 + lineCount)
+                    buyableItems[i].visible = false;
+            }
+        }
 
         private int evaluateIntSmallestDisplayedItem()
         {
@@ -250,6 +303,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             {
                 window.Draw(sprite);
                 window.Draw(selectedSprite);
+
+                foreach (ShopItem item in sellableItems)
+                    item.draw(window);
+
+                foreach (ShopItem item in buyableItems)
+                    item.draw(window);
 
                 //foreach (Text txt in sellableItemsText)
                 //    if (txt != null)

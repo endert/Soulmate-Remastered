@@ -87,7 +87,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (NavigationHelp.isSpriteKlicked(x, 0, load, Controls.Return))
             {
                 Game.isPressed = true;
-                Console.WriteLine("load Game");
                 AbstractGamePlay.loading = true;
                 SaveGame.loadPath = loadFile;
                 SaveGame.loadGame();

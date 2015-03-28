@@ -8,25 +8,11 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder
 {
-    class Sword : Equipment
+    class Sword : AbstractWeapon
     {
         public override string type { get { return base.type + ".Sword"; } }
-        public override float ID { get { return base.ID*10 + 2; } }
-        public override string ItemDiscription
-        {
-            get
-            {
-                String itemDiscription = "";
-
-                itemDiscription += name + "\n";
-                itemDiscription += '"'.ToString() + "an old used sword." + '"'.ToString() + "\n";
-                itemDiscription += "AttBonus: " + attBonus + "      ";
-                itemDiscription += "DefBonus: " + defBonus + "\n";
-                itemDiscription += "HpBonus: " + hpBonus + "      ";
-
-                return itemDiscription;
-            }
-        }
+        public override float ID { get { return base.ID*10 + 0; } }
+        
 
         public Sword(float _attBonus, float _defBonus, float _hpBonus)
         {
@@ -47,20 +33,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
             customName = name;
         }
 
-        public Sword() : this(1, 0, 0,"broken Sword") { }
+        public Sword() : this(1, 0, 0,"Broken Sword") { }
 
         public override AbstractItem clone()
         {
-            AbstractItem clonedItem = new Sword(attBonus, defBonus, hpBonus);
+            AbstractItem clonedItem = new Sword(attBonus, defBonus, hpBonus, name);
             clonedItem.position = this.position;
             return clonedItem;
-        }
-
-        public override void cloneAndDrop(Vector2f dropPosition)
-        {
-            AbstractItem dropedItem = this.clone();
-            ItemHandler.add(dropedItem);
-            dropedItem.drop(dropPosition);
         }
     }
 }
