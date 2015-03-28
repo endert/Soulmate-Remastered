@@ -102,6 +102,7 @@
     <Compile Include="Classes\GameObjectFolder\ItemFolder\MoneyFolder\Money.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\NormalItemFolder\AbstractNormalItem.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\NormalItemFolder\TestItem.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\SortByID.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameStatesFolder\AbstractGamePlay.cs" />
     <Compile Include="Classes\GameStatesFolder\AbstractMainMenu.cs" />

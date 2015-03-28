@@ -351,73 +351,83 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                             catch (NullReferenceException) { Console.WriteLine("null"); }
                         }
                     }
+
+                    updateMatrix();
                 }
             }
             else
                 sort.Texture = sortNotSelected;
         }
 
-        public void mergeSort(List<Stack<AbstractItem>> inventoryList)
+        //public void mergeSort(List<Stack<AbstractItem>> inventoryList)
+        //{
+        //    int na = inventoryList.Count / 2;
+        //    int nb = inventoryList.Count - na;
+
+        //    List<Stack<AbstractItem>> a = new List<Stack<AbstractItem>>();
+        //    for (int i = 0; i < na; ++i)
+        //    { a.Add(inventoryList[i++]); }   
+        //        //a[i] = inventoryList[i];
+
+        //    List<Stack<AbstractItem>> b = new List<Stack<AbstractItem>>();
+        //    for (int j = 0; j < nb; ++j)
+        //    { b.Add(inventoryList[j++]); }
+        //        //b[j] = inventoryList[j + na];
+
+        //    if (a.Count > 1)
+        //        mergeSort(a);
+        //    if (b.Count > 1)
+        //        mergeSort(b);
+
+        //    merge(a, b, inventoryList);
+        //}
+
+        //private static void merge(List<Stack<AbstractItem>> a, List<Stack<AbstractItem>> b, List<Stack<AbstractItem>> c)
+        //{
+        //    int i = 0, j = 0;
+        //    for (int k = 0; k < a.Count + b.Count; ++k)
+        //    {
+
+        //        if (i >= a.Count)
+        //            c[k] = b[j++];
+        //        else if (j >= b.Count)
+        //            c[k] = a[i++];
+        //        else if (a[i].Peek().ID <= b[j].Peek().ID)
+        //            c[k] = a[i++];
+        //        else
+        //            c[k] = b[j++];
+        //    }
+        //}
+
+        private List<Stack<AbstractItem>> InventoryCastToList()
         {
-            int na = inventoryList.Count / 2;
-            int nb = inventoryList.Count - na;
-
-            List<Stack<AbstractItem>> a = new List<Stack<AbstractItem>>();
-            for (int i = 0; i < na; ++i)
-            { a.Add(inventoryList[i++]); }   
-                //a[i] = inventoryList[i];
-
-            List<Stack<AbstractItem>> b = new List<Stack<AbstractItem>>();
-            for (int j = 0; j < nb; ++j)
-            { b.Add(inventoryList[j++]); }
-                //b[j] = inventoryList[j + na];
-
-            if (a.Count > 1)
-                mergeSort(a);
-            if (b.Count > 1)
-                mergeSort(b);
-
-            merge(a, b, inventoryList);
-        }
-
-        private static void merge(List<Stack<AbstractItem>> a, List<Stack<AbstractItem>> b, List<Stack<AbstractItem>> c)
-        {
-            int i = 0, j = 0;
-            for (int k = 0; k < a.Count + b.Count; ++k)
-            {
-
-                if (i >= a.Count)
-                    c[k] = b[j++];
-                else if (j >= b.Count)
-                    c[k] = a[i++];
-                else if (a[i].Peek().ID <= b[j].Peek().ID)
-                    c[k] = a[i++];
-                else
-                    c[k] = b[j++];
-            }
-        }
-        
-        public void sortItem()
-        {
-            List<Stack<AbstractItem>> inventoryList = inventoryMatrix.Cast<Stack<AbstractItem>>().ToList();
-
-            //inventoryList.OrderBy(x => x.Peek().ID);
-
-            mergeSort(NavigationHelp.deleteNullObjectFromList(inventoryList));
+            List<Stack<AbstractItem>> list = new List<Stack<AbstractItem>>();
 
             for (int i = 0; i < inventoryMatrix.GetLength(0); i++)
             {
                 for (int j = 0; j < inventoryMatrix.GetLength(1); j++)
                 {
-                    try
-                    {
-                        inventoryMatrix[i, j] = inventoryList[i * inventoryMatrix.GetLength(1) + j];
-                    }
-                    catch (ArgumentOutOfRangeException)
-                    {
-                        inventoryMatrix[i, j] = null;
-                    }
+                    list.Add(inventoryMatrix[i, j]);
+                    inventoryMatrix[i, j] = null;
                 }
+            }
+
+            return list;
+        }
+
+        public void sortItem()
+        {
+            List<Stack<AbstractItem>> inventoryList = InventoryCastToList();
+
+            NavigationHelp.deleteNullObjectFromList(inventoryList).Sort(new SortByID());
+
+            ////inventoryList.OrderBy(x => x.Peek().ID);
+
+            //mergeSort(NavigationHelp.deleteNullObjectFromList(inventoryList));
+
+            for (int i = 0; i < inventoryList.Count; i++)
+            {
+                inventoryMatrix[i / inventoryWidth, i % inventoryWidth] = inventoryList[i];
             }
         }
 
@@ -603,6 +613,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         {
             if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !Game.isPressed)    //Item Swaps
             {
+                Game.isPressed = true;
+
                 if (!itemIsSelected)
                 {
                     selectedItemStack = inventoryMatrix[yInInventory, xInInventory];
@@ -628,7 +640,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     selectedItemStack = null;
                     itemIsSelected = false;
                 }
-                Game.isPressed = true;
             }
 
             if ((Keyboard.IsKeyPressed(Controls.UseItem) || Mouse.IsButtonPressed(Mouse.Button.Right)) && !Game.isPressed)
@@ -849,31 +860,37 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public void updateMatrix()
         {
-            int i = 0;
-            foreach (Stack<AbstractItem> itemStack in inventoryMatrix)
+            int k = 0;
+            for (int i = 0; i < inventoryMatrix.GetLength(0); i++ )
             {
-                if (itemStack != null && itemStack.Count != 0)
+                for (int j = 0; j < inventoryMatrix.GetLength(1); j++)
                 {
-                    if (itemStack.Count < 10)
+                    if (inventoryMatrix[i, j] != null && inventoryMatrix[i, j].Count != 0 && inventoryMatrix[i, j].Peek() != null)
                     {
-                        if (itemStack.Peek().stackable)
-                            StackCount[i].DisplayedString = "0" + Convert.ToString(itemStack.Count);
+                        inventoryMatrix[i, j].Peek().setPositionMatrix(j, i);
+                        inventoryMatrix[i, j].Peek().sprite.Position = inventoryMatrix[i, j].Peek().position;
+                        inventoryMatrix[i, j].Peek().setVisible(true);
+                    }
+
+                    if (inventoryMatrix[i,j] != null && inventoryMatrix[i,j].Count != 0)
+                    {
+                        if (inventoryMatrix[i,j].Count < 10)
+                        {
+                            if (inventoryMatrix[i, j].Peek().stackable)
+                                StackCount[k].DisplayedString = "0" + Convert.ToString(inventoryMatrix[i, j].Count);
+                            else
+                                StackCount[k].DisplayedString = "";
+                        }
+                        else
+                        {
+                            StackCount[k].DisplayedString = Convert.ToString(inventoryMatrix[i,j].Count);
+                        }
                     }
                     else
                     {
-                        StackCount[i].DisplayedString = Convert.ToString(itemStack.Count);
+                        StackCount[k].DisplayedString = "";
                     }
-                }
-                else
-                {
-                    StackCount[i].DisplayedString = "";
-                }
-                i++;
-
-                if (itemStack != null && itemStack.Count != 0 && itemStack.Peek() != null)
-                {
-                    itemStack.Peek().sprite.Position = itemStack.Peek().position;
-                    itemStack.Peek().setVisible(true);
+                    k++;
                 }
             }
         }

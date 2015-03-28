@@ -20,6 +20,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         Sprite sprite;
         Texture selectedTexture = new Texture("Pictures/Entities/NPC/Shop/Selected.png");
         Sprite selectedSprite;
+        Text playerGoldText;
         const int collumCount = 2; //number of collums (sell, buy, maybe later more)
         const int lineCount = 10; //number of Items that can be shown at the same Time within one colum
         int selectedCollum = 0; //0 = sell Items / 1 = buy Items
@@ -105,6 +106,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
 
             sellableItems = new List<ShopItem>();
             buyableItems = ShopItem.ToShopItemList(itemsToBuy);
+
+            playerGoldText = new Text(PlayerHandler.player.gold.ToString(), Game.font, 20);
+            playerGoldText.Position = new Vector2f(sprite.Position.X, sprite.Position.Y);
 
             //for (int i = 0; i < sellableItemsText.Length; i++)
             //{
@@ -303,6 +307,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             {
                 window.Draw(sprite);
                 window.Draw(selectedSprite);
+                window.Draw(playerGoldText);
 
                 foreach (ShopItem item in sellableItems)
                     item.draw(window);

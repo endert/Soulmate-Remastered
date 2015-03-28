@@ -203,7 +203,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 }
                 
             }
-            playerInventory.update(gameTime);
+            //playerInventory.update(gameTime);
         }
 
         static public void drawInventoryItems(RenderWindow window)
