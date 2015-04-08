@@ -810,6 +810,11 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             {
                 for (int j = 0; j < inventoryMatrix.GetLength(1); j++)
                 {
+                    if (inventoryMatrix[i,j] != null && inventoryMatrix[i,j].Count == 0)
+                    {
+                        inventoryMatrix[i, j] = null;
+                    }
+
                     if (inventoryMatrix[i, j] != null && inventoryMatrix[i, j].Count != 0 && inventoryMatrix[i, j].Peek() != null)
                     {
                         inventoryMatrix[i, j].Peek().setPositionMatrix(j, i);

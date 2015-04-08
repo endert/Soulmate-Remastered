@@ -142,7 +142,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             }
             else if (Shop.shopIsOpen)
             {
-                NPCHandler.updateShop();
+                NPCHandler.updateShop(gameTime);
             }
 
             if (inGameMenu.optionsOpen)

@@ -16,6 +16,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         public static bool shopIsOpen { get; set; }
         List<ShopItem> sellableItems;
         List<ShopItem> buyableItems;
+        List<ShopItem> selectedList 
+        { 
+            get 
+            {
+                switch (selectedCollum)
+                {
+                    case 0:
+                        return sellableItems;
+                    case 1:
+                        return buyableItems;
+                    default:
+                        throw new NotImplementedException();
+                }
+            } 
+        }
         Texture shopTexture = new Texture("Pictures/Entities/NPC/Shop/ShopInterface.png");
         Sprite sprite;
         Texture selectedTexture = new Texture("Pictures/Entities/NPC/Shop/Selected.png");
@@ -126,7 +141,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
 
             foreach (Stack<AbstractItem> itemStack in ItemHandler.playerInventory.inventoryMatrix)
             {
-                if (itemStack != null)
+                if (itemStack != null && itemStack.Count > 0)
                     sellableItems.Add(new ShopItem(itemStack));
             }
 
@@ -222,58 +237,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             }
 
             shopItemUpdate();
-            //text_spriteUpdate();
             selectedSprite.Position = new Vector2f(startPos.X, startPos.Y + selectedLine * 50);
-        }
-
-        //private void text_spriteUpdate()
-        //{
-        //    for (int i = 0; i < sellableItems.Count - smallestDisplayedItem0 && i < sellableItemsText.Length; i++)
-        //    {
-        //        sellableItemsText[i].DisplayedString = sellableItems[smallestDisplayedItem0 + i].Peek().type + "  " + sellableItems[smallestDisplayedItem0 + i].Count + "x";
-        //    }
-
-        //    for (int i = 0; i < buyableItems.Count - smallestDisplayedItem1 && i < buyableItemsText.Length; i++)
-        //    {
-        //        buyableItemsText[i].DisplayedString = buyableItems[smallestDisplayedItem1 + i].Peek().type + "  " + buyableItems[smallestDisplayedItem1 + i].Count + "x";
-        //    }
-
-        //    selectedSprite.Position = new Vector2f(startPos.X, startPos.Y + selectedLine * 50);
-        //}
-
-        private void shopItemUpdate()
-        {
-            for (int i = 0; i < sellableItems.Count - smallestDisplayedItem0 && i < lineCount; i++)
-            {
-                sellableItems[smallestDisplayedItem0 + i].position = new Vector2f(startSellPosition.X, startSellPosition.Y + i * 50);
-                sellableItems[smallestDisplayedItem0 + i].update();
-                sellableItems[smallestDisplayedItem0 + i].visible = true;
-            }
-
-            for (int i = 0; i < sellableItems.Count; i++)
-            {
-                if (i < smallestDisplayedItem0)
-                    sellableItems[i].visible = false;
-
-                if (i >= smallestDisplayedItem0 + lineCount)
-                    sellableItems[i].visible = false;
-            }
-
-            for (int i = 0; i < buyableItems.Count - smallestDisplayedItem1 && i < lineCount; i++)
-            {
-                buyableItems[smallestDisplayedItem1 + i].position = new Vector2f(startBuyPosition.X, startBuyPosition.Y + i * 50);
-                buyableItems[smallestDisplayedItem1 + i].update();
-                buyableItems[smallestDisplayedItem1 + i].visible = true;
-            }
-
-            for (int i = 0; i < buyableItems.Count; i++)
-            {
-                if (i < smallestDisplayedItem1)
-                    buyableItems[i].visible = false;
-
-                if (i >= smallestDisplayedItem1 + lineCount)
-                    buyableItems[i].visible = false;
-            }
         }
 
         private int evaluateIntSmallestDisplayedItem()
@@ -295,10 +259,70 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             }
         }
 
+        public void BuyOrSell()
+        {
+            PlayerHandler.player.gold += selectedList[smallestDisplayedItem + selectedLine].BuySell(selectedCollum);
+        }
+
         public void closeShop()
         {
             shopIsOpen = false;
             sprite = null;
+        }
+
+        private void shopItemUpdate()
+        {
+            if (Keyboard.IsKeyPressed(Controls.Return) && !Game.isPressed)
+            {
+                Game.isPressed = true;
+                BuyOrSell();
+            }
+
+            for (int i = 0; i < sellableItems.Count - smallestDisplayedItem0 && i < lineCount; i++)
+            {
+                sellableItems[smallestDisplayedItem0 + i].position = new Vector2f(startSellPosition.X, startSellPosition.Y + i * 50);
+                sellableItems[smallestDisplayedItem0 + i].update();
+                sellableItems[smallestDisplayedItem0 + i].visible = true;
+            }
+
+            for (int i = 0; i < sellableItems.Count; i++)
+            {
+                if (i < smallestDisplayedItem0)
+                    sellableItems[i].visible = false;
+
+                if (i >= smallestDisplayedItem0 + lineCount)
+                    sellableItems[i].visible = false;
+
+                if (!sellableItems[i].isAlive)
+                {
+                    sellableItems.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            for (int i = 0; i < buyableItems.Count - smallestDisplayedItem1 && i < lineCount; i++)
+            {
+                buyableItems[smallestDisplayedItem1 + i].position = new Vector2f(startBuyPosition.X, startBuyPosition.Y + i * 50);
+                buyableItems[smallestDisplayedItem1 + i].update();
+                buyableItems[smallestDisplayedItem1 + i].visible = true;
+            }
+
+            for (int i = 0; i < buyableItems.Count; i++)
+            {
+                if (i < smallestDisplayedItem1)
+                    buyableItems[i].visible = false;
+
+                if (i >= smallestDisplayedItem1 + lineCount)
+                    buyableItems[i].visible = false;
+
+                if (!buyableItems[i].isAlive)
+                {
+                    buyableItems.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            playerGoldText.DisplayedString = PlayerHandler.player.gold.ToString();
         }
 
         public void draw(RenderWindow window)

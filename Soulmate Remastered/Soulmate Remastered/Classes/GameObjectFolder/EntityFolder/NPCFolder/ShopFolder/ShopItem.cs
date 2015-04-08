@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
     {
         public Vector2f position { get; set; }
         public bool visible { get; set; }
-        public bool isAlive { get { if (itemStack.Count > 0)return true; else return false; } }
+        public bool isAlive { get { if (itemStack != null && itemStack.Count > 0)return true; else return false; } }
 
         Stack<AbstractItem> itemStack;
         Sprite itemSprite;
@@ -39,6 +40,28 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             
         }
 
+        public float BuySell(int selectedCollum)
+        {
+            if (isAlive)
+            {
+                if (selectedCollum == 0)
+                    return itemStack.Pop().sellPrize;
+                else
+                {
+                    if (PlayerHandler.player.gold >= itemStack.Peek().sellPrize)
+                    {
+                        float prize = -itemStack.Peek().sellPrize;
+                        itemStack.Pop().cloneAndDrop(PlayerHandler.player.hitBox.Position);
+                        return prize;
+                    }
+                    else
+                        return 0;
+                }
+            }
+            else
+                return 0;
+        }
+
         private void textUpdate()
         {
             displayedName.DisplayedString = itemStack.Count + "x " + itemStack.Peek().name;
@@ -57,8 +80,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
 
         public void update()
         {
-            positionUpdate();
-            textUpdate();
+            if (isAlive)
+            {
+                positionUpdate();
+                textUpdate();
+            }
+            else
+                itemStack = null;
         }
 
         public void draw(RenderWindow window)
