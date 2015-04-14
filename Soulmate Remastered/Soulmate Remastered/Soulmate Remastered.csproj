@@ -549,7 +549,7 @@
     <Content Include="Pictures\Projectile\Fireball\FireballTop3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Pictures\Treasure Chest\Treasure Chest.jpg">
+    <Content Include="Pictures\TreasureChest\TreasureChest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="sfmlnet-audio-2.dll" />

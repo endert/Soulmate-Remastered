@@ -37,6 +37,7 @@ ToDoList
 	- Quickslot (Schnellauswahl)
 	- Items aus dem Inventar löschen können
 --------- null-Objekte löschen
+	- im Inventar das markieren der items änderen (doppelklick zum unselecten)
 
 	.
 	.

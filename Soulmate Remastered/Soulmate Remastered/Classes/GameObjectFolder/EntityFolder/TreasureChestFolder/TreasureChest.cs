@@ -14,7 +14,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
     {
         public TreasureChest(Vector2f _position)
         {
-            textureList.Add(new Texture("Pictures/Treasure Chest/Treasure Chest.jpg"));
+            textureList.Add(new Texture("Pictures/TreasureChest/TreasureChest.png"));
             sprite = new Sprite(textureList[0]);
             isOpen = false;
             position = _position;
