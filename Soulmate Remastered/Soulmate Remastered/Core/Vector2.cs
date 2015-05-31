@@ -30,23 +30,23 @@ namespace Soulmate_Remastered.Core
         /// <summary>
         /// zero vector
         /// </summary>
-        public static readonly Vector2 ZERO { get { return new Vector2(0, 0); } }
+        public static Vector2 ZERO { get { return new Vector2(0, 0); } }
         /// <summary>
         /// Vector that points up
         /// </summary>
-        public static readonly Vector2 UP { get { return new Vector2(0, -1); } }
+        public static Vector2 UP { get { return new Vector2(0, -1); } }
         /// <summary>
         /// Vector that points down
         /// </summary>
-        public static readonly Vector2 DOWN { get { return new Vector2(0, 1); } }
+        public static Vector2 DOWN { get { return new Vector2(0, 1); } }
         /// <summary>
         /// Vector that points right
         /// </summary>
-        public static readonly Vector2 RIGHT { get { return new Vector2(1, 0); } }
+        public static Vector2 RIGHT { get { return new Vector2(1, 0); } }
         /// <summary>
         /// Vector that points left
         /// </summary>
-        public static readonly Vector2 LEFT { get { return new Vector2(-1, 0); } }
+        public static Vector2 LEFT { get { return new Vector2(-1, 0); } }
 
         //Constructors*********************************************************
 
