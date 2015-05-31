@@ -1,6 +1,7 @@
 ﻿using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +16,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         protected Random random = new Random(); //random movement
         protected float aggroRange;
         protected int movingFor = 0; //moving for millisek in one direction
-        protected int randomMovingDirection;
+        protected MovingDirection.Direction randomMovingDirection;
 
         public override String type { get { return base.type + ".Enemy"; } }
 
@@ -44,55 +45,55 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 
             if (stopWatchList[2].ElapsedMilliseconds >= movingFor) //only evaluate a new direction, if the enemy isnt moving already
             {
-                randomMovingDirection = random.Next(9);
+                randomMovingDirection = (MovingDirection.Direction)random.Next(9);
                 stopWatchList[2].Restart();
                 movingFor = 0;
             }
             switch (randomMovingDirection)  //move in the direction for 1000 millisecounds so 1 second
             {
-                case 0:
+                case MovingDirection.Direction.Up:
                     if (GameObjectHandler.lvlMap.getWalkable(hitBox, up))
                         move(up);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
-                case 1:
+                case MovingDirection.Direction.UpRight:
                     if (GameObjectHandler.lvlMap.getWalkable(hitBox, upRight))
                         move(upRight);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
-                case 2:
+                case MovingDirection.Direction.Right:
                     if (GameObjectHandler.lvlMap.getWalkable(hitBox, right))
                         move(right);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
-                case 3:
+                case MovingDirection.Direction.DownRight:
                     if (GameObjectHandler.lvlMap.getWalkable(hitBox, downRight))
                         move(downRight);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
-                case 4:
+                case MovingDirection.Direction.Down:
                     if (GameObjectHandler.lvlMap.getWalkable(hitBox, down))
                         move(down);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
-                case 5:
+                case MovingDirection.Direction.DownLeft:
                     if (GameObjectHandler.lvlMap.getWalkable(hitBox, downLeft))
                         move(downLeft);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
-                case 6:
+                case MovingDirection.Direction.Left:
                     if (GameObjectHandler.lvlMap.getWalkable(hitBox, left))
                         move(left);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
-                case 7:
+                case MovingDirection.Direction.UpLeft:
                     if (GameObjectHandler.lvlMap.getWalkable(hitBox, upLeft))
                         move(upLeft);
                     stopWatchList[2].Start();
