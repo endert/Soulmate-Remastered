@@ -15,7 +15,7 @@ ToDoList
 	- Story (*hust* Lisa *hust*) 
 	- Quest log erstellen
 --------- Maussteuerung verbessern
-	- Inventar sortierung ^^ (*da besteh ich drauf XP*) nach alphabet und kategorie
+--------- Inventar sortierung ^^ (*da besteh ich drauf XP*) nach alphabet und kategorie
 	- Sounds implementieren?
 	- Hilfsdatei (.txt reicht aus) für SaveDatei anlegen (*damit man demnächst weiß welcher wert für was gut ist... -_- *)
 --------- Gebietswechsel RICHTIG abspeichern/laden
@@ -36,7 +36,8 @@ ToDoList
 	- Skills
 	- Quickslot (Schnellauswahl)
 	- Items aus dem Inventar löschen können
-	- null-Objekte löschen
+--------- null-Objekte löschen
+	- im Inventar das markieren der items änderen (doppelklick zum unselecten)
 
 	.
 	.
