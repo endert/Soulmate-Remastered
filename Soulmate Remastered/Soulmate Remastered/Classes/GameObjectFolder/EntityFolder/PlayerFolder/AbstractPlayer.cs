@@ -149,8 +149,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             lvl = player.getLvl;
             maxEXP = player.getMaxEXP;
             currentEXP = player.getCurrentEXP;
-
-            movementSpeedConstant = player.getMovementSpeedConstant;
+            BaseMovementSpeed = player.BaseMovementSpeed;
         }
 
         public bool pressedKeyForAttack()
@@ -257,7 +256,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             if (currentHP > maxHP)
                 currentHP = maxHP;
 
-            movementSpeed = movementSpeedConstant * (float)gameTime.EllapsedTime.TotalMilliseconds;
+            movementSpeed = BaseMovementSpeed * (float)gameTime.EllapsedTime.TotalMilliseconds;
             if (!animating)
             {
                 animate(textureList);

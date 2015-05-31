@@ -10,18 +10,31 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 {
+    /// <summary>
+    /// handles Enemies
+    /// </summary>
     class EnemyHandler
     {
-        public static AbstractEnemy enemy { get; set; }
-        public static List<AbstractEnemy> enemyList { get; set; }
+        /// <summary>
+        /// List wich contains all enemies
+        /// </summary>
+        public static List<AbstractEnemy> enemyList { get; private set; }
+        /// <summary>
+        /// random generator for spawn positions
+        /// </summary>
+        static Random random { get { return new Random(); } }
 
-        static Random random = new Random();
-
+        /// <summary>
+        /// initialize the enemy List
+        /// </summary>
         public EnemyHandler()
         {
             enemyList = new List<AbstractEnemy>();
         }
 
+        /// <summary>
+        /// initialize the enemies on each lvl
+        /// </summary>
         public static void enemyInitialize()
         {
             switch (GameObjectHandler.lvl)
@@ -51,23 +64,36 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             }
         }
 
+        /// <summary>
+        /// adds an enemie to the enemieList and calls add methode of entity Handler
+        /// </summary>
+        /// <param name="enemy"></param>
         public static void add(AbstractEnemy enemy)
         {
             enemyList.Add(enemy);
             EntityHandler.add(enemy);
         }
 
+        /// <summary>
+        /// trys to delete all enemies from Entity Handler
+        /// </summary>
         public static void deleate()
         {
-            enemy = null;
-
             EntityHandler.deleateType("Enemy");
         }
 
+        /// <summary>
+        /// updates all enemies should only be called once
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void update(GameTime gameTime)
         {
             for (int i = 0; i < enemyList.Count; i++)
             {
+                /* 
+                 * if the enemy took a leatal blow the player is revarded with exp and the fusion value is increased
+                 * also the enemie must be removed from the List
+                 */
                 if (!enemyList[i].isAlive)
                 {
                     PlayerHandler.player.setCurrentFusionValue();
@@ -78,20 +104,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                 }
                 else
                 {
+                    //if enemy is hit by the players attack hit box, it suffers damage
                     if (enemyList[i].hitBox.hit(PlayerHandler.player.getAttackHitBox) && PlayerHandler.player.isAttacking)
-                    {
                         enemyList[i].takeDmg(PlayerHandler.player.getAtt);
-                    }
 
+                    //if the player is hit by the enemy the player suffers damage
                     if (enemyList[i].touchedPlayer())
-                    {
                         PlayerHandler.player.takeDmg(enemyList[i].getAtt);
-                    }
 
-                    if (PetHandler.pet != null && enemyList[i].hitBox.hit(PetHandler.pet.hitBox))  //if touched object equals pet
-                    {
+                    //if the pet is hit by the enemy the pet suffers damage
+                    if (PetHandler.pet != null && enemyList[i].hitBox.hit(PetHandler.pet.hitBox))
                         PetHandler.pet.takeDmg(enemyList[i].getAtt);
-                    }
                 }
             }
         }

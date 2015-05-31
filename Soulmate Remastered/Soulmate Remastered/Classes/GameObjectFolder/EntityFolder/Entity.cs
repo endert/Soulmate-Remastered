@@ -98,8 +98,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         }
         protected bool moveAwayFromEntity;
         protected Vector2f movement;
-        protected float movementSpeedConstant;
-            public float getMovementSpeedConstant { get { return movementSpeedConstant; } }
+        public float BaseMovementSpeed { get; protected set; }
         protected float movementSpeed;
         protected List<Vector2f> hitFromDirections = new List<Vector2f>();
 
