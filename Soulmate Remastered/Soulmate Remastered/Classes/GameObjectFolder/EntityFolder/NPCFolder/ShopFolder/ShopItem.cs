@@ -24,12 +24,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         public ShopItem(Stack<AbstractItem> item)
         {
             itemStack = item;
+            if (itemStack.Count > 0)
+            {
+                itemSprite = new Sprite(itemStack.Peek().currentTexture);
+                displayedName = new Text("", Game.font, 20);
+                goldValue = new Text("", Game.font, 20);
 
-            itemSprite = new Sprite(itemStack.Peek().currentTexture);
-            displayedName = new Text("", Game.font, 20);
-            goldValue = new Text("", Game.font, 20);
-
-            positionUpdate();
+                positionUpdate();
+            }
         }
 
         private void positionUpdate()
