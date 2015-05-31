@@ -38,7 +38,7 @@ ToDoList
 	- Items aus dem Inventar löschen können
 --------- null-Objekte löschen
 	- im Inventar das markieren der items änderen (doppelklick zum unselecten)
-
+	- leere Zeile beim Händler verkaufen wirft Fehler
 	.
 	.
 	.

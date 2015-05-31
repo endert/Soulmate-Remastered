@@ -14,7 +14,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
     class GameObjectHandler
     {
         public static List<GameObject> gameObjectList { get; set; }
-
         public static EntityHandler entityHandler { get; set; }
         public static ItemHandler itemHandler { get; set; }
 

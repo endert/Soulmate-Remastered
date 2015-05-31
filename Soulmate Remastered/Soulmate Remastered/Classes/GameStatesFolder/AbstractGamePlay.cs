@@ -111,7 +111,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 gameObjectHandler.deleate();
                 File.Delete(savePlayer);
                 returnValue = 1;
-                return;
+                return; //end method, because other updates throw failures after the gameObjectHandler is deleated
             }
 
             time.Update();
@@ -128,7 +128,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             if (!Inventory.inventoryOpen && !inGameMenu.inGameMenuOpen && !Shop.shopIsOpen)
             {
-                
                 view.Move(VectorForViewMove());
 
                 gameObjectHandler.update(gameTime);
