@@ -27,7 +27,7 @@ namespace Soulmate_Remastered.Classes
         /// </summary>
         public static readonly Keyboard.Key Back = Keyboard.Key.Back;
         /// <summary>
-        /// debug mode readonly
+        /// debug mode readonly (F3)
         /// </summary>
         public static Keyboard.Key debugging = Keyboard.Key.F3;
 

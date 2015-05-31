@@ -13,7 +13,7 @@ namespace Soulmate_Remastered.Classes
     {
         public static bool isMouseInSprite(Sprite sprite)
         {
-            RenderWindow window = AbstractGame.window;
+            RenderWindow window = AbstractGame.window; //don't no why, maybe i was to lazy to write every time the long
             return (Mouse.GetPosition(window).X >= sprite.Position.X && Mouse.GetPosition(window).X <= sprite.Position.X + sprite.Texture.Size.X
                  && Mouse.GetPosition(window).Y >= sprite.Position.Y && Mouse.GetPosition(window).Y <= sprite.Position.Y + sprite.Texture.Size.Y);
         }

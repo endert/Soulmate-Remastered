@@ -33,6 +33,13 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         Texture exitSelected = new Texture("Pictures/Menu/InGameMenu/Exit/ExitSelected.png");
         Sprite exit;
 
+        /// <summary>
+        /// Inventory-value which button is selected;
+        /// x = 0 Continue;
+        /// x = 1 Save;
+        /// x = 2 Options;
+        /// x = 3 Exit
+        /// </summary>
         int x = 0; //Inventarsteurung
 
         readonly String saveFile = "Saves/save.soul";
@@ -105,6 +112,55 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public void manage()
         {
+            setValueToChangeSprite();
+
+            if (NavigationHelp.isSpriteKlicked(x, 0, continueGame, Controls.Return) || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed)) //checking if the continue button or escape was pressed
+            {
+                Game.isPressed = true;
+                inGameMenuOpen = false;
+            }
+
+            if (NavigationHelp.isSpriteKlicked(x, 1, save, Controls.Return)) //checking if the save button was pressed
+            {
+                Game.isPressed = true;
+                Console.WriteLine("saving Game");
+                SaveGame.savePath = saveFile;
+                SaveGame.saveGame();
+                Console.WriteLine("successfuly saved Game");
+            }
+
+            //optionsOpen = false; //WHY?!?!?!?!!?!?!!??
+            //it does nothing
+            if (NavigationHelp.isSpriteKlicked(x, 2, options, Controls.Return)) //checking if the options button was pressed
+            {
+                Game.isPressed = true;
+                inGameMenuOpen = false;
+                optionsOpen = true;
+            }
+
+            //closeGame = false; //WHY!?!?!?!?!!?!?!?
+            //it does nothing
+            if (NavigationHelp.isSpriteKlicked(x, 3, exit, Controls.Return)) //checking if the exit button was pressed
+            {
+                Game.isPressed = true;
+                inGameMenuOpen = false;
+                closeGame = true;
+            }
+
+            changeSprites(); //choose which button is selected
+            spritePositionUpdate();
+        }
+
+        private void spritePositionUpdate()
+        {
+            continueGame.Position = getContinueGamePosition();
+            save.Position = getSavePosition();
+            options.Position = getOptionsPosition();
+            exit.Position = getExitPosition();
+        }
+
+        private void setValueToChangeSprite()
+        {
             if (NavigationHelp.isMouseInSprite(continueGame)) //Continue
             {
                 x = 0;
@@ -136,38 +192,10 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 x = (x + 1) % 4;
                 Game.isPressed = true;
             }
+        }
 
-            if (NavigationHelp.isSpriteKlicked(x, 0, continueGame, Controls.Return) || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed))
-            {
-                Game.isPressed = true;
-                inGameMenuOpen = false;
-            }
-
-            if (NavigationHelp.isSpriteKlicked(x, 1, save, Controls.Return))
-            {
-                Game.isPressed = true;
-                Console.WriteLine("saving Game");
-                SaveGame.savePath = saveFile;
-                SaveGame.saveGame();
-                Console.WriteLine("successfuly saved Game");
-            }
-
-            optionsOpen = false;
-            if (NavigationHelp.isSpriteKlicked(x, 2, options, Controls.Return))
-            {
-                Game.isPressed = true;
-                inGameMenuOpen = false;
-                optionsOpen = true;
-            }
-
-            closeGame = false;
-            if (NavigationHelp.isSpriteKlicked(x, 3, exit, Controls.Return))
-            {
-                Game.isPressed = true;
-                inGameMenuOpen = false;
-                closeGame = true;
-            }
-
+        private void changeSprites()
+        {
             if (x == 0)
             {
                 continueGame = new Sprite(continueSelected);
@@ -199,11 +227,6 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 options = new Sprite(optionsNotSelected);
                 exit = new Sprite(exitSelected);
             }
-
-            continueGame.Position = getContinueGamePosition();
-            save.Position = getSavePosition();
-            options.Position = getOptionsPosition();
-            exit.Position = getExitPosition();
         }
 
         public void draw(RenderWindow window)

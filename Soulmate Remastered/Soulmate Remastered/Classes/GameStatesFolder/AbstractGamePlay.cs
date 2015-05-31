@@ -39,7 +39,14 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public static View view;
         public static View VIEW { get { return view; } }
 
-        protected int index = 0;
+        //protected int index = 0; //WHY, no using
+
+        /// <summary>
+        /// value to change the different game states;
+        /// 1 = mainMenu; 
+        /// 2 = change between level and villaige; 
+        /// 3 = inGameMenu COMMING SOON
+        /// </summary>
         protected int returnValue = 0;
                 
         public void initialize()
@@ -107,7 +114,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public void GameUpdate(GameTime gameTime)
         {
-            if (inGameMenu.closeGame) //if exit clicked
+            if (inGameMenu.closeGame) //if exit in inGameMenu clicked
             {
                 gameObjectHandler.deleate();
                 File.Delete(savePlayer);
@@ -115,11 +122,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 return; //end method, because other updates throw failures after the gameObjectHandler is deleated
             }
 
+            //no update needed if game was closed
             time.Update();
             ItemHandler.playerInventory.update(gameTime);
             inGameMenu.update(gameTime);
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !Game.isPressed) //switches between level and village
             {
                 Game.isPressed = true;
                 SaveGame.savePath = savePlayer;
@@ -127,16 +135,17 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 returnValue = 2;
             }
 
-            if (!Inventory.inventoryOpen && !inGameMenu.inGameMenuOpen && !Shop.shopIsOpen)
+            if (!Inventory.inventoryOpen && !inGameMenu.inGameMenuOpen && !Shop.shopIsOpen) //run update for game, if no menu, inventory or shop is open
             {
                 view.Move(VectorForViewMove());
 
                 gameObjectHandler.update(gameTime);
                 dialoges.update();
 
-                if (PlayerHandler.player.getCurrentHP <= 0)
+                if (PlayerHandler.player.getCurrentHP <= 0) //if player is dead go back to mainMenu
                 {
                     gameObjectHandler.deleate();
+                    File.Delete(savePlayer);
                     returnValue = 1;
                 }
             }
@@ -146,11 +155,13 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 GameObjectHandler.itemHandler.update(gameTime);
             }
 
-            if (inGameMenu.optionsOpen)
-            {
-                returnValue = 3;
-            }
-
+            //no use, don't know it is here xD
+            //if (inGameMenu.optionsOpen)
+            //{
+            //    returnValue = 3;
+            //}
+            
+            //must be update after gameObjectHandler
             hud.update(gameTime);
 
             if (Keyboard.IsKeyPressed(Controls.debugging) && !Game.isPressed)

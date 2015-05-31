@@ -29,6 +29,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             switch (returnValue)
             {
                 case 1:
+                    Console.WriteLine("change to mainMenu");
                     return EnumGameStates.mainMenu;
 
                 case 2:
