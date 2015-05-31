@@ -20,7 +20,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             get 
             {
                 if (interacted)
-                    return new DialogeBox(new Vector2f(position.X, position.Y - 100), dialogeText);
+                    return new DialogeBox(new Vector2f(position.X, position.Y - 100), dialogeText, this);
                 else
                     return null;
             } 

@@ -111,5 +111,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
                 }
             }
         }
+
+        public void debugDraw(RenderWindow window)
+        {
+            foreach (GameObject obj in gameObjectList)
+                obj.debugDraw(window);
+        }
     }
 }

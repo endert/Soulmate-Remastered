@@ -27,6 +27,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public static bool loading = false;
         public static bool startNewGame = false;
         protected static readonly String savePlayer = "Saves/player.soul";
+        bool debugging = false;
         public static String savePlayerPath { get { return savePlayer; } }
         protected GameTime time = new GameTime();
         protected View viewInventory;
@@ -152,6 +153,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             }
 
             hud.update(gameTime);
+
+            if (Keyboard.IsKeyPressed(Controls.debugging) && !Game.isPressed)
+            {
+                debugging = !debugging;
+                Game.isPressed = true;
+            }
         }
 
         public void draw(RenderWindow window)
@@ -179,6 +186,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 window.SetView(viewInventory);
                 inGameMenu.draw(window);
             }
+
+            if (debugging)
+                gameObjectHandler.debugDraw(window);
         }
     }
 }

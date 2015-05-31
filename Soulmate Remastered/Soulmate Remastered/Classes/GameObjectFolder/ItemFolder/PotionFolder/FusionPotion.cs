@@ -57,7 +57,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
         {
             if (PlayerHandler.player.currentFusionValue != PlayerHandler.player.getMaxFusionValue)
             {
-                PlayerHandler.player.healFusionFor(recoveryValue);
+                PlayerHandler.player.HealFusionFor(recoveryValue);
                 isAlive = false;
             }
         }

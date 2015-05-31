@@ -12,14 +12,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 {
     class HitBox
     {
-        Texture testTexture;
-        Sprite testSprite;
-        static bool visible = false;
-        public static bool VISIBLE { get { return visible; } set { visible = value; } }
         public Vector2f Position { get; set; }
         public float width { get; set; }
         public float height { get; set; }
         private float spriteHeight;
+        RectangleShape r;
 
         Vector2f unionPos;
         float unionWidth;
@@ -31,23 +28,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         }
 
         public HitBox(Blocks block)
+            : this(block.getSprite.Position, block.getSprite.Texture.Size.X, block.getSprite.Texture.Size.Y)
         {
-            Position = block.getSprite.Position;
-            width = block.getSprite.Texture.Size.X;
-            height = block.getSprite.Texture.Size.Y;
-            spriteHeight = height;
+
         }
 
         public HitBox(AbstractProjectile projectile)
+            : this(projectile.position, projectile.sprite.Texture.Size.X, projectile.sprite.Texture.Size.Y)
         {
-            Position = projectile.position;
-            width = projectile.sprite.Texture.Size.X;
-            height = projectile.sprite.Texture.Size.Y;
-            spriteHeight = height;
-            testTexture = new Texture("Pictures/Inventory/Selected.png");
-            testSprite = new Sprite(testTexture);
-            testSprite.Scale = new Vector2f(width / testTexture.Size.X, height / testTexture.Size.Y);
-            testSprite.Position = Position;
+
         }
 
         public HitBox(Vector2f pos, float _width, float _height)
@@ -56,10 +45,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             width = _width;
             height = (_height * 3) / 5;
             spriteHeight = _height;
-            testTexture = new Texture("Pictures/Inventory/Selected.png");
-            testSprite = new Sprite(testTexture);
-            testSprite.Scale = new Vector2f(width / testTexture.Size.X, height / testTexture.Size.Y);
-            testSprite.Position = Position;
+            r = new RectangleShape(new Vector2f(width, height));
+            r.FillColor = Color.Transparent;
+            r.OutlineThickness = 3;
+            r.OutlineColor = Color.Red;
         }
 
         public Vector2f hitFrom(HitBox h)
@@ -144,12 +133,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             return (float)Math.Sqrt(Math.Pow(distanceX, 2) + Math.Pow(distanceY, 2));
         }
 
+        public bool willHit(Vector2f direction, HitBox h)
+        {
+            HitBox test = new HitBox(Position + direction, width, height);
+            return test.hit(h);
+        }
+
         public bool hit(HitBox h)
         {
-            if (testSprite != null)
-            {
-                testSprite.Position = Position;
-            }
             if (h != null)
             {
                 union(h);
@@ -189,16 +180,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             Position = new Vector2f(sprite.Position.X, sprite.Position.Y + (2 * spriteHeight) / 5);
             width = sprite.Texture.Size.X;
             height = sprite.Texture.Size.Y * 3 / 5;
-            testSprite.Scale = new Vector2f(width / testTexture.Size.X, height / testTexture.Size.Y);
-            testSprite.Position = Position;
         }
 
         public void draw(RenderWindow window)
         {
-            if (testSprite != null)
-            {
-                window.Draw(testSprite);
-            }
+            r.Position = Position;
+            window.Draw(r);
         }
     }
 }

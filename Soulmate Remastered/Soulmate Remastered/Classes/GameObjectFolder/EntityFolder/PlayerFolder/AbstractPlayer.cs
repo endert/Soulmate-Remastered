@@ -24,24 +24,24 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         public List<Texture> getTexture { get { return textureList; } }
         public int MaxLvl { get { return 100; } }
         protected int lvl;
-            public int getLvl { get { return lvl; } }
+        public int getLvl { get { return lvl; } }
         //FusionBar fusionBar;
         protected float maxFusionValue;
-            public float getMaxFusionValue { get { return maxFusionValue; } }
-        public float currentFusionValue { get; set; } 
+        public float getMaxFusionValue { get { return maxFusionValue; } }
+        public float currentFusionValue { get; set; }
         protected float fusionDuration; //in sec
-            public float getFusionDuration { get { return fusionDuration * 1000; } }
+        public float getFusionDuration { get { return fusionDuration * 1000; } }
         protected HitBox attackHitBox;
-            public HitBox getAttackHitBox { get { return attackHitBox; } }
+        public HitBox getAttackHitBox { get { return attackHitBox; } }
         protected bool attacking;
         protected bool isPressedForAttack;
         protected bool isPressedForShoot;
         public bool isAttacking { get { return attacking; } }
         public float gold { get; set; } //money money money...
         protected float currentEXP { get; set; }
-            public float getCurrentEXP { get { return currentEXP; } }
+        public float getCurrentEXP { get { return currentEXP; } }
         protected float maxEXP;
-            public float getMaxEXP { get { return maxEXP; } }
+        public float getMaxEXP { get { return maxEXP; } }
 
         protected bool transforming = false;
         protected bool animating = false;
@@ -315,6 +315,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         }
 
         //Cheats==============================================================
+
+        public void activateCheat(float parameter, Cheat cheat)
+        {
+            cheat(parameter);
+        }
+
+        public delegate void Cheat(float value);
+
         public void HealFor(float value)
         {
             currentHP += value;
@@ -324,7 +332,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             }
         }
 
-        public void setHp(float value)
+        public void SetHp(float value)
         {
             currentHP = value;
 
@@ -334,20 +342,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             }
         }
 
-        public void heal()
+        public void Heal(float value)
         {
             currentHP = maxHP;
         }
 
-        public void setExp(float value)
+        public void SetExp(float value)
         {
             currentEXP = value;
 
             lvlUp();
         }
 
-        public void setLvl(int value)
+        public void SetLvl(float _value)
         {
+            int value = (int)_value;
             if (value > 0 && value <= MaxLvl)
             {
                 lvl = value;
@@ -366,22 +375,22 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             statsUpdate();
         }
 
-        public void setMoney(float value)
+        public void SetMoney(float value)
         {
             gold = value;
         }
 
-        public void setDef(float value)
+        public void SetDef(float value)
         {
             def = value;
         }
 
-        public void setAtt(float value)
+        public void SetAtt(float value)
         {
             att = value;
         }
 
-        public void setFusionValue(float value)
+        public void SetFusionValue(float value)
         {
             if (value > 0 && value <= maxFusionValue)
             {
@@ -401,21 +410,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         }
 
-       public void healFusionFor(float value)
+        public void HealFusionFor(float value)
         {
             currentFusionValue += value;
 
             if (currentFusionValue > maxFusionValue)
                 currentFusionValue = maxFusionValue;
         }
-
-        public void setHitboxVisible(bool visible)
-        {
-            if (HitBox.VISIBLE != visible)
-            {
-                HitBox.VISIBLE = visible;
-            }
-        }
         //====================================================================
+
     }
 }

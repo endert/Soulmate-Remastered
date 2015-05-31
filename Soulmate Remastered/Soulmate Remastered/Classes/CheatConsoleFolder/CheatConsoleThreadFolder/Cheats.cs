@@ -1,4 +1,5 @@
-﻿using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+﻿using Soulmate_Remastered.Core;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,199 +10,142 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
 {
     class Cheats
     {
+        /// <summary>
+        /// String for Console Output if the parameter were invalid
+        /// </summary>
         static String invalidInput = " is an invalid parameter for ";
 
-        static String[] cheatNames = new String[]
+        /// <summary>
+        /// Cheat names
+        /// </summary>
+        public enum Cheat
         {
-            "/SETHP",
-            "/SETMONEY",
-            "/HEAL",
-            "/SETEXP",
-            "/SETLVL",
-            "/SETDEF",
-            "/SETATT",
-            "/SETFUSIONVALUE",
-            "/HEALFOR",
-            "/TAKEDAMAGE",
-            "/SETHITBOXVISIBLE"
-        };
+            UNKOWN = -1,
 
-        public static void setHp(String parameter)
+            //Player affects without considereing any stats
+            Heal = 0,
+            HealFor = 1,
+            TakeDamage = 2,
+
+            //Set Player Stats
+            SetHp = 3,
+            SetMoney = 4,
+            SetExp = 5,
+            SetLvl = 6,
+            SetDef = 7,
+            SetAtt = 8,
+            SetFusionValue = 9,
+           
+            //Other
+            ShowCheats = 10,
+
+            CheatCount
+        }
+
+        /// <summary>
+        /// the Cheat Syntax
+        /// </summary>
+        public static String CheatSyntax
         {
-            try
+            get
             {
-                PlayerHandler.player.setHp(Convert.ToSingle(parameter));
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine(parameter + invalidInput + cheatNames[0]);
+                return
+                
+                    '"' + "/Heal" + '"' + " heals the Player completely.\n"+
+                    '"' + "/HealFor value" + '"' + " heals the player for the given value the Player.\n"+
+                    '"' + "/TakeDamage value" + '"' + " the Player takes the value as true damage.\n"+
+                    '"' + "/SetHp value" + '"' + " sets the Hp of the Player.\n"+
+                    '"' + "/SetMoney value" + '"' + " sets the Gold of the Player.\n"+
+                    '"' + "/SetExp value" + '"' + " sets the exp of the Player.\n"+
+                    '"' + "/SetLvl value" + '"' + " sets the Lvl of the Player.\n"+
+                    '"' + "/SetDef value" + '"' + " sets the defense of the Player.\n"+
+                    '"' + "/SetAtt value" + '"' + " sets the attack damage of the Player.\n"+
+                    '"' + "/SetFusionValue value" + '"' + " sets the FusionValue of the Player.\n"+
+                    '"' + "/ShowCheats" + '"' + " Opens a window with a List of all Cheats and their Syntax.\n"
+                ;
             }
         }
 
-        public static void setMoney(String parameter)
-        {
-            try
-            {
-                PlayerHandler.player.setMoney(Convert.ToSingle(parameter));
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine(parameter + invalidInput + cheatNames[1]);
-            }
-        }
-
-        public static void heal()
-        {
-            PlayerHandler.player.heal();
-        }
-
-        public static void setExp(String parameter)
-        {
-            try
-            {
-                PlayerHandler.player.setExp(Convert.ToSingle(parameter));
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine(parameter + invalidInput + cheatNames[3]);
-            }
-        }
-
-        public static void setLvl(String parameter)
-        {
-            try
-            {
-                PlayerHandler.player.setLvl(Convert.ToInt32(parameter));
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine(parameter + invalidInput + cheatNames[4]);
-            }
-        }
-
-        public static void setDef(String parameter)
-        {
-            try
-            {
-                PlayerHandler.player.setDef(Convert.ToSingle(parameter));
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine(parameter + invalidInput + cheatNames[5]);
-            }
-        }
-
-        public static void setAtt(String parameter)
-        {
-            try
-            {
-                PlayerHandler.player.setAtt(Convert.ToSingle(parameter));
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine(parameter + invalidInput + cheatNames[6]);
-            }
-        }
-
-        public static void setFusionValue(String parameter)
-        {
-            try
-            {
-                PlayerHandler.player.setFusionValue(Convert.ToSingle(parameter));
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine(parameter + invalidInput + cheatNames[7]);
-            }
-        }
-
-        public static void healFor(String parameter)
-        {
-            try
-            {
-                PlayerHandler.player.HealFor(Convert.ToSingle(parameter));
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine(parameter + invalidInput + cheatNames[8]);
-            }
-        }
-
-        public static void takeDamage(String parameter) 
-        {
-            try
-            {
-                PlayerHandler.player.HealFor(-Convert.ToSingle(parameter));
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine(parameter + invalidInput + cheatNames[9]);
-            }
-        }
-
-        public static void setHitboxVisible(String parameter)
-        {
-            try
-            {
-                PlayerHandler.player.setHitboxVisible(Convert.ToBoolean(parameter));
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine(parameter + invalidInput + cheatNames[10]);
-            }
-        }
-
+        /// <summary>
+        /// activate the entered Cheat should only be called once, when return is pressed
+        /// </summary>
+        /// <param name="input">String that contains: /Cheat parameter </param>
         public static void activateCheat(String input)
         {
-            String[] inputSplit = input.Split();
-            int selectedCheat = -1;
-
-            for (int i = 0; i < cheatNames.Length; i++)
+            String[] inputSplit = input.Split();    //seperate /Cheat and all other parameter
+            Cheat selectedCheat = Cheat.UNKOWN; //not defined cheat
+            String[] parameter = new String[inputSplit.Length - 1]; //String array without /Cheat
+            for (int i = 0; i < parameter.Length; i++)
             {
-                if (cheatNames[i].Equals(inputSplit[0]))
+                parameter[i] = inputSplit[i + 1];
+            }
+            Params parms = new Params(parameter);
+
+            //find the entered Cheat
+            for (int i = 0; i < (int)Cheat.CheatCount; i++)
+            {
+                if (("/" + ((Cheat)i).ToString()).Equals(inputSplit[0]))
                 {
-                    selectedCheat = i;
+                    selectedCheat = (Cheat)i;
                     break;
                 }
             }
 
-            switch (selectedCheat)
+            _activateCheat(parms, selectedCheat);
+        }
+
+        /// <summary>
+        /// should only be called once in activate Cheat. it is the actual activation of the given Cheat and the given parameter
+        /// </summary>
+        /// <param name="parms">Parameter such as float values etc.</param>
+        /// <param name="ch">the entered Cheat</param>
+        static void _activateCheat(Params parms, Cheat ch)
+        {
+            try
             {
-                case 0:
-                    setHp(inputSplit[1]);
-                    break;
-                case 1:
-                    setMoney(inputSplit[1]);
-                    break;
-                case 2:
-                    heal();
-                    break;
-                case 3:
-                    setExp(inputSplit[1]);
-                    break;
-                case 4:
-                    setLvl(inputSplit[1]);
-                    break;
-                case 5:
-                    setDef(inputSplit[1]);
-                    break;
-                case 6:
-                    setAtt(inputSplit[1]);
-                    break;
-                case 7:
-                    setFusionValue(inputSplit[1]);
-                    break;
-                case 8:
-                    healFor(inputSplit[1]);
-                    break;
-                case 9:
-                    takeDamage(inputSplit[1]);
-                    break;
-                case 10:
-                    setHitboxVisible(inputSplit[1]);
-                    break;
-                default:
-                    break;
+                switch (ch)
+                {
+                    case Cheat.Heal:
+                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.Heal);
+                        break;
+                    case Cheat.HealFor:
+                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.HealFor);
+                        break;
+                    case Cheat.SetAtt:
+                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetAtt);
+                        break;
+                    case Cheat.SetDef:
+                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetDef);
+                        break;
+                    case Cheat.SetExp:
+                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetExp);
+                        break;
+                    case Cheat.SetFusionValue:
+                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetFusionValue);
+                        break;
+                    case Cheat.SetHp:
+                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetHp);
+                        break;
+                    case Cheat.SetLvl:
+                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetLvl);
+                        break;
+                    case Cheat.SetMoney:
+                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetMoney);
+                        break;
+                    case Cheat.TakeDamage:
+                        PlayerHandler.player.activateCheat(-parms, PlayerHandler.player.HealFor);
+                        break;
+                    case Cheat.ShowCheats:
+                        CheatConsoleThreadStart.cheatConsole.activateCheat(parms, CheatConsoleThreadStart.cheatConsole.showCheats);
+                        break;
+                    default:
+                        Console.WriteLine("Error, " + ch + " not implemented");
+                        break;
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine(parms + invalidInput + ch);
             }
         }
     }

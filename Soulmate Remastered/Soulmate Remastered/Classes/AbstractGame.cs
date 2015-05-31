@@ -15,7 +15,7 @@ namespace Soulmate_Remastered.Classes
 {
     abstract class AbstractGame
     {
-        public static CheatConsoleThread cheatConsole;
+        static CheatConsoleThreadStart cheatConsole;
         public static RenderWindow window;
         GameTime gameTime;
 
@@ -25,7 +25,7 @@ namespace Soulmate_Remastered.Classes
             window.Closed += window_Close;
 
             gameTime = new GameTime();
-            cheatConsole = new CheatConsoleThread();
+            cheatConsole = new CheatConsoleThreadStart();
         }
 
         public void run()

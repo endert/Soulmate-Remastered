@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         public  Sprite sprite { get; set; }
         protected List<Texture> textureList = new List<Texture>();
         public Texture currentTexture { get { return sprite.Texture; } }
-        public Vector2f position { get; set; }
+        public Vector2 position { get; set; }
         public virtual String type { get { return "Object"; } }
         protected String customName = "";
         public String name { get { if (!customName.Equals("")) return customName; else return type.Split('.')[type.Split('.').Length - 1]; } }
@@ -58,10 +59,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         public virtual void draw(RenderWindow window)
         {
             window.Draw(sprite);
-            if (HitBox.VISIBLE)
-            {
-                hitBox.draw(window);
-            }
+        }
+
+        public void debugDraw(RenderWindow window)
+        {
+            hitBox.draw(window);
         }
     }
 }

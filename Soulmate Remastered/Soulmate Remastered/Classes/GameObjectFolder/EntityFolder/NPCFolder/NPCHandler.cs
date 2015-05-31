@@ -67,12 +67,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
                     NPCList.RemoveAt(i);
                     i--;
                 }
-                if (NPCList[i].InIteractionRange && Keyboard.IsKeyPressed(Controls.Interact) && !NPCList[i].isInteracting)
+                if (NPCList[i].InIteractionRange && !Game.isPressed && Keyboard.IsKeyPressed(Controls.Interact) && !NPCList[i].isInteracting)
                 {
+                    Game.isPressed = true;
                     NPCList[i].interact();
                 }
-                if (NPCList[i].isInteracting && (!NPCList[i].InIteractionRange || Keyboard.IsKeyPressed(Controls.Escape)))
+                if (NPCList[i].isInteracting && (!NPCList[i].InIteractionRange || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed)))
                 {
+                    Game.isPressed = true;
                     NPCList[i].stopIteraction();
                 }
             }

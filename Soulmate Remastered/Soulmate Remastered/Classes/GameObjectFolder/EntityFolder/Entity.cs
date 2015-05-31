@@ -9,6 +9,7 @@ using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.HUDFolder;
+using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 {
@@ -170,15 +171,26 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                         //}
                         //if (position.X>)
                         //{
-                            
+
                         //}
                     }
                 }
+                //Vector2 movement = movementSpeed * (direction * (1 / vectorLength(direction)));
+
+                //if (GameObjectHandler.lvlMap.getWalkable(hitBox, movement) && !willHitAnotherEntity(movement) && moveHelp())
+                //    position += movement;
+
+                //facingDirection = movement;
             }
             else
             {
                 isMoving = false;
             }
+        }
+
+        private float vectorLength(Vector2f v)
+        {
+            return (float)(Math.Sqrt(Math.Pow(v.X, 2) + Math.Pow(v.Y, 2)));
         }
 
         public bool hitAnotherEntity()
@@ -209,6 +221,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             {
                 return false;
             }
+        }
+
+        private bool willHitAnotherEntity(Vector2f movement)
+        {
+            for (int i = 0; i < GameObjectHandler.gameObjectList.Count; ++i)
+            {
+                if ((i != indexObjectList) && !GameObjectHandler.gameObjectList[i].walkable && hitBox.willHit(movement, GameObjectHandler.gameObjectList[i].hitBox) && hitAnotherEnityHelp(i))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private bool hitAnotherEnityHelp(int index)
