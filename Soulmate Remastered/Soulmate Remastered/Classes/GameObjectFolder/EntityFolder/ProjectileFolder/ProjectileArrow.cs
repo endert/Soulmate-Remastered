@@ -21,7 +21,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
             textureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowLeft.png"));
 
             att = _att;
-            movementSpeedConstant = _movementSpeed;
+            BaseMovementSpeed = _movementSpeed;
             duration = _duration;
             facingDirection = _facingDirection;
             sprite = new Sprite(textureList[getNumFacingDirection]);

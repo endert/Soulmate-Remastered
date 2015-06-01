@@ -21,7 +21,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             textureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfRight.png"));
             textureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfLeft.png"));
 
-            movementSpeedConstant = 0.4f;
+            BaseMovementSpeed = 0.4f;
             sprite = new Sprite(textureList[0]);
             position = new Vector2f(player.position.X - 150, player.position.Y + player.hitBox.height - textureList[0].Size.Y);
             sprite.Position = position;

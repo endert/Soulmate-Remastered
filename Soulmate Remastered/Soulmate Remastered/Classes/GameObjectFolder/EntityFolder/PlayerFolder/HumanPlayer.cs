@@ -27,7 +27,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             position = spawnPosition;
             hitBox = new HitBox(sprite.Position, textureList[0].Size.X, textureList[0].Size.Y);
             attackHitBox = new HitBox(attackHitBoxPositionUpdate(), textureList[2].Size.X - textureList[0].Size.X, 85);
-            movementSpeedConstant = 0.4f;
+            BaseMovementSpeed = 0.4f;
 
             lvl = 1;
             baseHp = 100f;

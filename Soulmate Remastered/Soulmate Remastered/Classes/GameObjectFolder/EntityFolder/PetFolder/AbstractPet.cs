@@ -235,7 +235,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             hitBox.setPosition(position);
             lifeBar.update(this);
 
-            movementSpeed = movementSpeedConstant * (float)gameTime.EllapsedTime.TotalMilliseconds;
+            movementSpeed = BaseMovementSpeed * (float)gameTime.EllapsedTime.TotalMilliseconds;
             movement = getVectorForMove();
             move(movement);
 

@@ -18,6 +18,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         protected List<Texture> textureList = new List<Texture>();
         public Texture currentTexture { get { return sprite.Texture; } }
         public Vector2 position { get; set; }
+        /// <summary>
+        /// the type of this gameobject
+        /// </summary>
         public virtual String type { get { return "Object"; } }
         protected String customName = "";
         public String name { get { if (!customName.Equals("")) return customName; else return type.Split('.')[type.Split('.').Length - 1]; } }
