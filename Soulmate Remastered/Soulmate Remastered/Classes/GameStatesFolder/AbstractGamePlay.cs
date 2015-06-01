@@ -100,7 +100,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             float Xmove = (PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)) - view.Center.X;
             float Ymove = (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height * 5 / 6)) - view.Center.Y;
 
-            if (view.Center.X + Xmove < view.Size.X/2)
+            //view cannot go over the map edge
+            if (view.Center.X + Xmove < view.Size.X / 2)
                 Xmove = 0;
             if (view.Center.Y + Ymove < view.Size.Y / 2)
                 Ymove = 0;
@@ -109,7 +110,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (view.Center.Y + Ymove + (view.Size.Y / 2) > map.MapSize.Y)
                 Ymove = 0;
 
-            return new Vector2f( Xmove, Ymove);
+            return new Vector2f(Xmove, Ymove);
         }
 
         public void GameUpdate(GameTime gameTime)
