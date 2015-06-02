@@ -112,6 +112,28 @@ namespace Soulmate_Remastered.Core
         }
 
         /// <summary>
+        /// add component wise
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        public static Vector2 operator +(Vector2 v, float f)
+        {
+            return new Vector2(v.X + f, v.Y + f);
+        }
+
+        /// <summary>
+        /// add component wise
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        public static Vector2 operator +(float f, Vector2 v)
+        {
+            return new Vector2(v.X + f, v.Y + f);
+        }
+
+        /// <summary>
         /// substract two vectors component wise
         /// </summary>
         public static Vector2 operator -(Vector2 v1, Vector2 v2)
