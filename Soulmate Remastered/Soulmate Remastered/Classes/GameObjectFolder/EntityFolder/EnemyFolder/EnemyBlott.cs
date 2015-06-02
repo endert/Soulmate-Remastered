@@ -62,7 +62,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                 new TestItem(), 
                 new FusionPotion (FusionPotion.fusionPotionSize.small), 
                 new HealPotion(HealPotion.healPotionSize.small), 
-                new Sword((float)(1+50 * random.NextDouble()), (float)(1+50 * random.NextDouble()), (float)(1+50 * random.NextDouble())) 
+                new Sword((float)(1+50 * random.NextDouble()), (float)(1+50 * random.NextDouble()), (float)(1+50 * random.NextDouble()))
             };
 
             //******************************************************************************************************

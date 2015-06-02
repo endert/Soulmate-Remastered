@@ -74,6 +74,11 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         Text itemDescription;
 
+        /// <summary>
+        /// numbers of items in the inventory;
+        /// contains the 
+        /// don't know it gets Text and not the item
+        /// </summary>
         List<Text> StackCount = new List<Text>();
 
         public Sprite character_pet_questSprite { get; set; }
@@ -250,6 +255,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
             inventoryMatrix = new Stack<AbstractItem>[inventoryLength, inventoryWidth];
 
+            
             itemDescription = new Text("", Game.font, 20);
 
             spriteAndTextPositionUpdate();
@@ -283,8 +289,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             exp.DisplayedString = "EXP: " + PlayerHandler.player.getCurrentEXP + "/" + PlayerHandler.player.getMaxEXP;
             exp.Position = new Vector2f(defense.Position.X, defense.Position.Y + defense.CharacterSize);
 
-            lvl.DisplayedString = "Lvl: " + PlayerHandler.player.getLvl;
-            if (PlayerHandler.player.getLvl == PlayerHandler.player.MaxLvl)
+            lvl.DisplayedString = "Lvl: " + PlayerHandler.player.lvl;
+            if (PlayerHandler.player.lvl == PlayerHandler.player.MaxLvl)
                 lvl.DisplayedString += "°";
             lvl.Position = new Vector2f(exp.Position.X, exp.Position.Y + exp.CharacterSize);
 
@@ -366,8 +372,9 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         {
             List<Stack<AbstractItem>> inventoryList = InventoryCastToList();
 
-            NavigationHelp.deleteNullObjectFromList(inventoryList).Sort(new SortByID());
-
+            NavigationHelp.deleteNullObjectFromList(inventoryList);
+            inventoryList.Sort(new SortByID());
+            
             for (int i = 0; i < inventoryList.Count; i++)
             {
                 inventoryMatrix[i / inventoryWidth, i % inventoryWidth] = inventoryList[i];

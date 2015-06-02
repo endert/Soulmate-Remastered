@@ -40,7 +40,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         /// x = 2 Options;
         /// x = 3 Exit
         /// </summary>
-        int x = 0; //Inventarsteurung
+        int x = 0; 
 
         readonly String saveFile = "Saves/save.soul";
         
@@ -131,6 +131,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
             //optionsOpen = false; //WHY?!?!?!?!!?!?!!??
             //it does nothing
+            
             if (NavigationHelp.isSpriteKlicked(x, 2, options, Controls.Return)) //checking if the options button was pressed
             {
                 Game.isPressed = true;
@@ -140,6 +141,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
             //closeGame = false; //WHY!?!?!?!?!!?!?!?
             //it does nothing
+            
             if (NavigationHelp.isSpriteKlicked(x, 3, exit, Controls.Return)) //checking if the exit button was pressed
             {
                 Game.isPressed = true;
@@ -147,7 +149,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 closeGame = true;
             }
 
-            changeSprites(); //choose which button is selected
+            changeSprites();
             spritePositionUpdate();
         }
 
@@ -194,6 +196,9 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             }
         }
 
+        /// <summary>
+        /// choose which button is selected
+        /// </summary>
         private void changeSprites()
         {
             if (x == 0)

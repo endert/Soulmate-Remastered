@@ -80,7 +80,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         public void defuse()
         {
             currentFusionValue = maxFusionValue - stopWatchList[2].ElapsedMilliseconds / 100;
-            if (stopWatchList[2].ElapsedMilliseconds >= fusionedPlayer.getFusionDuration || Keyboard.IsKeyPressed(Keyboard.Key.Space))
+            if (stopWatchList[2].ElapsedMilliseconds >= fusionedPlayer.fusionDuration || Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
                 fusionedPlayer.adapt(this);
                 fusionedPet.position = position;

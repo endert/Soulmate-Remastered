@@ -10,6 +10,7 @@ using SFML.Graphics;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 using System.Diagnostics;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
@@ -18,21 +19,28 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         public override String type { get { return base.type + ".Player"; } }
 
         protected Stopwatch[] coolDown = new Stopwatch[] { new Stopwatch() };
-        //                                                  Arrow
-        protected int arrowCd = 1; //in sec
+                                                              //Arrow
+        /// <summary>
+        /// in sec
+        /// </summary>
+        protected int arrowCoolDown = 1;
         protected bool arrowOnCoolDown = false;
         public List<Texture> getTexture { get { return textureList; } }
         public int MaxLvl { get { return 100; } }
-        protected int lvl;
-        public int getLvl { get { return lvl; } }
+        /// <summary>
+        /// current level of the player
+        /// </summary>
+        public int lvl { get; protected set; }
+
         //FusionBar fusionBar;
-        protected float maxFusionValue;
-        public float getMaxFusionValue { get { return maxFusionValue; } }
+        public float maxFusionValue { get; protected set; }
         public float currentFusionValue { get; set; }
-        protected float fusionDuration; //in sec
-        public float getFusionDuration { get { return fusionDuration * 1000; } }
-        protected HitBox attackHitBox;
-        public HitBox getAttackHitBox { get { return attackHitBox; } }
+        /// <summary>
+        /// time of fusion with pet in sec
+        /// </summary>
+        public float fusionDuration { get { return _fusionDuration * 1000; } protected set { _fusionDuration = value; } }
+        private float _fusionDuration = 0;
+        public HitBox attackHitBox { get; protected set; }
         protected bool attacking;
         protected bool isPressedForAttack;
         protected bool isPressedForShoot;
@@ -133,7 +141,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             sprite = new Sprite(textureList[player.getNumFacingDirection]);
             sprite.Position = player.position;
             position = player.position;
-            maxFusionValue = player.getMaxFusionValue;
+            maxFusionValue = player.maxFusionValue;
             currentFusionValue = player.currentFusionValue;
 
             baseHp = player.getBaseHp;
@@ -146,7 +154,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             baseDef = player.getBaseDef;
             def = player.getDef;
 
-            lvl = player.getLvl;
+            lvl = player.lvl;
             maxEXP = player.getMaxEXP;
             currentEXP = player.getCurrentEXP;
             BaseMovementSpeed = player.BaseMovementSpeed;
@@ -256,7 +264,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             if (currentHP > maxHP)
                 currentHP = maxHP;
 
-            movementSpeed = BaseMovementSpeed * (float)gameTime.EllapsedTime.TotalMilliseconds;
+            if(!Shop.shopIsOpen)
+            {
+                movementSpeed = BaseMovementSpeed * (float)gameTime.EllapsedTime.TotalMilliseconds;
+            }
+            else
+            {
+                movementSpeed = 0;
+            }
+            
             if (!animating)
             {
                 animate(textureList);
@@ -286,7 +302,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 {
                     new ProjectileArrow((att / 2) + 2, 0.8f, 2f, facingDirection, position);
                 }
-                if (coolDown[0].ElapsedMilliseconds < arrowCd * 1000)
+                if (coolDown[0].ElapsedMilliseconds < arrowCoolDown * 1000)
                 {
                     arrowOnCoolDown = true;
                 }
