@@ -105,7 +105,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                 else
                 {
                     //if enemy is hit by the players attack hit box, it suffers damage
-                    if (enemyList[i].hitBox.hit(PlayerHandler.player.getAttackHitBox) && PlayerHandler.player.isAttacking)
+                    if (enemyList[i].hitBox.hit(PlayerHandler.player.attackHitBox) && PlayerHandler.player.isAttacking)
                         enemyList[i].takeDmg(PlayerHandler.player.getAtt);
 
                     //if the player is hit by the enemy the player suffers damage

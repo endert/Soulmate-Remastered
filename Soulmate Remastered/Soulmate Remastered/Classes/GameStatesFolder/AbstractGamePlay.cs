@@ -13,6 +13,7 @@ using Soulmate_Remastered.Classes.HUDFolder;
 using Soulmate_Remastered.Classes.InGameMenuFolder;
 using Soulmate_Remastered.Classes.ItemFolder;
 using Soulmate_Remastered.Classes.MapFolder;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,14 +31,16 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         bool debugging = false;
         public static String savePlayerPath { get { return savePlayer; } }
         protected GameTime time = new GameTime();
-        protected View viewInventory;
+        /// <summary>
+        /// view for inventory, shop, inGameMenu
+        /// </summary>
+        protected View viewHelp;
         protected Map map;
         protected GameObjectHandler gameObjectHandler;
         protected DialogeHandler dialoges;
         protected InGameMenu inGameMenu;
         protected HUD hud;
-        public static View view;
-        public static View VIEW { get { return view; } }
+        public static View VIEW { get; protected set; }
 
         //protected int index = 0; //WHY, no using
 
@@ -49,14 +52,19 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// </summary>
         protected int returnValue = 0;
                 
+        /// <summary>
+        /// initialize time and view
+        /// </summary>
         public void initialize()
         {
             time = new GameTime();
             time.Start();
-            view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
-            viewInventory = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
+            VIEW = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
+            viewHelp = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
-
+        /// <summary>
+        /// load content of the game
+        /// </summary>
         public virtual void loadContent()
         {
             dialoges = new DialogeHandler();
@@ -66,13 +74,14 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             gameObjectHandler = new GameObjectHandler(map, GameObjectHandler.lvl);
             EnemyHandler.enemyInitialize();
             
-            if (loading)
+            if (loading) 
             {
                 try
                 {
                     SaveGame.loadGame();
                     Console.WriteLine("successfully loaded");
                     loading = false;
+                    return; //if this part was succesful, no need for the rest
                 }
                 catch
                 {
@@ -81,6 +90,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                     loadContent();
                 }
             }
+
             else if (File.Exists(savePlayer) && !startNewGame)
             {
                 SaveGame.loadPath = savePlayer;
@@ -94,24 +104,34 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         }
 
         public abstract EnumGameStates update(GameTime gameTime);
-
-        private Vector2f VectorForViewMove()
+        
+        /// <summary>
+        /// calculate the view vector
+        /// </summary>
+        /// <returns>view vector</returns>
+        private Vector2 VectorForViewMove()
         {
-            float Xmove = (PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)) - view.Center.X;
-            float Ymove = (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height * 5 / 6)) - view.Center.Y;
+            float Xmove = (PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)) - VIEW.Center.X;
+            float Ymove = (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height * 5 / 6)) - VIEW.Center.Y;
 
-            if (view.Center.X + Xmove < view.Size.X/2)
+            //view cannot go over the map edge
+            if (VIEW.Center.X + Xmove < VIEW.Size.X / 2)
                 Xmove = 0;
-            if (view.Center.Y + Ymove < view.Size.Y / 2)
+            if (VIEW.Center.Y + Ymove < VIEW.Size.Y / 2)
                 Ymove = 0;
-            if (view.Center.X + Xmove + (view.Size.X / 2) > map.MapSize.X)
+            if (VIEW.Center.X + Xmove + (VIEW.Size.X / 2) > map.MapSize.X)
                 Xmove = 0;
-            if (view.Center.Y + Ymove + (view.Size.Y / 2) > map.MapSize.Y)
+            if (VIEW.Center.Y + Ymove + (VIEW.Size.Y / 2) > map.MapSize.Y)
                 Ymove = 0;
+            //*********************************
 
-            return new Vector2f( Xmove, Ymove);
+            return new Vector2(Xmove, Ymove);
         }
 
+        /// <summary>
+        /// update the game
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void GameUpdate(GameTime gameTime)
         {
             if (inGameMenu.closeGame) //if exit in inGameMenu clicked
@@ -126,6 +146,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             time.Update();
             ItemHandler.playerInventory.update(gameTime);
             inGameMenu.update(gameTime);
+            //************************************************
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !Game.isPressed) //switches between level and village
             {
@@ -137,7 +158,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             if (!Inventory.inventoryOpen && !inGameMenu.inGameMenuOpen && !Shop.shopIsOpen) //run update for game, if no menu, inventory or shop is open
             {
-                view.Move(VectorForViewMove());
+                VIEW.Move(VectorForViewMove());
 
                 gameObjectHandler.update(gameTime);
                 dialoges.update();
@@ -149,7 +170,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                     returnValue = 1;
                 }
             }
-            else if (Shop.shopIsOpen)
+            else if (Shop.shopIsOpen) //update the shop if it is open
             {
                 NPCHandler.updateShop(gameTime);
                 GameObjectHandler.itemHandler.update(gameTime);
@@ -160,10 +181,17 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             //{
             //    returnValue = 3;
             //}
-            
-            //must be update after gameObjectHandler
-            hud.update(gameTime);
 
+            hud.update(gameTime);//must be update after gameObjectHandler
+            
+            debug();
+        }
+
+        /// <summary>
+        /// draw a rectangle shape for the hitbox
+        /// </summary>
+        public void debug()
+        {
             if (Keyboard.IsKeyPressed(Controls.debugging) && !Game.isPressed)
             {
                 debugging = !debugging;
@@ -171,34 +199,39 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             }
         }
 
+        /// <summary>
+        /// draw everything in the game what is needed
+        /// </summary>
+        /// <param name="window"></param>
         public void draw(RenderWindow window)
         {
-            window.SetView(view);
+            window.SetView(VIEW);
             map.draw(window);
-            hud.draw(window);
             gameObjectHandler.draw(window);
             dialoges.draw(window);
+            hud.draw(window);
 
             if (Inventory.inventoryOpen)
             {
-                window.SetView(viewInventory);
+                window.SetView(viewHelp);
                 ItemHandler.playerInventory.draw(window);
             }
 
             if (Shop.shopIsOpen)
             {
-                window.SetView(viewInventory);
+                window.SetView(viewHelp);
                 NPCHandler.shop.draw(window);
             }
 
             if (inGameMenu.inGameMenuOpen)
             {
-                window.SetView(viewInventory);
+                window.SetView(viewHelp);
                 inGameMenu.draw(window);
             }
 
             if (debugging)
                 gameObjectHandler.debugDraw(window);
+
         }
     }
 }
