@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 {
+    /// <summary>
+    /// the evil in this world
+    /// </summary>
     abstract class AbstractEnemy : Entity
     {
         /// <summary>
@@ -41,7 +44,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         {
             get
             {
-                if (hitBox.distanceTo(PlayerHandler.player.hitBox) <= aggroRange)
+                if (hitBox.DistanceTo(PlayerHandler.player.hitBox) <= aggroRange)
                 {
                     return true;
                 }
@@ -58,10 +61,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         public void moveRandom()
         {
             //define missng vectors
-            Vector2 upRight = (Vector2.UP + Vector2.RIGHT).getNormalized();
-            Vector2 downRight = (Vector2.DOWN + Vector2.RIGHT).getNormalized();
-            Vector2 downLeft = (Vector2.DOWN + Vector2.LEFT).getNormalized();
-            Vector2 upLeft = (Vector2.UP + Vector2.LEFT).getNormalized();
+            Vector2 upRight = (Vector2.BACK + Vector2.RIGHT).getNormalized();
+            Vector2 downRight = (Vector2.FRONT + Vector2.RIGHT).getNormalized();
+            Vector2 downLeft = (Vector2.FRONT + Vector2.LEFT).getNormalized();
+            Vector2 upLeft = (Vector2.BACK + Vector2.LEFT).getNormalized();
 
             //if needed evaluate new direction
             if (stopWatchList[2].ElapsedMilliseconds >= movingFor)
@@ -74,9 +77,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             //move in the direction for 500 millisecounds minimum and 1500 millisec maximum
             switch (randomMovingDirection)
             {
-                case MovingDirection.Direction.Up:
-                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, Vector2.UP))
-                        move(Vector2.UP);
+                case MovingDirection.Direction.Back:
+                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, Vector2.BACK))
+                        move(Vector2.BACK);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
@@ -98,9 +101,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
-                case MovingDirection.Direction.Down:
-                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, Vector2.DOWN))
-                        move(Vector2.DOWN);
+                case MovingDirection.Direction.Front:
+                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, Vector2.FRONT))
+                        move(Vector2.FRONT);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
@@ -171,13 +174,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             movementSpeed = BaseMovementSpeed * (float)gameTime.EllapsedTime.TotalMilliseconds;
 
             //animate if needed
-            animate(textureList);
+            animate();
 
             //setting sprite at the current position
             sprite.Position = position;
 
             //cheacking if still alive
-            if (currentHP <= 0)
+            if (CurrentHP <= 0)
             {
                 isAlive = false;
             }
@@ -185,7 +188,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             if (isAlive)
             {
                 //sets position of the HitBox 
-                hitBox.setPosition(sprite.Position);
+                hitBox.update(sprite);
 
                 //react to Player if needed
                 if (sensePlayer)

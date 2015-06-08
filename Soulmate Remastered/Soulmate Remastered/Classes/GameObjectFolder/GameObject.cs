@@ -48,7 +48,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             List<GameObject> gObjList = new List<GameObject>();
             for (int i = 0; i < GameObjectHandler.gameObjectList.Count; i++)
             {
-                if ((i != indexObjectList) && (hitBox.hit(GameObjectHandler.gameObjectList[i].hitBox)))
+                if ((i != indexObjectList) && (hitBox.Hit(GameObjectHandler.gameObjectList[i].hitBox)))
                 {
                     gObjList.Add(GameObjectHandler.gameObjectList[i]);
                     Console.WriteLine(GameObjectHandler.gameObjectList[i].type);
@@ -64,7 +64,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             window.Draw(sprite);
         }
 
-        public void debugDraw(RenderWindow window)
+        public virtual void debugDraw(RenderWindow window)
         {
             hitBox.draw(window);
         }

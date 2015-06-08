@@ -280,10 +280,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             displayedPlayer = new Sprite(displayedPlayerTexture);
             displayedPlayer.Position = new Vector2f(character_pet_questSprite.Position.X + 67, character_pet_questSprite.Position.Y + 82);
 
-            attack.DisplayedString = "Attack: " + PlayerHandler.player.getAtt;
+            attack.DisplayedString = "Attack: " + PlayerHandler.player.Att;
             attack.Position = new Vector2f(character_pet_questSprite.Position.X + 65, inventoryMatrixPosition.Y + 7 * FIELDSIZE + 10);
 
-            defense.DisplayedString = "Defense: " + PlayerHandler.player.getDef;
+            defense.DisplayedString = "Defense: " + PlayerHandler.player.Def;
             defense.Position = new Vector2f(attack.Position.X, attack.Position.Y + attack.CharacterSize);
 
             exp.DisplayedString = "EXP: " + PlayerHandler.player.getCurrentEXP + "/" + PlayerHandler.player.getMaxEXP;

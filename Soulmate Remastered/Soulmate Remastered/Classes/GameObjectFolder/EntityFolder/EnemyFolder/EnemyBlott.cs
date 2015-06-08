@@ -15,6 +15,9 @@ using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 {
+    /// <summary>
+    /// a nearly neutral Slime that does not that much
+    /// </summary>
     class EnemyBlott : AbstractEnemy
     {
         /// <summary>
@@ -46,10 +49,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             //******************************************************************************************************
             //initialize Entity Attributes**************************************************************************
 
-            maxHP = 100;
-            currentHP = maxHP;
-            att = 6;
-            def = 5;
+            MaxHP = 100;
+            CurrentHP = MaxHP;
+            Att = 6;
+            Def = 5;
             aggroRange = 150f;
             knockBack = 50f;
             BaseMovementSpeed = 0.2f;
@@ -78,7 +81,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             else
             {
                 move(new Vector2f(-getPlayerDirection().X, -getPlayerDirection().Y));
-                facingDirection = getPlayerDirection();
+                FacingDirection = getPlayerDirection();
             }
         }
 

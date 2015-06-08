@@ -43,71 +43,49 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         protected float knockBack;
         protected virtual AbstractItem[] drops { get; set; }
 
-        protected float baseHp;
-            public float getBaseHp { get { return baseHp; } }
-        protected float maxHP;
-            public float getMaxHP { get { return maxHP; } }
-        protected float currentHP;
-            public float getCurrentHP { get { return currentHP; } }
-
-        protected float baseAtt;
-        public float getBaseAtt { get { return baseAtt; } }
-        protected float att;
-            public float getAtt { get { return att; } }
-
-        protected float baseDef;
-            public float getBaseDef { get { return baseDef; } }
-        protected float def;
-            public float getDef { get { return def; } }
+        public float BaseHp { get; protected set; }
+        public float MaxHP { get; protected set; }
+        public float CurrentHP { get; protected set; }
+        public float BaseAtt { get; protected set; }
+        public float Att { get; protected set; }
+        public float BaseDef { get; protected set; }
+        public float Def { get; protected set; }
         //attackHitBox
 
-        protected bool isMoving;
-            public bool getIsMoving { get { return isMoving; } }
-        protected Vector2f facingDirection;
-            public Vector2f getFacingDirection { get { return facingDirection; } }
-        protected int numFacingDirection { get; set; }
-        public int getNumFacingDirection
+        public bool IsMoving { get; protected set; }
+        public Vector2 FacingDirection { get; protected set; }
+        public EDirection Direction
         {
             get
             {
-                if (facingDirection.Y>0)
-                {
-                    numFacingDirection = 0;
-                    return 0;
-                }
-                else if (facingDirection.Y < 0)
-                {
-                    numFacingDirection = 1;
-                    return 1;
-                }
-                else if (facingDirection.X > 0)
-                {
-                    numFacingDirection = 2;
-                    return 2;
-                }
-                else if(facingDirection.X<0)
-                {
-                    numFacingDirection = 3;
-                    return 3;
-                }
+                if (FacingDirection.Y>0)
+                    return EDirection.Back;
+                else if (FacingDirection.Y < 0)
+                    return EDirection.Front;
+                else if (FacingDirection.X > 0)
+                    return EDirection.Right;
+                else if(FacingDirection.X<0)
+                    return EDirection.Left;
                 else
-                {
-                    return numFacingDirection;
-                }
+                    return EDirection.Zero;
             }
         }
         protected bool moveAwayFromEntity;
-        protected Vector2f movement;
+        protected Vector2 movement;
         public float BaseMovementSpeed { get; protected set; }
         protected float movementSpeed;
-        protected List<Vector2f> hitFromDirections = new List<Vector2f>();
+        protected List<Vector2> hitFromDirections = new List<Vector2>();
 
-
-        public void move(Vector2f direction)
+        public enum EDirection
         {
-            if (!direction.Equals(new Vector2f(0, 0)))
+            Back, Front,Right,Left,Zero
+        }
+
+        public void move(Vector2 direction)
+        {
+            if (!direction.Equals(new Vector2(0, 0)))
             {
-                isMoving = true;
+                IsMoving = true;
                 if (hitAnotherEntity() && !moveAwayFromEntity && moveHelp()) //if an entity is not a player it should not touch the player
                 {
                     moveAwayFromEntity = true;
@@ -131,7 +109,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                 else
                 {
                     moveAwayFromEntity = false;
-                    Vector2f movement = new Vector2f(0, 0);
+                    Vector2 movement = new Vector2(0, 0);
 
                     if (direction.X > 0)
                         movement.X += movementSpeed;
@@ -159,7 +137,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                     if (GameObjectHandler.lvlMap.getWalkable(hitBox, movement))    // only move if it's walkable
                     {
                         position = new Vector2f(position.X + movement.X, position.Y + movement.Y);
-                        facingDirection = movement;
+                        FacingDirection = movement;
                     }
                     else
                     {
@@ -183,20 +161,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             }
             else
             {
-                isMoving = false;
+                IsMoving = false;
             }
-        }
-
-        private float vectorLength(Vector2f v)
-        {
-            return (float)(Math.Sqrt(Math.Pow(v.X, 2) + Math.Pow(v.Y, 2)));
         }
 
         public bool hitAnotherEntity()
         {
             for (int i = 0; i < GameObjectHandler.gameObjectList.Count; i++)
             {
-                if ((i != indexObjectList) && !GameObjectHandler.gameObjectList[i].walkable && (hitBox.hit(GameObjectHandler.gameObjectList[i].hitBox)) && hitAnotherEnityHelp(i))
+                if ((i != indexObjectList) && !GameObjectHandler.gameObjectList[i].walkable && (hitBox.Hit(GameObjectHandler.gameObjectList[i].hitBox)) && hitAnotherEnityHelp(i))
                 {
                     bool notFound = true;
                     for (int j = 0; j < hitFromDirections.Count; j++)
@@ -222,11 +195,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             }
         }
 
-        private bool willHitAnotherEntity(Vector2f movement)
+        private bool willHitAnotherEntity(Vector2 movement)
         {
             for (int i = 0; i < GameObjectHandler.gameObjectList.Count; ++i)
             {
-                if ((i != indexObjectList) && !GameObjectHandler.gameObjectList[i].walkable && hitBox.willHit(movement, GameObjectHandler.gameObjectList[i].hitBox) && hitAnotherEnityHelp(i))
+                if ((i != indexObjectList) && !GameObjectHandler.gameObjectList[i].walkable && hitBox.WillHit(movement, GameObjectHandler.gameObjectList[i].hitBox) && hitAnotherEnityHelp(i))
                 {
                     return true;
                 }
@@ -254,7 +227,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             {
                 foreach (Entity entity in EntityHandler.entityList)
                 {
-                    if (hitBox.hit(entity.hitBox) && !entity.type.Split('.')[2].Equals("Pet") && entity.type.Split('.')[2].Equals("Player"))
+                    if (hitBox.Hit(entity.hitBox) && !entity.type.Split('.')[2].Equals("Pet") && entity.type.Split('.')[2].Equals("Player"))
                     {
                         return true;
                     }
@@ -265,7 +238,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             {
                 foreach (Entity entity in EntityHandler.entityList)
                 {
-                    if (hitBox.hit(entity.hitBox) && !entity.type.Split('.')[2].Equals("Player") && entity.type.Split('.')[2].Equals("Pet"))
+                    if (hitBox.Hit(entity.hitBox) && !entity.type.Split('.')[2].Equals("Player") && entity.type.Split('.')[2].Equals("Pet"))
                     {
                         return true;
                     }
@@ -277,7 +250,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 
         public bool touchedPlayer()
         {
-            if (hitBox.hit(PlayerHandler.player.hitBox))
+            if (hitBox.Hit(PlayerHandler.player.hitBox))
             {
                 return true;
             }
@@ -304,59 +277,37 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 
         }
 
-        public void moveOutOfWall(Vector2f theWayOut)
-        {
-            position = new Vector2f(position.X + (theWayOut.X / Math.Abs(theWayOut.X)) * movementSpeed, position.Y + (theWayOut.Y / Math.Abs(theWayOut.Y)) * movementSpeed);
-        }
-
         public void takeDmg(float dmg)
         {
             if (isVulnerable)
             {
-                if (dmg - def >= 0)
+                if (dmg - Def >= 0)
                 {
-                    currentHP -= (dmg - def);
+                    CurrentHP -= (dmg - Def);
                     tookDmg = true;
                 }
             }
         }
 
-        public Vector2f getPlayerDirection()
+        public Vector2 getPlayerDirection()
         {
-            Vector2f playerDirection = new Vector2f(0, 0);
-            if (PlayerHandler.player.hitBox.Position.X + PlayerHandler.player.hitBox.width < hitBox.Position.X) //player is to the left
-            {
-                playerDirection.X = -1;
-            }
-            else if (hitBox.Position.X + hitBox.width < PlayerHandler.player.hitBox.Position.X)
-            {
-                playerDirection.X = 1;
-            }
-
-            if (PlayerHandler.player.hitBox.Position.Y + PlayerHandler.player.hitBox.height < hitBox.Position.Y)
-            {
-                playerDirection.Y = -1;
-            }
-            else if (hitBox.Position.Y + hitBox.height < PlayerHandler.player.hitBox.Position.Y)
-            {
-                playerDirection.Y = 1;
-            }
+            Vector2 playerDirection = (PlayerHandler.player.hitBox.Position + (1 / 2) * PlayerHandler.player.hitBox.Size) - (hitBox.Position + (1 / 2) * hitBox.Size);
             return playerDirection;
         }
 
-        virtual public void animate(List<Texture> textureList)
+        virtual public void animate()
         {
             if (isVulnerable)
             {
-                if (facingDirection.Y > 0)
+                if (FacingDirection.Y > 0)
                 {
                     sprite = new Sprite(textureList[0]); //front
                 }
-                else if (facingDirection.Y < 0)
+                else if (FacingDirection.Y < 0)
                 {
                     sprite = new Sprite(textureList[1]); // back
                 }
-                else if (facingDirection.X > 0)
+                else if (FacingDirection.X > 0)
                 {
                     sprite = new Sprite(textureList[2]); // right
                 }

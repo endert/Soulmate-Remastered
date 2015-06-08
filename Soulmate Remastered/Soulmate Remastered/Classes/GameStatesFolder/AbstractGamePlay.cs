@@ -139,7 +139,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 gameObjectHandler.deleate();
                 File.Delete(savePlayer);
                 returnValue = 1;
-                return; //end method, because other updates throw failures after the gameObjectHandler is deleated
+                return; //end method, because other updates throw errors after the gameObjectHandler is deleated
             }
 
             //no update needed if game was closed
@@ -163,7 +163,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 gameObjectHandler.update(gameTime);
                 dialoges.update();
 
-                if (PlayerHandler.player.getCurrentHP <= 0) //if player is dead go back to mainMenu
+                if (PlayerHandler.player.CurrentHP <= 0) //if player is dead go back to mainMenu
                 {
                     gameObjectHandler.deleate();
                     File.Delete(savePlayer);
@@ -230,8 +230,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             }
 
             if (debugging)
+            {
                 gameObjectHandler.debugDraw(window);
-
+                map.debugDraw(window);
+            }
         }
     }
 }

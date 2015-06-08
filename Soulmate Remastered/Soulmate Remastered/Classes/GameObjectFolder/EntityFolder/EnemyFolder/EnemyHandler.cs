@@ -2,6 +2,7 @@
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.MapFolder;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,16 +46,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                 case 1:
                     for (int i = 0; i < 10; i++)
                     {
-                        float rX = 600 + random.Next(1000);
-                        float rY = 400 + random.Next(400);
-                        Vector2f spawnPos = new Vector2f(rX, rY);
+                        float rX = 1000 + random.Next(1000);
+                        float rY = 800 + random.Next(400);
+                        Vector2 spawnPos = new Vector2(rX, rY);
 
-                        EnemyBlott blott = new EnemyBlott(spawnPos);
-                        if (blott.hitBox.distanceTo(PlayerHandler.player.hitBox) > 200 && GameObjectHandler.lvlMap.getWalkable(blott.hitBox, spawnPos))
+                        if (spawnPos.distance(PlayerHandler.player.position) > 200)
                         {
-                            add(blott);
+                            EnemyBlott blott = new EnemyBlott(spawnPos);
+                            
+                                add(blott);
+                            
                         }
-                        else
+                            else
                             i--;
                     }
                     break;
@@ -105,16 +108,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                 else
                 {
                     //if enemy is hit by the players attack hit box, it suffers damage
-                    if (enemyList[i].hitBox.hit(PlayerHandler.player.attackHitBox) && PlayerHandler.player.isAttacking)
-                        enemyList[i].takeDmg(PlayerHandler.player.getAtt);
+                    if (enemyList[i].hitBox.Hit(PlayerHandler.player.attackHitBox) && PlayerHandler.player.isAttacking)
+                        enemyList[i].takeDmg(PlayerHandler.player.Att);
 
                     //if the player is hit by the enemy the player suffers damage
                     if (enemyList[i].touchedPlayer())
-                        PlayerHandler.player.takeDmg(enemyList[i].getAtt);
+                        PlayerHandler.player.takeDmg(enemyList[i].Att);
 
                     //if the pet is hit by the enemy the pet suffers damage
-                    if (PetHandler.pet != null && enemyList[i].hitBox.hit(PetHandler.pet.hitBox))
-                        PetHandler.pet.takeDmg(enemyList[i].getAtt);
+                    if (PetHandler.pet != null && enemyList[i].hitBox.Hit(PetHandler.pet.hitBox))
+                        PetHandler.pet.takeDmg(enemyList[i].Att);
                 }
             }
         }

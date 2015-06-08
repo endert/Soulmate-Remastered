@@ -55,7 +55,7 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="dialoge"></param>
-        public DialogeBox(Vector2 pos, String dialoge, AbstractNPC _npc)
+        public DialogeBox(Vector2 pos,String dialoge, AbstractNPC _npc)
         {
             //initialize
             position = pos;

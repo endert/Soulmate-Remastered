@@ -40,7 +40,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
                 {
                     if (projectileList[i].touchedPlayer())
                     {
-                        PlayerHandler.player.takeDmg(projectileList[i].getAtt);
+                        PlayerHandler.player.takeDmg(projectileList[i].Att);
                     }
                 }
             }

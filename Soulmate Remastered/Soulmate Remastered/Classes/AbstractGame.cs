@@ -19,9 +19,9 @@ namespace Soulmate_Remastered.Classes
         public static RenderWindow window;
         GameTime gameTime;
 
-        public AbstractGame(uint width, uint height, String title)
+        public AbstractGame(uint width, uint height, String title, Styles screen)
         {
-            window = new RenderWindow(new VideoMode(width, height), title);
+            window = new RenderWindow(new VideoMode(width, height), title, screen);
             window.Closed += window_Close;
 
             gameTime = new GameTime();

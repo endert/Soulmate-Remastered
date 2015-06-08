@@ -32,13 +32,13 @@ namespace Soulmate_Remastered.Core
         /// </summary>
         public static Vector2 ZERO { get { return new Vector2(0, 0); } }
         /// <summary>
-        /// Vector that points up
+        /// Vector that points to the back
         /// </summary>
-        public static Vector2 UP { get { return new Vector2(0, -1); } }
+        public static Vector2 BACK { get { return new Vector2(0, -1); } }
         /// <summary>
-        /// Vector that points down
+        /// Vector that points to the front
         /// </summary>
-        public static Vector2 DOWN { get { return new Vector2(0, 1); } }
+        public static Vector2 FRONT { get { return new Vector2(0, 1); } }
         /// <summary>
         /// Vector that points right
         /// </summary>
@@ -98,6 +98,38 @@ namespace Soulmate_Remastered.Core
         public static implicit operator Vector2(SFML.Window.Vector2f v)
         {
             return new Vector2(v.X, v.Y);
+        }
+
+        /// <summary>
+        /// compare coordinate wise
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
+        public static bool operator ==(Vector2 v1, Vector2 v2)
+        {
+            return v1.X == v2.X && v1.Y == v2.Y;
+        }
+
+        /// <summary>
+        /// compares coordinate wise
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
+        public static bool operator !=(Vector2 v1, Vector2 v2)
+        {
+            return !(v1 == v2);
+        }
+
+        /// <summary>
+        /// multiplies with -1
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public static Vector2 operator -(Vector2 v)
+        {
+            return (-1) * v;
         }
 
         /// <summary>
