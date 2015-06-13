@@ -13,8 +13,8 @@ namespace Soulmate_Remastered.Classes
 {
     class Game : Soulmate_Remastered.Classes.AbstractGame
     {
-        public static uint windowSizeX = 1280;
-        public static uint windowSizeY = 720;
+        public static uint windowSizeX { get { if (fullscreen) return 1920; return 1280; } }
+        public static uint windowSizeY { get { if (fullscreen) return 1080; return 720; } }
 
         public static bool isPressed { get; set; }
         public static Font font = new Font("FontFolder/arial_narrow_7.ttf");
@@ -24,7 +24,11 @@ namespace Soulmate_Remastered.Classes
 
         GameState gameState;
 
-        public Game() : base(windowSizeX, windowSizeY, "Soulmate") { }
+        static Styles screen = Styles.Default;
+
+        public static bool fullscreen { get { return screen.Equals(Styles.Fullscreen); } }
+
+        public Game() : base(windowSizeX, windowSizeY, "Soulmate", screen) { }
 
         public override void update(GameTime time)
         {

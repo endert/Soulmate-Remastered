@@ -63,7 +63,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             playerString += currentFusionValue + lineBreak.ToString(); //splitPlayerString[2]
             playerString += gold + lineBreak.ToString();   //splitPlayerString[3]
             playerString += currentEXP + lineBreak.ToString(); //splitPlayerString[4]
-            playerString += getCurrentHP + lineBreak.ToString();   //splitPlayerString[5]
+            playerString += CurrentHP + lineBreak.ToString();   //splitPlayerString[5]
 
             return playerString;
         }
@@ -95,7 +95,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             currentFusionValue = Convert.ToSingle(splitPlayerString[2]);
             gold = Convert.ToSingle(splitPlayerString[3]);
             currentEXP = Convert.ToSingle(splitPlayerString[4]);
-            currentHP = Convert.ToSingle(splitPlayerString[5]);
+            CurrentHP = Convert.ToSingle(splitPlayerString[5]);
         }
 
         public virtual Vector2f getKeyPressed(float movementSpeed)
@@ -137,22 +137,22 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void adapt(AbstractPlayer player)
         {
-            facingDirection = player.getFacingDirection; // RECHTS
-            sprite = new Sprite(textureList[player.getNumFacingDirection]);
+            FacingDirection = player.FacingDirection; // RECHTS
+            sprite = new Sprite(textureList[(int)player.Direction]);
             sprite.Position = player.position;
             position = player.position;
             maxFusionValue = player.maxFusionValue;
             currentFusionValue = player.currentFusionValue;
 
-            baseHp = player.getBaseHp;
-            maxHP = player.getMaxHP;
-            currentHP = player.getCurrentHP;
+            BaseHp = player.BaseHp;
+            MaxHP = player.MaxHP;
+            CurrentHP = player.CurrentHP;
 
-            baseAtt = player.getBaseAtt;
-            att = player.getAtt;
+            BaseAtt = player.BaseAtt;
+            Att = player.Att;
 
-            baseDef = player.getBaseDef;
-            def = player.getDef;
+            BaseDef = player.BaseDef;
+            Def = player.Def;
 
             lvl = player.lvl;
             maxEXP = player.getMaxEXP;
@@ -192,18 +192,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public virtual void spritePositionUpdate()
         {
-            switch (getNumFacingDirection)
+            switch (Direction)
             {
-                case 0:
+                case EDirection.Back:
                     sprite.Position = position;
                     break;
-                case 1:
+                case EDirection.Front:
                     sprite.Position = position;
                     break;
-                case 2:
+                case EDirection.Right:
                     sprite.Position = position;
                     break;
-                case 3:
+                case EDirection.Left:
                     sprite.Position = new Vector2f(position.X - (textureList[2].Size.X - hitBox.width), position.Y);
                     break;
                 default:
@@ -225,7 +225,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                     lvl++;
                     currentEXP -= maxEXP;
                     statsUpdate();
-                    currentHP = maxHP;
+                    CurrentHP = MaxHP;
                 }
             }
         }
@@ -245,15 +245,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
             if (ItemHandler.playerInventory != null)
             {
-                att = baseAtt + (lvl) * 1 + ItemHandler.playerInventory.getAttBonus();
-                def = baseDef + (lvl) * 0.5f + ItemHandler.playerInventory.getDefBonus();
-                maxHP = baseHp + (lvl) * 50 + ItemHandler.playerInventory.getHpBonus();
+                Att = BaseAtt + (lvl) * 1 + ItemHandler.playerInventory.getAttBonus();
+                Def = BaseDef + (lvl) * 0.5f + ItemHandler.playerInventory.getDefBonus();
+                MaxHP = BaseHp + (lvl) * 50 + ItemHandler.playerInventory.getHpBonus();
             }
             else
             {
-                att = baseAtt + (lvl) * 1;
-                def = baseDef + (lvl) * 0.5f;
-                maxHP = baseHp + (lvl) * 50;
+                Att = BaseAtt + (lvl) * 1;
+                Def = BaseDef + (lvl) * 0.5f;
+                MaxHP = BaseHp + (lvl) * 50;
             }
         }
 
@@ -261,8 +261,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             lvlUp();
 
-            if (currentHP > maxHP)
-                currentHP = maxHP;
+            if (CurrentHP > MaxHP)
+                CurrentHP = MaxHP;
 
             if(!Shop.shopIsOpen)
             {
@@ -275,9 +275,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             
             if (!animating)
             {
-                animate(textureList);
+                animate();
             }
-            hitBox.setPosition(position);
+            hitBox.update(sprite);
             spritePositionUpdate();
 
             if (attackHitBox != null)
@@ -300,7 +300,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 coolDown[0].Start();
                 if (!arrowOnCoolDown)
                 {
-                    new ProjectileArrow((att / 2) + 2, 0.8f, 2f, facingDirection, position);
+                    new ProjectileArrow((Att / 2) + 2, 0.8f, 2f, FacingDirection, position);
                 }
                 if (coolDown[0].ElapsedMilliseconds < arrowCoolDown * 1000)
                 {
@@ -340,26 +340,26 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void HealFor(float value)
         {
-            currentHP += value;
-            if (currentHP > maxHP)
+            CurrentHP += value;
+            if (CurrentHP > MaxHP)
             {
-                currentHP = maxHP;
+                CurrentHP = MaxHP;
             }
         }
 
         public void SetHp(float value)
         {
-            currentHP = value;
+            CurrentHP = value;
 
-            if (currentHP > maxHP)
+            if (CurrentHP > MaxHP)
             {
-                maxHP = currentHP;
+                MaxHP = CurrentHP;
             }
         }
 
         public void Heal(float value)
         {
-            currentHP = maxHP;
+            CurrentHP = MaxHP;
         }
 
         public void SetExp(float value)
@@ -397,12 +397,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void SetDef(float value)
         {
-            def = value;
+            Def = value;
         }
 
         public void SetAtt(float value)
         {
-            att = value;
+            Att = value;
         }
 
         public void SetFusionValue(float value)
@@ -433,6 +433,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 currentFusionValue = maxFusionValue;
         }
         //====================================================================
+
+        public override void debugDraw(RenderWindow window)
+        {
+            base.debugDraw(window);
+            attackHitBox.draw(window);
+        }
 
     }
 }

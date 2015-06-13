@@ -1,4 +1,5 @@
 ﻿using SFML.Window;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,12 +18,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             switch(GameObjectHandler.lvl)
             { 
                 case 0:
-                    player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), 2);
+                    player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), Vector2.RIGHT);
                     EntityHandler.add(player);
                     break;
 
                 case 1:
-                    player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), 2);
+                    player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), Vector2.RIGHT);
                     EntityHandler.add(player);
                     break;
 

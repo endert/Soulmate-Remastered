@@ -28,14 +28,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             hitBox = new HitBox(sprite.Position, textureList[0].Size.X, textureList[0].Size.Y);
             lifeBar = new LifeBarForOthers();
 
-            maxHP = 50f;
-            currentHP = maxHP;
+            MaxHP = 50f;
+            CurrentHP = MaxHP;
         }
-
-        public override AbstractPet Clone()
-        {
-            return new PetWolf(PlayerHandler.player);
-        }
-
     }
 }

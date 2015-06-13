@@ -13,7 +13,7 @@ namespace Soulmate_Remastered.Classes.MapFolder
     {
         bool walkable;
         Sprite blockSprite;
-        //HitBox blockHitBox;
+        AbstractHitBox blockHitBox;
 
         public Sprite getSprite { get { return blockSprite; } }
 
@@ -22,7 +22,7 @@ namespace Soulmate_Remastered.Classes.MapFolder
             return this.walkable;
         }
 
-        //public HitBox getBlockHitBox { get { return blockHitBox; } }
+        public AbstractHitBox getBlockHitBox { get { return blockHitBox; } }
 
         public Blocks(int blockType, Vector2f position, Texture bodenTex)
         {
@@ -40,7 +40,7 @@ namespace Soulmate_Remastered.Classes.MapFolder
                         this.blockSprite = new Sprite(new Texture("Pictures/Map/Ground/Wald.png"));
                         this.blockSprite.Position = position;
                         this.walkable = false;
-                        //blockHitBox = new HitBox(this);
+                        blockHitBox = new AbstractHitBox(position, (float)blockSprite.Texture.Size.X, (float)blockSprite.Texture.Size.Y);
                         break;
                     }
             }

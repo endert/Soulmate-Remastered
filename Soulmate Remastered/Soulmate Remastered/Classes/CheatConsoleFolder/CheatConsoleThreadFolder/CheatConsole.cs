@@ -13,9 +13,12 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
 {
     class CheatConsole
     {
-        RectangleShape cursor = new RectangleShape(new Vector2f(5, 10));    //the cursor is a rectangle with the size 5x10
         /// <summary>
-        /// Vector which contains width and heigth of the Console Window.
+        /// the cursor that blinks has the size 5,10
+        /// </summary>
+        RectangleShape cursor = new RectangleShape(new Vector2f(5, 10));
+        /// <summary>
+        /// <para>Vector which contains width and heigth of the Console Window.</para>
         /// Standard 300,100
         /// </summary>
         public static Vector2u windowSize { get; protected set; }
@@ -76,12 +79,14 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         }
 
         /// <summary>
-        /// handle the current thread. When Return is pressed, so the Console should be closed, 
-        /// start by settig visibility to false and interrupt the game Thread, so the sleep is interrupted and 
-        /// the game thread can continue, also activate the Cheat that was entered.
-        /// then set the Thread as paused until another Thread interrupts.
-        /// 
-        /// If Return is not pressed set visibility of the window to true.
+        /// <para>handle the current thread. When Return is pressed,</para> 
+        /// <para>so the Console should be closed, start by settig visibility</para>
+        /// <para>to false and interrupt the game Thread, so the sleep is</para> 
+        /// <para>interrupted and the game thread can continue, also activate</para>
+        /// <para>the Cheat that was entered.then set the Thread as paused</para>
+        /// <para>until another Thread interrupts.</para>
+        /// <para> </para>
+        /// <para>If Return is not pressed set visibility of the window to true.</para>
         /// </summary>
         public void handleThread()
         {

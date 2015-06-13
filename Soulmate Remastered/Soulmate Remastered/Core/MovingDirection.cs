@@ -16,10 +16,10 @@ namespace Soulmate_Remastered.Core
         /// </summary>
         public enum Direction
         {
-            Up,
+            Back,
             Right,
             Left,
-            Down,
+            Front,
             UpRight,
             UpLeft,
             DownRight,

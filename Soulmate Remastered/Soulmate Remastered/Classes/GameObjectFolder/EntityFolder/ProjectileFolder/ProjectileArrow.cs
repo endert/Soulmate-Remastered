@@ -20,28 +20,28 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
             textureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowRight.png"));
             textureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowLeft.png"));
 
-            att = _att;
+            Att = _att;
             BaseMovementSpeed = _movementSpeed;
             duration = _duration;
-            facingDirection = _facingDirection;
-            sprite = new Sprite(textureList[getNumFacingDirection]);
+            FacingDirection = _facingDirection;
+            sprite = new Sprite(textureList[(int)Direction]);
   
-            if (facingDirection.X > 0) //right
+            if (FacingDirection.X > 0) //right
             {
                 position = new Vector2f(_position.X + PlayerHandler.player.hitBox.width + 10, _position.Y + PlayerHandler.player.hitBox.height * 5 / 6);
             }
 
-            else if(facingDirection.X < 0) //left
+            else if(FacingDirection.X < 0) //left
             {
                 position = new Vector2f(_position.X - PlayerHandler.player.hitBox.width - sprite.Texture.Size.X, _position.Y + PlayerHandler.player.hitBox.height * 5 / 6);
             }
 
-            else if (facingDirection.Y < 0) //up
+            else if (FacingDirection.Y < 0) //up
             {
                 position = new Vector2f(_position.X + PlayerHandler.player.hitBox.width / 2, _position.Y - 20);
             }
 
-            else if(facingDirection.Y > 0) //down
+            else if(FacingDirection.Y > 0) //down
             {
                 position = new Vector2f(_position.X + PlayerHandler.player.hitBox.width / 2, _position.Y + PlayerHandler.player.hitBox.height * 5 / 6 + 10);
             }
@@ -49,7 +49,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
             sprite.Position = position;
             startPosition = position;
             isAlive = true;
-            hitBox = new HitBox(this);
+            hitBox = new HitBox(position, (float)sprite.Texture.Size.X, (float)sprite.Texture.Size.Y);
 
             ProjectileHandler.add(this);
         }        

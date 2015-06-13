@@ -63,8 +63,8 @@ namespace Soulmate_Remastered.Classes.HUDFolder
 
             else if (barStyle.Equals("Life"))
             {
-                barBackground.Scale = new Vector2f(-1 + (PlayerHandler.player.getCurrentHP / PlayerHandler.player.getMaxHP), 1);
-                inNumber.DisplayedString = "HP: " + PlayerHandler.player.getCurrentHP + "/" + PlayerHandler.player.getMaxHP;
+                barBackground.Scale = new Vector2f(-1 + (PlayerHandler.player.CurrentHP / PlayerHandler.player.MaxHP), 1);
+                inNumber.DisplayedString = "HP: " + PlayerHandler.player.CurrentHP + "/" + PlayerHandler.player.MaxHP;
             }
 
             return barBackground;

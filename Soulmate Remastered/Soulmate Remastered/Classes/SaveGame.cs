@@ -27,7 +27,7 @@ namespace Soulmate_Remastered.Classes
             if (PetHandler.pet == null)
                 writer.WriteLine("null");
             else
-                writer.WriteLine(PetHandler.pet.toStringForSave());
+                writer.WriteLine(PetHandler.pet.ToStringForSave());
             writer.WriteLine(GameObjectHandler.lvl);
             writer.WriteLine(ItemHandler.playerInventory.toStringForSave());
 

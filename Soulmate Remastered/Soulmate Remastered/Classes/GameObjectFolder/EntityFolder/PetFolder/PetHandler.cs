@@ -38,7 +38,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
                 // pet = ...
             }
 
-            pet.load(petString);
+            pet.Load(petString);
         }
 
         public static void add(AbstractPet pet)

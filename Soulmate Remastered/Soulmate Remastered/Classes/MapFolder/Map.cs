@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 using Soulmate_Remastered.Classes.GameObjectFolder;
+using Soulmate_Remastered.Core;
+using System.Drawing;
 
 namespace Soulmate_Remastered.Classes.MapFolder
 {
@@ -22,61 +23,42 @@ namespace Soulmate_Remastered.Classes.MapFolder
         public static String white = "ffffffff"; //Boden
         public static String black = "ff000000"; //Wald
 
-        public Vector2f MapSize
+        RectangleShape debugHitbox;
+
+        public Vector2 MapSize
         {
             get
             {
-                return new Vector2f(map.GetLength(0) * objectSize, map.GetLength(1) * objectSize);
+                return new Vector2(map.GetLength(0) * objectSize, map.GetLength(1) * objectSize);
             }
         }
 
-        public bool getWalkable(HitBox hitBox, Vector2f vector)
+        public bool getWalkable(HitBox hitBox, Vector2 direction)
         {
-            bool walkable = true;
-            Vector2f newPosition = new Vector2f(hitBox.Position.X + vector.X, hitBox.Position.Y + vector.Y);
+            Vector2 newPosition = hitBox.Position + direction;
 
             //Map-Borders, return false if u ran out of the map
             if (newPosition.X < 0 || newPosition.Y < 0 || newPosition.X >= map.GetLength(0) * objectSize || newPosition.Y >= map.GetLength(1) * objectSize
-                || newPosition.X + vector.X >= map.GetLength(0) * objectSize || newPosition.Y + vector.Y >= map.GetLength(1) * objectSize)
+                || newPosition.X + direction.X >= map.GetLength(0) * objectSize || newPosition.Y + direction.Y >= map.GetLength(1) * objectSize)
                 return false;
 
-            try
+            foreach (Blocks block in map)
             {
-                //Kollision
-                if (!(map[(int)(newPosition.X / objectSize), (int)(newPosition.Y / objectSize)].getWalkable()/*links oben*/
-                    && map[(int)(newPosition.X / objectSize), (int)((newPosition.Y + hitBox.height) / objectSize)].getWalkable()/*links unten*/
-                    && map[(int)(newPosition.X / objectSize), (int)((newPosition.Y + hitBox.height / 2)) / objectSize].getWalkable()/*links mitte*/
-
-                    && map[(int)((newPosition.X + hitBox.width) / objectSize), (int)(newPosition.Y / objectSize)].getWalkable()/*rechts oben*/
-                    && map[(int)((newPosition.X + hitBox.width) / objectSize), (int)((newPosition.Y + hitBox.height) / objectSize)].getWalkable()/*rechts unten*/
-                    && map[(int)((newPosition.X + hitBox.width) / objectSize), (int)((newPosition.Y + hitBox.height / 2) / objectSize)].getWalkable()/*rechts mitte*/
-
-                    && map[(int)((newPosition.X + hitBox.width / 2) / objectSize), (int)(newPosition.Y / objectSize)].getWalkable()/*oben mitte*/
-                    && map[(int)((newPosition.X + hitBox.width / 2) / objectSize), (int)((newPosition.Y + hitBox.height) / objectSize)].getWalkable()/*unten mitte*/
-                    ))
+                if (block.getBlockHitBox != null && hitBox.WillHit(direction, block.getBlockHitBox))
                     return false;
             }
-            catch (IndexOutOfRangeException)
-            {
-                return false;
-            }
 
-            //foreach (Blocks block in map)
-            //{
-            //    if(block.getBlockHitBox != null)
-            //    {
-            //        if(block.getBlockHitBox.hit(new HitBox(newPosition, hitBox.width, hitBox.height)))
-            //        {
-            //            walkable = false;
-            //        }
-            //    }
-            //}
-
-            return walkable;
+            return true;
         }
 
         public Map(Bitmap mask)
         {
+            debugHitbox = new RectangleShape(new Vector2(objectSize, objectSize));
+            debugHitbox.FillColor = SFML.Graphics.Color.Transparent;
+            debugHitbox.OutlineColor = SFML.Graphics.Color.Red;
+            debugHitbox.OutlineThickness = 1;
+
+
             map = new Blocks[mask.Width, mask.Height];
 
             for (int i = 0; i < map.GetLength(0); i++)
@@ -95,6 +77,18 @@ namespace Soulmate_Remastered.Classes.MapFolder
         public void draw(RenderWindow window)
         {
             window.Draw(backGround);
+        }
+
+        public void debugDraw(RenderWindow window)
+        {
+            foreach (Blocks b in map)
+            {
+                if (b.getBlockHitBox != null)
+                {
+                    debugHitbox.Position = b.getBlockHitBox.Position;
+                    window.Draw(debugHitbox);
+                }
+            }
         }
     }
 }

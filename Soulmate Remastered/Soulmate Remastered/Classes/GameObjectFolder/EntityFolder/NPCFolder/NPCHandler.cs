@@ -9,15 +9,27 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 {
+    /// <summary>
+    /// Handles all Npc's
+    /// </summary>
     class NPCHandler
     {
-        private static List<AbstractNPC> NPCList;
-        public static List<AbstractNPC> NPCs { get { return NPCList; } }
+        /// <summary>
+        /// List with all npc's
+        /// </summary>
+        public static List<AbstractNPC> NPCs { get; protected set; }
+
+        /// <summary>
+        /// the open Shop
+        /// </summary>
         public static Shop shop { get; set; }
 
+        /// <summary>
+        /// initialize Npc Handler and Npc's for the current map
+        /// </summary>
         public NPCHandler()
         {
-            NPCList = new List<AbstractNPC>();
+            NPCs = new List<AbstractNPC>();
             if (GameObjectHandler.lvl == 0)
             {
                 new PetStorageGuy(new Vector2f(300, 400));
@@ -25,28 +37,39 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             }
         }
 
+        /// <summary>
+        /// add a npc to the npc list
+        /// </summary>
+        /// <param name="npc"></param>
         public static void add(AbstractNPC npc)
         {
-            NPCList.Add(npc);
+            NPCs.Add(npc);
             EntityHandler.add(npc);
         }
 
+        /// <summary>
+        /// kills all npc's
+        /// </summary>
         public static void deleate()
         {
-            foreach (AbstractNPC npc in NPCList)
+            foreach (AbstractNPC npc in NPCs)
             {
                 npc.kill();
             }
         }
 
+        /// <summary>
+        /// deletes all Npc with the given type
+        /// </summary>
+        /// <param name="_type"></param>
         public static void deleateType(String _type)
         {
             bool foundEntry = false;
-            for (int i = 0; i < NPCList.Count; i++)
+            for (int i = 0; i < NPCs.Count; i++)
             {
-                if (NPCList[i].type.Equals(_type))
+                if (NPCs[i].type.Equals(_type))
                 {
-                    NPCList.RemoveAt(i);
+                    NPCs.RemoveAt(i);
                     foundEntry = true;
                     i--;
                 }
@@ -58,28 +81,41 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             }
         }
 
+        /// <summary>
+        /// updates all npc's should only be called once
+        /// </summary>
+        /// <param name="gameTime"></param>
         public void update(GameTime gameTime)
         {
-            for (int i = 0; i < NPCList.Count; i++)
+            for (int i = 0; i < NPCs.Count; i++)
             {
-                if (!NPCList[i].isAlive)
+                //if the npc is not alive
+                if (!NPCs[i].isAlive)
                 {
-                    NPCList.RemoveAt(i);
+                    //it should be removed and then continue the loop
+                    NPCs.RemoveAt(i);
                     i--;
+                    continue;
                 }
-                if (NPCList[i].InIteractionRange && !Game.isPressed && Keyboard.IsKeyPressed(Controls.Interact) && !NPCList[i].isInteracting)
+
+                //interaction update
+                if (NPCs[i].InIteractionRange && !Game.isPressed && Keyboard.IsKeyPressed(Controls.Interact) && !NPCs[i].Interacting)
                 {
                     Game.isPressed = true;
-                    NPCList[i].interact();
+                    NPCs[i].interact();
                 }
-                if (NPCList[i].isInteracting && (!NPCList[i].InIteractionRange || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed)))
+                if (NPCs[i].Interacting && (!NPCs[i].InIteractionRange || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed)))
                 {
                     Game.isPressed = true;
-                    NPCList[i].stopIteraction();
+                    NPCs[i].stopIteraction();
                 }
             }
         }
 
+        /// <summary>
+        /// updates the shop
+        /// </summary>
+        /// <param name="gameTime"></param>
         public static void updateShop(GameTime gameTime)
         {
             if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed)

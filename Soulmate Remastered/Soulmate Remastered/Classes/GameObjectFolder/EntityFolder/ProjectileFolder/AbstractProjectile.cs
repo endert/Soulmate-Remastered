@@ -34,7 +34,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
             List<AbstractEnemy> enemyList = new List<AbstractEnemy>();
             for (int i = 0; i < EnemyHandler.enemyList.Count; i++)
             {
-                if ((i != indexObjectList) && (hitBox.hit(EnemyHandler.enemyList[i].hitBox)))
+                if ((i != indexObjectList) && (hitBox.Hit(EnemyHandler.enemyList[i].hitBox)))
                 {
                     enemyList.Add(EnemyHandler.enemyList[i]);
                 }
@@ -46,7 +46,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
         {
             if (hitAnotherEntity() && getTouchedEnemy().Count > 0)
             {
-                getTouchedEnemy()[0].takeDmg(att);
+                getTouchedEnemy()[0].takeDmg(Att);
                 isAlive = false;
             }
         }
@@ -61,20 +61,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
 
             if (inRange())
             {
-                att = att;
+                Att = Att;
                 
-                move(facingDirection);
-                animate(textureList);
+                move(FacingDirection);
+                animate();
                 sprite.Position = position;
                 doDamage();
 
                 if (touchedPlayer())
-                    att = 0;
+                    Att = 0;
 
                 if (!touchedPlayer() && hitAnotherEntity())
                 {
                     movementSpeed = 0;
-                    att = 0;
+                    Att = 0;
                 }
             }
 

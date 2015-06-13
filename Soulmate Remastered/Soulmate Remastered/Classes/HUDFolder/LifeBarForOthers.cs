@@ -25,7 +25,7 @@ namespace Soulmate_Remastered.Classes.HUDFolder
 
         public Sprite scale(Entity entity)
         {
-            lifeSpriteBar.Scale = new Vector2f((float)entity.getCurrentHP / (float)entity.getMaxHP, 1);
+            lifeSpriteBar.Scale = new Vector2f((float)entity.CurrentHP / (float)entity.MaxHP, 1);
 
             return lifeSpriteBar;
         }

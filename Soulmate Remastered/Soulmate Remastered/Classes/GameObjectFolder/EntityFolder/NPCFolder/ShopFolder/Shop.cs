@@ -308,6 +308,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                 }
             }
 
+            //fixing eventual undefined lines
+            if (selectedLine >= selectedListCount)
+                selectedLine = selectedListCount - 1;
+            if (selectedLine < 0)
+                selectedLine = 0;
+
             //*****************************************************************************
 
             shopItemUpdate();
@@ -343,7 +349,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// </summary>
         public void BuyOrSell()
         {
-            PlayerHandler.player.gold += selectedList[smallestDisplayedItem + selectedLine].BuySell(selectedCollum);
+            if (smallestDisplayedItem + selectedLine < selectedListCount)
+                PlayerHandler.player.gold += selectedList[smallestDisplayedItem + selectedLine].BuySell(selectedCollum);
         }
 
         /// <summary>
@@ -370,39 +377,39 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             //update sellable Items
             for (int i = 0; i < sellableItems.Count - smallestDisplayedItem0 && i < lineCount; i++)
             {
-                sellableItems[smallestDisplayedItem0 + i].position += new Vector2(0, i * 50);
+                sellableItems[smallestDisplayedItem0 + i].position = startSellPosition + new Vector2(0, i * 50);
                 sellableItems[smallestDisplayedItem0 + i].update();
                 sellableItems[smallestDisplayedItem0 + i].visible = true;
             }
             for (int i = 0; i < sellableItems.Count; i++)
             {
+                if (i < smallestDisplayedItem0 || i >= smallestDisplayedItem0 + lineCount)
+                    sellableItems[i].visible = false;
+
                 if (!sellableItems[i].isAlive)
                 {
                     sellableItems.RemoveAt(i);
                     i--;
                 }
-
-                if (i < smallestDisplayedItem0 || i >= smallestDisplayedItem0 + lineCount)
-                    sellableItems[i].visible = false;
             }
 
             //update buyable Items
             for (int i = 0; i < buyableItems.Count - smallestDisplayedItem1 && i < lineCount; i++)
             {
-                buyableItems[smallestDisplayedItem1 + i].position = new Vector2f(startBuyPosition.X, startBuyPosition.Y + i * 50);
+                buyableItems[smallestDisplayedItem1 + i].position = startBuyPosition + new Vector2(0, i * 50);
                 buyableItems[smallestDisplayedItem1 + i].update();
                 buyableItems[smallestDisplayedItem1 + i].visible = true;
             }
             for (int i = 0; i < buyableItems.Count; i++)
             {
+                if (i < smallestDisplayedItem1 || i >= smallestDisplayedItem1 + lineCount)
+                    buyableItems[i].visible = false;
+
                 if (!buyableItems[i].isAlive)
                 {
                     buyableItems.RemoveAt(i);
                     i--;
                 }
-
-                if (i < smallestDisplayedItem1 || i >= smallestDisplayedItem1 + lineCount)
-                    buyableItems[i].visible = false;
             }
 
             //updating the displayed Gold value
