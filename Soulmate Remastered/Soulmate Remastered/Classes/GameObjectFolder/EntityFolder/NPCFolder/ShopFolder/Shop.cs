@@ -343,7 +343,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// </summary>
         public void BuyOrSell()
         {
-            PlayerHandler.player.gold += selectedList[smallestDisplayedItem + selectedLine].BuySell((int)selectedCollum);
+            PlayerHandler.player.gold += selectedList[smallestDisplayedItem + selectedLine].BuySell(selectedCollum);
         }
 
         /// <summary>

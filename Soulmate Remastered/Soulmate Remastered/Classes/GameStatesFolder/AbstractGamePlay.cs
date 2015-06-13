@@ -30,7 +30,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         protected static readonly String savePlayer = "Saves/player.soul";
         bool debugging = false;
         public static String savePlayerPath { get { return savePlayer; } }
-        protected GameTime time = new GameTime();
         /// <summary>
         /// view for inventory, shop, inGameMenu
         /// </summary>
@@ -45,9 +44,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         //protected int index = 0; //WHY, no using
 
         /// <summary>
-        /// value to change the different game states;
-        /// 1 = mainMenu; 
-        /// 2 = change between level and villaige; 
+        /// <para> value to change the different game states; </para>
+        /// <para> 1 = mainMenu; </para>
+        /// <para> 2 = change between level and villaige; </para>
         /// 3 = inGameMenu COMMING SOON
         /// </summary>
         protected int returnValue = 0;
@@ -57,8 +56,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// </summary>
         public void initialize()
         {
-            time = new GameTime();
-            time.Start();
             VIEW = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
             viewHelp = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
@@ -129,9 +126,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         }
 
         /// <summary>
-        /// update the game
+        /// updates the game
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">time of the game</param>
         public void GameUpdate(GameTime gameTime)
         {
             if (inGameMenu.closeGame) //if exit in inGameMenu clicked
@@ -143,7 +140,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             }
 
             //no update needed if game was closed
-            time.Update();
             ItemHandler.playerInventory.update(gameTime);
             inGameMenu.update(gameTime);
             //************************************************

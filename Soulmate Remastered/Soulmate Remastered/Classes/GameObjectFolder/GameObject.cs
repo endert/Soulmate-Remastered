@@ -13,7 +13,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
     {
         public float yCoordinate { get { return position.Y + sprite.Texture.Size.Y; } }  // for sorting the list
         //Parameters for gameObjects
-        public  HitBox hitBox { get; set; }
+        public  HitBox hitBox { get; protected set; }
         public  Sprite sprite { get; set; }
         protected List<Texture> textureList = new List<Texture>();
         public Texture currentTexture { get { return sprite.Texture; } }

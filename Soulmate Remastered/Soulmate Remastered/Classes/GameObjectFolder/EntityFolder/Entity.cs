@@ -100,12 +100,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         protected Vector2f movement;
         public float BaseMovementSpeed { get; protected set; }
         protected float movementSpeed;
-        protected List<Vector2f> hitFromDirections = new List<Vector2f>();
+        protected List<Vector2> hitFromDirections = new List<Vector2>();
 
 
-        public void move(Vector2f direction)
+        public void move(Vector2 direction)
         {
-            if (!direction.Equals(new Vector2f(0, 0)))
+            if (!direction.Equals(new Vector2(0, 0)))
             {
                 isMoving = true;
                 if (hitAnotherEntity() && !moveAwayFromEntity && moveHelp()) //if an entity is not a player it should not touch the player
@@ -131,7 +131,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                 else
                 {
                     moveAwayFromEntity = false;
-                    Vector2f movement = new Vector2f(0, 0);
+                    Vector2 movement = new Vector2(0, 0);
 
                     if (direction.X > 0)
                         movement.X += movementSpeed;

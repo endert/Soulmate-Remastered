@@ -21,7 +21,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             textureList.Add(new Texture("Pictures/Entities/Player/PlayerLeftSword.png"));
             
             numFacingDirection = spawnFacingDirection;
-            facingDirection = new Vector2f(1, 0); // RECHTS
+            facingDirection = new Vector2f(1, 0); // right
             sprite = new Sprite(textureList[0]);
             sprite.Position = spawnPosition;
             position = spawnPosition;
