@@ -50,7 +50,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                         float rY = 800 + random.Next(400);
                         Vector2 spawnPos = new Vector2(rX, rY);
 
-                        if (spawnPos.distance(PlayerHandler.player.position) > 200)
+                        if (spawnPos.Distance(PlayerHandler.player.position) > 200)
                         {
                             EnemyBlott blott = new EnemyBlott(spawnPos);
                             
