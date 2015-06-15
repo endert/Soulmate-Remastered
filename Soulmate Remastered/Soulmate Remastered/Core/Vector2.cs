@@ -119,7 +119,7 @@ namespace Soulmate_Remastered.Core
         /// <returns></returns>
         public static bool operator !=(Vector2 v1, Vector2 v2)
         {
-            return !(v1 == v2);
+            return !(v1.X == v2.X && v1.Y == v2.Y);
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace Soulmate_Remastered.Core
         /// <returns> v1.dot(v2) </returns>
         public static float operator *(Vector2 v1, Vector2 v2)
         {
-            return v1.dot(v2);
+            return v1.Dot(v2);
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace Soulmate_Remastered.Core
         /// </summary>
         /// <param name="v">Vector2 v</param>
         /// <returns>dot product of this and v</returns>
-        public float dot(Vector2 v)
+        public float Dot(Vector2 v)
         {
             return X * v.X + Y * v.Y;
         }
@@ -228,7 +228,7 @@ namespace Soulmate_Remastered.Core
         /// <summary>
         /// turn the direction by 180 degree
         /// </summary>
-        public void invert()
+        public void Invert()
         {
             X = -X;
             Y = -Y;
@@ -237,7 +237,7 @@ namespace Soulmate_Remastered.Core
         /// <summary>
         /// changes the vector, so that it has the length 1
         /// </summary>
-        public void normalize()
+        public void Normalize()
         {
             X /= Length;
             Y /= Length;
@@ -247,7 +247,7 @@ namespace Soulmate_Remastered.Core
         /// returns the Vector as normalized
         /// </summary>
         /// <returns>normalized Vector</returns>
-        public Vector2 getNormalized()
+        public Vector2 GetNormalized()
         {
             return new Vector2(this / Length);
         }
@@ -257,9 +257,19 @@ namespace Soulmate_Remastered.Core
         /// </summary>
         /// <param name="point">position vector of a point</param>
         /// <returns>the euclidean distance between this and the point</returns>
-        public float distance(Vector2 point)
+        public float Distance(Vector2 point)
         {
             return (point - this).Length;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         /// <summary>

@@ -61,10 +61,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         public void moveRandom()
         {
             //define missng vectors
-            Vector2 upRight = (Vector2.BACK + Vector2.RIGHT).getNormalized();
-            Vector2 downRight = (Vector2.FRONT + Vector2.RIGHT).getNormalized();
-            Vector2 downLeft = (Vector2.FRONT + Vector2.LEFT).getNormalized();
-            Vector2 upLeft = (Vector2.BACK + Vector2.LEFT).getNormalized();
+            Vector2 upRight = (Vector2.BACK + Vector2.RIGHT).GetNormalized();
+            Vector2 downRight = (Vector2.FRONT + Vector2.RIGHT).GetNormalized();
+            Vector2 downLeft = (Vector2.FRONT + Vector2.LEFT).GetNormalized();
+            Vector2 upLeft = (Vector2.BACK + Vector2.LEFT).GetNormalized();
 
             //if needed evaluate new direction
             if (stopWatchList[2].ElapsedMilliseconds >= movingFor)

@@ -147,7 +147,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             {
                 res = h2Pos - h1Pos;
 
-                t = res.dot(v) / v.dot(v);
+                t = res.Dot(v) / v.Dot(v);
                 if (t < 0)
                     t = 0;
                 if (t > 1)
@@ -162,7 +162,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             {
                 res = h1Pos - h2Pos;
 
-                t = res.dot(v) / v.dot(v);
+                t = res.Dot(v) / v.Dot(v);
                 if (t < 0)
                     t = 0;
                 if (t > 1)
