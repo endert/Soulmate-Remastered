@@ -11,138 +11,239 @@ using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 using System.Diagnostics;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
+using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
+    /// <summary>
+    /// base class for player instances
+    /// </summary>
     abstract class AbstractPlayer : Entity
     {
-        public override String type { get { return base.type + ".Player"; } }
-
-        protected Stopwatch[] coolDown = new Stopwatch[] { new Stopwatch() };
-                                                              //Arrow
         /// <summary>
-        /// in sec
+        /// the type of this instance
         /// </summary>
-        protected int arrowCoolDown = 1;
-        protected bool arrowOnCoolDown = false;
-        public List<Texture> getTexture { get { return textureList; } }
+        public override String Type { get { return base.Type + ".Player"; } }
+
+        /// <summary>
+        /// returns the max Level
+        /// </summary>
         public int MaxLvl { get { return 100; } }
         /// <summary>
         /// current level of the player
         /// </summary>
-        public int lvl { get; protected set; }
-
-        //FusionBar fusionBar;
-        public float maxFusionValue { get; protected set; }
-        public float currentFusionValue { get; set; }
+        public int Lvl { get; protected set; }
         /// <summary>
-        /// time of fusion with pet in sec
+        /// gold value (money, money, money)
         /// </summary>
-        public float fusionDuration { get { return _fusionDuration * 1000; } protected set { _fusionDuration = value; } }
-        private float _fusionDuration = 0;
-        public HitBox attackHitBox { get; protected set; }
-        protected bool attacking;
-        protected bool isPressedForAttack;
-        protected bool isPressedForShoot;
-        public bool isAttacking { get { return attacking; } }
-        public float gold { get; set; } //money money money...
-        protected float currentEXP { get; set; }
-        public float getCurrentEXP { get { return currentEXP; } }
-        protected float maxEXP;
-        public float getMaxEXP { get { return maxEXP; } }
+        public float Gold { get; set; }
+        /// <summary>
+        /// current Exp value
+        /// </summary>
+        public float CurrentEXP { get; protected set; }
+        /// <summary>
+        /// max exp value
+        /// </summary>
+        public float MaxEXP { get; protected set; }
+        /// <summary>
+        /// max fusion units
+        /// </summary>
+        public float MaxFusionValue { get; protected set; }
+        /// <summary>
+        /// current fusion units
+        /// </summary>
+        public float CurrentFusionValue { get; set; }
+        /// <summary>
+        /// time of fusion with pet in milli sec
+        /// </summary>
+        public float FusionDuration { get; protected set; }
 
+        /// <summary>
+        /// hit box for attacking
+        /// </summary>
+        public HitBox AttackHitBox { get; protected set; }
+        /// <summary>
+        /// bool if the player is attacking or not
+        /// </summary>
+        public bool Attacking { get; protected set; }
+
+        /// <summary>
+        /// array with all cooldowns
+        /// </summary>
+        protected Cooldown[] CoolDowns { get { return new Cooldown[] { new Cooldown(1) }; } }
+        /// <summary>
+        /// enum for better Cooldown access
+        /// </summary>
+        protected enum ECooldown
+        {
+            Arrow
+        }
+        /// <summary>
+        /// returns bool if the button for attack is pressed or not
+        /// </summary>
+        public bool IsPressedForAttack
+        {
+            get
+            {
+                if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !IsPressedForAttack)
+                    return true;
+
+                if (IsPressedForAttack && !Keyboard.IsKeyPressed(Controls.ButtonForAttack) && !Mouse.IsButtonPressed(Mouse.Button.Left))
+                    return false;
+
+                return false;
+            }
+        }
+        /// <summary>
+        /// returns bool if the button for shooting is pressed or not
+        /// </summary>
+        public bool IsPressedForShoot
+        {
+            get
+            {
+                if (Keyboard.IsKeyPressed(Controls.ButtonForShoot) && !IsPressedForShoot)
+                    return true;
+
+                if (IsPressedForShoot && !Keyboard.IsKeyPressed(Controls.ButtonForShoot))
+                    return false;
+
+                return false;
+            }
+        }
         protected bool transforming = false;
         protected bool animating = false;
-        //Inventory???
-
-        public String toStringForMapChange()
+        
+        /// <summary>
+        /// <para>creates a string wich contains the players stats</para>
+        /// <para>[1] lvl</para>
+        /// <para>[2] current fusion value</para>
+        /// <para>[3] gold</para>
+        /// <para>[4] current exp</para>
+        /// <para>[5] current hp</para>
+        /// </summary>
+        /// <returns></returns>
+        public String ToStringForMapChange()
         {
-            String playerString = "pl" + lineBreak.ToString();
+            String playerString = "pl" + LineBreak.ToString();
 
-            playerString += lvl + lineBreak.ToString();    //splitPlayerString[1]
-            playerString += currentFusionValue + lineBreak.ToString(); //splitPlayerString[2]
-            playerString += gold + lineBreak.ToString();   //splitPlayerString[3]
-            playerString += currentEXP + lineBreak.ToString(); //splitPlayerString[4]
-            playerString += CurrentHP + lineBreak.ToString();   //splitPlayerString[5]
+            playerString += Lvl + LineBreak.ToString();
+            playerString += CurrentFusionValue + LineBreak.ToString();
+            playerString += Gold + LineBreak.ToString();
+            playerString += CurrentEXP + LineBreak.ToString();
+            playerString += CurrentHP + LineBreak.ToString();
 
             return playerString;
         }
 
-        public String toStringForSave()
+        /// <summary>
+        /// <para>creates a string wich contains the players stats</para>
+        /// <para>[1] lvl</para>
+        /// <para>[2] current fusion value</para>
+        /// <para>[3] gold</para>
+        /// <para>[4] current exp</para>
+        /// <para>[5] current hp</para>
+        /// <para>[6] Position.X</para>
+        /// <para>[7] Position.Y</para>
+        /// </summary>
+        /// <returns></returns>
+        public String ToStringForSave()
         {
-            String playerForSave = toStringForMapChange();
+            String playerForSave = ToStringForMapChange();
 
-            playerForSave += position.X + lineBreak.ToString(); //splitPlayerString[6]
-            playerForSave += position.Y + lineBreak.ToString(); //splitPlayerString[7]
+            playerForSave += Position.X + LineBreak.ToString();
+            playerForSave += Position.Y + LineBreak.ToString();
 
             return playerForSave;
         }
-
-        public void load(String playerString)
+        
+        /// <summary>
+        /// load player attributes from a string
+        /// </summary>
+        /// <param name="playerString"></param>
+        public void Load(String playerString)
         {
-            String[] splitPlayerString = playerString.Split(lineBreak);
+            String[] splitPlayerString = playerString.Split(LineBreak);
 
-            loadMapChange(playerString);
-            position = new Vector2f(Convert.ToSingle(splitPlayerString[6]), Convert.ToSingle(splitPlayerString[7]));
+            LoadMapChange(playerString);
+            Position = new Vector2(Convert.ToSingle(splitPlayerString[6]), Convert.ToSingle(splitPlayerString[7]));
         }
 
-        public void loadMapChange(String playerString)
+        /// <summary>
+        /// load player attributes from a string
+        /// </summary>
+        /// <param name="playerString"></param>
+        public void LoadMapChange(String playerString)
         {
-            String[] splitPlayerString = playerString.Split(lineBreak);
+            String[] splitPlayerString = playerString.Split(LineBreak);
 
-            lvl = Convert.ToInt32(splitPlayerString[1]);
-            statsUpdate();
-            currentFusionValue = Convert.ToSingle(splitPlayerString[2]);
-            gold = Convert.ToSingle(splitPlayerString[3]);
-            currentEXP = Convert.ToSingle(splitPlayerString[4]);
+            Lvl = Convert.ToInt32(splitPlayerString[1]);
+            StatsUpdate();
+            CurrentFusionValue = Convert.ToSingle(splitPlayerString[2]);
+            Gold = Convert.ToSingle(splitPlayerString[3]);
+            CurrentEXP = Convert.ToSingle(splitPlayerString[4]);
             CurrentHP = Convert.ToSingle(splitPlayerString[5]);
         }
 
-        public virtual Vector2f getKeyPressed(float movementSpeed)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="movementSpeed"></param>
+        /// <returns></returns>
+        public virtual Vector2 GetKeyPressed(float movementSpeed)
         {
-            Vector2f result = new Vector2f(0, 0);
+            Vector2 result = new Vector2(0, 0);
 
             if (Keyboard.IsKeyPressed(Controls.Left))
-                result.X = -movementSpeed;
+                result += Vector2.LEFT * movementSpeed;
 
             if (Keyboard.IsKeyPressed(Controls.Up))
-                result.Y = -movementSpeed;
+                result += Vector2.FRONT * movementSpeed;
 
             if (Keyboard.IsKeyPressed(Controls.Down))
-                result.Y = movementSpeed;
+                result += Vector2.BACK * movementSpeed;
 
             if (Keyboard.IsKeyPressed(Controls.Right))
-                result.X = movementSpeed;
+                result += Vector2.RIGHT * movementSpeed;
 
             return result;
         }
 
-        public void setCurrentFusionValue()
+        /// <summary>
+        /// adds 50 to the current fusion value
+        /// </summary>
+        public void RiseCurrentFusionValue()
         {
-            currentFusionValue += 50;
-            if (currentFusionValue >= maxFusionValue)
+            CurrentFusionValue += 50;
+            if (CurrentFusionValue >= MaxFusionValue)
             {
-                currentFusionValue = maxFusionValue;
+                CurrentFusionValue = MaxFusionValue;
             }
         }
 
-        public void setCurrentEXP()
+        /// <summary>
+        /// adds 50 to the current amount of exp
+        /// </summary>
+        public void RiseCurrentEXP()
         {
-            currentEXP += 50;
-            if (currentEXP >= maxEXP)
+            CurrentEXP += 50;
+            if (CurrentEXP >= MaxEXP)
             {
-                currentEXP = maxEXP;
+                CurrentEXP = MaxEXP;
             }
         }
 
-        public void adapt(AbstractPlayer player)
+        /// <summary>
+        /// adapt all stats from the given player, used for fusion
+        /// </summary>
+        /// <param name="player"></param>
+        public void Adapt(AbstractPlayer player)
         {
-            FacingDirection = player.FacingDirection; // RECHTS
-            sprite = new Sprite(textureList[(int)player.Direction]);
-            sprite.Position = player.position;
-            position = player.position;
-            maxFusionValue = player.maxFusionValue;
-            currentFusionValue = player.currentFusionValue;
+            FacingDirection = player.FacingDirection;
+            Sprite = new Sprite(TextureList[(int)player.Direction]);
+            Sprite.Position = player.Position;
+            Position = player.Position;
+            MaxFusionValue = player.MaxFusionValue;
+            CurrentFusionValue = player.CurrentFusionValue;
 
             BaseHp = player.BaseHp;
             MaxHP = player.MaxHP;
@@ -154,184 +255,153 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             BaseDef = player.BaseDef;
             Def = player.Def;
 
-            lvl = player.lvl;
-            maxEXP = player.getMaxEXP;
-            currentEXP = player.getCurrentEXP;
+            Lvl = player.Lvl;
+            MaxEXP = player.MaxEXP;
+            CurrentEXP = player.CurrentEXP;
             BaseMovementSpeed = player.BaseMovementSpeed;
         }
 
-        public bool pressedKeyForAttack()
-        {
-            if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !isPressedForAttack)
-            {
-                isPressedForAttack = true;
-                return true;
-            }
-
-            if (isPressedForAttack && !Keyboard.IsKeyPressed(Controls.ButtonForAttack) && !Mouse.IsButtonPressed(Mouse.Button.Left))
-            {
-                isPressedForAttack = false;
-            }
-            return false;
-        }
-
-        public bool pressedKeyForShoot()
-        {
-            if (Keyboard.IsKeyPressed(Controls.ButtonForShoot) && !isPressedForShoot)
-            {
-                isPressedForShoot = true;
-                return true;
-            }
-
-            if (isPressedForShoot && !Keyboard.IsKeyPressed(Controls.ButtonForShoot))
-            {
-                isPressedForShoot = false;
-            }
-            return false;
-        }
-
-        public virtual void spritePositionUpdate()
+        /// <summary>
+        /// updates the sprite position, according to wich form the player is in
+        /// </summary>
+        public virtual void SpritePositionUpdate()
         {
             switch (Direction)
             {
                 case EDirection.Back:
-                    sprite.Position = position;
+                    Sprite.Position = Position;
                     break;
                 case EDirection.Front:
-                    sprite.Position = position;
+                    Sprite.Position = Position;
                     break;
                 case EDirection.Right:
-                    sprite.Position = position;
+                    Sprite.Position = Position;
                     break;
                 case EDirection.Left:
-                    sprite.Position = new Vector2f(position.X - (textureList[2].Size.X - hitBox.width), position.Y);
+                    Sprite.Position = new Vector2(Position.X - (TextureList[2].Size.X - HitBox.width), Position.Y);
                     break;
                 default:
                     break;
             }
         }
 
-        public virtual Vector2f attackHitBoxPositionUpdate()
+        /// <summary>
+        /// returns the hitbox position according to the players form and viewing direction
+        /// </summary>
+        public virtual Vector2 GetHitBoxPosition()
         {
-            return new Vector2f(0, 0);
+            return Vector2.ZERO;
         }
 
-        public void lvlUp()
+        /// <summary>
+        /// raise all stats accordingly
+        /// </summary>
+        public void LvlUp()
         {
-            if (lvl < MaxLvl)
+            if (Lvl < MaxLvl)
             {
-                while (currentEXP >= maxEXP)
+                while (CurrentEXP >= MaxEXP)
                 {
-                    lvl++;
-                    currentEXP -= maxEXP;
-                    statsUpdate();
+                    Lvl++;
+                    CurrentEXP -= MaxEXP;
+                    StatsUpdate();
                     CurrentHP = MaxHP;
                 }
             }
         }
 
-        public void statsUpdate()
+        /// <summary>
+        /// updates all stats if needed
+        /// </summary>
+        public void StatsUpdate()
         {
-            if (lvl >= MaxLvl)
+            //check the level border
+            if (Lvl >= MaxLvl)
             {
-                lvl = MaxLvl;
-                maxEXP = 0;
-                currentEXP = 0;
+                Lvl = MaxLvl;
+                MaxEXP = 0;
+                CurrentEXP = 0;
             }
             else
-            {
-                maxEXP = (float)Math.Round(((5 * (float)Math.Pow(lvl + 1, 3)) / 4) * 10);
-            }
+                MaxEXP = (float)Math.Round(((5 * (float)Math.Pow(Lvl + 1, 3)) / 4) * 10);
 
+            //set the states accordingly
             if (ItemHandler.playerInventory != null)
             {
-                Att = BaseAtt + (lvl) * 1 + ItemHandler.playerInventory.getAttBonus();
-                Def = BaseDef + (lvl) * 0.5f + ItemHandler.playerInventory.getDefBonus();
-                MaxHP = BaseHp + (lvl) * 50 + ItemHandler.playerInventory.getHpBonus();
+                Att = BaseAtt + (Lvl) * 1 + ItemHandler.playerInventory.getAttBonus();
+                Def = BaseDef + (Lvl) * 0.5f + ItemHandler.playerInventory.getDefBonus();
+                MaxHP = BaseHp + (Lvl) * 50 + ItemHandler.playerInventory.getHpBonus();
             }
             else
             {
-                Att = BaseAtt + (lvl) * 1;
-                Def = BaseDef + (lvl) * 0.5f;
-                MaxHP = BaseHp + (lvl) * 50;
+                Att = BaseAtt + (Lvl) * 1;
+                Def = BaseDef + (Lvl) * 0.5f;
+                MaxHP = BaseHp + (Lvl) * 50;
             }
         }
 
-        public override void update(GameTime gameTime)
+        /// <summary>
+        /// updates all stats and calls all help methods
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public override void Update(GameTime gameTime)
         {
-            lvlUp();
+            LvlUp();
 
             if (CurrentHP > MaxHP)
                 CurrentHP = MaxHP;
 
-            if(!Shop.shopIsOpen)
-            {
+            if(!Shop.ShopIsOpen)
                 movementSpeed = BaseMovementSpeed * (float)gameTime.EllapsedTime.TotalMilliseconds;
-            }
             else
-            {
                 movementSpeed = 0;
-            }
             
             if (!animating)
-            {
                 animate();
-            }
-            hitBox.update(sprite);
-            spritePositionUpdate();
 
-            if (attackHitBox != null)
-            {
-                attackHitBox.Position = attackHitBoxPositionUpdate();
-            }
+            HitBox.update(Sprite);
+            SpritePositionUpdate();
 
-            if (pressedKeyForAttack())
+            if (AttackHitBox != null)
+                AttackHitBox.Position = GetHitBoxPosition();
+
+            if (IsPressedForAttack)
             {
-                attacking = true;
+                Attacking = true;
                 //start animate
             }
             else
-            {
-                attacking = false;
-            }
+                Attacking = false;
 
-            if (pressedKeyForShoot())
+            if (IsPressedForShoot)
             {
-                coolDown[0].Start();
-                if (!arrowOnCoolDown)
-                {
-                    new ProjectileArrow((Att / 2) + 2, 0.8f, 2f, FacingDirection, position);
-                }
-                if (coolDown[0].ElapsedMilliseconds < arrowCoolDown * 1000)
-                {
-                    arrowOnCoolDown = true;
-                }
-                else
-                {
-                    arrowOnCoolDown = false;
-                    coolDown[0].Reset();
-                }
+                CoolDowns[(int)ECooldown.Arrow].Start();
+                if (!CoolDowns[(int)ECooldown.Arrow].OnCooldown)
+                    new ProjectileArrow((Att / 2) + 2, 0.8f, 2f, FacingDirection, Position);
             }
 
             if (!transforming)
             {
-                movement = new Vector2f(0, 0);
-                movement = getKeyPressed(movementSpeed);
+                movement = Vector2.ZERO;
+                movement = GetKeyPressed(movementSpeed);
                 move(movement);
             }
 
-            if (lvl >= MaxLvl)
+            if (Lvl >= MaxLvl)
             {
-                lvl = MaxLvl;
-                currentEXP = 0;
+                Lvl = MaxLvl;
+                CurrentEXP = 0;
             }
+
+            foreach (Cooldown c in CoolDowns)
+                c.Update();
 
             hitFromDirections.Clear();
         }
 
         //Cheats==============================================================
 
-        public void activateCheat(float parameter, Cheat cheat)
+        public void ActivateCheat(float parameter, Cheat cheat)
         {
             cheat(parameter);
         }
@@ -364,9 +434,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void SetExp(float value)
         {
-            currentEXP = value;
+            CurrentEXP = value;
 
-            lvlUp();
+            LvlUp();
         }
 
         public void SetLvl(float _value)
@@ -374,25 +444,25 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             int value = (int)_value;
             if (value > 0 && value <= MaxLvl)
             {
-                lvl = value;
+                Lvl = value;
             }
             else
             {
                 if (value <= 0)
                 {
-                    lvl = 1;
+                    Lvl = 1;
                 }
                 else
                 {
-                    lvl = MaxLvl;
+                    Lvl = MaxLvl;
                 }
             }
-            statsUpdate();
+            StatsUpdate();
         }
 
         public void SetMoney(float value)
         {
-            gold = value;
+            Gold = value;
         }
 
         public void SetDef(float value)
@@ -407,19 +477,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void SetFusionValue(float value)
         {
-            if (value > 0 && value <= maxFusionValue)
+            if (value > 0 && value <= MaxFusionValue)
             {
-                currentFusionValue = value;
+                CurrentFusionValue = value;
             }
             else
             {
                 if (value <= 0)
                 {
-                    currentFusionValue = 1;
+                    CurrentFusionValue = 1;
                 }
                 else
                 {
-                    currentFusionValue = maxFusionValue;
+                    CurrentFusionValue = MaxFusionValue;
                 }
             }
 
@@ -427,17 +497,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void HealFusionFor(float value)
         {
-            currentFusionValue += value;
+            CurrentFusionValue += value;
 
-            if (currentFusionValue > maxFusionValue)
-                currentFusionValue = maxFusionValue;
+            if (CurrentFusionValue > MaxFusionValue)
+                CurrentFusionValue = MaxFusionValue;
         }
         //====================================================================
 
-        public override void debugDraw(RenderWindow window)
+        /// <summary>
+        /// enables debug drawing
+        /// </summary>
+        /// <param name="window"></param>
+        public override void DebugDraw(RenderWindow window)
         {
-            base.debugDraw(window);
-            attackHitBox.draw(window);
+            base.DebugDraw(window);
+            AttackHitBox.draw(window);
         }
 
     }

@@ -57,8 +57,8 @@ namespace Soulmate_Remastered.Classes.HUDFolder
         {
             if (barStyle.Equals("Fusion"))
             {
-                barBackground.Scale = new Vector2f(-1 + (PlayerHandler.player.currentFusionValue / PlayerHandler.player.maxFusionValue), 1);
-                inNumber.DisplayedString = "FP: " + PlayerHandler.player.currentFusionValue + "/" + PlayerHandler.player.maxFusionValue;
+                barBackground.Scale = new Vector2f(-1 + (PlayerHandler.player.CurrentFusionValue / PlayerHandler.player.MaxFusionValue), 1);
+                inNumber.DisplayedString = "FP: " + PlayerHandler.player.CurrentFusionValue + "/" + PlayerHandler.player.MaxFusionValue;
             }
 
             else if (barStyle.Equals("Life"))

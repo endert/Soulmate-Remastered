@@ -20,11 +20,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <summary>
         /// the type of this instance
         /// </summary>
-        public override String type { get { return base.type + ".PetStorageGuy"; } }
+        public override String Type { get { return base.Type + ".PetStorageGuy"; } }
         /// <summary>
         /// path to the dialoge file
         /// </summary>
-        protected override string dialogePath{ get { return "Dialoges/Test.txt"; } }
+        protected override string DialogePath{ get { return "Dialoges/Test.txt"; } }
 
         /// <summary>
         /// create an instance of this class
@@ -34,15 +34,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         {
             //Initialize GameObject Data*********************************************************************
             
-            textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyFrontTest.png"));
-            textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyBackTest.png"));
-            textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyRightTest.png"));
-            textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyLeftTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyFrontTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyBackTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyRightTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyLeftTest.png"));
 
-            sprite = new Sprite(textureList[0]);
-            position = _position;
-            sprite.Position = position;
-            hitBox = new HitBox(position, sprite.Texture.Size.X, sprite.Texture.Size.Y);
+            IsAlive = true;
+            IsVisible = true;
+            Sprite = new Sprite(TextureList[0]);
+            Position = _position;
+            Sprite.Position = Position;
+            HitBox = new HitBox(Position, Sprite.Texture.Size.X, Sprite.Texture.Size.Y);
             
             //***********************************************************************************************
             //Initialize Entity Data*************************************************************************
@@ -54,16 +56,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 
             Interacting = false;
 
-            NPCHandler.add(this);
+            NPCHandler.Add_(this);
         }
 
         /// <summary>
         /// interaction with the player
         /// </summary>
-        public override void interact()
+        public override void Interact()
         {
             Interacting = true;
-            DialogeHandler.dialogeList.Add(dialoge);
+            DialogeHandler.DialogeList.Add(Dialoge);
         }
     }
 }

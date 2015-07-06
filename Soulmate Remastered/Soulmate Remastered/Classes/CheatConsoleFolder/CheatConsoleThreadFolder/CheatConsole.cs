@@ -21,11 +21,11 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// <para>Vector which contains width and heigth of the Console Window.</para>
         /// Standard 300,100
         /// </summary>
-        public static Vector2u windowSize { get; protected set; }
+        public static Vector2u WindowSize { get; protected set; }
         /// <summary>
         /// Window of the Console Thread
         /// </summary>
-        public RenderWindow window { get; protected set; }
+        public RenderWindow Window { get; protected set; }
         /// <summary>
         /// other Windows for example a List with Cheats + Syntaxes etc.
         /// </summary>
@@ -38,7 +38,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// <summary>
         /// the entered Line in the Console
         /// </summary>
-        public static Text text { get; protected set; }
+        public static Text Text_ { get; protected set; }
         /// <summary>
         /// the Text that says "close with Enter"
         /// </summary>
@@ -56,23 +56,23 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         public CheatConsole()
         {
             //set the standard of the windowSize
-            windowSize = new Vector2u(300, 100);
+            WindowSize = new Vector2u(300, 100);
 
             //setting the cursor color to white
             cursor.FillColor = Color.White;
 
             //initializing the windows
-            window = new RenderWindow(new VideoMode(windowSize.X, windowSize.Y), "CheatConsole");
-            window.SetVisible(false);
+            Window = new RenderWindow(new VideoMode(WindowSize.X, WindowSize.Y), "CheatConsole");
+            Window.SetVisible(false);
             otherWindows = new List<RenderWindow>();
             otherWindowsContent = new List<List<Drawable>>();
 
             //initializing the texts
             closeWithEnter = new Text("close with Enter", font, 15);
-            closeWithEnter.Position = new Vector2f((window.Size.X / 2) - (42),
-                                                  (window.Size.Y / 2) - 30);
-            text = new Text("", font, 10);
-            text.Position = new Vector2f(3, windowSize.Y - 40);
+            closeWithEnter.Position = new Vector2f((Window.Size.X / 2) - (42),
+                                                  (Window.Size.Y / 2) - 30);
+            Text_ = new Text("", font, 10);
+            Text_.Position = new Vector2f(3, WindowSize.Y - 40);
 
             //start the blinkTime
             cursorBlickTime.Start();
@@ -88,23 +88,23 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// <para> </para>
         /// <para>If Return is not pressed set visibility of the window to true.</para>
         /// </summary>
-        public void handleThread()
+        public void HandleThread()
         {
             if (Input.ReturnIsPressed())
             {
-                Input.setKeyPressed(Keyboard.Key.Return);
-                if (text.DisplayedString.Equals("/" + Cheats.Cheat.ShowCheats.ToString()))
+                Input.SetKeyPressed(Keyboard.Key.Return);
+                if (Text_.DisplayedString.Equals("/" + Cheats.Cheat.ShowCheats.ToString()))
                 {
-                    Cheats.activateCheat(text.DisplayedString);
-                    text.DisplayedString = "";
+                    Cheats.ActivateCheat(Text_.DisplayedString);
+                    Text_.DisplayedString = "";
                     return ;
                 }
 
-                window.SetVisible(false);
+                Window.SetVisible(false);
 
                 CheatConsoleThreadStart.normalGameThread.Interrupt();
-                Cheats.activateCheat(text.DisplayedString);
-                text.DisplayedString = "";
+                Cheats.ActivateCheat(Text_.DisplayedString);
+                Text_.DisplayedString = "";
                 foreach (RenderWindow win in otherWindows)
                 {
                     win.Close();
@@ -123,14 +123,14 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             }
             else
             {
-                window.SetVisible(true);
+                Window.SetVisible(true);
             }
         }
 
         /// <summary>
         /// the method to make the cursor blink in the Console
         /// </summary>
-        private void cursorBlink()
+        private void CursorBlink()
         {
             //if timer.elapsed milliseconds > the time it should be shown, fill the cursor with transparents (disapear)
             if (cursorBlickTime.ElapsedMilliseconds > cursorBlinkIntervallMilliseconds)
@@ -147,16 +147,16 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// <summary>
         /// calls Input update, handle Thread also updates the window (Console)
         /// </summary>
-        public void update()
+        public void Update()
         {
             //call other "updates"
-            handleThread();
-            Input.update();
+            HandleThread();
+            Input.Update();
 
             //handle windows
-            window.Clear();
-            window.DispatchEvents();    //let the Window be moved by the cursor but not be closed
-            window.Size = windowSize;   //stops resizing
+            Window.Clear();
+            Window.DispatchEvents();    //let the Window be moved by the cursor but not be closed
+            Window.Size = WindowSize;   //stops resizing
             try
             {
                 foreach (RenderWindow w in otherWindows)
@@ -169,13 +169,13 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
 
 
             //handle cursor
-            cursor.Position = new Vector2f(text.FindCharacterPos((UInt32)text.DisplayedString.Length).X + cursor.Size.X, text.Position.Y);  //sets the cursor Position
-            cursorBlink();
+            cursor.Position = new Vector2f(Text_.FindCharacterPos((UInt32)Text_.DisplayedString.Length).X + cursor.Size.X, Text_.Position.Y);  //sets the cursor Position
+            CursorBlink();
 
             //draw everything that must be drawn
-            window.Draw(closeWithEnter);
-            window.Draw(text);
-            window.Draw(cursor);
+            Window.Draw(closeWithEnter);
+            Window.Draw(Text_);
+            Window.Draw(cursor);
             for (int i = 0; i < otherWindows.Count; ++i)
             {
                 for (int j = 0; j < otherWindowsContent[i].Count; ++j)
@@ -185,7 +185,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             }
 
             //finaly display it
-            window.Display();
+            Window.Display();
             foreach (RenderWindow w in otherWindows)
                 w.Display();
         }
@@ -196,7 +196,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// <param name="p"></param>
         public delegate void Cheat(Params p);
 
-        public void activateCheat(Params p, Cheat c)
+        public void ActivateCheat(Params p, Cheat c)
         {
             c(p);
         }
@@ -205,7 +205,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// Open a new Window with all Cheats and Syntaxes
         /// </summary>
         /// <param name="p"></param>
-        public void showCheats(Params p)
+        public void ShowCheats(Params p)
         {
             if (!p.IsEmpty)
                 throw new FormatException();
@@ -220,7 +220,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             list.Add(t);
 
             RenderWindow win = new RenderWindow(new VideoMode((uint)windowSize.X, (uint)windowSize.Y*2), "CheatList");
-            win.Closed += disposeContent;
+            win.Closed += DisposeContent;
             win.Closed += (sender, e) => ((RenderWindow)sender).Close();
             win.SetVisible(true);
            
@@ -234,7 +234,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void disposeContent(Object sender, EventArgs e)
+        void DisposeContent(Object sender, EventArgs e)
         {
             int index = 0;
 

@@ -60,6 +60,7 @@
     <Compile Include="Classes\CheatConsoleFolder\CheatConsoleThreadFolder\Cheats.cs" />
     <Compile Include="Classes\CheatConsoleFolder\CheatConsoleThreadFolder\Input.cs" />
     <Compile Include="Classes\GameObjectFolder\AbstractHitBox.cs" />
+    <Compile Include="Classes\GameObjectFolder\Cooldown.cs" />
     <Compile Include="Core\Matrix3x3.cs" />
     <Compile Include="Core\MovingDirection.cs" />
     <Compile Include="Core\Params.cs" />

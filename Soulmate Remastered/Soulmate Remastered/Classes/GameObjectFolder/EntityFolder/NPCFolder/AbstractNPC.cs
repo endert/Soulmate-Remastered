@@ -18,20 +18,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <summary>
         /// the type of this instance
         /// </summary>
-        public override string type { get { return base.type + ".NPC"; } }
+        public override string Type { get { return base.Type + ".NPC"; } }
         /// <summary>
         /// randius in wich the Player can interact with this NPC constant
         /// </summary>
-        protected float interactionRadius { get { return 50f; } }
+        protected float InteractionRadius { get { return 50f; } }
         /// <summary>
         /// the dialoge Box of this instance
         /// </summary>
-        protected DialogeBox dialoge 
+        protected DialogeBox Dialoge
         { 
             get 
             {
                 if (Interacting)
-                    return new DialogeBox(new Vector2f(position.X, position.Y - 100), loadDialoge(), this);
+                    return new DialogeBox(new Vector2f(Position.X, Position.Y - 100), LoadDialoge(), this);
                 else
                     return null;
             } 
@@ -48,21 +48,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <summary>
         /// Path of the dialoge File
         /// </summary>
-        protected virtual String dialogePath { get { return ""; } }
+        protected virtual String DialogePath { get { return ""; } }
         /// <summary>
         /// bool if the Player is in interaction range of this instance
         /// </summary>
-        public bool InIteractionRange { get { return hitBox.DistanceTo(PlayerHandler.player.hitBox) <= interactionRadius; } }
+        public bool InIteractionRange { get { return HitBox.DistanceTo(PlayerHandler.player.HitBox) <= InteractionRadius; } }
 
         /// <summary>
         /// load the Dialoge from the dialoge File
         /// </summary>
         /// <returns>dialoge String</returns>
-        private String loadDialoge()
+        private String LoadDialoge()
         {
             string res = "";
 
-            using (StreamReader reader = new StreamReader(dialogePath))
+            using (StreamReader reader = new StreamReader(DialogePath))
             {
                 while (!reader.EndOfStream)
                 {
@@ -76,16 +76,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <summary>
         /// stops interaction with this instance
         /// </summary>
-        public virtual void stopIteraction()
+        public virtual void StopIteraction()
         {
             Interacting = false;
-            DialogeHandler.dialogeList.Clear();
+            DialogeHandler.DialogeList.Clear();
         }
 
         /// <summary>
         /// interacts with the Player
         /// </summary>
-        public virtual void interact()
+        public virtual void Interact()
         {
 
         }
@@ -94,9 +94,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// updates this instance
         /// </summary>
         /// <param name="gameTime"></param>
-        public override void update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            sprite.Position = position;
+            Sprite.Position = Position;
             animate();
         }
     }

@@ -10,12 +10,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
 {
     abstract class Money : AbstractItem
     {
-        public override String type { get { return base.type + ".Money"; } }
+        public override String Type { get { return base.Type + ".Money"; } }
         public override void pickUp()
         {
             onMap = false;
-            GameObjectHandler.removeAt(indexObjectList);
-            PlayerHandler.player.gold += 1;
+            GameObjectHandler.removeAt(IndexObjectList);
+            PlayerHandler.player.Gold += 1;
         }
     }
 }

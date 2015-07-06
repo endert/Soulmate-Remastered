@@ -36,7 +36,7 @@ namespace Soulmate_Remastered.Classes.HUDFolder
             {
                 if (entity != null)
                 {
-                    lifeSpriteBackground.Position = new Vector2f((entity.position.X + entity.sprite.Texture.Size.X / 2) - lifeTextureBackground.Size.X / 2, entity.position.Y - 20);
+                    lifeSpriteBackground.Position = new Vector2f((entity.Position.X + entity.Sprite.Texture.Size.X / 2) - lifeTextureBackground.Size.X / 2, entity.Position.Y - 20);
                     lifeSpriteBar.Position = new Vector2f(lifeSpriteBackground.Position.X + 2, lifeSpriteBackground.Position.Y + 2);
                 }
             }

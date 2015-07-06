@@ -35,16 +35,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// <summary>
         /// the type of this Instance
         /// </summary>
-        public override String type { get { return base.type + ".Enemy"; } }
+        public override String Type { get { return base.Type + ".Enemy"; } }
 
         /// <summary>
         /// bool if the player is in aggro range
         /// </summary>
-        public bool sensePlayer
+        public bool SensePlayer
         {
             get
             {
-                if (hitBox.DistanceTo(PlayerHandler.player.hitBox) <= aggroRange)
+                if (HitBox.DistanceTo(PlayerHandler.player.HitBox) <= aggroRange)
                 {
                     return true;
                 }
@@ -58,7 +58,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// <summary>
         /// moves in a random direction
         /// </summary>
-        public void moveRandom()
+        public void MoveRandom()
         {
             //define missng vectors
             Vector2 upRight = (Vector2.BACK + Vector2.RIGHT).GetNormalized();
@@ -78,49 +78,49 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             switch (randomMovingDirection)
             {
                 case MovingDirection.Direction.Back:
-                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, Vector2.BACK))
+                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, Vector2.BACK))
                         move(Vector2.BACK);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.UpRight:
-                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, upRight))
+                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, upRight))
                         move(upRight);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.Right:
-                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, Vector2.RIGHT))
+                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, Vector2.RIGHT))
                         move(Vector2.RIGHT);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.DownRight:
-                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, downRight))
+                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, downRight))
                         move(downRight);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.Front:
-                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, Vector2.FRONT))
+                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, Vector2.FRONT))
                         move(Vector2.FRONT);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.DownLeft:
-                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, downLeft))
+                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, downLeft))
                         move(downLeft);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.Left:
-                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, Vector2.LEFT))
+                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, Vector2.LEFT))
                         move(Vector2.LEFT);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.UpLeft:
-                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, upLeft))
+                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, upLeft))
                         move(upLeft);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
@@ -136,7 +136,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// <summary>
         /// when killed drop Items and Gold
         /// </summary>
-        public override void drop()
+        public override void Drop()
         {
             //chose random wich item should be droped
             int rand = random.Next(drops.Length);
@@ -144,31 +144,31 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             //check if it is droped because of droprate
             if (drops[rand].DROPRATE >= 100 * random.NextDouble())
             {
-                drops[rand].cloneAndDrop(new Vector2f(position.X + random.Next(50), position.Y + random.Next(50)));
+                drops[rand].cloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
             }
 
             //drop gold
             for (int i = 0; i < random.Next(100); i++)
             {
-                new Gold().cloneAndDrop(new Vector2f(position.X + random.Next(50), position.Y + random.Next(50)));
+                new Gold().cloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
             }
         }
 
         /// <summary>
         /// what the enemy does if it's sense a player should only be called once in the update
         /// </summary>
-        protected abstract void react();
+        protected abstract void React();
 
         /// <summary>
         /// what the enemy normaly does, if it does not sense the player
         /// </summary>
-        public abstract void notReact();
+        public abstract void NotReact();
 
         /// <summary>
         /// the update, should only be called once by an handler
         /// </summary>
         /// <param name="gameTime"></param>
-        public override void update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             //regulating the movement by using the game time
             movementSpeed = BaseMovementSpeed * (float)gameTime.EllapsedTime.TotalMilliseconds;
@@ -177,24 +177,24 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             animate();
 
             //setting sprite at the current position
-            sprite.Position = position;
+            Sprite.Position = Position;
 
             //cheacking if still alive
             if (CurrentHP <= 0)
             {
-                isAlive = false;
+                IsAlive = false;
             }
 
-            if (isAlive)
+            if (IsAlive)
             {
                 //sets position of the HitBox 
-                hitBox.update(sprite);
+                HitBox.update(Sprite);
 
                 //react to Player if needed
-                if (sensePlayer)
-                    react();
+                if (SensePlayer)
+                    React();
                 else
-                    notReact();
+                    NotReact();
             }
 
             //call life bar update

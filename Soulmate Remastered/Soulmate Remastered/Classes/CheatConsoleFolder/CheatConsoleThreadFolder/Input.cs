@@ -30,16 +30,16 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// <summary>
         /// the bool value if any Shift Key is pressed
         /// </summary>
-        public static bool isShiftPressed { get { return Keyboard.IsKeyPressed(Keyboard.Key.LShift) || Keyboard.IsKeyPressed(Keyboard.Key.RShift); } }
+        public static bool IsShiftPressed { get { return Keyboard.IsKeyPressed(Keyboard.Key.LShift) || Keyboard.IsKeyPressed(Keyboard.Key.RShift); } }
 
         /// <summary>
         /// set the given Key as pressed
         /// </summary>
         /// <param name="_k">Keyboard.Key</param>
-        public static void setKeyPressed(Keyboard.Key _k)
+        public static void SetKeyPressed(Keyboard.Key _k)
         {
             Initialize();
-            Key k = cast(_k);
+            Key k = Cast(_k);
             isPressed[(int)k] = true;
             if ((int)k >= 10 && (int)k <= 35)
                 isPressed[((int)k) + 26] = true;
@@ -50,9 +50,9 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// </summary>
         /// <param name="k">Keyboard.Key k</param>
         /// <returns>Input.Key</returns>
-        private static Key cast(Keyboard.Key k)
+        private static Key Cast(Keyboard.Key k)
         {
-            if (isShiftPressed)   //shift is pressed means we use upper case letter
+            if (IsShiftPressed)   //shift is pressed means we use upper case letter
                 switch (k)
                 {
                     case Keyboard.Key.A: return Key.A;
@@ -144,7 +144,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// </summary>
         /// <param name="k">Input.Key</param>
         /// <returns>Keyboard.Key</returns>
-        private static Keyboard.Key cast(Key k) // (Keyboard.Key) Input.Key
+        private static Keyboard.Key Cast(Key k) // (Keyboard.Key) Input.Key
         {
             switch (k)                      //a lot of switch cases 
             {
@@ -328,13 +328,13 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// <summary>
         /// updating the bool array and enter the pressed Keys to the shown String in the Console
         /// </summary>
-        public static void update()
+        public static void Update()
         {
             for (int i = 0; i < isPressed.Length; ++i)
             {
-                if (!isPressed[i] && Keyboard.IsKeyPressed(cast((Key)i)) && (i < 36 || i > 64) && !isShiftPressed) //excluding upperLetter if Shift is not pressed
+                if (!isPressed[i] && Keyboard.IsKeyPressed(Cast((Key)i)) && (i < 36 || i > 64) && !IsShiftPressed) //excluding upperLetter if Shift is not pressed
                 {
-                    CheatConsole.text.DisplayedString += ButtonString((Key)i);
+                    CheatConsole.Text_.DisplayedString += ButtonString((Key)i);
                     isPressed[i] = true;
 
                     if (6 < i && i < 10)    //7 -> Slash 8 -> LBracket 9 -> RBracket
@@ -344,9 +344,9 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
                         isPressed[i + 26] = true;   //the UpperLetter
                 }
 
-                if (i > 35 && i < 65 && !isPressed[i] && Keyboard.IsKeyPressed(cast((Key)i)) && isShiftPressed) //only upperLetter if a Shift button is pressed
+                if (i > 35 && i < 65 && !isPressed[i] && Keyboard.IsKeyPressed(Cast((Key)i)) && IsShiftPressed) //only upperLetter if a Shift button is pressed
                 {
-                    CheatConsole.text.DisplayedString += ButtonString((Key)i);
+                    CheatConsole.Text_.DisplayedString += ButtonString((Key)i);
                     isPressed[i] = true;
                     if (i < 62)
                         isPressed[i - 26] = true;   //the LowerLetter
@@ -354,13 +354,13 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
                         isPressed[i - 55] = true;   //Slash -> 7 LBracket -> 8 RBracket -> 9
                 }
 
-                if (CheatConsole.text.DisplayedString.Length>0 && !isPressed[(int)Key.Back] && Keyboard.IsKeyPressed(Keyboard.Key.Back))
+                if (CheatConsole.Text_.DisplayedString.Length>0 && !isPressed[(int)Key.Back] && Keyboard.IsKeyPressed(Keyboard.Key.Back))
                 {
-                    CheatConsole.text.DisplayedString = CheatConsole.text.DisplayedString.Remove(CheatConsole.text.DisplayedString.Length - 1);
+                    CheatConsole.Text_.DisplayedString = CheatConsole.Text_.DisplayedString.Remove(CheatConsole.Text_.DisplayedString.Length - 1);
                     isPressed[(int)Key.Back] = true;
                 }
 
-                if (isPressed[i] && !Keyboard.IsKeyPressed(cast((Key)i)))
+                if (isPressed[i] && !Keyboard.IsKeyPressed(Cast((Key)i)))
                 {
                     isPressed[i] = false;
                 }

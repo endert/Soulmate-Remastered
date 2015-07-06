@@ -35,7 +35,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
         {
             for (int i = 0; i < treasureChestList.Count; i++)
             {
-                treasureChestList[i].update(gameTime);
+                treasureChestList[i].Update(gameTime);
             }
         }
     }

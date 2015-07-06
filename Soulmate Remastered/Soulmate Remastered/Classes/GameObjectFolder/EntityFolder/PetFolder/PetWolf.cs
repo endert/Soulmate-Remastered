@@ -11,25 +11,45 @@ using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 {
+    /// <summary>
+    /// a Wolf as a pet
+    /// </summary>
     class PetWolf : AbstractPet
     {
-        public override String type { get { return base.type + ".PetWolf"; } }
+        /// <summary>
+        /// the type of this instance
+        /// </summary>
+        public override String Type { get { return base.Type + ".PetWolf"; } }
+
+        /// <summary>
+        /// creates an instance
+        /// </summary>
+        /// <param name="player"></param>
         public PetWolf(AbstractPlayer player)
         {
-            textureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfFront.png"));
-            textureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfBack.png"));
-            textureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfRight.png"));
-            textureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfLeft.png"));
+            //Initialize Gameobject attributes********************************************************************************
 
-            BaseMovementSpeed = 0.4f;
-            sprite = new Sprite(textureList[0]);
-            position = new Vector2f(player.position.X - 150, player.position.Y + player.hitBox.height - textureList[0].Size.Y);
-            sprite.Position = position;
-            hitBox = new HitBox(sprite.Position, textureList[0].Size.X, textureList[0].Size.Y);
-            lifeBar = new LifeBarForOthers();
+            TextureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfFront.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfBack.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfRight.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfLeft.png"));
+
+            IsAlive = true;
+            IsVisible = true;
+            Sprite = new Sprite(TextureList[0]);
+            Position = new Vector2f(player.Position.X - 150, player.Position.Y + player.HitBox.height - TextureList[0].Size.Y);
+            Sprite.Position = Position;
+            HitBox = new HitBox(Sprite.Position, TextureList[0].Size.X, TextureList[0].Size.Y);
+
+            //****************************************************************************************************************
+            //Initialize Entity attributes************************************************************************************
 
             MaxHP = 50f;
             CurrentHP = MaxHP;
+            BaseMovementSpeed = 0.4f;
+            lifeBar = new LifeBarForOthers();
+
+            //****************************************************************************************************************
         }
     }
 }

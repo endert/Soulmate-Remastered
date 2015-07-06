@@ -8,11 +8,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 {
     abstract class AbstractPotion : AbstractItem
     {
-        public override string type
+        public override string Type
         {
             get
             {
-                return base.type + ".Potion";
+                return base.Type + ".Potion";
             }
         }
 
@@ -29,7 +29,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 
         public override string toStringForSave()
         {
-            return base.toStringForSave() + size + lineBreak.ToString();
+            return base.toStringForSave() + size + LineBreak.ToString();
         }
     }
 }

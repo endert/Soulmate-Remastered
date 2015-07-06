@@ -43,7 +43,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
         {
             for (int i = 0; i < equipmentList.Count; i++)
             {
-                if (equipmentList[i].isAlive)
+                if (equipmentList[i].IsAlive)
                 {
                     equipmentList.RemoveAt(i);
                     i--;

@@ -14,17 +14,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
     {
         public TreasureChest(Vector2f _position)
         {
-            textureList.Add(new Texture("Pictures/Treasure Chest/TreasureChest.png"));
-            sprite = new Sprite(textureList[0]);
+            TextureList.Add(new Texture("Pictures/Treasure Chest/TreasureChest.png"));
+            IsVisible = true;
+            Sprite = new Sprite(TextureList[0]);
             isOpen = false;
-            position = _position;
-            sprite.Position = position;
-            hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
+            Position = _position;
+            Sprite.Position = Position;
+            HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
             drops = new AbstractItem[] { new Sword(100,100,100,"Super Awesome Mega Sword of DOOOOOOM!!!!")};
             TreasureChestHandler.add(this);
         }
 
-        public override void update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             interaction();
         }

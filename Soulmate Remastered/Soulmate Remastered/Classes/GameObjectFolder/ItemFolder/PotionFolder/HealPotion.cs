@@ -11,7 +11,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 {
     class HealPotion : AbstractPotion
     {
-        public override string type { get { return base.type + ".HealPotion"; } }
+        public override string Type { get { return base.Type + ".HealPotion"; } }
         public override float ID
         {
             get
@@ -29,8 +29,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 
         public HealPotion(healPotionSize healPotionSize)
         {
-            visible = false;
-            position = new Vector2f();
+            IsVisible = false;
+            Position = new Vector2f();
             dropRate = 100;
             size = (int)healPotionSize;
 
@@ -38,7 +38,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
             {
                 case healPotionSize.small:
                     recoveryValue = 20;
-                    textureList.Add(new Texture("Pictures/Items/Potion/HealPotion/PotionSmall.png"));
+                    TextureList.Add(new Texture("Pictures/Items/Potion/HealPotion/PotionSmall.png"));
                     break;
                 case healPotionSize.middle:
                     recoveryValue = 50;
@@ -49,8 +49,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
                 default:
                     throw new NotFiniteNumberException();
             }
-            sprite = new Sprite(textureList[0]);
-            hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
+            Sprite = new Sprite(TextureList[0]);
+            HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
         }
 
         public override void use()
@@ -58,14 +58,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
             if (PlayerHandler.player.CurrentHP != PlayerHandler.player.MaxHP)
             {
                 PlayerHandler.player.HealFor(recoveryValue);
-                isAlive = false;
+                IsAlive = false;
             }
         }
 
         public override AbstractItem clone()
         {
             AbstractItem clonedItem = new HealPotion((healPotionSize)size);
-            clonedItem.position = this.position;
+            clonedItem.Position = this.Position;
             return clonedItem;
         }
     }

@@ -11,7 +11,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
 {
     abstract class Equipment : AbstractItem
     {
-        public override String type { get { return base.type + ".Equipment"; } }
+        public override String Type { get { return base.Type + ".Equipment"; } }
         public override float ID { get { return base.ID * 10 + 1; } }
         public override bool stackable { get { return false; } }
         public override float sellPrize { get { return (attBonus + bonusDef + bonusHp) * 10 / ((ID % 10) + 1); } }
@@ -28,10 +28,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
         {
             String save = base.toStringForSave();
 
-            save += bonusAtt + lineBreak.ToString();
-            save += bonusDef + lineBreak.ToString();
-            save += bonusHp + lineBreak.ToString();
-            save += name + lineBreak.ToString();
+            save += bonusAtt + LineBreak.ToString();
+            save += bonusDef + LineBreak.ToString();
+            save += bonusHp + LineBreak.ToString();
+            save += Name + LineBreak.ToString();
 
             return save;
         }
@@ -57,8 +57,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
             }
             ItemHandler.playerInventory.equipment[(int)((ID) / 10) % 10] = this;
             ItemHandler.playerInventory.inventoryMatrix[inventoryMatrixPositionY, inventoryMatrixPositionX] = null;
-            position = Inventory.equipmentPosition[(int)((ID) / 10) % 10];
-            sprite.Position = position;
+            Position = Inventory.equipmentPosition[(int)((ID) / 10) % 10];
+            Sprite.Position = Position;
             equiped = true;
         }
 
@@ -75,7 +75,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
                         {
                             ItemHandler.playerInventory.inventoryMatrix[i, j] = new Stack<AbstractItem>();
                             ItemHandler.playerInventory.inventoryMatrix[i, j].Push(this);
-                            position = new Vector2f(ItemHandler.playerInventory.inventoryMatrixPosition.X + j * ItemHandler.playerInventory.FIELDSIZE + 1,
+                            Position = new Vector2f(ItemHandler.playerInventory.inventoryMatrixPosition.X + j * ItemHandler.playerInventory.FIELDSIZE + 1,
                                                     ItemHandler.playerInventory.inventoryMatrixPosition.Y + i * ItemHandler.playerInventory.FIELDSIZE + 1);
 
                             _break = true;

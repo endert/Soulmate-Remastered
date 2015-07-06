@@ -15,7 +15,7 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
         /// <summary>
         /// returns a bool value if the dialogue box is open right now or not
         /// </summary>
-        public bool isOpen { get; protected set; }
+        public bool IsOpen { get; protected set; }
         /// <summary>
         /// the position in world coordinates
         /// </summary>
@@ -63,12 +63,12 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
             dialogeBox.Position = position;
             txt = new Text("", Game.font, characterSize);
             txt.Position = new Vector2f(dialogeBox.Position.X + 5, dialogeBox.Position.Y + 5);
-            isOpen = true;
+            IsOpen = true;
             npc = _npc;
 
             //create Dialoge and display it
-            text = createDialoge(dialoge);
-            setDisplayedString();
+            text = CreateDialoge(dialoge);
+            SetDisplayedString();
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        private List<String> createDialoge(String str)
+        private List<String> CreateDialoge(String str)
         {
             //get rid of all unneccessary linebreaks
             str = str.Replace("\n", "");
@@ -115,7 +115,7 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
         /// <summary>
         /// evaluates wich part of the text is on screen
         /// </summary>
-        public void setDisplayedString()
+        public void SetDisplayedString()
         {
             //evaluate max number of lines we can show at the same time
             uint maxLineCount = (background.Size.Y-10) / characterSize;
@@ -149,7 +149,7 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
         /// <summary>
         /// updates the dialoge box
         /// </summary>
-        public void update()
+        public void Update()
         {
             //update the shown String if the interaction button is pressed
             if (Keyboard.IsKeyPressed(Controls.Interact) && !Game.isPressed)
@@ -158,11 +158,11 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
 
                 //if there is nothing left to show, close the dialoge box
                 if (index == text.Count)
-                    npc.stopIteraction();//destroys this Instance
+                    npc.StopIteraction();//destroys this Instance
 
                 //else set the diesplayed Sting new
                 txt.DisplayedString = "";
-                setDisplayedString();
+                SetDisplayedString();
             }
         }
 
@@ -170,10 +170,10 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
         /// draws the dialoge box
         /// </summary>
         /// <param name="window"></param>
-        public void draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             //draw the background Sprite and the text
-            if (isOpen)
+            if (IsOpen)
             {
                 window.Draw(dialogeBox);
                 window.Draw(txt);

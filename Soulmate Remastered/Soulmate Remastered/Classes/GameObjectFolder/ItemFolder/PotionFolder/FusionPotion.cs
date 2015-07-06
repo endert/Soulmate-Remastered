@@ -11,7 +11,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 {
     class FusionPotion : AbstractPotion
     {
-        public override string type { get { return base.type + ".FusionPotion"; } }
+        public override string Type { get { return base.Type + ".FusionPotion"; } }
         public override float ID
         {
             get
@@ -29,8 +29,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 
         public FusionPotion(fusionPotionSize fusionPotionSize)
         {
-            visible = false;
-            position = new Vector2f();
+            IsVisible = false;
+            Position = new Vector2f();
             dropRate = 100;
             size = (int)fusionPotionSize;
 
@@ -38,7 +38,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
             {
                 case fusionPotionSize.small:
                     recoveryValue = 20;
-                    textureList.Add(new Texture("Pictures/Items/Potion/FusionPotion/FusionPotionSmall.png"));
+                    TextureList.Add(new Texture("Pictures/Items/Potion/FusionPotion/FusionPotionSmall.png"));
                     break;
                 case fusionPotionSize.middle:
                     recoveryValue = 50;
@@ -49,23 +49,23 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
                 default:
                     throw new NotFiniteNumberException();
             }
-            sprite = new Sprite(textureList[0]);
-            hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
+            Sprite = new Sprite(TextureList[0]);
+            HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
         }
 
         public override void use()
         {
-            if (PlayerHandler.player.currentFusionValue != PlayerHandler.player.maxFusionValue)
+            if (PlayerHandler.player.CurrentFusionValue != PlayerHandler.player.MaxFusionValue)
             {
                 PlayerHandler.player.HealFusionFor(recoveryValue);
-                isAlive = false;
+                IsAlive = false;
             }
         }
 
         public override AbstractItem clone()
         {
             AbstractItem clonedItem = new FusionPotion((fusionPotionSize)size);
-            clonedItem.position = this.position;
+            clonedItem.Position = this.Position;
             return clonedItem;
         }
     }

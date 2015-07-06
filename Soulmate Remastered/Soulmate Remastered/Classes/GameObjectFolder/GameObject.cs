@@ -11,62 +11,49 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 {
     abstract class GameObject : IComparable<GameObject>
     {
-        public float yCoordinate { get { return position.Y + sprite.Texture.Size.Y; } }  // for sorting the list
+        /// <summary>
+        /// for sorting the List
+        /// </summary>
+        public float YCoordinate { get { return Position.Y + Sprite.Texture.Size.Y; } } 
         //Parameters for gameObjects
-        public  HitBox hitBox { get; set; }
-        public  Sprite sprite { get; set; }
-        protected List<Texture> textureList = new List<Texture>();
-        public Texture currentTexture { get { return sprite.Texture; } }
-        public Vector2 position { get; set; }
+        public  HitBox HitBox { get; set; }
+        public  Sprite Sprite { get; set; }
+        protected List<Texture> TextureList = new List<Texture>();
+        public Texture CurrentTexture { get { return Sprite.Texture; } }
+        public Vector2 Position { get; set; }
         /// <summary>
         /// the type of this gameobject
         /// </summary>
-        public virtual String type { get { return "Object"; } }
-        protected String customName = "";
-        public String name { get { if (!customName.Equals("")) return customName; else return type.Split('.')[type.Split('.').Length - 1]; } }
-        protected bool _isAlive = true;
-        public bool isAlive { get { return _isAlive; } set { _isAlive = value; } }
-        public int indexObjectList { get; set; }
-        public virtual bool walkable { get { return false; } }
-        protected bool visible = true;  //standart is visible
-        public bool isVisible { get { return true; } }
+        public virtual string Type { get { return "Object"; } }
+        protected string CustomName = "";
+        public string Name { get { if (!CustomName.Equals("")) return CustomName; else return Type.Split('.')[Type.Split('.').Length - 1]; } }
+        public bool IsAlive { get; protected set; }
+        public int IndexObjectList { get; set; }
+        public virtual bool Walkable { get { return false; } }
+        public bool IsVisible { get; protected set; }
 
-        public static Char lineBreak { get { return ';'; } }
+        public static char LineBreak { get { return ';'; } }
 
         public int CompareTo(GameObject gameObject) //for sort in the ObjectList
         {
-            return (int)(this.yCoordinate - gameObject.yCoordinate);
+            return (int)(this.YCoordinate - gameObject.YCoordinate);
         }
 
-        public void kill()
+        public void Kill()
         {
-            isAlive = false;
+            IsAlive = false;
         }
 
-        public List<GameObject> getTouchedObject()
+        public abstract void Update(GameTime gameTime);
+
+        public virtual void Draw(RenderWindow window)
         {
-            List<GameObject> gObjList = new List<GameObject>();
-            for (int i = 0; i < GameObjectHandler.gameObjectList.Count; i++)
-            {
-                if ((i != indexObjectList) && (hitBox.Hit(GameObjectHandler.gameObjectList[i].hitBox)))
-                {
-                    gObjList.Add(GameObjectHandler.gameObjectList[i]);
-                    Console.WriteLine(GameObjectHandler.gameObjectList[i].type);
-                }
-            }
-            return gObjList;
+            window.Draw(Sprite);
         }
 
-        public abstract void update(GameTime gameTime);
-
-        public virtual void draw(RenderWindow window)
+        public virtual void DebugDraw(RenderWindow window)
         {
-            window.Draw(sprite);
-        }
-
-        public virtual void debugDraw(RenderWindow window)
-        {
-            hitBox.draw(window);
+            HitBox.draw(window);
         }
     }
 }

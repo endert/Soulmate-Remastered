@@ -23,7 +23,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// <summary>
         /// The type of this Instance
         /// </summary>
-        public override String type { get { return base.type + ".EnemyBlott"; } }
+        public override String Type { get { return base.Type + ".EnemyBlott"; } }
         
         /// <summary>
         /// creates a Blott at the given Position
@@ -34,17 +34,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             //initialize the gameObject attributes******************************************************************
 
             //initialize the TextureList
-            textureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottFront.png"));
-            textureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottBack.png"));
-            textureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottRight.png"));
-            textureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottLeft.png"));
-            textureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Invulnerable/BlottFrontInvulnerable.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottFront.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottBack.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottRight.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottLeft.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Invulnerable/BlottFrontInvulnerable.png"));
 
-            sprite = new Sprite(textureList[0]);
-            position = spawnPos;
-            sprite.Position = position;
-            isAlive = true;
-            hitBox = new HitBox(sprite.Position, sprite.Texture.Size.X, sprite.Texture.Size.Y);
+            IsVisible = true;
+            Sprite = new Sprite(TextureList[0]);
+            Position = spawnPos;
+            Sprite.Position = Position;
+            IsAlive = true;
+            HitBox = new HitBox(Sprite.Position, Sprite.Texture.Size.X, Sprite.Texture.Size.Y);
 
             //******************************************************************************************************
             //initialize Entity Attributes**************************************************************************
@@ -74,7 +75,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// <summary>
         /// move in Player direction
         /// </summary>
-        protected override void react()
+        protected override void React()
         {
             if (!touchedPlayer())
                 move(getPlayerDirection());
@@ -88,9 +89,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// <summary>
         /// move random
         /// </summary>
-        public override void notReact()
+        public override void NotReact()
         {
-            moveRandom();
+            MoveRandom();
         }
     }
 }

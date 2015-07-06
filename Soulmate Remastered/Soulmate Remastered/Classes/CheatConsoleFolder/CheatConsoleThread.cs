@@ -29,7 +29,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder
         /// <summary>
         /// the Console
         /// </summary>
-        public static CheatConsole cheatConsole { get; protected set; }
+        public static CheatConsole CheatConsole { get; protected set; }
 
         /// <summary>
         /// Constructor
@@ -40,7 +40,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder
             normalGameThread = Thread.CurrentThread;
 
             //initializing new thread by giving a Main to start
-            cheatConsoleThread = new Thread(new ThreadStart(CheatConsoleThreadStart.cheatConsoleThreadMain));
+            cheatConsoleThread = new Thread(new ThreadStart(CheatConsoleThreadStart.CheatConsoleThreadMain));
 
             //Start the thread
             cheatConsoleThread.Start();
@@ -49,11 +49,11 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder
         /// <summary>
         /// Main of the cheatConsoleThread
         /// </summary>
-        public static void cheatConsoleThreadMain()
+        public static void CheatConsoleThreadMain()
         {
             //initialize
-            cheatConsole = new CheatConsole();
-            Input.setKeyPressed(Keyboard.Key.T);
+            CheatConsole = new CheatConsole();
+            Input.SetKeyPressed(Keyboard.Key.T);
 
             //sleep till interupted
             try
@@ -67,14 +67,14 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder
             //updatate till another sleep order
             while (true)
             {
-                cheatConsole.update();
+                CheatConsole.Update();
             }
         }
 
         /// <summary>
         /// terminate the console thread
         /// </summary>
-        public void delete()
+        public void Delete()
         {
             cheatConsoleThread.Abort();
         }
@@ -82,12 +82,12 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder
         /// <summary>
         /// switches from Game to Console when the ConsoleOpen button is pressed
         /// </summary>
-        public void update()
+        public void Update()
         {
             if (Keyboard.IsKeyPressed(Controls.CheatConsoleOpen) && !Game.isPressed)
             {
                 cheatConsoleThread.Interrupt();
-                Input.setKeyPressed(Keyboard.Key.T);
+                Input.SetKeyPressed(Keyboard.Key.T);
 
                 try
                 {

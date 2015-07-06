@@ -18,9 +18,9 @@ namespace Soulmate_Remastered.Core
             Position = pos;
         }
 
-        //public static Vertex operator *(Matrix3x3 trans, Vertex v)
-        //{
-
-        //}
+        public void Transform(Matrix3x3 m)
+        {
+            Position = m * new Vector3(Position);
+        }
     }
 }

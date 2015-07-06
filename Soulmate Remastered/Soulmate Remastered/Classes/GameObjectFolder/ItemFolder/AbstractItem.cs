@@ -13,10 +13,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {
     abstract class AbstractItem : GameObject, IComparable<AbstractItem>
     {
-        public override String type { get { return base.type + ".Item"; } }
+        public override String Type { get { return base.Type + ".Item"; } }
         public virtual float ID { get { return 1; } }
         public virtual bool stackable { get { return true; } }
-        public override bool walkable { get { return true; } }
+        public override bool Walkable { get { return true; } }
         public virtual bool sellable { get { return true; } }
         public virtual float sellPrize { get { return 0; } }
         protected float dropRate; // in percent
@@ -42,11 +42,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
         public virtual String toStringForSave()
         {
-            String itemForSave = "it" + lineBreak.ToString();
+            String itemForSave = "it" + LineBreak.ToString();
 
-            itemForSave += type.Split('.')[type.Split('.').Length-1] + lineBreak.ToString();
-            itemForSave += position.X + lineBreak.ToString();
-            itemForSave += position.Y + lineBreak.ToString();
+            itemForSave += Type.Split('.')[Type.Split('.').Length-1] + LineBreak.ToString();
+            itemForSave += Position.X + LineBreak.ToString();
+            itemForSave += Position.Y + LineBreak.ToString();
 
             return itemForSave;
         }
@@ -55,7 +55,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
         public void setPositionMatrix(int x, int y)
         {
-            position = new Vector2f(x * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X,
+            Position = new Vector2f(x * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X,
                 y * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.Y);
         }
 
@@ -67,9 +67,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
         public virtual void pickUp()
         {
-            if (type.Equals("Object.Item.Gold"))
+            if (Type.Equals("Object.Item.Gold"))
             {
-                PlayerHandler.player.gold += 1;
+                PlayerHandler.player.Gold += 1;
                 return;
             }
             for (int i = 0; i < ItemHandler.playerInventory.inventoryMatrix.GetLength(0); i++) //row -> x-coordinate
@@ -80,10 +80,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                     {
                         ItemHandler.playerInventory.inventoryMatrix[i, j] = new Stack<AbstractItem>();
                         ItemHandler.playerInventory.inventoryMatrix[i, j].Push(this);
-                        position = new Vector2f((j * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X),
+                        Position = new Vector2f((j * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X),
                                                 (i * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.Y));
                         onMap = false;
-                        GameObjectHandler.removeAt(indexObjectList);
+                        GameObjectHandler.removeAt(IndexObjectList);
                         return;
 
                     }
@@ -95,10 +95,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                             ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().setVisible(false);
                         }
                         ItemHandler.playerInventory.inventoryMatrix[i, j].Push(this);
-                        position = new Vector2f((j * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X),
+                        Position = new Vector2f((j * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X),
                             (i * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.Y));
                         onMap = false;
-                        GameObjectHandler.removeAt(indexObjectList);
+                        GameObjectHandler.removeAt(IndexObjectList);
                         return;
                     }
                 }
@@ -109,14 +109,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
         public void drop(Vector2f dropPosition)
         {
-            position = dropPosition;
-            sprite.Position = position;
+            Position = dropPosition;
+            Sprite.Position = Position;
             onMap = true;
         }
 
         public void setVisible(bool _visible)
         {
-            visible = _visible;
+            IsVisible = _visible;
         }
 
         public void cloneAndDrop(Vector2f dropPosition)
@@ -126,18 +126,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             dropedItem.drop(dropPosition);
         }
 
-        public override void update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            hitBox.Position = position;
-            sprite.Position = position;
+            HitBox.Position = Position;
+            Sprite.Position = Position;
             if (onMap)
             {
-                visible = true;
+                IsVisible = true;
                 wasOnMap = true;
                 decay.Start();
                 if (decay.ElapsedMilliseconds >= decayingIn)
                 {
-                    isAlive = false;
+                    IsAlive = false;
                 }
             }
             if (wasOnMap && !onMap)
@@ -148,7 +148,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             }
             if (!onMap)
             {
-                visible = false;
+                IsVisible = false;
             }
         }
 
