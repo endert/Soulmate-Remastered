@@ -43,6 +43,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             base.draw(window);
 
             window.Draw(controls);
+            window.Draw(back);
         }
     }
 }

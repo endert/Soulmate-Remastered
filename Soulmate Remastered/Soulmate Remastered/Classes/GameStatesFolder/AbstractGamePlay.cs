@@ -28,6 +28,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public static bool loading = false;
         public static bool startNewGame = false;
         protected static readonly String savePlayer = "Saves/player.soul";
+        /// <summary>
+        /// bool if debug on or off
+        /// </summary>
         bool debugging = false;
         public static String savePlayerPath { get { return savePlayer; } }
         /// <summary>
@@ -100,6 +103,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameTime">time of the game</param>
+        /// <returns>returns current state of game</returns>
         public abstract EnumGameStates update(GameTime gameTime);
         
         /// <summary>
@@ -126,7 +134,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         }
 
         /// <summary>
-        /// updates the game
+        /// updates what is similary in the gameplay scenes
         /// </summary>
         /// <param name="gameTime">time of the game</param>
         public void GameUpdate(GameTime gameTime)
@@ -198,7 +206,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// <summary>
         /// draw everything in the game what is needed
         /// </summary>
-        /// <param name="window"></param>
+        /// <param name="window">window where it should be drawed</param>
         public void draw(RenderWindow window)
         {
             window.SetView(VIEW);

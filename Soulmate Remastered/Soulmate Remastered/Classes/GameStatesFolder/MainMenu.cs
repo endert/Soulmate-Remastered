@@ -30,6 +30,16 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         Sprite controls;
         Sprite credits;
         Sprite end;
+
+        /// <summary>
+        /// <para>value to define which sprite is selected</para>
+        /// <para>0=>sart-sprite</para>
+        /// <para>1=options-sprite></para>
+        /// <para>2=controls-sprite></para>
+        /// <para>3=credits-sprite></para>
+        /// <para>4=end-sprite></para>
+        /// </summary>
+        int spriteNumber;
        
         public override void initialize()
         {
@@ -77,38 +87,38 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             if (NavigationHelp.isMouseInSprite(start))
             {
-                x = 0;
+                spriteNumber = 0;
             }
             if (NavigationHelp.isMouseInSprite(optionsButton))
             {
-                x = 1;
+                spriteNumber = 1;
             }
             if (NavigationHelp.isMouseInSprite(controls))
             {
-                x = 2;
+                spriteNumber = 2;
             }
             if (NavigationHelp.isMouseInSprite(credits))
             {
-                x = 3;
+                spriteNumber = 3;
             }
             if (NavigationHelp.isMouseInSprite(end))
             {
-                x = 4;
+                spriteNumber = 4;
             }
 
             if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
             {
-                x = (x + 4) % 5;
+                spriteNumber = (spriteNumber + 4) % 5;
                 Game.isPressed = true;
             }
 
             if (Keyboard.IsKeyPressed(Controls.Down) && !Game.isPressed)
             {
-                x = (x + 1) % 5;
+                spriteNumber = (spriteNumber + 1) % 5;
                 Game.isPressed = true;
             }
 
-            if (x == 0)
+            if (spriteNumber == 0)
             {
                 start.Texture = startSelected;
                 optionsButton.Texture = optionsNotSelected;
@@ -117,7 +127,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 end.Texture = endNotSelected;
             }
 
-            if (x == 1)
+            if (spriteNumber == 1)
             {
                 start.Texture = startNotSelected;
                 optionsButton.Texture = optionsSelected;
@@ -126,7 +136,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 end.Texture = endNotSelected;
             }
 
-            if (x == 2)
+            if (spriteNumber == 2)
             {
                 start.Texture = startNotSelected;
                 optionsButton.Texture = optionsNotSelected;
@@ -135,7 +145,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 end.Texture = endNotSelected;
             }
 
-            if (x == 3)
+            if (spriteNumber == 3)
             {
                 start.Texture = startNotSelected;
                 optionsButton.Texture = optionsNotSelected;
@@ -144,7 +154,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 end.Texture = endNotSelected;
             }
 
-            if (x == 4)
+            if (spriteNumber == 4)
             {
                 start.Texture = startNotSelected;
                 optionsButton.Texture = optionsNotSelected;
@@ -153,30 +163,30 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 end.Texture = endSelected;
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 0, start, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(spriteNumber, 0, start, Controls.Return))
             {
                 Game.isPressed = true;
                 return EnumGameStates.loadGame;
             }
-            if (NavigationHelp.isSpriteKlicked(x, 1, optionsButton, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(spriteNumber, 1, optionsButton, Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("load Options");
                 return EnumGameStates.options;
             }
-            if (NavigationHelp.isSpriteKlicked(x, 2, controls, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(spriteNumber, 2, controls, Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("load Controls");
                 return EnumGameStates.controls;
             }
-            if (NavigationHelp.isSpriteKlicked(x, 3, credits, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(spriteNumber, 3, credits, Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("load Credits");
                 return EnumGameStates.credits;
             }
-            if (NavigationHelp.isSpriteKlicked(x, 4, end, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(spriteNumber, 4, end, Controls.Return))
             {
                 Game.isPressed = true;
                 return EnumGameStates.none;

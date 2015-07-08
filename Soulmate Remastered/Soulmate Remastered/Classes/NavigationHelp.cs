@@ -9,13 +9,16 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes
 {
+    /// <summary>
+    /// contains helpful methods for different things
+    /// </summary>
     class NavigationHelp
     {
         /// <summary>
         /// checking if the mouse is in the correct sprite
         /// </summary>
         /// <param name="sprite">sprite in which the mouse be should be</param>
-        /// <returns></returns>
+        /// <returns>bool if the mouse is currently in the sprite</returns>
         public static bool isMouseInSprite(Sprite sprite)
         {
             RenderWindow window = AbstractGame.window; //don't no why, maybe i was to lazy to write every time the long
@@ -30,7 +33,7 @@ namespace Soulmate_Remastered.Classes
         /// <param name="y">value for the correct sprite</param>
         /// <param name="sprite">sprite, which is klicked</param>
         /// <param name="key">key, which must klicked for the sprite</param>
-        /// <returns></returns>
+        /// <returns>bool if the correct sprite was klicked</returns>
         public static bool isSpriteKlicked(int x, int y, Sprite sprite, Keyboard.Key key)
         {
             return (x == y && (Keyboard.IsKeyPressed(key) || (Mouse.IsButtonPressed(Mouse.Button.Left) && isMouseInSprite(sprite))) && !Game.isPressed);
@@ -53,7 +56,7 @@ namespace Soulmate_Remastered.Classes
         }
     
         /// <summary>
-        /// 
+        /// deletes null objects from a list
         /// </summary>
         /// <param name="list">list in which the null object should be deleted</param>
         /// <returns>same list without null objects</returns>
