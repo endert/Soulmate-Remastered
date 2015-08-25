@@ -11,12 +11,15 @@ using System.Drawing;
 
 namespace Soulmate_Remastered.Classes.MapFolder
 {
+    /// <summary>
+    /// the map of the game where the player moves
+    /// </summary>
     class Map
     {
+
         Sprite backGround = new Sprite(new Texture("Pictures/Map/Village.png"));
         Blocks[,] map;
         Texture blockTex;
-        //List<EnemyHandler> EnemyList;
 
         public int objectSize = 32;
 

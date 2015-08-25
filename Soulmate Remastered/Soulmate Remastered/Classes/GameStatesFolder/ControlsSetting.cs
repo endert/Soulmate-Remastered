@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             base.initialize();
 
             controls = new Sprite(controlsTexture);
-            controls.Position = new Vector2f(0, 0);
+            controls.Position = new Vector2(0, 0);
         }
 
         public override void loadContent()
@@ -43,6 +44,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             base.draw(window);
 
             window.Draw(controls);
+            window.Draw(back);
         }
     }
 }

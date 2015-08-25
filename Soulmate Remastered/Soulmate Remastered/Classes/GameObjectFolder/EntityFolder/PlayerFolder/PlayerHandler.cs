@@ -9,8 +9,14 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
+    /// <summary>
+    /// handles the player
+    /// </summary>
     class PlayerHandler
     {
+        /// <summary>
+        /// the player
+        /// </summary>
         public static AbstractPlayer player { get; set; }
 
         public PlayerHandler()

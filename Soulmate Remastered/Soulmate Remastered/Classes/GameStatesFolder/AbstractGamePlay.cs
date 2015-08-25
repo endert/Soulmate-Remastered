@@ -28,9 +28,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public static bool loading = false;
         public static bool startNewGame = false;
         protected static readonly String savePlayer = "Saves/player.soul";
+        /// <summary>
+        /// bool if debug on or off
+        /// </summary>
         bool debugging = false;
         public static String savePlayerPath { get { return savePlayer; } }
-        protected GameTime time = new GameTime();
         /// <summary>
         /// view for inventory, shop, inGameMenu
         /// </summary>
@@ -45,9 +47,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         //protected int index = 0; //WHY, no using
 
         /// <summary>
-        /// value to change the different game states;
-        /// 1 = mainMenu; 
-        /// 2 = change between level and villaige; 
+        /// <para> value to change the different game states; </para>
+        /// <para> 1 = mainMenu; </para>
+        /// <para> 2 = change between level and villaige; </para>
         /// 3 = inGameMenu COMMING SOON
         /// </summary>
         protected int returnValue = 0;
@@ -57,8 +59,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// </summary>
         public void initialize()
         {
-            time = new GameTime();
-            time.Start();
             VIEW = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
             viewHelp = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
@@ -103,6 +103,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameTime">time of the game</param>
+        /// <returns>returns current state of game</returns>
         public abstract EnumGameStates update(GameTime gameTime);
         
         /// <summary>
@@ -129,9 +134,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         }
 
         /// <summary>
-        /// update the game
+        /// updates what is similary in the gameplay scenes
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">time of the game</param>
         public void GameUpdate(GameTime gameTime)
         {
             if (inGameMenu.closeGame) //if exit in inGameMenu clicked
@@ -143,7 +148,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             }
 
             //no update needed if game was closed
-            time.Update();
             ItemHandler.playerInventory.update(gameTime);
             inGameMenu.update(gameTime);
             //************************************************
@@ -202,7 +206,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// <summary>
         /// draw everything in the game what is needed
         /// </summary>
-        /// <param name="window"></param>
+        /// <param name="window">window where it should be drawed</param>
         public void draw(RenderWindow window)
         {
             window.SetView(VIEW);

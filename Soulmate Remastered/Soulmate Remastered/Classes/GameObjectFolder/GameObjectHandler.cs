@@ -35,14 +35,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             gameObjectList.Add(obj);
         }
 
-        public static void add(List<GameObject> objs)
-        {
-            foreach (GameObject obj in objs)
-            {
-                gameObjectList.Add(obj);
-            }
-        }
-
         public static void removeAt(int index)
         {
             if (index < gameObjectList.Count)
@@ -81,19 +73,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         {
             gameObjectList.Sort();
 
-            for (int i = 0; i < gameObjectList.Count; i++)
+            for (int i = 0; i < gameObjectList.Count; ++i)
             {
                 if (!gameObjectList[i].IsAlive)
                 {
                     gameObjectList.RemoveAt(i);
                     i--;
                 }
-            }
-
-            for (int i = 0; i < gameObjectList.Count; i++)
-            {
-                gameObjectList[i].IndexObjectList = i;
-                gameObjectList[i].Update(gameTime);
+                else
+                {
+                    gameObjectList[i].IndexObjectList = i;
+                    gameObjectList[i].Update(gameTime);
+                }
             }
 
             entityHandler.update(gameTime);

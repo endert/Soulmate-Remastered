@@ -15,6 +15,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class Village : AbstractGamePlay
     {
+        /// <summary>
+        /// load the content of the level
+        /// </summary>
         public override void loadContent()
         {
             map = new Map(new Bitmap("Pictures/Map/Bitmap/Village.bmp"));
@@ -22,6 +25,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             base.loadContent();
         }
 
+        /// <summary>
+        /// updates the current state of the game
+        /// </summary>
+        /// <param name="gameTime">time of the game</param>
+        /// <returns>enumGameStates</returns>
         public override EnumGameStates update(GameTime gameTime)
         {
             GameUpdate(gameTime);

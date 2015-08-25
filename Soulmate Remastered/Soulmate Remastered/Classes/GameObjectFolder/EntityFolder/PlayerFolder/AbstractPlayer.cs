@@ -79,9 +79,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             Arrow
         }
         /// <summary>
-        /// needed to avoid stack overflow
+        /// help bool for IsPressedForAttack
         /// </summary>
-        bool IsPressedForAttackHelp = false;
+        bool _isPressed = false;
         /// <summary>
         /// returns bool if the button for attack is pressed or not
         /// </summary>
@@ -89,15 +89,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             get
             {
-                if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !IsPressedForAttackHelp)
+                if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !_isPressed)
                 {
-                    IsPressedForAttackHelp = true;
+                    _isPressed = true;
                     return true;
                 }
-
-                if (IsPressedForAttackHelp && !Keyboard.IsKeyPressed(Controls.ButtonForAttack) && !Mouse.IsButtonPressed(Mouse.Button.Left))
+                if (_isPressed && !Keyboard.IsKeyPressed(Controls.ButtonForAttack) && !Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
-                    IsPressedForAttackHelp = false;
+                    _isPressed = false;
                     return false;
                 }
 
@@ -105,9 +104,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             }
         }
         /// <summary>
-        /// needed to avoid stack overflow
+        /// help bool for IsPressedForShoot
         /// </summary>
-        bool isPressedForShootHelp = false;
+        bool _isPressed2 = false;
         /// <summary>
         /// returns bool if the button for shooting is pressed or not
         /// </summary>
@@ -115,15 +114,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             get
             {
-                if (!isPressedForShootHelp && Keyboard.IsKeyPressed(Controls.ButtonForShoot))
+                if (Keyboard.IsKeyPressed(Controls.ButtonForShoot) && !_isPressed2)
                 {
-                    isPressedForShootHelp = true;
+                    _isPressed2 = true;
                     return true;
                 }
 
-                if (isPressedForShootHelp && !Keyboard.IsKeyPressed(Controls.ButtonForShoot))
+                if (_isPressed2 && !Keyboard.IsKeyPressed(Controls.ButtonForShoot))
                 {
-                    isPressedForShootHelp = false;
+                    _isPressed2 = false;
                     return false;
                 }
 
@@ -205,7 +204,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         }
 
         /// <summary>
-        /// 
+        /// evaluates Vector for player movement according to the input
         /// </summary>
         /// <param name="movementSpeed"></param>
         /// <returns></returns>
@@ -217,10 +216,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 result += Vector2.LEFT * movementSpeed;
 
             if (Keyboard.IsKeyPressed(Controls.Up))
-                result += Vector2.FRONT * movementSpeed;
+                result += Vector2.BACK * movementSpeed;
 
             if (Keyboard.IsKeyPressed(Controls.Down))
-                result += Vector2.BACK * movementSpeed;
+                result += Vector2.FRONT * movementSpeed;
 
             if (Keyboard.IsKeyPressed(Controls.Right))
                 result += Vector2.RIGHT * movementSpeed;

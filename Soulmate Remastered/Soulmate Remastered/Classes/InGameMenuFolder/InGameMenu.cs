@@ -34,11 +34,11 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         Sprite exit;
 
         /// <summary>
-        /// Inventory-value which button is selected;
-        /// x = 0 Continue;
-        /// x = 1 Save;
-        /// x = 2 Options;
-        /// x = 3 Exit
+        /// <para> Inventory-value which button is selected; </para>
+        /// <para> x = 0 Continue; </para>
+        /// <para> x = 1 Save; </para>
+        /// <para> x = 2 Options; </para>
+        /// x = 3 Exit </para>
         /// </summary>
         int x = 0; 
 

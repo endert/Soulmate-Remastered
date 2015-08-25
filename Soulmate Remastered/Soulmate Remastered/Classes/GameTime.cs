@@ -9,7 +9,7 @@ namespace Soulmate_Remastered.Classes
 {
     class GameTime
     {
-        private Stopwatch watch;
+        Stopwatch watch;
         public TimeSpan TotalTime { get; private set; }
         public TimeSpan EllapsedTime { get; private set; }
 
@@ -25,18 +25,18 @@ namespace Soulmate_Remastered.Classes
             watch.Start();
         }
 
-        public void Stop()
-        {
-            watch.Reset();
-            TotalTime = TimeSpan.FromSeconds(0);
-            EllapsedTime = TimeSpan.FromSeconds(0);
-        }
+        //public void Stop()
+        //{
+        //    watch.Reset();
+        //    TotalTime = TimeSpan.FromSeconds(0);
+        //    EllapsedTime = TimeSpan.FromSeconds(0);
+        //}
 
-        public double Update()
+        public void Update()
         {
             EllapsedTime = watch.Elapsed - TotalTime;
             TotalTime = watch.Elapsed;
-            return EllapsedTime.TotalMilliseconds;
+            //return EllapsedTime.TotalMilliseconds;
         }
     }
 }

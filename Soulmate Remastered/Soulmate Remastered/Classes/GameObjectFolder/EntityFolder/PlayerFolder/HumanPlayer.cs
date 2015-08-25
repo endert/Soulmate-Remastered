@@ -78,20 +78,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             }
         }
 
+        /// <summary>
+        /// returns the position for the attack hitbox
+        /// </summary>
+        /// <returns></returns>
         public override Vector2 GetHitBoxPosition()
         {
             if (Direction == EDirection.Right)
-            {
                 return new Vector2(Sprite.Position.X + 70, Sprite.Position.Y + 94);
-            }
 
             else if (Direction == EDirection.Left)
-            {
                 return new Vector2(Sprite.Position.X, Sprite.Position.Y + 94);
-            }
 
             else
-                return new Vector2(0, 0);
+                return Vector2.ZERO;
         }
 
         public override void Update(GameTime gameTime)

@@ -56,7 +56,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             {
                 animationTime.Restart();
             }
-
+            
             if ((NavigationHelp.isAnyKeyPressed() || Mouse.IsButtonPressed(Mouse.Button.Left)) && !Game.isPressed)
             {
                 Game.isPressed = true;

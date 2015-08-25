@@ -10,6 +10,7 @@ using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using System.IO;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder;
+using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.ItemFolder
 {
@@ -24,6 +25,8 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture characterMenu = new Texture("Pictures/Inventory/Inventory.png");
         Texture petMenu = new Texture("Pictures/Inventory/PetMenu.png");
         Texture questLog = new Texture("Pictures/Inventory/QuestLog.png");
+        Sprite character_pet_questSprite;
+
         Texture displayedPlayerTexture = new Texture("Pictures/Inventory/CharakterSprite/PlayerFrontInventory.png");
         Sprite displayedPlayer;
 
@@ -58,9 +61,18 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Texture selectedMarkerTexture = new Texture("Pictures/Inventory/SelectedMarker.png");
         Sprite selectedMarker;
 
-        Vector2f scrollArrowScaleValue = new Vector2f(0.43f, 0.43f);
-        Vector2f selectedMarkerPosition;
-        
+        Vector2 scrollArrowScaleValue = new Vector2(0.43f, 0.43f);
+        Vector2 selectedMarkerPosition;
+
+        /// <summary>
+        /// to show which item is currently selected
+        /// </summary>
+        RectangleShape selected;
+        /// <summary>
+        /// outLineThickness of the selected rectangle
+        /// </summary>
+        float outLineThickness = 1;
+
         bool characterMenuActivated;
         bool petMenuActivated;
         bool questLogActivated;
@@ -72,25 +84,37 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Text exp;
         Text lvl;
 
+        /// <summary>
+        /// name and description of the item
+        /// </summary>
         Text itemDescription;
 
         /// <summary>
-        /// numbers of items in the inventory;
-        /// contains the 
+        /// <para> numbers of items in the inventory; </para>
+        /// <para> contains the name and the description of the item; </para>
         /// don't know it gets Text and not the item
         /// </summary>
         List<Text> StackCount = new List<Text>();
-
-        public Sprite character_pet_questSprite { get; set; }
+        
+        /// <summary>
+        /// size of the field of the places in the inventory
+        /// </summary>
         public float FIELDSIZE { get { return 49f; } }
-        Texture selectedTexture = new Texture("Pictures/Inventory/Selected.png");
-        Sprite selected;
-
+        
+        /// <summary>
+        /// <para> number in which tab of the inventory we are </para>
+        /// <para> 0 = player inventory </para>
+        /// <para> 1 = pet inventory </para>
+        /// <para> 2 = quest log </para>
+        /// </summary>
         int selectedTab;
 
+        /// <summary>
+        /// max numbers of items on one stack
+        /// </summary>
         public static int MaxStackCount { get { return 99; } }
 
-        public Vector2f inventoryMatrixPosition { get { return new Vector2f(character_pet_questSprite.Position.X + 306, character_pet_questSprite.Position.Y + 106); } }
+        public Vector2 inventoryMatrixPosition { get { return new Vector2(character_pet_questSprite.Position.X + 306, character_pet_questSprite.Position.Y + 106) + outLineThickness; } }
 
         int xInInventory = 0, yInInventory = 0; //Inventarsteurung
         int yInEquipmentSlots = 0;
@@ -103,18 +127,18 @@ namespace Soulmate_Remastered.Classes.ItemFolder
         Vector2f fifthEquipmentSlotPostion = new Vector2f(firstEquipmentSlotPostion.X - 4, firstEquipmentSlotPostion.Y + 228);
         Vector2f sixthEquipmentSlotPostion = new Vector2f(firstEquipmentSlotPostion.X -4 , firstEquipmentSlotPostion.Y + 282);
 
-        public static Vector2f[] equipmentPosition
+        public static Vector2[] equipmentPosition
         {
             get
             {
-                return new Vector2f[]
+                return new Vector2[]
                 {
-                    new Vector2f(firstEquipmentSlotPostion.X, firstEquipmentSlotPostion.Y),
-                    new Vector2f(firstEquipmentSlotPostion.X, firstEquipmentSlotPostion.Y + 54),
-                    new Vector2f(firstEquipmentSlotPostion.X + 15, firstEquipmentSlotPostion.Y + 114), 
-                    new Vector2f(firstEquipmentSlotPostion.X + 15, firstEquipmentSlotPostion.Y + 168), 
-                    new Vector2f(firstEquipmentSlotPostion.X - 4, firstEquipmentSlotPostion.Y + 228), 
-                    new Vector2f(firstEquipmentSlotPostion.X -4 , firstEquipmentSlotPostion.Y + 282)
+                    new Vector2(firstEquipmentSlotPostion.X, firstEquipmentSlotPostion.Y),
+                    new Vector2(firstEquipmentSlotPostion.X, firstEquipmentSlotPostion.Y + 54),
+                    new Vector2(firstEquipmentSlotPostion.X + 15, firstEquipmentSlotPostion.Y + 114), 
+                    new Vector2(firstEquipmentSlotPostion.X + 15, firstEquipmentSlotPostion.Y + 168), 
+                    new Vector2(firstEquipmentSlotPostion.X - 4, firstEquipmentSlotPostion.Y + 228), 
+                    new Vector2(firstEquipmentSlotPostion.X -4 , firstEquipmentSlotPostion.Y + 282)
                 };
             }
         }
@@ -221,7 +245,10 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             character_pet_questSprite = new Sprite(characterMenu);
             character_pet_questSprite.Position = new Vector2f((Game.windowSizeX - characterMenu.Size.X) / 2, (Game.windowSizeY - characterMenu.Size.Y) / 2);
 
-            selected = new Sprite(selectedTexture);
+            selected = new RectangleShape(new Vector2(FIELDSIZE, FIELDSIZE) + (-2 * outLineThickness));
+            selected.FillColor = Color.Transparent;
+            selected.OutlineThickness = outLineThickness;
+            selected.OutlineColor = Color.Red;
             selected.Position = inventoryMatrixPosition;
 
             characterTab = new Sprite(characterTabNotSelected);
@@ -255,7 +282,6 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
             inventoryMatrix = new Stack<AbstractItem>[inventoryLength, inventoryWidth];
 
-            
             itemDescription = new Text("", Game.font, 20);
 
             spriteAndTextPositionUpdate();

@@ -21,6 +21,13 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         Texture newGameNotSelected;
         Sprite newGame;
 
+        /// <summary>
+        /// <para>value to define which sprite is selected</para>
+        /// <para>0=>load-sprite</para>
+        /// <para>1=>newGame-sprite></para>
+        /// </summary>
+        int spriteNumber;
+
         public override void initialize()
         {
             base.initialize();
@@ -49,33 +56,33 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             
             if (NavigationHelp.isMouseInSprite(load))
             {
-                x = 0;
+                spriteNumber = 0;
             }
 
             if (NavigationHelp.isMouseInSprite(newGame))
             {
-                x = 1;
+                spriteNumber = 1;
             }
 
             if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
             {
-                x = (x + 1) % 2;
+                spriteNumber = (spriteNumber + 1) % 2;
                 Game.isPressed = true;
             }
 
             if (Keyboard.IsKeyPressed(Controls.Down) && !Game.isPressed)
             {
-                x = (x + 1) % 2;
+                spriteNumber = (spriteNumber + 1) % 2;
                 Game.isPressed = true;
             }
 
-            if (x == 0)
+            if (spriteNumber == 0)
             {
                 load.Texture = loadSelected;
                 newGame.Texture = newGameNotSelected;
             }
 
-            if (x == 1)
+            if (spriteNumber == 1)
             {
                 load.Texture = loadNotSelected;
                 newGame.Texture = newGameSelected;
@@ -84,7 +91,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (backValueSelected == 1)
                 return EnumGameStates.mainMenu;
 
-            if (NavigationHelp.isSpriteKlicked(x, 0, load, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(spriteNumber, 0, load, Controls.Return))
             {
                 Game.isPressed = true;
                 AbstractGamePlay.loading = true;
@@ -102,7 +109,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 }
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 1, newGame, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked(spriteNumber, 1, newGame, Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("new Game");
@@ -119,6 +126,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             window.Draw(load);
             window.Draw(newGame);
+            window.Draw(back);
         }
     }
 }
