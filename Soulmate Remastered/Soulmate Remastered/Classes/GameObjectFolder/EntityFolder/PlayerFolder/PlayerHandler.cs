@@ -41,6 +41,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             }
         }
 
+        /// <summary>
+        /// deletes the player, should only be called when the game is closed
+        /// </summary>
         public static void deleate()
         {
             player = null;

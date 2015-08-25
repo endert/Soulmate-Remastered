@@ -10,8 +10,14 @@ using SFML.Window;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
+    /// <summary>
+    /// the fusion of player and pet
+    /// </summary>
     class PlayerPetFusion : AbstractPlayer
     {
+        /// <summary>
+        /// the fusion animation
+        /// </summary>
         List<Texture> fusionAnimationList = new List<Texture>();
 
         AbstractPlayer fusionedPlayer;
