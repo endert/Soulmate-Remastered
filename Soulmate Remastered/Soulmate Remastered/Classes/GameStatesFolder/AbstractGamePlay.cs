@@ -72,7 +72,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             hud = new HUD();
             GameObjectHandler.lvlMap = map;
             gameObjectHandler = new GameObjectHandler(map, GameObjectHandler.lvl);
-            EnemyHandler.enemyInitialize();
+            EnemyHandler.EnemyInitialize();
             
             if (loading) 
             {
@@ -116,8 +116,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// <returns>view vector</returns>
         private Vector2 VectorForViewMove()
         {
-            float Xmove = (PlayerHandler.player.position.X + (PlayerHandler.player.hitBox.width / 2)) - VIEW.Center.X;
-            float Ymove = (PlayerHandler.player.position.Y + (PlayerHandler.player.hitBox.height * 5 / 6)) - VIEW.Center.Y;
+            float Xmove = (PlayerHandler.player.Position.X + (PlayerHandler.player.HitBox.width / 2)) - VIEW.Center.X;
+            float Ymove = (PlayerHandler.player.Position.Y + (PlayerHandler.player.HitBox.height * 5 / 6)) - VIEW.Center.Y;
 
             //view cannot go over the map edge
             if (VIEW.Center.X + Xmove < VIEW.Size.X / 2)
@@ -160,12 +160,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 returnValue = 2;
             }
 
-            if (!Inventory.inventoryOpen && !inGameMenu.inGameMenuOpen && !Shop.shopIsOpen) //run update for game, if no menu, inventory or shop is open
+            if (!Inventory.inventoryOpen && !inGameMenu.inGameMenuOpen && !Shop.ShopIsOpen) //run update for game, if no menu, inventory or shop is open
             {
                 VIEW.Move(VectorForViewMove());
 
                 gameObjectHandler.update(gameTime);
-                dialoges.update();
+                dialoges.Update();
 
                 if (PlayerHandler.player.CurrentHP <= 0) //if player is dead go back to mainMenu
                 {
@@ -174,9 +174,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                     returnValue = 1;
                 }
             }
-            else if (Shop.shopIsOpen) //update the shop if it is open
+            else if (Shop.ShopIsOpen) //update the shop if it is open
             {
-                NPCHandler.updateShop(gameTime);
+                NPCHandler.UpdateShop(gameTime);
                 GameObjectHandler.itemHandler.update(gameTime);
             }
 
@@ -212,7 +212,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             window.SetView(VIEW);
             map.draw(window);
             gameObjectHandler.draw(window);
-            dialoges.draw(window);
+            dialoges.Draw(window);
             hud.draw(window);
 
             if (Inventory.inventoryOpen)
@@ -221,10 +221,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 ItemHandler.playerInventory.draw(window);
             }
 
-            if (Shop.shopIsOpen)
+            if (Shop.ShopIsOpen)
             {
                 window.SetView(viewHelp);
-                NPCHandler.shop.draw(window);
+                NPCHandler.Shop_.Draw(window);
             }
 
             if (inGameMenu.inGameMenuOpen)

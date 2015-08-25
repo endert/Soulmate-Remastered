@@ -43,7 +43,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             }
             for (int i = 0; i < gameObjectList.Count; i++)
             {
-                gameObjectList[i].indexObjectList = i;
+                gameObjectList[i].IndexObjectList = i;
             }
         }
 
@@ -51,7 +51,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         {
             for (int i = 0; i < gameObjectList.Count; i++)
             {
-                if (gameObjectList[i].type.Equals(_type))
+                if (gameObjectList[i].Type.Equals(_type))
                 {
                     gameObjectList.RemoveAt(i);
                     i--;
@@ -63,7 +63,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         {
             foreach (GameObject gObj in gameObjectList)
             {
-                gObj.kill();
+                gObj.Kill();
             }
             EntityHandler.deleate();
             ItemHandler.deleate();
@@ -75,15 +75,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 
             for (int i = 0; i < gameObjectList.Count; ++i)
             {
-                if (!gameObjectList[i].isAlive)
+                if (!gameObjectList[i].IsAlive)
                 {
                     gameObjectList.RemoveAt(i);
                     i--;
                 }
                 else
                 {
-                    gameObjectList[i].indexObjectList = i;
-                    gameObjectList[i].update(gameTime);
+                    gameObjectList[i].IndexObjectList = i;
+                    gameObjectList[i].Update(gameTime);
                 }
             }
 
@@ -95,9 +95,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         {
             foreach (GameObject gObj in gameObjectList)
             {
-                if (gObj.isVisible)
+                if (gObj.IsVisible)
                 {
-                    gObj.draw(window);
+                    gObj.Draw(window);
                 }
             }
         }
@@ -105,7 +105,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         public void debugDraw(RenderWindow window)
         {
             foreach (GameObject obj in gameObjectList)
-                obj.debugDraw(window);
+                obj.DebugDraw(window);
         }
     }
 }

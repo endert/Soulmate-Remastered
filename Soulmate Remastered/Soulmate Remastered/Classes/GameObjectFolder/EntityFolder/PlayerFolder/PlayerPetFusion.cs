@@ -19,7 +19,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         bool animatingFusion;
         
-        public override String type { get { return base.type + ".PlayerPetFusion"; } } 
+        public override String Type { get { return base.Type + ".PlayerPetFusion"; } } 
         
         public PlayerPetFusion(AbstractPlayer player, AbstractPet pet)
         {
@@ -31,26 +31,30 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             fusionedPlayer = player;
             fusionedPet = pet;
 
-            adapt(player);
-            hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
+            IsAlive = true;
+            IsVisible = true;
+
+
+            Adapt(player);
+            HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
 
             PlayerHandler.player = this;
-            EntityHandler.deleateType(player.type);
-            EntityHandler.deleateType(pet.type);
+            EntityHandler.deleateType(player.Type);
+            EntityHandler.deleateType(pet.Type);
             EntityHandler.add(this);
 
-            statsUpdate();
+            StatsUpdate();
             animatingFusion = true;
         }
 
         public void textureSetting(AbstractPet pet)
         {
-            if (pet.type.Split('.')[3].Equals("PetWolf"))
+            if (pet.Type.Split('.')[3].Equals("PetWolf"))
             {
-                textureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfFront.png"));
-                textureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfBack.png"));
-                textureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfRight.png"));
-                textureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfLeft.png"));
+                TextureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfFront.png"));
+                TextureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfBack.png"));
+                TextureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfRight.png"));
+                TextureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfLeft.png"));
 
                 fusionAnimationList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/FusionWerewolf1.png"));
                 fusionAnimationList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/FusionWerewolf2.png"));
@@ -62,13 +66,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             stopWatchList[0].Start();
             if (stopWatchList[0].ElapsedMilliseconds <= 500)
             {
-                sprite = new Sprite(fusionAnimationList[0]);
-                sprite.Position = position;
+                Sprite = new Sprite(fusionAnimationList[0]);
+                Sprite.Position = Position;
             }
             else if(stopWatchList[0].ElapsedMilliseconds <= 1000)
             {
-                sprite = new Sprite(fusionAnimationList[1]);
-                sprite.Position = position;
+                Sprite = new Sprite(fusionAnimationList[1]);
+                Sprite.Position = Position;
             }
             else
             {
@@ -79,24 +83,24 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         public void defuse()
         {
-            currentFusionValue = maxFusionValue - stopWatchList[2].ElapsedMilliseconds / 100;
-            if (stopWatchList[2].ElapsedMilliseconds >= fusionedPlayer.fusionDuration || Keyboard.IsKeyPressed(Keyboard.Key.Space))
+            CurrentFusionValue = MaxFusionValue - stopWatchList[2].ElapsedMilliseconds / 100;
+            if (stopWatchList[2].ElapsedMilliseconds >= fusionedPlayer.FusionDuration || Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
-                fusionedPlayer.adapt(this);
-                fusionedPet.position = position;
+                fusionedPlayer.Adapt(this);
+                fusionedPet.Position = Position;
 
                 PlayerHandler.player = fusionedPlayer;
-                PetHandler.pet = fusionedPet;
+                PetHandler.Pet = fusionedPet;
                 EntityHandler.add(fusionedPlayer);
                 EntityHandler.add(fusionedPet);
-                EntityHandler.deleateType(type);
+                EntityHandler.deleateType(Type);
             }
         }
 
-        public override void update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            base.update(gameTime);
-            hitBox.update(sprite);
+            base.Update(gameTime);
+            HitBox.update(Sprite);
             if (animatingFusion)
             {
                 animateFusion();

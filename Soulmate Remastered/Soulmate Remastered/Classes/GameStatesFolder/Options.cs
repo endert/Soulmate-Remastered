@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
@@ -20,9 +21,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             base.initialize();
 
             options = new Sprite(optionsTexture);
-            options.Position = new Vector2f(0, 0);
+            options.Position = new Vector2(0, 0);
 
-            Controls.Position = new Vector2f(200, 200);
+            Controls.Position = new Vector2(200, 200);
         }
 
         public override void loadContent()

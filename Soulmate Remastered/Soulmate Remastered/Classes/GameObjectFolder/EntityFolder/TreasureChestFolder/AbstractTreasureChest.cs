@@ -11,36 +11,36 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
 {
     abstract class AbstractTreasureChest : Entity
     {
-        public override string type
+        public override string Type
         {
             get
             {
-                return base.type + ".TreasureChest";
+                return base.Type + ".TreasureChest";
             }
         }
 
         protected bool isOpen = false;
         protected Random random = new Random(); //random movement
 
-        public override void drop()
+        public override void Drop()
         {
             for (int i = 0; i < random.Next(100); i++)
             {
                 int rand = random.Next(drops.Length);
                 if (drops[rand].DROPRATE > 100 * random.NextDouble())
                 {
-                    drops[rand].cloneAndDrop(new Vector2f(position.X + random.Next(50), position.Y + random.Next(50)));
+                    drops[rand].cloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
                 }
             }
         }
 
         public void interaction()
         {
-            if (hitBox.DistanceTo(PlayerHandler.player.hitBox) <= 50 && Keyboard.IsKeyPressed((Controls.Interact)) && !isOpen && !Game.isPressed)
+            if (HitBox.DistanceTo(PlayerHandler.player.HitBox) <= 50 && Keyboard.IsKeyPressed((Controls.Interact)) && !isOpen && !Game.isPressed)
             {
                 isOpen = true;
                 Game.isPressed = true;
-                drop();
+                Drop();
             }
             
         }

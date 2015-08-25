@@ -20,11 +20,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <summary>
         /// the type of this instance
         /// </summary>
-        public override string type { get { return base.type + ".Shopkeeper"; } }
+        public override string Type { get { return base.Type + ".Shopkeeper"; } }
         /// <summary>
         /// path to the dialoge File
         /// </summary>
-        protected override string dialogePath { get { return base.dialogePath; } }
+        protected override string DialogePath { get { return base.DialogePath; } }
         /// <summary>
         /// the shop instance of this instance
         /// </summary>
@@ -42,16 +42,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         {
             //Insitialize Game Object data**************************************************************************
 
-            textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyFrontTest.png"));
-            textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyBackTest.png"));
-            textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyRightTest.png"));
-            textureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyLeftTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyFrontTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyBackTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyRightTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyLeftTest.png"));
 
-            sprite = new Sprite(textureList[0]);
+            IsAlive = true;
+            IsVisible = true;
+            Sprite = new Sprite(TextureList[0]);
             itemsForSell = new List<Stack<AbstractItem>>();
-            position = _position;
-            sprite.Position = position;
-            hitBox = new HitBox(position, sprite.Texture.Size.X, sprite.Texture.Size.Y);
+            Position = _position;
+            Sprite.Position = Position;
+            HitBox = new HitBox(Position, Sprite.Texture.Size.X, Sprite.Texture.Size.Y);
 
             //******************************************************************************************************
             //Insitialize Entity data*******************************************************************************
@@ -62,9 +64,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             //Insitialize NPC data**********************************************************************************
 
             Interacting = false;
-            NPCHandler.shop = shop;
-            NPCHandler.add(this);
-            addItemForSell(new Sword(10, 10, 10), 10);
+            NPCHandler.Shop_ = shop;
+            NPCHandler.Add_(this);
+            AddItemForSell(new Sword(10, 10, 10), 10);
 
             //******************************************************************************************************
         }
@@ -72,7 +74,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <summary>
         /// xhröü //written by alex/chaz
         /// </summary>
-        public void addItemForSell(AbstractItem item, int count)
+        public void AddItemForSell(AbstractItem item, int count)
         {
             Stack<AbstractItem> stack = new Stack<AbstractItem>();
 
@@ -81,14 +83,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
                 stack.Push(item.clone());
             }
 
-            addItemsForSell(stack);
+            AddItemsForSell(stack);
         }
 
         /// <summary>
         /// add an item stack to the sellable items
         /// </summary>
         /// <param name="item"></param>
-        void addItemsForSell(Stack<AbstractItem> item)
+        void AddItemsForSell(Stack<AbstractItem> item)
         {
             itemsForSell.Add(item);
         }
@@ -96,19 +98,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <summary>
         /// interaction with the player
         /// </summary>
-        public override void interact()
+        public override void Interact()
         {
             Interacting = true;
             shop = new Shop(itemsForSell);
-            NPCHandler.shop = shop;
+            NPCHandler.Shop_ = shop;
         }
 
         /// <summary>
         /// stops interaction with player
         /// </summary>
-        public override void stopIteraction()
+        public override void StopIteraction()
         {
-            shop.closeShop();
+            shop.CloseShop();
             shop = null;
             Interacting = false;
         }

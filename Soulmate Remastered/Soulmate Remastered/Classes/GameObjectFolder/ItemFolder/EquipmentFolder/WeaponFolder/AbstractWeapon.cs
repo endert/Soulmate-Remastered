@@ -10,7 +10,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
 {
     abstract class AbstractWeapon : Equipment
     {
-        public override string type { get { return base.type + ".Weapon"; } }
+        public override string Type { get { return base.Type + ".Weapon"; } }
         public override float ID { get { return base.ID * 10 + 2; } }
         protected String discription = "";
         public override string ItemDiscription
@@ -19,7 +19,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
             {
                 String itemDiscription = "";
 
-                itemDiscription += name + "\n";
+                itemDiscription += Name + "\n";
                 if (!discription.Equals(""))
                     itemDiscription += '"'.ToString() + discription + '"'.ToString() + "\n";
                 itemDiscription += "AttBonus: " + attBonus + "      ";

@@ -19,24 +19,25 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// <summary>
         /// List wich contains all enemies
         /// </summary>
-        public static List<AbstractEnemy> enemyList { get; private set; }
+        public static List<AbstractEnemy> EnemyList { get; private set; }
         /// <summary>
         /// random generator for spawn positions
         /// </summary>
-        static Random random { get { return new Random(); } }
+        static Random Random { get; set; }
 
         /// <summary>
         /// initialize the enemy List
         /// </summary>
         public EnemyHandler()
         {
-            enemyList = new List<AbstractEnemy>();
+            EnemyList = new List<AbstractEnemy>();
+            Random = new Random();
         }
 
         /// <summary>
         /// initialize the enemies on each lvl
         /// </summary>
-        public static void enemyInitialize()
+        public static void EnemyInitialize()
         {
             switch (GameObjectHandler.lvl)
             {
@@ -46,15 +47,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                 case 1:
                     for (int i = 0; i < 10; i++)
                     {
-                        float rX = 1000 + random.Next(1000);
-                        float rY = 800 + random.Next(400);
+                        float rX = 1000 + Random.Next(1000);
+                        float rY = 800 + Random.Next(400);
                         Vector2 spawnPos = new Vector2(rX, rY);
 
-                        if (spawnPos.Distance(PlayerHandler.player.position) > 200)
+                        if (spawnPos.Distance(PlayerHandler.player.Position) > 200)
                         {
                             EnemyBlott blott = new EnemyBlott(spawnPos);
                             
-                                add(blott);
+                                Add_(blott);
                             
                         }
                             else
@@ -71,16 +72,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// adds an enemie to the enemieList and calls add methode of entity Handler
         /// </summary>
         /// <param name="enemy"></param>
-        public static void add(AbstractEnemy enemy)
+        public static void Add_(AbstractEnemy enemy)
         {
-            enemyList.Add(enemy);
+            EnemyList.Add(enemy);
             EntityHandler.add(enemy);
         }
 
         /// <summary>
         /// trys to delete all enemies from Entity Handler
         /// </summary>
-        public static void deleate()
+        public static void Deleate()
         {
             EntityHandler.deleateType("Enemy");
         }
@@ -89,35 +90,35 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// updates all enemies should only be called once
         /// </summary>
         /// <param name="gameTime"></param>
-        public void update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            for (int i = 0; i < enemyList.Count; i++)
+            for (int i = 0; i < EnemyList.Count; i++)
             {
                 /* 
                  * if the enemy took a leatal blow the player is revarded with exp and the fusion value is increased
                  * also the enemie must be removed from the List
                  */
-                if (!enemyList[i].isAlive)
+                if (!EnemyList[i].IsAlive)
                 {
-                    PlayerHandler.player.setCurrentFusionValue();
-                    PlayerHandler.player.setCurrentEXP();
+                    PlayerHandler.player.RiseCurrentFusionValue();
+                    PlayerHandler.player.RiseCurrentEXP();
                     
-                    enemyList.RemoveAt(i);
+                    EnemyList.RemoveAt(i);
                     i--;
                 }
                 else
                 {
                     //if enemy is hit by the players attack hit box, it suffers damage
-                    if (enemyList[i].hitBox.Hit(PlayerHandler.player.attackHitBox) && PlayerHandler.player.isAttacking)
-                        enemyList[i].takeDmg(PlayerHandler.player.Att);
+                    if (EnemyList[i].HitBox.Hit(PlayerHandler.player.AttackHitBox) && PlayerHandler.player.Attacking)
+                        EnemyList[i].takeDmg(PlayerHandler.player.Att);
 
                     //if the player is hit by the enemy the player suffers damage
-                    if (enemyList[i].touchedPlayer())
-                        PlayerHandler.player.takeDmg(enemyList[i].Att);
+                    if (EnemyList[i].touchedPlayer())
+                        PlayerHandler.player.takeDmg(EnemyList[i].Att);
 
                     //if the pet is hit by the enemy the pet suffers damage
-                    if (PetHandler.pet != null && enemyList[i].hitBox.Hit(PetHandler.pet.hitBox))
-                        PetHandler.pet.takeDmg(enemyList[i].Att);
+                    if (PetHandler.Pet != null && EnemyList[i].HitBox.Hit(PetHandler.Pet.HitBox))
+                        PetHandler.Pet.takeDmg(EnemyList[i].Att);
                 }
             }
         }

@@ -105,6 +105,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             window.Draw(back);
         }
 
-        public void initialize();
+        public virtual void initialize() { }
     }
 }

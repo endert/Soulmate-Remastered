@@ -70,7 +70,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// activate the entered Cheat should only be called once, when return is pressed
         /// </summary>
         /// <param name="input">String that contains: /Cheat parameter </param>
-        public static void activateCheat(String input)
+        public static void ActivateCheat(String input)
         {
             String[] inputSplit = input.Split();    //seperate /Cheat and all other parameter
             Cheat selectedCheat = Cheat.UNKOWN; //not defined cheat
@@ -91,7 +91,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
                 }
             }
 
-            _activateCheat(parms, selectedCheat);
+            _ActivateCheat(parms, selectedCheat);
         }
 
         /// <summary>
@@ -99,44 +99,44 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// </summary>
         /// <param name="parms">Parameter such as float values etc.</param>
         /// <param name="ch">the entered Cheat</param>
-        static void _activateCheat(Params parms, Cheat ch)
+        static void _ActivateCheat(Params parms, Cheat ch)
         {
             try
             {
                 switch (ch)
                 {
                     case Cheat.Heal:
-                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.Heal);
+                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.Heal);
                         break;
                     case Cheat.HealFor:
-                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.HealFor);
+                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.HealFor);
                         break;
                     case Cheat.SetAtt:
-                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetAtt);
+                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetAtt);
                         break;
                     case Cheat.SetDef:
-                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetDef);
+                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetDef);
                         break;
                     case Cheat.SetExp:
-                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetExp);
+                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetExp);
                         break;
                     case Cheat.SetFusionValue:
-                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetFusionValue);
+                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetFusionValue);
                         break;
                     case Cheat.SetHp:
-                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetHp);
+                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetHp);
                         break;
                     case Cheat.SetLvl:
-                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetLvl);
+                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetLvl);
                         break;
                     case Cheat.SetMoney:
-                        PlayerHandler.player.activateCheat(parms, PlayerHandler.player.SetMoney);
+                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetMoney);
                         break;
                     case Cheat.TakeDamage:
-                        PlayerHandler.player.activateCheat(-parms, PlayerHandler.player.HealFor);
+                        PlayerHandler.player.ActivateCheat(-parms, PlayerHandler.player.HealFor);
                         break;
                     case Cheat.ShowCheats:
-                        CheatConsoleThreadStart.cheatConsole.activateCheat(parms, CheatConsoleThreadStart.cheatConsole.showCheats);
+                        CheatConsoleThreadStart.CheatConsole.ActivateCheat(parms, CheatConsoleThreadStart.CheatConsole.ShowCheats);
                         break;
                     default:
                         Console.WriteLine("Error, " + ch + " not implemented");

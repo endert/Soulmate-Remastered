@@ -11,50 +11,73 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 {
     class PetHandler
     {
-        public static AbstractPet pet { get; set; }
-        public static List<AbstractPet> petList { get; set; }
+        /// <summary>
+        /// players pet
+        /// </summary>
+        public static AbstractPet Pet { get; set; }
+        /// <summary>
+        /// List of all inizialazed Pets
+        /// </summary>
+        public static List<AbstractPet> PetList { get; set; }
 
+        /// <summary>
+        /// initialize the players pet
+        /// </summary>
         public PetHandler()
         {
-            petList = new List<AbstractPet>();
+            PetList = new List<AbstractPet>();
 
-            pet = new PetWolf(PlayerHandler.player);
-            EntityHandler.add(pet);
-            petList.Add(pet);
+            Pet = new PetWolf(PlayerHandler.player);
+            EntityHandler.add(Pet);
+            PetList.Add(Pet);
         }
 
-        public static void load(String petString)
+        /// <summary>
+        /// loads the pet from a String
+        /// </summary>
+        /// <param name="petString"></param>
+        public static void Load(String petString)
         {
             if (petString.Equals("null"))
             {
-                EntityHandler.deleateType(pet.type);
-                pet = null;
+                Pet = null;
                 return;
             }
 
-            if (!petString.Split(AbstractPet.lineBreak)[4].Equals(pet.type.Split('.')[pet.type.Split('.').Length-1]))
+            //if loaded pet differs from the current one
+            if (!petString.Split(AbstractPet.LineBreak)[4].Equals(Pet.Type.Split('.')[Pet.Type.Split('.').Length-1]))
             {
-                deleate();
+                Deleate();
+                // ToDo: initialize new Pet
                 // pet = ...
             }
 
-            pet.Load(petString);
+            Pet.Load(petString);
         }
 
-        public static void add(AbstractPet pet)
+        /// <summary>
+        /// adds a pet to the petList
+        /// </summary>
+        /// <param name="pet"></param>
+        public static void Add_(AbstractPet pet)
         {
-            petList.Add(pet);
+            PetList.Add(pet);
             EntityHandler.add(pet);
         }
 
-
-        static public void deleate()
+        /// <summary>
+        /// set the players pet null
+        /// </summary>
+        static public void Deleate()
         {
-            EntityHandler.deleateType(pet.type);
-            pet = null;
+            EntityHandler.deleateType(Pet.Type);
+            Pet = null;
         }
 
-        public void update()
+        /// <summary>
+        /// currently not needed because there is nothing to update
+        /// </summary>
+        public void Update()
         {
             
         }

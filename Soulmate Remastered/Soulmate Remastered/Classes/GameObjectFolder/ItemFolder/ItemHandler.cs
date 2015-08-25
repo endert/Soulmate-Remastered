@@ -60,15 +60,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             {
                 for (int i = 0; i < loadableItems.Length; i++)
                 {
-                    if (itemString.Split(AbstractItem.lineBreak)[1].Equals(loadableItems[i]))
+                    if (itemString.Split(AbstractItem.LineBreak)[1].Equals(loadableItems[i]))
                     {
                         AbstractItem loadedItem = null;
                         List<String> parameter = new List<String>();
 
-                        if(itemString.Split(AbstractItem.lineBreak).Length > 4)
-                            for (int j = 4; j < itemString.Split(AbstractItem.lineBreak).Length - 1; j++)
+                        if(itemString.Split(AbstractItem.LineBreak).Length > 4)
+                            for (int j = 4; j < itemString.Split(AbstractItem.LineBreak).Length - 1; j++)
                             {
-                                parameter.Add(itemString.Split(AbstractItem.lineBreak)[j]);
+                                parameter.Add(itemString.Split(AbstractItem.LineBreak)[j]);
                             }
 
                         switch (i)
@@ -88,10 +88,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                             default:
                                 break;
                         }
-                        loadedItem.position = new Vector2f(Convert.ToSingle(itemString.Split(AbstractItem.lineBreak)[2]),
-                                                           Convert.ToSingle(itemString.Split(AbstractItem.lineBreak)[3]));
+                        loadedItem.Position = new Vector2f(Convert.ToSingle(itemString.Split(AbstractItem.LineBreak)[2]),
+                                                           Convert.ToSingle(itemString.Split(AbstractItem.LineBreak)[3]));
 
-                        for (int j = 0; j < Convert.ToInt32(itemString.Split(AbstractItem.lineBreak)[itemString.Split(AbstractItem.lineBreak).Length - 1]); j++)
+                        for (int j = 0; j < Convert.ToInt32(itemString.Split(AbstractItem.LineBreak)[itemString.Split(AbstractItem.LineBreak).Length - 1]); j++)
                         {
                             loadedStack.Push(loadedItem.clone());
                         }
@@ -114,14 +114,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             {
                 for (int i = 0; i < loadableItems.Length; i++)
                 {
-                    if (EquipmentString.Split(AbstractItem.lineBreak)[1].Equals(loadableItems[i]))
+                    if (EquipmentString.Split(AbstractItem.LineBreak)[1].Equals(loadableItems[i]))
                     {
                         List<String> parameter = new List<String>();
 
-                        if (EquipmentString.Split(AbstractItem.lineBreak).Length > 4)
-                            for (int j = 4; j < EquipmentString.Split(AbstractItem.lineBreak).Length - 1; j++)
+                        if (EquipmentString.Split(AbstractItem.LineBreak).Length > 4)
+                            for (int j = 4; j < EquipmentString.Split(AbstractItem.LineBreak).Length - 1; j++)
                             {
-                                parameter.Add(EquipmentString.Split(AbstractItem.lineBreak)[j]);
+                                parameter.Add(EquipmentString.Split(AbstractItem.LineBreak)[j]);
                             }
 
                         switch (i)
@@ -138,9 +138,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                             default:
                                 break;
                         }
-                        loadedEquip.position = new Vector2f(Convert.ToSingle(EquipmentString.Split(AbstractItem.lineBreak)[2]),
-                                                           Convert.ToSingle(EquipmentString.Split(AbstractItem.lineBreak)[3]));
-                        loadedEquip.sprite.Position = loadedEquip.position;
+                        loadedEquip.Position = new Vector2f(Convert.ToSingle(EquipmentString.Split(AbstractItem.LineBreak)[2]),
+                                                           Convert.ToSingle(EquipmentString.Split(AbstractItem.LineBreak)[3]));
+                        loadedEquip.Sprite.Position = loadedEquip.Position;
                         loadedEquip.setEquiped();
                         break;
                     }
@@ -177,7 +177,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         {
             foreach (AbstractItem aItem in itemList)
             {
-                aItem.kill();
+                aItem.Kill();
             }
             playerInventory.deleate();
             playerInventory = null;
@@ -188,14 +188,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         {
             for (int i = 0; i < itemList.Count; i++)
             {
-                if (!itemList[i].isAlive)
+                if (!itemList[i].IsAlive)
                 {
                     itemList.RemoveAt(i);
                     i--;
                     break;
                 }
                 
-                if (itemList[i].onMap && itemList[i].hitBox.DistanceTo(PlayerHandler.player.hitBox) <= itemList[i].pickUpRange && !playerInventory.isFullWith(itemList[i]))
+                if (itemList[i].onMap && itemList[i].HitBox.DistanceTo(PlayerHandler.player.HitBox) <= itemList[i].pickUpRange && !playerInventory.isFullWith(itemList[i]))
                 {
                     itemList[i].pickUp();
                     itemList.RemoveAt(i);
@@ -212,7 +212,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             {
                 if (itemStack != null && itemStack.Count != 0 && itemStack.Peek() != null)
                 {
-                    itemStack.Peek().draw(window);
+                    itemStack.Peek().Draw(window);
                 }
             }
 
@@ -220,7 +220,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             {
                 if (equipment != null)
                 {
-                    equipment.draw(window);
+                    equipment.Draw(window);
                 }
             }
         }

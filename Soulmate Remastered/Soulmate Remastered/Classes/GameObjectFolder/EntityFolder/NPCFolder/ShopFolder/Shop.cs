@@ -17,7 +17,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// <summary>
         /// bool if the Shop is open or not
         /// </summary>
-        public static bool shopIsOpen { get; protected set; }
+        public static bool ShopIsOpen { get; protected set; }
         /// <summary>
         /// sellable items
         /// </summary>
@@ -53,7 +53,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// <summary>
         /// number of Items that can be shown at the same Time within one collum
         /// </summary>
-        int lineCount { get { return 10; } }
+        int LineCount { get { return 10; } }
         /// <summary>
         /// the collum the marker is in
         /// </summary>
@@ -73,15 +73,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// <summary>
         /// the position where the List starts in the sell Collum
         /// </summary>
-        Vector2 startSellPosition { get { return new Vector2(sprite.Position.X, sprite.Position.Y + 100); } }
+        Vector2 StartSellPosition { get { return new Vector2(sprite.Position.X, sprite.Position.Y + 100); } }
         /// <summary>
         /// the position where the List starts in the buy Collum
         /// </summary>
-        Vector2 startBuyPosition { get { return new Vector2(sprite.Position.X + 400, sprite.Position.Y + 100); } }
+        Vector2 StartBuyPosition { get { return new Vector2(sprite.Position.X + 400, sprite.Position.Y + 100); } }
         /// <summary>
         /// the list in wich the cursor is at the Moment
         /// </summary>
-        List<ShopItem> selectedList
+        List<ShopItem> SelectedList
         {
             get
             {
@@ -99,16 +99,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// <summary>
         /// the needed startposition for the Marker
         /// </summary>
-        Vector2 startPos
+        Vector2 StartPos
         {
             get
             {
                 switch (selectedCollum)
                 {
                     case Collum.Sell:
-                        return startSellPosition + outlineThickness;
+                        return StartSellPosition + outlineThickness;
                     case Collum.Buy:
-                        return startBuyPosition + outlineThickness;
+                        return StartBuyPosition + outlineThickness;
                     default:
                         return new Vector2();
                 }
@@ -117,7 +117,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// <summary>
         /// the index of the first shown item in the selected Collum
         /// </summary>
-        int smallestDisplayedItem
+        int SmallestDisplayedItem
         {
             get
             {
@@ -151,7 +151,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// <summary>
         /// the number of Items inside the selected List
         /// </summary>
-        int selectedListCount
+        int SelectedListCount
         {
             get
             {
@@ -186,14 +186,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
 
             //initialize Marker
             selected = new RectangleShape(selectedSize+(-2*outlineThickness));
-            selected.Position = startPos;
+            selected.Position = StartPos;
             selected.FillColor = Color.Transparent;
             selected.OutlineThickness = outlineThickness;
             selected.OutlineColor = Color.Red;
 
             
 
-            playerGoldText = new Text(PlayerHandler.player.gold.ToString(), Game.font, 20);
+            playerGoldText = new Text(PlayerHandler.player.Gold.ToString(), Game.font, 20);
             playerGoldText.Position = new Vector2f(sprite.Position.X, sprite.Position.Y);
 
             //initialize ItemLists**************************************************************************
@@ -202,10 +202,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             buyableItems = ShopItem.ToShopItemList(itemsToBuy);
             for (int i = 0; i < buyableItems.Count; i++)
             {
-                buyableItems[i].position = new Vector2f(startBuyPosition.X, startBuyPosition.Y + i * 50);
+                buyableItems[i].Position = new Vector2f(StartBuyPosition.X, StartBuyPosition.Y + i * 50);
 
-                if (i >= lineCount)
-                    buyableItems[i].visible = false;
+                if (i >= LineCount)
+                    buyableItems[i].Visible = false;
             }
 
             //sellable Items
@@ -217,16 +217,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             }
             for (int i = 0; i < sellableItems.Count; i++)
             {
-                sellableItems[i].position = new Vector2f(startSellPosition.X, startSellPosition.Y + i * 50);
+                sellableItems[i].Position = new Vector2f(StartSellPosition.X, StartSellPosition.Y + i * 50);
 
-                if (i >= lineCount)
-                    sellableItems[i].visible = false;
+                if (i >= LineCount)
+                    sellableItems[i].Visible = false;
             }
 
             //**********************************************************************************************
 
             //open Shop
-            shopIsOpen = true;
+            ShopIsOpen = true;
         }
 
         /// <summary>
@@ -265,20 +265,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                  */
 
                 //checking if we can still scroll on
-                if (smallestDisplayedItem + selectedLine < selectedListCount - 1)
+                if (SmallestDisplayedItem + selectedLine < SelectedListCount - 1)
                 {
                     //if we are not at the last shown line set line++
-                    if (selectedLine < lineCount - 1)
+                    if (selectedLine < LineCount - 1)
                         selectedLine += 1;
                     //else rise the index of the first shown Item
                     else
-                        smallestDisplayedItem += 1;
+                        SmallestDisplayedItem += 1;
                 }
                 //if the selected item is indeed the last one then jump to the first item of the list and select the first line
                 else
                 {
                     selectedLine = 0;
-                    smallestDisplayedItem = 0;
+                    SmallestDisplayedItem = 0;
                 }
             }
 
@@ -288,44 +288,44 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                 Game.isPressed = true;
 
                 //if the first item of the list is not the selected one
-                if (smallestDisplayedItem > 0 || selectedLine > 0)
+                if (SmallestDisplayedItem > 0 || selectedLine > 0)
                 {
                     //we can select an item with a smaller index or move the selected Line up
                     if (selectedLine > 0)
                         selectedLine -= 1;
                     else
-                        smallestDisplayedItem -= 1;
+                        SmallestDisplayedItem -= 1;
                 }
                 //else we select the last last item by moving the first shown item at the right index and selecting the line with the last item
                 else
                 {
-                    if (selectedListCount >= lineCount)
-                        selectedLine = lineCount - 1;
+                    if (SelectedListCount >= LineCount)
+                        selectedLine = LineCount - 1;
                     else
-                        selectedLine = selectedListCount - 1;
+                        selectedLine = SelectedListCount - 1;
 
-                    smallestDisplayedItem = evaluateIntSmallestDisplayedItem();
+                    SmallestDisplayedItem = EvaluateIntSmallestDisplayedItem();
                 }
             }
 
             //fixing eventual undefined lines
-            if (selectedLine >= selectedListCount)
-                selectedLine = selectedListCount - 1;
+            if (selectedLine >= SelectedListCount)
+                selectedLine = SelectedListCount - 1;
             if (selectedLine < 0)
                 selectedLine = 0;
 
             //*****************************************************************************
 
-            shopItemUpdate();
+            ShopItemUpdate();
             //set Position
-            selected.Position = new Vector2(startPos.X, startPos.Y + selectedLine * 50);
+            selected.Position = new Vector2(StartPos.X, StartPos.Y + selectedLine * 50);
         }
 
         /// <summary>
         /// evaluates the first item that should be shown in the selected list when we have selected the last one
         /// </summary>
         /// <returns>index of the first shown item</returns>
-        private int evaluateIntSmallestDisplayedItem()
+        private int EvaluateIntSmallestDisplayedItem()
         {
             switch (selectedCollum)
             {
@@ -349,23 +349,23 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// </summary>
         public void BuyOrSell()
         {
-            if (smallestDisplayedItem + selectedLine < selectedListCount)
-                PlayerHandler.player.gold += selectedList[smallestDisplayedItem + selectedLine].BuySell(selectedCollum);
+            if (SmallestDisplayedItem + selectedLine < SelectedListCount)
+                PlayerHandler.player.Gold += SelectedList[SmallestDisplayedItem + selectedLine].BuySell(selectedCollum);
         }
 
         /// <summary>
         /// close the shop
         /// </summary>
-        public void closeShop()
+        public void CloseShop()
         {
-            shopIsOpen = false;
+            ShopIsOpen = false;
             sprite = null;
         }
 
         /// <summary>
         /// updates the shop items means reducing their number or caling the buy sell method etc. should only be called once in update
         /// </summary>
-        private void shopItemUpdate()
+        private void ShopItemUpdate()
         {
             //buy or sell if return is pressed
             if (Keyboard.IsKeyPressed(Controls.Return) && !Game.isPressed)
@@ -375,18 +375,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             }
 
             //update sellable Items
-            for (int i = 0; i < sellableItems.Count - smallestDisplayedItem0 && i < lineCount; i++)
+            for (int i = 0; i < sellableItems.Count - smallestDisplayedItem0 && i < LineCount; i++)
             {
-                sellableItems[smallestDisplayedItem0 + i].position = startSellPosition + new Vector2(0, i * 50);
-                sellableItems[smallestDisplayedItem0 + i].update();
-                sellableItems[smallestDisplayedItem0 + i].visible = true;
+                sellableItems[smallestDisplayedItem0 + i].Position = StartSellPosition + new Vector2(0, i * 50);
+                sellableItems[smallestDisplayedItem0 + i].Update();
+                sellableItems[smallestDisplayedItem0 + i].Visible = true;
             }
             for (int i = 0; i < sellableItems.Count; i++)
             {
-                if (i < smallestDisplayedItem0 || i >= smallestDisplayedItem0 + lineCount)
-                    sellableItems[i].visible = false;
+                if (i < smallestDisplayedItem0 || i >= smallestDisplayedItem0 + LineCount)
+                    sellableItems[i].Visible = false;
 
-                if (!sellableItems[i].isAlive)
+                if (!sellableItems[i].IsAlive)
                 {
                     sellableItems.RemoveAt(i);
                     i--;
@@ -394,18 +394,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             }
 
             //update buyable Items
-            for (int i = 0; i < buyableItems.Count - smallestDisplayedItem1 && i < lineCount; i++)
+            for (int i = 0; i < buyableItems.Count - smallestDisplayedItem1 && i < LineCount; i++)
             {
-                buyableItems[smallestDisplayedItem1 + i].position = startBuyPosition + new Vector2(0, i * 50);
-                buyableItems[smallestDisplayedItem1 + i].update();
-                buyableItems[smallestDisplayedItem1 + i].visible = true;
+                buyableItems[smallestDisplayedItem1 + i].Position = StartBuyPosition + new Vector2(0, i * 50);
+                buyableItems[smallestDisplayedItem1 + i].Update();
+                buyableItems[smallestDisplayedItem1 + i].Visible = true;
             }
             for (int i = 0; i < buyableItems.Count; i++)
             {
-                if (i < smallestDisplayedItem1 || i >= smallestDisplayedItem1 + lineCount)
-                    buyableItems[i].visible = false;
+                if (i < smallestDisplayedItem1 || i >= smallestDisplayedItem1 + LineCount)
+                    buyableItems[i].Visible = false;
 
-                if (!buyableItems[i].isAlive)
+                if (!buyableItems[i].IsAlive)
                 {
                     buyableItems.RemoveAt(i);
                     i--;
@@ -413,14 +413,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             }
 
             //updating the displayed Gold value
-            playerGoldText.DisplayedString = PlayerHandler.player.gold.ToString();
+            playerGoldText.DisplayedString = PlayerHandler.player.Gold.ToString();
         }
 
         /// <summary>
         /// draw all shop content that is visible
         /// </summary>
         /// <param name="window"></param>
-        public void draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             if (sprite != null)
             {
@@ -429,10 +429,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                 window.Draw(playerGoldText);
 
                 foreach (ShopItem item in sellableItems)
-                    item.draw(window);
+                    item.Draw(window);
 
                 foreach (ShopItem item in buyableItems)
-                    item.draw(window);
+                    item.Draw(window);
             }
         }
     }

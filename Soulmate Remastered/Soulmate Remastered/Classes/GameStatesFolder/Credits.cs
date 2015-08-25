@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
@@ -18,7 +19,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             base.initialize();
             
             credits = new Sprite(creditsTexture);
-            credits.Position = new Vector2f(0, 0);
+            credits.Position = new Vector2(0, 0);
         }
 
         public override void loadContent()

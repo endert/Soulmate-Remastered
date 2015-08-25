@@ -31,7 +31,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
         {
             for (int i = 0; i < projectileList.Count; i++)
             {
-                if (!projectileList[i].isAlive)
+                if (!projectileList[i].IsAlive)
                 {
                     projectileList.RemoveAt(i);
                     i--;

@@ -38,12 +38,12 @@ namespace Soulmate_Remastered.Classes
                 window.DispatchEvents();
                 gameTime.Update();
                 update(gameTime);
-                cheatConsole.update();
+                cheatConsole.Update();
                 draw(window);
                 window.Display();
             }
 
-            cheatConsole.delete();
+            cheatConsole.Delete();
         }
 
         public abstract void draw(RenderWindow window);

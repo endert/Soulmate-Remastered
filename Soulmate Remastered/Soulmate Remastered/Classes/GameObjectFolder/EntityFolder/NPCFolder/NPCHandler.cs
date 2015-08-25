@@ -22,7 +22,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <summary>
         /// the open Shop
         /// </summary>
-        public static Shop shop { get; set; }
+        public static Shop Shop_ { get; set; }
 
         /// <summary>
         /// initialize Npc Handler and Npc's for the current map
@@ -41,7 +41,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// add a npc to the npc list
         /// </summary>
         /// <param name="npc"></param>
-        public static void add(AbstractNPC npc)
+        public static void Add_(AbstractNPC npc)
         {
             NPCs.Add(npc);
             EntityHandler.add(npc);
@@ -50,11 +50,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <summary>
         /// kills all npc's
         /// </summary>
-        public static void deleate()
+        public static void Deleate()
         {
             foreach (AbstractNPC npc in NPCs)
             {
-                npc.kill();
+                npc.Kill();
             }
         }
 
@@ -62,12 +62,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// deletes all Npc with the given type
         /// </summary>
         /// <param name="_type"></param>
-        public static void deleateType(String _type)
+        public static void DeleateType(String _type)
         {
             bool foundEntry = false;
             for (int i = 0; i < NPCs.Count; i++)
             {
-                if (NPCs[i].type.Equals(_type))
+                if (NPCs[i].Type.Equals(_type))
                 {
                     NPCs.RemoveAt(i);
                     foundEntry = true;
@@ -85,12 +85,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// updates all npc's should only be called once
         /// </summary>
         /// <param name="gameTime"></param>
-        public void update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             for (int i = 0; i < NPCs.Count; i++)
             {
                 //if the npc is not alive
-                if (!NPCs[i].isAlive)
+                if (!NPCs[i].IsAlive)
                 {
                     //it should be removed and then continue the loop
                     NPCs.RemoveAt(i);
@@ -102,12 +102,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
                 if (NPCs[i].InIteractionRange && !Game.isPressed && Keyboard.IsKeyPressed(Controls.Interact) && !NPCs[i].Interacting)
                 {
                     Game.isPressed = true;
-                    NPCs[i].interact();
+                    NPCs[i].Interact();
                 }
                 if (NPCs[i].Interacting && (!NPCs[i].InIteractionRange || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed)))
                 {
                     Game.isPressed = true;
-                    NPCs[i].stopIteraction();
+                    NPCs[i].StopIteraction();
                 }
             }
         }
@@ -116,7 +116,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// updates the shop
         /// </summary>
         /// <param name="gameTime"></param>
-        public static void updateShop(GameTime gameTime)
+        public static void UpdateShop(GameTime gameTime)
         {
             if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed)
             {
@@ -124,15 +124,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 
                 foreach (AbstractNPC npc in NPCs)
                 {
-                    npc.stopIteraction();
+                    npc.StopIteraction();
                 }
-                shop = null;
+                Shop_ = null;
             }
             else
             {
-                if (shop != null)
-                    shop.Shopmanagement();
-                PlayerHandler.player.update(gameTime);
+                if (Shop_ != null)
+                    Shop_.Shopmanagement();
+                PlayerHandler.player.Update(gameTime);
             }
         }
     }

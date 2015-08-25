@@ -8,11 +8,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
 {
     abstract class AbstractNormalItem : AbstractItem
     {
-        public override string type
+        public override string Type
         {
             get
             {
-                return base.type + ".NormalItem";
+                return base.Type + ".NormalItem";
             }
         }
         public override float ID

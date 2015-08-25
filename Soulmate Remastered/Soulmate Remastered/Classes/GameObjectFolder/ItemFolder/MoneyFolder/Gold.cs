@@ -10,16 +10,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
 {
     class Gold : Money //should extend another instans (money?)
     {
-        public override String type { get { return base.type + ".Gold"; } }
+        public override String Type { get { return base.Type + ".Gold"; } }
         public override bool sellable { get { return false; } }
 
         public Gold()
         {
-            textureList.Add(new Texture("Pictures/Items/Money/Gold.png"));
-            sprite = new Sprite(textureList[0]);
-            visible = false;
-            position = new Vector2f();
-            hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
+            TextureList.Add(new Texture("Pictures/Items/Money/Gold.png"));
+            Sprite = new Sprite(TextureList[0]);
+            IsVisible = false;
+            Position = new Vector2f();
+            HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
             dropRate = 80;
         }
 

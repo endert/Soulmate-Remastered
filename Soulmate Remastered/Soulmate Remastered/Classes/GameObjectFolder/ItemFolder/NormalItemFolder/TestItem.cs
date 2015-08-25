@@ -11,7 +11,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
 {
     class TestItem : AbstractNormalItem
     {
-        public override string type { get { return base.type + ".Pete"; } }
+        public override string Type { get { return base.Type + ".Pete"; } }
         public override bool sellable { get { return false; } }
 
         public override float ID
@@ -36,18 +36,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
 
         public TestItem()
         {
-            textureList.Add(new Texture("Pictures/Items/TestItem(Pete).png"));
-            sprite = new Sprite(textureList[0]);
-            visible = false;
-            position = new Vector2f();
-            hitBox = new HitBox(position, textureList[0].Size.X, textureList[0].Size.Y);
+            TextureList.Add(new Texture("Pictures/Items/TestItem(Pete).png"));
+            Sprite = new Sprite(TextureList[0]);
+            IsVisible = false;
+            Position = new Vector2f();
+            HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
             dropRate = 100;
         }
 
         public override AbstractItem clone()
         {
             AbstractItem clonedItem = new TestItem();
-            clonedItem.position = this.position;
+            clonedItem.Position = this.Position;
             return clonedItem;
         }
     }

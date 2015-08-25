@@ -227,7 +227,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 equipment[i] = ItemHandler.loadEquip(EquipmentString[i]);
             }
 
-            PlayerHandler.player.statsUpdate();
+            PlayerHandler.player.StatsUpdate();
         }
 
         public Inventory()
@@ -312,15 +312,15 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             defense.DisplayedString = "Defense: " + PlayerHandler.player.Def;
             defense.Position = new Vector2f(attack.Position.X, attack.Position.Y + attack.CharacterSize);
 
-            exp.DisplayedString = "EXP: " + PlayerHandler.player.getCurrentEXP + "/" + PlayerHandler.player.getMaxEXP;
+            exp.DisplayedString = "EXP: " + PlayerHandler.player.CurrentEXP + "/" + PlayerHandler.player.MaxEXP;
             exp.Position = new Vector2f(defense.Position.X, defense.Position.Y + defense.CharacterSize);
 
-            lvl.DisplayedString = "Lvl: " + PlayerHandler.player.lvl;
-            if (PlayerHandler.player.lvl == PlayerHandler.player.MaxLvl)
+            lvl.DisplayedString = "Lvl: " + PlayerHandler.player.Lvl;
+            if (PlayerHandler.player.Lvl == PlayerHandler.player.MaxLvl)
                 lvl.DisplayedString += "°";
             lvl.Position = new Vector2f(exp.Position.X, exp.Position.Y + exp.CharacterSize);
 
-            gold.DisplayedString = "Gold: " + PlayerHandler.player.gold;
+            gold.DisplayedString = "Gold: " + PlayerHandler.player.Gold;
             goldSprite.Position = new Vector2f(lvl.Position.X - 10, lvl.Position.Y + 50);
             gold.Position = new Vector2f(goldSprite.Position.X + (goldSprite.Texture.Size.X / 2), goldSprite.Position.Y - 5);
 
@@ -338,7 +338,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
 
         public bool isFullWith(AbstractItem item)
         {
-            if (item.type.Equals("Object.Item.Money.Gold"))
+            if (item.Type.Equals("Object.Item.Money.Gold"))
             {
                 return false;
             }
@@ -627,7 +627,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 {
                     inventoryMatrix[yInInventory, xInInventory].Peek().giveMatrixPosition(yInInventory, xInInventory);
                     inventoryMatrix[yInInventory, xInInventory].Peek().use();
-                    PlayerHandler.player.statsUpdate();
+                    PlayerHandler.player.StatsUpdate();
                 }
             }
 
@@ -636,12 +636,12 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 itemDescription.DisplayedString = inventoryMatrix[yInInventory, xInInventory].Peek().ItemDiscription;
             }
 
-            if (inventoryMatrix[yInInventory, xInInventory] != null && inventoryMatrix[yInInventory, xInInventory].Count != 0 && !inventoryMatrix[yInInventory, xInInventory].Peek().isAlive)
+            if (inventoryMatrix[yInInventory, xInInventory] != null && inventoryMatrix[yInInventory, xInInventory].Count != 0 && !inventoryMatrix[yInInventory, xInInventory].Peek().IsAlive)
             {
                 inventoryMatrix[yInInventory, xInInventory].Pop();
                 if (inventoryMatrix[yInInventory, xInInventory].Count != 0)
                 {
-                    inventoryMatrix[yInInventory, xInInventory].Peek().position = getSelectedPosition();
+                    inventoryMatrix[yInInventory, xInInventory].Peek().Position = getSelectedPosition();
                     inventoryMatrix[yInInventory, xInInventory].Peek().setVisible(true);
                 }
                 else
@@ -662,7 +662,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     if (equipment[i] != null && selected.Position.Equals(equipmentPosition[i]))
                     {
                         equipment[i].use();
-                        PlayerHandler.player.statsUpdate();
+                        PlayerHandler.player.StatsUpdate();
                     }
                 }
             }
@@ -851,7 +851,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     if (inventoryMatrix[i, j] != null && inventoryMatrix[i, j].Count != 0 && inventoryMatrix[i, j].Peek() != null)
                     {
                         inventoryMatrix[i, j].Peek().setPositionMatrix(j, i);
-                        inventoryMatrix[i, j].Peek().sprite.Position = inventoryMatrix[i, j].Peek().position;
+                        inventoryMatrix[i, j].Peek().Sprite.Position = inventoryMatrix[i, j].Peek().Position;
                         inventoryMatrix[i, j].Peek().setVisible(true);
                     }
 

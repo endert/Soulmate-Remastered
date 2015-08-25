@@ -53,13 +53,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         {
             foreach (Entity entity in entityList)
             {
-                entity.kill();
+                entity.Kill();
             }
             PlayerHandler.deleate();
-            EnemyHandler.deleate();
-            PetHandler.deleate();
+            EnemyHandler.Deleate();
+            PetHandler.Deleate();
             ProjectileHandler.deleate();
-            NPCHandler.deleate();
+            NPCHandler.Deleate();
             TreasureChestHandler.deleate();
         }
 
@@ -68,7 +68,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             bool foundEntry = false;
             for (int i = 0; i < entityList.Count; i++)
             {
-                if (entityList[i].type.Equals(_type))
+                if (entityList[i].Type.Equals(_type))
                 {
                     entityList.RemoveAt(i);
                     foundEntry = true;
@@ -86,17 +86,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         {
             for (int i = 0; i < entityList.Count; i++)
             {
-                if (!entityList[i].isAlive)
+                if (!entityList[i].IsAlive)
                 {
-                    entityList[i].drop();
+                    entityList[i].Drop();
                     entityList.RemoveAt(i);
                     i--;
                 }
             }
-            enemyHandler.update(gameTime);
-            petHandler.update();
+            enemyHandler.Update(gameTime);
+            petHandler.Update();
             projectileHandler.update(gameTime);
-            npcHandler.update(gameTime);
+            npcHandler.Update(gameTime);
             treasureChestHandler.update(gameTime);
         }
     }

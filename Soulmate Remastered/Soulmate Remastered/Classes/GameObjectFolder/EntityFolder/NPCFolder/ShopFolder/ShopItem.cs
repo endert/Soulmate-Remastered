@@ -16,15 +16,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// <summary>
         /// Position in view coordinates
         /// </summary>
-        public Vector2 position { get; set; }
+        public Vector2 Position { get; set; }
         /// <summary>
         /// bool if the item should be drawn
         /// </summary>
-        public bool visible { get; set; }
+        public bool Visible { get; set; }
         /// <summary>
         /// bool if the item is alive
         /// </summary>
-        public bool isAlive { get { if (itemStack != null && itemStack.Count > 0)return true; else return false; } }
+        public bool IsAlive { get { if (itemStack != null && itemStack.Count > 0)return true; else return false; } }
         /// <summary>
         /// single chained list of abstaract items after the lilo princip
         /// </summary>
@@ -51,22 +51,22 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             itemStack = item;
             if (itemStack.Count > 0)
             {
-                itemSprite = new Sprite(itemStack.Peek().currentTexture);
+                itemSprite = new Sprite(itemStack.Peek().CurrentTexture);
                 displayedName = new Text("", Game.font, 20);
                 goldValue = new Text("", Game.font, 20);
 
-                positionUpdate();
+                PositionUpdate();
             }
         }
 
         /// <summary>
         /// updates the position
         /// </summary>
-        private void positionUpdate()
+        private void PositionUpdate()
         {
-            itemSprite.Position = new Vector2f(position.X + 5, position.Y);
-            displayedName.Position = new Vector2f(itemSprite.Position.X + itemSprite.Texture.Size.X + 5, position.Y + 5);
-            goldValue.Position = new Vector2f(position.X + 390 - (goldValue.DisplayedString.Length * goldValue.CharacterSize) / 2, position.Y + 5);
+            itemSprite.Position = new Vector2f(Position.X + 5, Position.Y);
+            displayedName.Position = new Vector2f(itemSprite.Position.X + itemSprite.Texture.Size.X + 5, Position.Y + 5);
+            goldValue.Position = new Vector2f(Position.X + 390 - (goldValue.DisplayedString.Length * goldValue.CharacterSize) / 2, Position.Y + 5);
             
         }
 
@@ -77,17 +77,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// <returns>the gold that is added to Players gold</returns>
         public float BuySell(Shop.Collum selectedCollum)
         {
-            if (isAlive)
+            if (IsAlive)
             {
                 switch (selectedCollum)
                 {
                     case Shop.Collum.Sell:
                         return itemStack.Pop().sellPrize;
                     case Shop.Collum.Buy:
-                        if (PlayerHandler.player.gold >= itemStack.Peek().sellPrize)
+                        if (PlayerHandler.player.Gold >= itemStack.Peek().sellPrize)
                         {
                             float prize = -itemStack.Peek().sellPrize;
-                            itemStack.Pop().cloneAndDrop(PlayerHandler.player.hitBox.Position);
+                            itemStack.Pop().cloneAndDrop(PlayerHandler.player.HitBox.Position);
                             return prize;
                         }
                         else
@@ -103,9 +103,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// <summary>
         /// updates texts should only be called once
         /// </summary>
-        private void textUpdate()
+        private void TextUpdate()
         {
-            displayedName.DisplayedString = itemStack.Count + "x " + itemStack.Peek().name;
+            displayedName.DisplayedString = itemStack.Count + "x " + itemStack.Peek().Name;
             goldValue.DisplayedString = itemStack.Peek().sellPrize.ToString();
         }
 
@@ -127,12 +127,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// <summary>
         /// if the item is alive calls position update and text update
         /// </summary>
-        public void update()
+        public void Update()
         {
-            if (isAlive)
+            if (IsAlive)
             {
-                positionUpdate();
-                textUpdate();
+                PositionUpdate();
+                TextUpdate();
             }
             else
                 itemStack = null;
@@ -142,9 +142,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// draws the item if it is visible
         /// </summary>
         /// <param name="window"></param>
-        public void draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
-            if (visible)
+            if (Visible)
             {
                 window.Draw(itemSprite);
                 window.Draw(displayedName);

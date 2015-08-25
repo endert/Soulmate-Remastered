@@ -15,7 +15,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 {
     abstract class Entity : GameObject
     {
-        public override String type { get { return base.type + ".Entity"; } }
+        public override String Type { get { return base.Type + ".Entity"; } }
         protected LifeBarForOthers lifeBar;
         protected Stopwatch[] stopWatchList = { new Stopwatch(), new Stopwatch(), new Stopwatch() }; //first for animation, second for vulnerable, third for transformation
 
@@ -134,9 +134,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                         //movement.X *= (float)Math.Sin(45);
                         //movement.Y *= (float)Math.Sin(45);
                     }
-                    if (GameObjectHandler.lvlMap.getWalkable(hitBox, movement))    // only move if it's walkable
+                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, movement))    // only move if it's walkable
                     {
-                        position = new Vector2f(position.X + movement.X, position.Y + movement.Y);
+                        Position = new Vector2f(Position.X + movement.X, Position.Y + movement.Y);
                         FacingDirection = movement;
                     }
                     else
@@ -169,19 +169,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         {
             for (int i = 0; i < GameObjectHandler.gameObjectList.Count; i++)
             {
-                if ((i != indexObjectList) && !GameObjectHandler.gameObjectList[i].walkable && (hitBox.Hit(GameObjectHandler.gameObjectList[i].hitBox)) && hitAnotherEnityHelp(i))
+                if ((i != IndexObjectList) && !GameObjectHandler.gameObjectList[i].Walkable && (HitBox.Hit(GameObjectHandler.gameObjectList[i].HitBox)) && hitAnotherEnityHelp(i))
                 {
                     bool notFound = true;
                     for (int j = 0; j < hitFromDirections.Count; j++)
                     {
-                        if (hitFromDirections[j].Equals(hitBox.hitFrom(GameObjectHandler.gameObjectList[i].hitBox)))
+                        if (hitFromDirections[j].Equals(HitBox.hitFrom(GameObjectHandler.gameObjectList[i].HitBox)))
                         {
                             notFound = false;
                         }
                     }
                     if (notFound)
                     {
-                        hitFromDirections.Add(hitBox.hitFrom(GameObjectHandler.gameObjectList[i].hitBox));
+                        hitFromDirections.Add(HitBox.hitFrom(GameObjectHandler.gameObjectList[i].HitBox));
                     }
                 }
             }
@@ -199,7 +199,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         {
             for (int i = 0; i < GameObjectHandler.gameObjectList.Count; ++i)
             {
-                if ((i != indexObjectList) && !GameObjectHandler.gameObjectList[i].walkable && hitBox.WillHit(movement, GameObjectHandler.gameObjectList[i].hitBox) && hitAnotherEnityHelp(i))
+                if ((i != IndexObjectList) && !GameObjectHandler.gameObjectList[i].Walkable && HitBox.WillHit(movement, GameObjectHandler.gameObjectList[i].HitBox) && hitAnotherEnityHelp(i))
                 {
                     return true;
                 }
@@ -210,35 +210,35 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 
         private bool hitAnotherEnityHelp(int index)
         {
-            if (type.Split('.')[2].Equals("Pet") || type.Split('.')[2].Equals("Player"))
+            if (Type.Split('.')[2].Equals("Pet") || Type.Split('.')[2].Equals("Player"))
             {
                 return !petPlayerCollision();
             }
 
             else
             {
-                return !GameObjectHandler.gameObjectList[index].walkable;
+                return !GameObjectHandler.gameObjectList[index].Walkable;
             }
         }
 
         public bool petPlayerCollision()
         {
-            if (type.Split('.')[2].Equals("Pet"))
+            if (Type.Split('.')[2].Equals("Pet"))
             {
                 foreach (Entity entity in EntityHandler.entityList)
                 {
-                    if (hitBox.Hit(entity.hitBox) && !entity.type.Split('.')[2].Equals("Pet") && entity.type.Split('.')[2].Equals("Player"))
+                    if (HitBox.Hit(entity.HitBox) && !entity.Type.Split('.')[2].Equals("Pet") && entity.Type.Split('.')[2].Equals("Player"))
                     {
                         return true;
                     }
                 }
             }
 
-            if (type.Split('.')[2].Equals("Player"))
+            if (Type.Split('.')[2].Equals("Player"))
             {
                 foreach (Entity entity in EntityHandler.entityList)
                 {
-                    if (hitBox.Hit(entity.hitBox) && !entity.type.Split('.')[2].Equals("Player") && entity.type.Split('.')[2].Equals("Pet"))
+                    if (HitBox.Hit(entity.HitBox) && !entity.Type.Split('.')[2].Equals("Player") && entity.Type.Split('.')[2].Equals("Pet"))
                     {
                         return true;
                     }
@@ -250,7 +250,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 
         public bool touchedPlayer()
         {
-            if (hitBox.Hit(PlayerHandler.player.hitBox))
+            if (HitBox.Hit(PlayerHandler.player.HitBox))
             {
                 return true;
             }
@@ -262,7 +262,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 
         public bool moveHelp()
         {
-            if (type.Split('.')[2].Equals("Player"))
+            if (Type.Split('.')[2].Equals("Player"))
             {
                 return true;
             }
@@ -272,7 +272,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             }
         }
 
-        public virtual void drop()
+        public virtual void Drop()
         {
 
         }
@@ -291,7 +291,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 
         public Vector2 getPlayerDirection()
         {
-            Vector2 playerDirection = (PlayerHandler.player.hitBox.Position + (1 / 2) * PlayerHandler.player.hitBox.Size) - (hitBox.Position + (1 / 2) * hitBox.Size);
+            Vector2 playerDirection = (PlayerHandler.player.HitBox.Position + (1 / 2) * PlayerHandler.player.HitBox.Size) - (HitBox.Position + (1 / 2) * HitBox.Size);
             return playerDirection;
         }
 
@@ -301,37 +301,37 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             {
                 if (FacingDirection.Y > 0)
                 {
-                    sprite = new Sprite(textureList[0]); //front
+                    Sprite = new Sprite(TextureList[0]); //front
                 }
                 else if (FacingDirection.Y < 0)
                 {
-                    sprite = new Sprite(textureList[1]); // back
+                    Sprite = new Sprite(TextureList[1]); // back
                 }
                 else if (FacingDirection.X > 0)
                 {
-                    sprite = new Sprite(textureList[2]); // right
+                    Sprite = new Sprite(TextureList[2]); // right
                 }
                 else
                 {
-                    sprite = new Sprite(textureList[3]); // left
+                    Sprite = new Sprite(TextureList[3]); // left
                 }
             }
             else
             {
-                if (textureList.Count > 4)
+                if (TextureList.Count > 4)
                 {
-                    sprite = new Sprite(textureList[4]); // invulnerablety
+                    Sprite = new Sprite(TextureList[4]); // invulnerablety
                 }
             }
 
-            sprite.Position = position;
+            Sprite.Position = Position;
         }
 
-        public abstract override void update(GameTime gameTime);
+        public abstract override void Update(GameTime gameTime);
 
-        public override void draw(RenderWindow window)
+        public override void Draw(RenderWindow window)
         {
-            base.draw(window);
+            base.Draw(window);
             if(lifeBar!=null)
             {
                 lifeBar.draw(window);

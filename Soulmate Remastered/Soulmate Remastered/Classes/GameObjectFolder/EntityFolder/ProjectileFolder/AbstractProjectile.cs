@@ -12,14 +12,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
     {
         protected float duration;
         protected Vector2f startPosition;
-        public override bool walkable
+        public override bool Walkable
         {
             get
             {
                 return true;
             }
         }
-        public override String type { get { return base.type + ".Projectile"; } }
+        public override String Type { get { return base.Type + ".Projectile"; } }
 
         public bool inRange()
         {
@@ -32,11 +32,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
         public List<AbstractEnemy> getTouchedEnemy()
         {
             List<AbstractEnemy> enemyList = new List<AbstractEnemy>();
-            for (int i = 0; i < EnemyHandler.enemyList.Count; i++)
+            for (int i = 0; i < EnemyHandler.EnemyList.Count; i++)
             {
-                if ((i != indexObjectList) && (hitBox.Hit(EnemyHandler.enemyList[i].hitBox)))
+                if ((i != IndexObjectList) && (HitBox.Hit(EnemyHandler.EnemyList[i].HitBox)))
                 {
-                    enemyList.Add(EnemyHandler.enemyList[i]);
+                    enemyList.Add(EnemyHandler.EnemyList[i]);
                 }
             }
             return enemyList;
@@ -47,15 +47,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
             if (hitAnotherEntity() && getTouchedEnemy().Count > 0)
             {
                 getTouchedEnemy()[0].takeDmg(Att);
-                isAlive = false;
+                IsAlive = false;
             }
         }
 
-        public override void update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             movementSpeed = BaseMovementSpeed * (float)gameTime.EllapsedTime.TotalMilliseconds;
-            sprite.Position = position;
-            hitBox.Position = position;
+            Sprite.Position = Position;
+            HitBox.Position = Position;
+
+            IsAlive = true;
+            IsVisible = true;
 
             stopWatchList[0].Start();
 
@@ -65,7 +68,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
                 
                 move(FacingDirection);
                 animate();
-                sprite.Position = position;
+                Sprite.Position = Position;
                 doDamage();
 
                 if (touchedPlayer())
@@ -80,7 +83,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
 
             else
             {
-                isAlive = false;
+                IsAlive = false;
             }
             
         }
