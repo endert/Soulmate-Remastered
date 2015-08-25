@@ -19,6 +19,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         /// </summary>
         public static AbstractPlayer player { get; set; }
 
+        /// <summary>
+        /// initialize the playerhandler and the player
+        /// </summary>
         public PlayerHandler()
         {
             switch(GameObjectHandler.lvl)
