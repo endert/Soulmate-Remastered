@@ -79,21 +79,35 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             Arrow
         }
         /// <summary>
+        /// needed to avoid stack overflow
+        /// </summary>
+        bool IsPressedForAttackHelp = false;
+        /// <summary>
         /// returns bool if the button for attack is pressed or not
         /// </summary>
         public bool IsPressedForAttack
         {
             get
             {
-                if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !IsPressedForAttack)
+                if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !IsPressedForAttackHelp)
+                {
+                    IsPressedForAttackHelp = true;
                     return true;
+                }
 
-                if (IsPressedForAttack && !Keyboard.IsKeyPressed(Controls.ButtonForAttack) && !Mouse.IsButtonPressed(Mouse.Button.Left))
+                if (IsPressedForAttackHelp && !Keyboard.IsKeyPressed(Controls.ButtonForAttack) && !Mouse.IsButtonPressed(Mouse.Button.Left))
+                {
+                    IsPressedForAttackHelp = false;
                     return false;
+                }
 
                 return false;
             }
         }
+        /// <summary>
+        /// needed to avoid stack overflow
+        /// </summary>
+        bool isPressedForShootHelp = false;
         /// <summary>
         /// returns bool if the button for shooting is pressed or not
         /// </summary>
@@ -101,11 +115,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             get
             {
-                if (Keyboard.IsKeyPressed(Controls.ButtonForShoot) && !IsPressedForShoot)
+                if (!isPressedForShootHelp && Keyboard.IsKeyPressed(Controls.ButtonForShoot))
+                {
+                    isPressedForShootHelp = true;
                     return true;
+                }
 
-                if (IsPressedForShoot && !Keyboard.IsKeyPressed(Controls.ButtonForShoot))
+                if (isPressedForShootHelp && !Keyboard.IsKeyPressed(Controls.ButtonForShoot))
+                {
+                    isPressedForShootHelp = false;
                     return false;
+                }
 
                 return false;
             }

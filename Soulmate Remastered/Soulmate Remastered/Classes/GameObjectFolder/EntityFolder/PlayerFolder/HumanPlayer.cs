@@ -10,39 +10,66 @@ using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
+    /// <summary>
+    /// player in human form
+    /// </summary>
     class HumanPlayer : AbstractPlayer
     {
+        /// <summary>
+        /// the type of this instance
+        /// </summary>
         public override String Type { get { return base.Type + ".HumanPlayer"; } }
 
+        /// <summary>
+        /// creates new human player at the given spawn position
+        /// </summary>
+        /// <param name="spawnPosition"></param>
+        /// <param name="spawnFacingDirection"></param>
         public HumanPlayer(Vector2 spawnPosition, Vector2 spawnFacingDirection)
         {
-            TextureList.Add(new Texture("Pictures/Entities/Player/PlayerFront.png")); 
+            //initialize game object data***************************************************************************
+            
+            TextureList.Add(new Texture("Pictures/Entities/Player/PlayerFront.png"));
             TextureList.Add(new Texture("Pictures/Entities/Player/PlayerBack.png"));
             TextureList.Add(new Texture("Pictures/Entities/Player/PlayerRightSword.png"));
             TextureList.Add(new Texture("Pictures/Entities/Player/PlayerLeftSword.png"));
             
-            FacingDirection = spawnFacingDirection;
             Sprite = new Sprite(TextureList[0]);
             Sprite.Position = spawnPosition;
             Position = spawnPosition;
             HitBox = new HitBox(Sprite.Position, TextureList[0].Size.X, TextureList[0].Size.Y);
-            AttackHitBox = new HitBox(GetHitBoxPosition(), TextureList[2].Size.X - TextureList[0].Size.X, 85);
-            BaseMovementSpeed = 0.4f;
             IsAlive = true;
             IsVisible = true;
 
-            Lvl = 1;
+            //******************************************************************************************************
+            
+            //initialize entity data********************************************************************************
+            
+            FacingDirection = spawnFacingDirection;
+            BaseMovementSpeed = 0.4f;
             BaseHp = 100f;
             BaseAtt = 10;
             BaseDef = 5;
+            CurrentHP = MaxHP;
+            
+            //******************************************************************************************************
+            
+            //initialize abstract player data***********************************************************************
 
+            AttackHitBox = new HitBox(GetHitBoxPosition(), TextureList[2].Size.X - TextureList[0].Size.X, 85);
+            Lvl = 1;
             FusionDuration = 50000;
             MaxFusionValue = 500f;
             CurrentFusionValue = 0f;
             StatsUpdate();
-            CurrentHP = MaxHP;
+
+            //******************************************************************************************************
+
         }
 
+        /// <summary>
+        /// fuse with the pet
+        /// </summary>
         public void fusion()
         {
             if (CurrentFusionValue >= MaxFusionValue)
@@ -51,20 +78,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             }
         }
 
-        public override Vector2f GetHitBoxPosition()
+        public override Vector2 GetHitBoxPosition()
         {
             if (Direction == EDirection.Right)
             {
-                return new Vector2f(Sprite.Position.X + 70, Sprite.Position.Y + 94);
+                return new Vector2(Sprite.Position.X + 70, Sprite.Position.Y + 94);
             }
 
             else if (Direction == EDirection.Left)
             {
-                return new Vector2f(Sprite.Position.X, Sprite.Position.Y + 94);
+                return new Vector2(Sprite.Position.X, Sprite.Position.Y + 94);
             }
 
             else
-                return new Vector2f(0, 0);
+                return new Vector2(0, 0);
         }
 
         public override void Update(GameTime gameTime)
