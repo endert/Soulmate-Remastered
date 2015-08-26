@@ -251,7 +251,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             return false;
         }
 
-
+        /// <summary>
+        /// bool if the player is touched
+        /// </summary>
+        /// <returns></returns>
         public bool touchedPlayer()
         {
             if (HitBox.Hit(PlayerHandler.Player.HitBox))
