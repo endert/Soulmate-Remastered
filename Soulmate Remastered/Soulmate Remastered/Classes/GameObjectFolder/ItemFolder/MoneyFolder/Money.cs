@@ -15,7 +15,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
         {
             onMap = false;
             GameObjectHandler.removeAt(IndexObjectList);
-            PlayerHandler.player.Gold += 1;
+            PlayerHandler.Player.Gold += 1;
         }
     }
 }

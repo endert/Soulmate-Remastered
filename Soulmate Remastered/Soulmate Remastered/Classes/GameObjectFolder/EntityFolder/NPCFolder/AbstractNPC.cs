@@ -52,7 +52,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <summary>
         /// bool if the Player is in interaction range of this instance
         /// </summary>
-        public bool InIteractionRange { get { return HitBox.DistanceTo(PlayerHandler.player.HitBox) <= InteractionRadius; } }
+        public bool InIteractionRange { get { return HitBox.DistanceTo(PlayerHandler.Player.HitBox) <= InteractionRadius; } }
 
         /// <summary>
         /// load the Dialoge from the dialoge File

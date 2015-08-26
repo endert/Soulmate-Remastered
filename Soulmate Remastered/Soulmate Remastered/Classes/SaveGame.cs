@@ -23,7 +23,7 @@ namespace Soulmate_Remastered.Classes
         public static void saveGame()
         {
             StreamWriter writer = new StreamWriter(savePath);
-            writer.WriteLine(PlayerHandler.player.ToStringForSave());
+            writer.WriteLine(PlayerHandler.Player.ToStringForSave());
             if (PetHandler.Pet == null)
                 writer.WriteLine("null");
             else
@@ -42,10 +42,10 @@ namespace Soulmate_Remastered.Classes
             {
                 StreamReader reader = new StreamReader(loadPath);
 
-                if (PlayerHandler.player != null)
+                if (PlayerHandler.Player != null)
                 {
                     Console.WriteLine("loading: Player");
-                    PlayerHandler.player.Load(reader.ReadLine());
+                    PlayerHandler.Player.Load(reader.ReadLine());
                 }
                 else
                     reader.ReadLine();
@@ -79,7 +79,7 @@ namespace Soulmate_Remastered.Classes
         {
             StreamReader reader = new StreamReader(loadPath);
 
-            PlayerHandler.player.LoadMapChange(reader.ReadLine());
+            PlayerHandler.Player.LoadMapChange(reader.ReadLine());
             PetHandler.Load(reader.ReadLine());
             reader.ReadLine();
             ItemHandler.playerInventory.load(reader.ReadLine());

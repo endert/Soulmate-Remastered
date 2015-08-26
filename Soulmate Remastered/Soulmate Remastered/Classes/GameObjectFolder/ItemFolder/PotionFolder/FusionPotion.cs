@@ -55,9 +55,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
 
         public override void use()
         {
-            if (PlayerHandler.player.CurrentFusionValue != PlayerHandler.player.MaxFusionValue)
+            if (PlayerHandler.Player.CurrentFusionValue != PlayerHandler.Player.MaxFusionValue)
             {
-                PlayerHandler.player.HealFusionFor(recoveryValue);
+                PlayerHandler.Player.HealFusionFor(recoveryValue);
                 IsAlive = false;
             }
         }

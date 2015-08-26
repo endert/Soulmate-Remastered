@@ -10,20 +10,41 @@ using SFML.Window;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
+    /// <summary>
+    /// the fusion of player and pet
+    /// </summary>
     class PlayerPetFusion : AbstractPlayer
     {
+        /// <summary>
+        /// the fusion animation
+        /// </summary>
         List<Texture> fusionAnimationList = new List<Texture>();
-
+        /// <summary>
+        /// the fusioned player
+        /// </summary>
         AbstractPlayer fusionedPlayer;
+        /// <summary>
+        /// the fusioned pet
+        /// </summary>
         AbstractPet fusionedPet;
-
+        /// <summary>
+        /// bool if the fusion is animated at the moment
+        /// </summary>
         bool animatingFusion;
         
+        /// <summary>
+        /// the type of this instance
+        /// </summary>
         public override String Type { get { return base.Type + ".PlayerPetFusion"; } } 
         
+        /// <summary>
+        /// "fuse" the pet and the player
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="pet"></param>
         public PlayerPetFusion(AbstractPlayer player, AbstractPet pet)
         {
-            textureSetting(pet);
+            TextureSetting(pet);
 
             transforming = true;
             vulnerable = false;
@@ -38,7 +59,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             Adapt(player);
             HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
 
-            PlayerHandler.player = this;
+            PlayerHandler.Player = this;
             EntityHandler.deleateType(player.Type);
             EntityHandler.deleateType(pet.Type);
             EntityHandler.add(this);
@@ -47,7 +68,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             animatingFusion = true;
         }
 
-        public void textureSetting(AbstractPet pet)
+        /// <summary>
+        /// desides wich textures should be used for the fusion
+        /// </summary>
+        /// <param name="pet"></param>
+        public void TextureSetting(AbstractPet pet)
         {
             if (pet.Type.Split('.')[3].Equals("PetWolf"))
             {
@@ -61,7 +86,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             }
         }
 
-        public void animateFusion()
+        /// <summary>
+        /// animate the fusion
+        /// </summary>
+        public void AnimateFusion()
         {
             stopWatchList[0].Start();
             if (stopWatchList[0].ElapsedMilliseconds <= 500)
@@ -81,7 +109,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             }
         }
 
-        public void defuse()
+        /// <summary>
+        /// splits the fusion into player and pet
+        /// </summary>
+        public void Defuse()
         {
             CurrentFusionValue = MaxFusionValue - stopWatchList[2].ElapsedMilliseconds / 100;
             if (stopWatchList[2].ElapsedMilliseconds >= fusionedPlayer.FusionDuration || Keyboard.IsKeyPressed(Keyboard.Key.Space))
@@ -89,7 +120,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 fusionedPlayer.Adapt(this);
                 fusionedPet.Position = Position;
 
-                PlayerHandler.player = fusionedPlayer;
+                PlayerHandler.Player = fusionedPlayer;
                 PetHandler.Pet = fusionedPet;
                 EntityHandler.add(fusionedPlayer);
                 EntityHandler.add(fusionedPet);
@@ -103,7 +134,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             HitBox.update(Sprite);
             if (animatingFusion)
             {
-                animateFusion();
+                AnimateFusion();
             }
             else
             {
@@ -114,7 +145,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             if (!transforming)
             {
                 stopWatchList[2].Start();
-                defuse();
+                Defuse();
             }
         }
     }

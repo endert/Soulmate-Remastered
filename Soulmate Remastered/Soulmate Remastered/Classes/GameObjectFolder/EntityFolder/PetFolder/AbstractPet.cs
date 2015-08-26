@@ -51,8 +51,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         public void Revive()
         {
             CurrentHP = MaxHP;
-            Position = PlayerHandler.player.Position;
-            Sprite.Position = PlayerHandler.player.Position;
+            Position = PlayerHandler.Player.Position;
+            Sprite.Position = PlayerHandler.Player.Position;
             IsAlive = true;
         }
 
@@ -86,19 +86,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         /// <returns></returns>
         public Vector2 GetVectorForMove()
         {
-            if (PlayerHandler.player.IsMoving)
+            if (PlayerHandler.Player.IsMoving)
             {
                 if (IsBehindPlayer())
                 {
                     return getPlayerDirection();
                 }
-                else if (!(PlayerHandler.player.FacingDirection.X != 0 && PlayerHandler.player.FacingDirection.Y != 0))    //If player dont facing diagonal
+                else if (!(PlayerHandler.Player.FacingDirection.X != 0 && PlayerHandler.Player.FacingDirection.Y != 0))    //If player dont facing diagonal
                 {
-                    return -PlayerHandler.player.FacingDirection;
+                    return -PlayerHandler.Player.FacingDirection;
                 }
                 else
                 {
-                    switch (PlayerHandler.player.Direction)
+                    switch (PlayerHandler.Player.Direction)
                     {
                         case EDirection.Back:
                             return Vector2.FRONT;
@@ -115,19 +115,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             }
             else
             {
-                if (IsBehindPlayer() && HitBox.DistanceTo(PlayerHandler.player.HitBox) >= 50f)
+                if (IsBehindPlayer() && HitBox.DistanceTo(PlayerHandler.Player.HitBox) >= 50f)
                 {
                     return getPlayerDirection();
                 }
                 else if (!IsBehindPlayer())    //If player dont facing diagonal
                 {
-                    if (PlayerHandler.player.FacingDirection.X == 0 || PlayerHandler.player.FacingDirection.Y == 0)    //If player dont facing diagonal
+                    if (PlayerHandler.Player.FacingDirection.X == 0 || PlayerHandler.Player.FacingDirection.Y == 0)    //If player dont facing diagonal
                     {
-                        return -PlayerHandler.player.FacingDirection;
+                        return -PlayerHandler.Player.FacingDirection;
                     }
                     else
                     {
-                        switch (PlayerHandler.player.Direction)
+                        switch (PlayerHandler.Player.Direction)
                         {
                             case EDirection.Back:
                                 return Vector2.FRONT;
@@ -155,28 +155,28 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         /// <returns></returns>
         public bool IsBehindPlayer()
         {
-            Vector2 playerMovingDirection = PlayerHandler.player.FacingDirection;
+            Vector2 playerMovingDirection = PlayerHandler.Player.FacingDirection;
             bool behindX = false;   // for diagonal moving;
             bool behindY = false;
 
-            if (PlayerHandler.player.FacingDirection.X == 0 || PlayerHandler.player.FacingDirection.Y == 0)
+            if (PlayerHandler.Player.FacingDirection.X == 0 || PlayerHandler.Player.FacingDirection.Y == 0)
             {
-                switch (PlayerHandler.player.Direction)
+                switch (PlayerHandler.Player.Direction)
                 {
                     case (EDirection.Back):
-                        if (Position.Y + HitBox.height <= PlayerHandler.player.Position.Y)
+                        if (Position.Y + HitBox.height <= PlayerHandler.Player.Position.Y)
                             return true;
                         break;
                     case (EDirection.Front):
-                        if (Position.Y >= PlayerHandler.player.Position.Y + PlayerHandler.player.HitBox.height)
+                        if (Position.Y >= PlayerHandler.Player.Position.Y + PlayerHandler.Player.HitBox.height)
                             return true;
                         break;
                     case (EDirection.Right):
-                        if (Position.X + HitBox.width <= PlayerHandler.player.Position.X)
+                        if (Position.X + HitBox.width <= PlayerHandler.Player.Position.X)
                             return true;
                         break;
                     case (EDirection.Left):
-                        if (Position.X >= PlayerHandler.player.Position.X + PlayerHandler.player.HitBox.width)
+                        if (Position.X >= PlayerHandler.Player.Position.X + PlayerHandler.Player.HitBox.width)
                             return true;
                         break;
                     default:
@@ -187,17 +187,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             else      // moving diagonal
             {
                 if (playerMovingDirection.X > 0)
-                    if (Position.X + HitBox.width <= PlayerHandler.player.Position.X)
+                    if (Position.X + HitBox.width <= PlayerHandler.Player.Position.X)
                         behindX = true;
                 else if (playerMovingDirection.X < 0)
-                    if (Position.X >= PlayerHandler.player.Position.X + PlayerHandler.player.HitBox.width)
+                    if (Position.X >= PlayerHandler.Player.Position.X + PlayerHandler.Player.HitBox.width)
                         behindX = true;
 
                 if (playerMovingDirection.Y > 0)
-                    if (Position.Y + HitBox.height <= PlayerHandler.player.Position.Y)
+                    if (Position.Y + HitBox.height <= PlayerHandler.Player.Position.Y)
                         behindY = true;
                 else if (playerMovingDirection.Y < 0)
-                    if (Position.Y >= PlayerHandler.player.Position.Y + PlayerHandler.player.HitBox.height)
+                    if (Position.Y >= PlayerHandler.Player.Position.Y + PlayerHandler.Player.HitBox.height)
                         behindY = true;
 
                 return (behindX || behindY);
@@ -215,8 +215,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
                 IsAlive = false;
 
             //teleport to player if the distance gets to big
-            if (HitBox.DistanceTo(PlayerHandler.player.HitBox) >= 800f)
-                Position = PlayerHandler.player.Position;
+            if (HitBox.DistanceTo(PlayerHandler.Player.HitBox) >= 800f)
+                Position = PlayerHandler.Player.Position;
 
             //call animate
             animate();
@@ -226,11 +226,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             SpritePositionUpdate();
             lifeBar.update(this);
 
-            movementSpeed = BaseMovementSpeed * (float)gameTime.EllapsedTime.TotalMilliseconds;
             movement = GetVectorForMove();
             move(movement);
-
-            hitFromDirections.Clear();
         }
     }
 }

@@ -47,6 +47,23 @@ namespace Soulmate_Remastered.Core
         /// Vector that points left
         /// </summary>
         public static Vector2 LEFT { get { return new Vector2(-1, 0); } }
+        /// <summary>
+        /// smallest float vector != 0 in right direction
+        /// </summary>
+        public static Vector2 OFFSETŖ { get { return RIGHT * 0.1f; } }
+        /// <summary>
+        /// smallest float vector != 0 in left direction
+        /// </summary>
+        public static Vector2 OFFSETL { get { return LEFT * 0.1f; } }
+        /// <summary>
+        /// smallest float vector != 0 in front direction
+        /// </summary>
+        public static Vector2 OFFSETF { get { return FRONT * 0.1f; } }
+        /// <summary>
+        /// smallest float vector != 0 in back direction
+        /// </summary>
+        public static Vector2 OFFSETB { get { return BACK * 0.1f; } }
+
 
         //Constructors*********************************************************
 

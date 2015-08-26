@@ -51,7 +51,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                         float rY = 800 + Random.Next(400);
                         Vector2 spawnPos = new Vector2(rX, rY);
 
-                        if (spawnPos.Distance(PlayerHandler.player.Position) > 200)
+                        if (spawnPos.Distance(PlayerHandler.Player.Position) > 200)
                         {
                             EnemyBlott blott = new EnemyBlott(spawnPos);
                             
@@ -100,8 +100,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                  */
                 if (!EnemyList[i].IsAlive)
                 {
-                    PlayerHandler.player.RiseCurrentFusionValue();
-                    PlayerHandler.player.RiseCurrentEXP();
+                    PlayerHandler.Player.RiseCurrentFusionValue();
+                    PlayerHandler.Player.RiseCurrentEXP();
                     
                     EnemyList.RemoveAt(i);
                     i--;
@@ -109,12 +109,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                 else
                 {
                     //if enemy is hit by the players attack hit box, it suffers damage
-                    if (EnemyList[i].HitBox.Hit(PlayerHandler.player.AttackHitBox) && PlayerHandler.player.Attacking)
-                        EnemyList[i].takeDmg(PlayerHandler.player.Att);
+                    if (EnemyList[i].HitBox.Hit(PlayerHandler.Player.AttackHitBox) && PlayerHandler.Player.Attacking)
+                        EnemyList[i].takeDmg(PlayerHandler.Player.Att);
 
                     //if the player is hit by the enemy the player suffers damage
                     if (EnemyList[i].touchedPlayer())
-                        PlayerHandler.player.takeDmg(EnemyList[i].Att);
+                        PlayerHandler.Player.takeDmg(EnemyList[i].Att);
 
                     //if the pet is hit by the enemy the pet suffers damage
                     if (PetHandler.Pet != null && EnemyList[i].HitBox.Hit(PetHandler.Pet.HitBox))

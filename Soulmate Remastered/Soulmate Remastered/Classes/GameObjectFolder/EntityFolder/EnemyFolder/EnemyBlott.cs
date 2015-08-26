@@ -55,12 +55,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             Att = 6;
             Def = 5;
             aggroRange = 150f;
-            knockBack = 50f;
+            KnockBack = 50f;
             BaseMovementSpeed = 0.2f;
             lifeBar = new LifeBarForOthers();
 
             //initialize the AbstractItem array wich contains the drops
-            drops = new AbstractItem[] 
+            Drops = new AbstractItem[] 
             { 
                 new Sword(), //broken Sword ;)
                 new TestItem(), 

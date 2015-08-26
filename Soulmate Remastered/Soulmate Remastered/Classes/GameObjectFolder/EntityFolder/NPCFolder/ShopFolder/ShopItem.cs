@@ -84,10 +84,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                     case Shop.Collum.Sell:
                         return itemStack.Pop().sellPrize;
                     case Shop.Collum.Buy:
-                        if (PlayerHandler.player.Gold >= itemStack.Peek().sellPrize)
+                        if (PlayerHandler.Player.Gold >= itemStack.Peek().sellPrize)
                         {
                             float prize = -itemStack.Peek().sellPrize;
-                            itemStack.Pop().cloneAndDrop(PlayerHandler.player.HitBox.Position);
+                            itemStack.Pop().cloneAndDrop(PlayerHandler.Player.HitBox.Position);
                             return prize;
                         }
                         else
