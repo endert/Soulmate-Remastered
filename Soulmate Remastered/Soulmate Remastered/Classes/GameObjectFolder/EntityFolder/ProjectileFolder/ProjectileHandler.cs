@@ -7,40 +7,60 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFolder
 {
+    /// <summary>
+    /// handles the projectiles
+    /// </summary>
     class ProjectileHandler
     {
-        public static List<AbstractProjectile> projectileList { get; set; }
+        /// <summary>
+        /// all projectiles
+        /// </summary>
+        public static List<AbstractProjectile> ProjectileList { get; set; }
 
+        /// <summary>
+        /// initialize the projectile list
+        /// </summary>
         public ProjectileHandler()
         {
-            projectileList = new List<AbstractProjectile>();
+            ProjectileList = new List<AbstractProjectile>();
         }
 
-        public static void add(AbstractProjectile projectile)
+        /// <summary>
+        /// add the given projectile to the list
+        /// </summary>
+        /// <param name="projectile"></param>
+        public static void Add(AbstractProjectile projectile)
         {
-            projectileList.Add(projectile);
+            ProjectileList.Add(projectile);
             EntityHandler.add(projectile);
         }
 
-        static public void deleate()
+        /// <summary>
+        /// clears the list -> deleates all projectiles
+        /// </summary>
+        static public void Deleate()
         {
-            projectileList.Clear();
+            ProjectileList.Clear();
         }
 
-        public void update(GameTime gameTime)
+        /// <summary>
+        /// updates all projectiles
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public void Update(GameTime gameTime)
         {
-            for (int i = 0; i < projectileList.Count; i++)
+            for (int i = 0; i < ProjectileList.Count; i++)
             {
-                if (!projectileList[i].IsAlive)
+                if (!ProjectileList[i].IsAlive)
                 {
-                    projectileList.RemoveAt(i);
+                    ProjectileList.RemoveAt(i);
                     i--;
                 }
                 else
                 {
-                    if (projectileList[i].touchedPlayer())
+                    if (ProjectileList[i].touchedPlayer())
                     {
-                        PlayerHandler.player.takeDmg(projectileList[i].Att);
+                        PlayerHandler.Player.takeDmg(ProjectileList[i].Att);
                     }
                 }
             }

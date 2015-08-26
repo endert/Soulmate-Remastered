@@ -50,7 +50,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             BaseHp = 100f;
             BaseAtt = 10;
             BaseDef = 5;
-            CurrentHP = MaxHP;
             
             //******************************************************************************************************
             
@@ -64,13 +63,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             StatsUpdate();
 
             //******************************************************************************************************
-
+            //erst nach statsupdate möglich
+            CurrentHP = MaxHP;
         }
 
         /// <summary>
         /// fuse with the pet
         /// </summary>
-        public void fusion()
+        public void Fusion()
         {
             if (CurrentFusionValue >= MaxFusionValue)
             {
@@ -99,7 +99,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             base.Update(gameTime);
             if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
             {
-                fusion();
+                Fusion();
             }
         }
     }

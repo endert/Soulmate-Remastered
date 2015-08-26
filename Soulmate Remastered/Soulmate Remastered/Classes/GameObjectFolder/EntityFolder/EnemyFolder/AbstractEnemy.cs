@@ -44,7 +44,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         {
             get
             {
-                if (HitBox.DistanceTo(PlayerHandler.player.HitBox) <= aggroRange)
+                if (HitBox.DistanceTo(PlayerHandler.Player.HitBox) <= aggroRange)
                 {
                     return true;
                 }
@@ -139,12 +139,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         public override void Drop()
         {
             //chose random wich item should be droped
-            int rand = random.Next(drops.Length);
+            int rand = random.Next(Drops.Length);
 
             //check if it is droped because of droprate
-            if (drops[rand].DROPRATE >= 100 * random.NextDouble())
+            if (Drops[rand].DROPRATE >= 100 * random.NextDouble())
             {
-                drops[rand].cloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
+                Drops[rand].cloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
             }
 
             //drop gold
@@ -170,9 +170,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            //regulating the movement by using the game time
-            movementSpeed = BaseMovementSpeed * (float)gameTime.EllapsedTime.TotalMilliseconds;
-
             //animate if needed
             animate();
 
@@ -199,9 +196,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 
             //call life bar update
             lifeBar.update(this);
-
-            //clears the List of Vectors from where it was Hit
-            hitFromDirections.Clear();
         }
     }
 }

@@ -40,7 +40,7 @@ ToDoList
 	- im Inventar das markieren der items änderen (doppelklick zum unselecten)
 	- leere Zeile beim Händler verkaufen wirft Fehler
 	.
-	.
+	.shop event!! (Mirko)
 	.
 
 	- GamePlay

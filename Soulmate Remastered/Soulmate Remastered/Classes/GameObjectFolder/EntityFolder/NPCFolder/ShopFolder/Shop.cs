@@ -193,7 +193,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
 
             
 
-            playerGoldText = new Text(PlayerHandler.player.Gold.ToString(), Game.font, 20);
+            playerGoldText = new Text(PlayerHandler.Player.Gold.ToString(), Game.font, 20);
             playerGoldText.Position = new Vector2f(sprite.Position.X, sprite.Position.Y);
 
             //initialize ItemLists**************************************************************************
@@ -350,7 +350,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         public void BuyOrSell()
         {
             if (SmallestDisplayedItem + selectedLine < SelectedListCount)
-                PlayerHandler.player.Gold += SelectedList[SmallestDisplayedItem + selectedLine].BuySell(selectedCollum);
+                PlayerHandler.Player.Gold += SelectedList[SmallestDisplayedItem + selectedLine].BuySell(selectedCollum);
         }
 
         /// <summary>
@@ -413,7 +413,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             }
 
             //updating the displayed Gold value
-            playerGoldText.DisplayedString = PlayerHandler.player.Gold.ToString();
+            playerGoldText.DisplayedString = PlayerHandler.Player.Gold.ToString();
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,47 +12,58 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
 {
     class ProjectileArrow : AbstractProjectile
     {
+        /// <summary>
+        /// the type of this instance
+        /// </summary>
         public override String Type { get { return base.Type + ".Arrow"; } }
         
-        public ProjectileArrow(float _att, float _movementSpeed, float _duration, Vector2f _facingDirection, Vector2f _position)
+        public ProjectileArrow(Entity _owner, float _movementSpeed = 0.8f, float _duration = 2f) : base()
         {
+            FacingDirection = _owner.FacingDirection; //important for the game object initialization
+
+            //initialize game object********************************************************************************
+
             TextureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowBottom.png"));
             TextureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowTop.png"));
             TextureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowRight.png"));
             TextureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowLeft.png"));
 
-            Att = _att;
-            BaseMovementSpeed = _movementSpeed;
-            duration = _duration;
-            FacingDirection = _facingDirection;
             Sprite = new Sprite(TextureList[(int)Direction]);
-  
-            if (FacingDirection.X > 0) //right
+            switch (Direction)
             {
-                Position = new Vector2f(_position.X + PlayerHandler.player.HitBox.width + 10, _position.Y + PlayerHandler.player.HitBox.height * 5 / 6);
+                case EDirection.Right:
+                    Position = _owner.Position + _owner.HitBox.SizeX + _owner.HitBox.SizeY / 2 + Vector2.OFFSETŖ;
+                    break;
+                case EDirection.Left:
+                    Position = _owner.Position + _owner.HitBox.SizeY / 2 + Vector2.OFFSETL - new Vector2(Sprite.Texture.Size.X, Sprite.Texture.Size.Y / 2);
+                    break;
+                case EDirection.Back:
+                    Position = _owner.Position + _owner.HitBox.SizeX / 2 + Vector2.OFFSETB - new Vector2(Sprite.Texture.Size.X / 2, Sprite.Texture.Size.Y);
+                    break;
+                case EDirection.Front:
+                    Position = _owner.Position + _owner.HitBox.SizeX / 2 + _owner.HitBox.SizeY + Vector2.OFFSETF;
+                    break;
             }
-
-            else if(FacingDirection.X < 0) //left
-            {
-                Position = new Vector2f(_position.X - PlayerHandler.player.HitBox.width - Sprite.Texture.Size.X, _position.Y + PlayerHandler.player.HitBox.height * 5 / 6);
-            }
-
-            else if (FacingDirection.Y < 0) //up
-            {
-                Position = new Vector2f(_position.X + PlayerHandler.player.HitBox.width / 2, _position.Y - 20);
-            }
-
-            else if(FacingDirection.Y > 0) //down
-            {
-                Position = new Vector2f(_position.X + PlayerHandler.player.HitBox.width / 2, _position.Y + PlayerHandler.player.HitBox.height * 5 / 6 + 10);
-            }
-
             Sprite.Position = Position;
-            startPosition = Position;
-            IsAlive = true;
             HitBox = new HitBox(Position, (float)Sprite.Texture.Size.X, (float)Sprite.Texture.Size.Y);
+            
+            //******************************************************************************************************
+            
+            //initialize entity*************************************************************************************
 
-            ProjectileHandler.add(this);
+            Att = (_owner.Att / 2) + 2;
+            BaseMovementSpeed = _movementSpeed;
+            
+            //******************************************************************************************************
+            
+            //initialize abstract arrow*****************************************************************************
+
+            duration = _duration;
+            owner = _owner;
+            startPosition = Position;
+            ProjectileHandler.Add(this);
+            
+            //******************************************************************************************************
         }        
     }
 }

@@ -132,7 +132,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             {
                 if (Shop_ != null)
                     Shop_.Shopmanagement();
-                PlayerHandler.player.Update(gameTime);
+                PlayerHandler.Player.Update(gameTime);
             }
         }
     }

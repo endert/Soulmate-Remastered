@@ -106,34 +106,34 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
                 switch (ch)
                 {
                     case Cheat.Heal:
-                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.Heal);
+                        PlayerHandler.Player.ActivateCheat(parms, PlayerHandler.Player.Heal);
                         break;
                     case Cheat.HealFor:
-                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.HealFor);
+                        PlayerHandler.Player.ActivateCheat(parms, PlayerHandler.Player.HealFor);
                         break;
                     case Cheat.SetAtt:
-                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetAtt);
+                        PlayerHandler.Player.ActivateCheat(parms, PlayerHandler.Player.SetAtt);
                         break;
                     case Cheat.SetDef:
-                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetDef);
+                        PlayerHandler.Player.ActivateCheat(parms, PlayerHandler.Player.SetDef);
                         break;
                     case Cheat.SetExp:
-                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetExp);
+                        PlayerHandler.Player.ActivateCheat(parms, PlayerHandler.Player.SetExp);
                         break;
                     case Cheat.SetFusionValue:
-                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetFusionValue);
+                        PlayerHandler.Player.ActivateCheat(parms, PlayerHandler.Player.SetFusionValue);
                         break;
                     case Cheat.SetHp:
-                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetHp);
+                        PlayerHandler.Player.ActivateCheat(parms, PlayerHandler.Player.SetHp);
                         break;
                     case Cheat.SetLvl:
-                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetLvl);
+                        PlayerHandler.Player.ActivateCheat(parms, PlayerHandler.Player.SetLvl);
                         break;
                     case Cheat.SetMoney:
-                        PlayerHandler.player.ActivateCheat(parms, PlayerHandler.player.SetMoney);
+                        PlayerHandler.Player.ActivateCheat(parms, PlayerHandler.Player.SetMoney);
                         break;
                     case Cheat.TakeDamage:
-                        PlayerHandler.player.ActivateCheat(-parms, PlayerHandler.player.HealFor);
+                        PlayerHandler.Player.ActivateCheat(-parms, PlayerHandler.Player.HealFor);
                         break;
                     case Cheat.ShowCheats:
                         CheatConsoleThreadStart.CheatConsole.ActivateCheat(parms, CheatConsoleThreadStart.CheatConsole.ShowCheats);

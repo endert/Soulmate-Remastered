@@ -195,7 +195,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                     break;
                 }
                 
-                if (itemList[i].onMap && itemList[i].HitBox.DistanceTo(PlayerHandler.player.HitBox) <= itemList[i].pickUpRange && !playerInventory.isFullWith(itemList[i]))
+                if (itemList[i].onMap && itemList[i].HitBox.DistanceTo(PlayerHandler.Player.HitBox) <= itemList[i].pickUpRange && !playerInventory.isFullWith(itemList[i]))
                 {
                     itemList[i].pickUp();
                     itemList.RemoveAt(i);

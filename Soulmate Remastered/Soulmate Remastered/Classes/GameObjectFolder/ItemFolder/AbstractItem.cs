@@ -69,7 +69,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         {
             if (Type.Equals("Object.Item.Gold"))
             {
-                PlayerHandler.player.Gold += 1;
+                PlayerHandler.Player.Gold += 1;
                 return;
             }
             for (int i = 0; i < ItemHandler.playerInventory.inventoryMatrix.GetLength(0); i++) //row -> x-coordinate

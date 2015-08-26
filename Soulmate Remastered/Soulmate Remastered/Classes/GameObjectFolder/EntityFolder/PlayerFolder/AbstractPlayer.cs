@@ -369,11 +369,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
             if (CurrentHP > MaxHP)
                 CurrentHP = MaxHP;
-
-            if(!Shop.ShopIsOpen)
-                movementSpeed = BaseMovementSpeed * (float)gameTime.EllapsedTime.TotalMilliseconds;
-            else
-                movementSpeed = 0;
             
             if (!animating)
                 animate();
@@ -396,13 +391,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             {
                 CoolDowns[(int)ECooldown.Arrow].Start();
                 if (!CoolDowns[(int)ECooldown.Arrow].OnCooldown)
-                    new ProjectileArrow((Att / 2) + 2, 0.8f, 2f, FacingDirection, Position);
+                    new ProjectileArrow(this);
             }
 
             if (!transforming)
             {
                 movement = Vector2.ZERO;
-                movement = GetKeyPressed(movementSpeed);
+                movement = GetKeyPressed(MovementSpeed);
                 move(movement);
             }
 
@@ -414,8 +409,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
             foreach (Cooldown c in CoolDowns)
                 c.Update();
-
-            hitFromDirections.Clear();
         }
 
         //Cheats==============================================================

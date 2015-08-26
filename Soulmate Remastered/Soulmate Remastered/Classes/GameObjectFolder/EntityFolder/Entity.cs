@@ -13,151 +13,187 @@ using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 {
+    /// <summary>
+    /// everything that moves, i guess?
+    /// </summary>
     abstract class Entity : GameObject
     {
+        //Attributes******************************************************************************************************************
+
+        /// <summary>
+        /// the type of this instance
+        /// </summary>
         public override String Type { get { return base.Type + ".Entity"; } }
+        /// <summary>
+        /// the lifebar
+        /// </summary>
         protected LifeBarForOthers lifeBar;
-        protected Stopwatch[] stopWatchList = { new Stopwatch(), new Stopwatch(), new Stopwatch() }; //first for animation, second for vulnerable, third for transformation
+        /// <summary>
+        /// <para>0 = animation</para>
+        /// <para>1 = vulnerable</para>
+        /// <para>2 = transformation</para>
+        /// </summary>
+        protected Stopwatch[] stopWatchList = { new Stopwatch(), new Stopwatch(), new Stopwatch() };
 
         protected bool tookDmg;
+        /// <summary>
+        /// bool for checking if vulnerable or not
+        /// </summary>
         protected bool vulnerable = true;
-        protected int inVulnerableFor = 500; //in milisec
-            protected bool isVulnerable
+
+        /// <summary>
+        /// in milliseconds
+        /// </summary>
+        protected int inVulnerableFor = 500;
+        
+        //****************************************************************************************************************************
+
+        //Properties******************************************************************************************************************
+
+        /// <summary>
+        /// bool if this entity is vulnerable or not
+        /// </summary>
+        protected bool IsVulnerable
+        {
+            get
             {
-                get
+                if (tookDmg)
                 {
-                    if (tookDmg)
+                    vulnerable = false;
+                    stopWatchList[1].Start();
+                    if (stopWatchList[1].ElapsedMilliseconds >= inVulnerableFor)
                     {
-                        vulnerable = false;
-                        stopWatchList[1].Start();
-                        if (stopWatchList[1].ElapsedMilliseconds >= inVulnerableFor)
-                        {
-                            tookDmg = false;
-                            vulnerable = true;
-                            stopWatchList[1].Reset();
-                        }
+                        tookDmg = false;
+                        vulnerable = true;
+                        stopWatchList[1].Reset();
                     }
-                    return vulnerable;
                 }
+                return vulnerable;
             }
-        protected float knockBack;
-        protected virtual AbstractItem[] drops { get; set; }
+        }
+        /// <summary>
+        /// the strength of this entities knockback -> how strong this can knock back
+        /// <para>to implement</para>
+        /// </summary>
+        public float KnockBack { get; protected set; }
+        /// <summary>
+        /// all possible drops of this entity
+        /// </summary>
+        protected virtual AbstractItem[] Drops { get; set; }
 
+        /// <summary>
+        /// base stat
+        /// </summary>
         public float BaseHp { get; protected set; }
-        public float MaxHP { get; protected set; }
-        public float CurrentHP { get; protected set; }
+        /// <summary>
+        /// base stat
+        /// </summary>
         public float BaseAtt { get; protected set; }
-        public float Att { get; protected set; }
+        /// <summary>
+        /// base stat
+        /// </summary>
         public float BaseDef { get; protected set; }
+        /// <summary>
+        /// base stat
+        /// </summary>
+        public float BaseMovementSpeed { get; protected set; }
+        /// <summary>
+        /// scaled value 
+        /// </summary>
+        public float MaxHP { get; protected set; }
+        /// <summary>
+        /// scaled value 
+        /// </summary>
+        public float Att { get; protected set; }
+        /// <summary>
+        /// scaled value 
+        /// </summary>
         public float Def { get; protected set; }
-        //attackHitBox
-
+        /// <summary>
+        /// the movement speed with concern for the ellapsed time
+        /// </summary>
+        protected float MovementSpeed { get { return BaseMovementSpeed * (float)AbstractGame.gameTime.EllapsedTime.Milliseconds; } }
+        /// <summary>
+        /// the current hp
+        /// </summary>
+        public float CurrentHP { get; protected set; }
+        /// <summary>
+        /// bool if moving or not
+        /// </summary>
         public bool IsMoving { get; protected set; }
+        /// <summary>
+        /// the direction in which this object faces
+        /// </summary>
         public Vector2 FacingDirection { get; protected set; }
+        /// <summary>
+        /// the movement vector
+        /// </summary>
+        public Vector2 movement { get; protected set; }
+
+        //****************************************************************************************************************************
         public EDirection Direction
         {
             get
             {
-                if (FacingDirection.Y>0)
-                    return EDirection.Back;
-                else if (FacingDirection.Y < 0)
+                if (FacingDirection.Y > 0)
                     return EDirection.Front;
+                else if (FacingDirection.Y < 0)
+                    return EDirection.Back;
                 else if (FacingDirection.X > 0)
                     return EDirection.Right;
-                else if(FacingDirection.X<0)
+                else if (FacingDirection.X < 0)
                     return EDirection.Left;
                 else
                     return EDirection.Zero;
             }
         }
-        protected bool moveAwayFromEntity;
-        protected Vector2 movement;
-        public float BaseMovementSpeed { get; protected set; }
-        protected float movementSpeed;
-        protected List<Vector2> hitFromDirections = new List<Vector2>();
+
+        /// <summary>
+        /// risen if this object collides
+        /// </summary>
+        public event EventHandler<CollisionArgs> EntityCollision;
+        /// <summary>
+        /// rise the EntityCollision event
+        /// </summary>
+        /// <param name="c"></param>
+        protected void OnEntityCollision(CollisionArgs c)
+        {
+            EventHandler<CollisionArgs> handler = EntityCollision;
+            if (handler != null)
+            {
+                handler(this, c);
+            }
+        }
 
         public enum EDirection
         {
-            Back, Front,Right,Left,Zero
+            /// <summary>
+            /// away from camera
+            /// </summary>
+            Back,
+            /// <summary>
+            /// to the camera
+            /// </summary>
+            Front,
+            Right,
+            Left,
+            Zero
         }
 
+        /// <summary>
+        /// moves this in the given direction if possible
+        /// </summary>
+        /// <param name="direction"></param>
         public void move(Vector2 direction)
         {
-            if (!direction.Equals(new Vector2(0, 0)))
+            if (!direction.Equals(Vector2.ZERO))
             {
-                IsMoving = true;
-                if (hitAnotherEntity() && !moveAwayFromEntity && moveHelp()) //if an entity is not a player it should not touch the player
-                {
-                    moveAwayFromEntity = true;
+                Vector2 movement = MovementSpeed * (direction.GetNormalized());
 
-                    for (int i = 0; i < hitFromDirections.Count; i++)
-                    {
-                        if (Math.Abs((direction.X >= hitFromDirections[i].X) ? (direction.X) : (hitFromDirections[i].X)) > Math.Abs(direction.X - hitFromDirections[i].X) ||
-                            Math.Abs((direction.X >= hitFromDirections[i].X) ? (direction.X) : (hitFromDirections[i].X)) < Math.Abs(direction.X - hitFromDirections[i].X))//if they have the same sign otherwise it doesn't matter
-                        {
-                            direction.X = -hitFromDirections[i].X;
-                        }
+                if (GameObjectHandler.lvlMap.getWalkable(HitBox, movement) && !WillHitAnotherEntity(movement) && moveHelp())
+                    Position += movement;
 
-                        if (Math.Abs((direction.Y >= hitFromDirections[i].Y) ? (direction.Y) : (hitFromDirections[i].Y)) > Math.Abs(direction.Y - hitFromDirections[i].Y) ||
-                            Math.Abs((direction.Y >= hitFromDirections[i].Y) ? (direction.Y) : (hitFromDirections[i].Y)) < Math.Abs(direction.Y - hitFromDirections[i].Y))
-                        {
-                            direction.Y = -hitFromDirections[i].Y;
-                        }
-                    }
-                    move(direction);
-                }
-                else
-                {
-                    moveAwayFromEntity = false;
-                    Vector2 movement = new Vector2(0, 0);
-
-                    if (direction.X > 0)
-                        movement.X += movementSpeed;
-                    else
-                    {
-                        if (direction.X < 0)
-                            movement.X -= movementSpeed;
-                        else
-                            movement.X += 0;
-                    }
-                    if (direction.Y > 0)
-                        movement.Y += movementSpeed;
-                    else
-                    {
-                        if (direction.Y < 0)
-                            movement.Y -= movementSpeed;
-                        else
-                            movement.Y += 0;
-                    }
-                    if (direction.X != 0 && direction.Y != 0)
-                    {
-                        //movement.X *= (float)Math.Sin(45);
-                        //movement.Y *= (float)Math.Sin(45);
-                    }
-                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, movement))    // only move if it's walkable
-                    {
-                        Position = new Vector2f(Position.X + movement.X, Position.Y + movement.Y);
-                        FacingDirection = movement;
-                    }
-                    else
-                    {
-                        //Vector2f wayOutOfWall = new Vector2f(0, 0);
-                        //if (position.X<30)
-                        //{
-                        //    wayOutOfWall.X = 35;
-                        //}
-                        //if (position.X>)
-                        //{
-
-                        //}
-                    }
-                }
-                //Vector2 movement = movementSpeed * (direction * (1 / vectorLength(direction)));
-
-                //if (GameObjectHandler.lvlMap.getWalkable(hitBox, movement) && !willHitAnotherEntity(movement) && moveHelp())
-                //    position += movement;
-
-                //facingDirection = movement;
+                FacingDirection = movement;
             }
             else
             {
@@ -165,42 +201,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             }
         }
 
-        public bool hitAnotherEntity()
-        {
-            for (int i = 0; i < GameObjectHandler.gameObjectList.Count; i++)
-            {
-                if ((i != IndexObjectList) && !GameObjectHandler.gameObjectList[i].Walkable && (HitBox.Hit(GameObjectHandler.gameObjectList[i].HitBox)) && hitAnotherEnityHelp(i))
-                {
-                    bool notFound = true;
-                    for (int j = 0; j < hitFromDirections.Count; j++)
-                    {
-                        if (hitFromDirections[j].Equals(HitBox.hitFrom(GameObjectHandler.gameObjectList[i].HitBox)))
-                        {
-                            notFound = false;
-                        }
-                    }
-                    if (notFound)
-                    {
-                        hitFromDirections.Add(HitBox.hitFrom(GameObjectHandler.gameObjectList[i].HitBox));
-                    }
-                }
-            }
-            if (hitFromDirections.Count > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private bool willHitAnotherEntity(Vector2 movement)
+        /// <summary>
+        /// checks if in movingdirection a collision would be if yes the EntityCollision event will be risen
+        /// </summary>
+        /// <param name="movement"></param>
+        /// <returns></returns>
+        private bool WillHitAnotherEntity(Vector2 movement)
         {
             for (int i = 0; i < GameObjectHandler.gameObjectList.Count; ++i)
             {
-                if ((i != IndexObjectList) && !GameObjectHandler.gameObjectList[i].Walkable && HitBox.WillHit(movement, GameObjectHandler.gameObjectList[i].HitBox) && hitAnotherEnityHelp(i))
+                if ((i != IndexObjectList) && !GameObjectHandler.gameObjectList[i].Walkable && HitBox.WillHit(movement, GameObjectHandler.gameObjectList[i].HitBox) && HitAnotherEnityHelp(i))
                 {
+                    CollisionArgs args = new CollisionArgs();
+                    args.CollidedWith = GameObjectHandler.gameObjectList[i];
+                    OnEntityCollision(args);
+
                     return true;
                 }
             }
@@ -208,56 +223,41 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             return false;
         }
 
-        private bool hitAnotherEnityHelp(int index)
+        /// <summary>
+        /// chooses if petPlayerCollision or walkable must be returned 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        private bool HitAnotherEnityHelp(int index)
         {
             if (Type.Split('.')[2].Equals("Pet") || Type.Split('.')[2].Equals("Player"))
-            {
-                return !petPlayerCollision();
-            }
-
+                return !PetPlayerCollision(index);
             else
-            {
                 return !GameObjectHandler.gameObjectList[index].Walkable;
-            }
         }
 
-        public bool petPlayerCollision()
+        /// <summary>
+        /// checks if player and pet are coliding
+        /// </summary>
+        /// <returns></returns>
+        public bool PetPlayerCollision(int index)
         {
-            if (Type.Split('.')[2].Equals("Pet"))
-            {
-                foreach (Entity entity in EntityHandler.entityList)
-                {
-                    if (HitBox.Hit(entity.HitBox) && !entity.Type.Split('.')[2].Equals("Pet") && entity.Type.Split('.')[2].Equals("Player"))
-                    {
-                        return true;
-                    }
-                }
-            }
+            if (Type.Split('.')[2].Equals("Pet") && GameObjectHandler.gameObjectList[index].Type.Split('.')[2].Equals("Player"))
+                return true;
 
-            if (Type.Split('.')[2].Equals("Player"))
-            {
-                foreach (Entity entity in EntityHandler.entityList)
-                {
-                    if (HitBox.Hit(entity.HitBox) && !entity.Type.Split('.')[2].Equals("Player") && entity.Type.Split('.')[2].Equals("Pet"))
-                    {
-                        return true;
-                    }
-                }
-            }
+            if (Type.Split('.')[2].Equals("Player") && GameObjectHandler.gameObjectList[index].Type.Split('.')[2].Equals("Pet"))
+                return true;
 
             return false;
         }
 
+
         public bool touchedPlayer()
         {
-            if (HitBox.Hit(PlayerHandler.player.HitBox))
-            {
+            if (HitBox.Hit(PlayerHandler.Player.HitBox))
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
 
         public bool moveHelp()
@@ -279,7 +279,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 
         public void takeDmg(float dmg)
         {
-            if (isVulnerable)
+            if (IsVulnerable)
             {
                 if (dmg - Def >= 0)
                 {
@@ -291,13 +291,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 
         public Vector2 getPlayerDirection()
         {
-            Vector2 playerDirection = (PlayerHandler.player.HitBox.Position + (1 / 2) * PlayerHandler.player.HitBox.Size) - (HitBox.Position + (1 / 2) * HitBox.Size);
+            Vector2 playerDirection = (PlayerHandler.Player.HitBox.Position + (1 / 2) * PlayerHandler.Player.HitBox.Size) - (HitBox.Position + (1 / 2) * HitBox.Size);
             return playerDirection;
         }
 
         virtual public void animate()
         {
-            if (isVulnerable)
+            if (IsVulnerable)
             {
                 if (FacingDirection.Y > 0)
                 {

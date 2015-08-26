@@ -116,8 +116,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// <returns>view vector</returns>
         private Vector2 VectorForViewMove()
         {
-            float Xmove = (PlayerHandler.player.Position.X + (PlayerHandler.player.HitBox.width / 2)) - VIEW.Center.X;
-            float Ymove = (PlayerHandler.player.Position.Y + (PlayerHandler.player.HitBox.height * 5 / 6)) - VIEW.Center.Y;
+            float Xmove = (PlayerHandler.Player.Position.X + (PlayerHandler.Player.HitBox.width / 2)) - VIEW.Center.X;
+            float Ymove = (PlayerHandler.Player.Position.Y + (PlayerHandler.Player.HitBox.height * 5 / 6)) - VIEW.Center.Y;
 
             //view cannot go over the map edge
             if (VIEW.Center.X + Xmove < VIEW.Size.X / 2)
@@ -167,7 +167,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 gameObjectHandler.update(gameTime);
                 dialoges.Update();
 
-                if (PlayerHandler.player.CurrentHP <= 0) //if player is dead go back to mainMenu
+                if (PlayerHandler.Player.CurrentHP <= 0) //if player is dead go back to mainMenu
                 {
                     gameObjectHandler.deleate();
                     File.Delete(savePlayer);

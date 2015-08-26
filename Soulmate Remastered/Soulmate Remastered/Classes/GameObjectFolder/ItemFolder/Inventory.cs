@@ -227,7 +227,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 equipment[i] = ItemHandler.loadEquip(EquipmentString[i]);
             }
 
-            PlayerHandler.player.StatsUpdate();
+            PlayerHandler.Player.StatsUpdate();
         }
 
         public Inventory()
@@ -306,21 +306,21 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             displayedPlayer = new Sprite(displayedPlayerTexture);
             displayedPlayer.Position = new Vector2f(character_pet_questSprite.Position.X + 67, character_pet_questSprite.Position.Y + 82);
 
-            attack.DisplayedString = "Attack: " + PlayerHandler.player.Att;
+            attack.DisplayedString = "Attack: " + PlayerHandler.Player.Att;
             attack.Position = new Vector2f(character_pet_questSprite.Position.X + 65, inventoryMatrixPosition.Y + 7 * FIELDSIZE + 10);
 
-            defense.DisplayedString = "Defense: " + PlayerHandler.player.Def;
+            defense.DisplayedString = "Defense: " + PlayerHandler.Player.Def;
             defense.Position = new Vector2f(attack.Position.X, attack.Position.Y + attack.CharacterSize);
 
-            exp.DisplayedString = "EXP: " + PlayerHandler.player.CurrentEXP + "/" + PlayerHandler.player.MaxEXP;
+            exp.DisplayedString = "EXP: " + PlayerHandler.Player.CurrentEXP + "/" + PlayerHandler.Player.MaxEXP;
             exp.Position = new Vector2f(defense.Position.X, defense.Position.Y + defense.CharacterSize);
 
-            lvl.DisplayedString = "Lvl: " + PlayerHandler.player.Lvl;
-            if (PlayerHandler.player.Lvl == PlayerHandler.player.MaxLvl)
+            lvl.DisplayedString = "Lvl: " + PlayerHandler.Player.Lvl;
+            if (PlayerHandler.Player.Lvl == PlayerHandler.Player.MaxLvl)
                 lvl.DisplayedString += "°";
             lvl.Position = new Vector2f(exp.Position.X, exp.Position.Y + exp.CharacterSize);
 
-            gold.DisplayedString = "Gold: " + PlayerHandler.player.Gold;
+            gold.DisplayedString = "Gold: " + PlayerHandler.Player.Gold;
             goldSprite.Position = new Vector2f(lvl.Position.X - 10, lvl.Position.Y + 50);
             gold.Position = new Vector2f(goldSprite.Position.X + (goldSprite.Texture.Size.X / 2), goldSprite.Position.Y - 5);
 
@@ -627,7 +627,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 {
                     inventoryMatrix[yInInventory, xInInventory].Peek().giveMatrixPosition(yInInventory, xInInventory);
                     inventoryMatrix[yInInventory, xInInventory].Peek().use();
-                    PlayerHandler.player.StatsUpdate();
+                    PlayerHandler.Player.StatsUpdate();
                 }
             }
 
@@ -662,7 +662,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     if (equipment[i] != null && selected.Position.Equals(equipmentPosition[i]))
                     {
                         equipment[i].use();
-                        PlayerHandler.player.StatsUpdate();
+                        PlayerHandler.Player.StatsUpdate();
                     }
                 }
             }

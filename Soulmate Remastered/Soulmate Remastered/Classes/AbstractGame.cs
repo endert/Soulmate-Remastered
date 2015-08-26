@@ -17,7 +17,7 @@ namespace Soulmate_Remastered.Classes
     {
         static CheatConsoleThreadStart cheatConsole;
         public static RenderWindow window;
-        GameTime gameTime;
+        public static GameTime gameTime;
 
         public AbstractGame(uint width, uint height, String title, Styles screen)
         {

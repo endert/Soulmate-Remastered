@@ -55,12 +55,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             {
                 entity.Kill();
             }
-            PlayerHandler.deleate();
+            PlayerHandler.Deleate();
             EnemyHandler.Deleate();
             PetHandler.Deleate();
-            ProjectileHandler.deleate();
+            ProjectileHandler.Deleate();
             NPCHandler.Deleate();
-            TreasureChestHandler.deleate();
+            TreasureChestHandler.Deleate();
         }
 
         public static void deleateType(String _type)
@@ -95,9 +95,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             }
             enemyHandler.Update(gameTime);
             petHandler.Update();
-            projectileHandler.update(gameTime);
+            projectileHandler.Update(gameTime);
             npcHandler.Update(gameTime);
-            treasureChestHandler.update(gameTime);
+            treasureChestHandler.Update(gameTime);
         }
     }
 }

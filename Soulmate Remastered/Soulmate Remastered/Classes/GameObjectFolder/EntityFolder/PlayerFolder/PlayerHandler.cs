@@ -17,7 +17,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         /// <summary>
         /// the player
         /// </summary>
-        public static AbstractPlayer player { get; set; }
+        public static AbstractPlayer Player { get; set; }
 
         /// <summary>
         /// initialize the playerhandler and the player
@@ -27,13 +27,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             switch(GameObjectHandler.lvl)
             { 
                 case 0:
-                    player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), Vector2.RIGHT);
-                    EntityHandler.add(player);
+                    Player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), Vector2.RIGHT);
+                    EntityHandler.add(Player);
                     break;
 
                 case 1:
-                    player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), Vector2.RIGHT);
-                    EntityHandler.add(player);
+                    Player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), Vector2.RIGHT);
+                    EntityHandler.add(Player);
                     break;
 
                 default:
@@ -44,9 +44,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         /// <summary>
         /// deletes the player, should only be called when the game is closed
         /// </summary>
-        public static void deleate()
+        public static void Deleate()
         {
-            player = null;
+            Player = null;
         }
     }
 }

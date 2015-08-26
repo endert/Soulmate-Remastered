@@ -19,6 +19,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         /// size as a vector x = width y = height
         /// </summary>
         public Vector2 Size { get; protected set; }
+        /// <summary>
+        /// width as a vector
+        /// </summary>
+        public Vector2 SizeX { get { return new Vector2(Size.X, 0); } }
+        /// <summary>
+        /// height as a vector
+        /// </summary>
+        public Vector2 SizeY { get { return new Vector2(0, Size.Y); } }
 
 
         //Constructors*****************************************************************************************
