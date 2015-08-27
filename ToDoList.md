@@ -40,8 +40,7 @@ ToDoList
 	- im Inventar das markieren der items änderen (doppelklick zum unselecten)
 	- leere Zeile beim Händler verkaufen wirft Fehler
 	.
-	.shop event!! (Mirko)
-	.für entities ein die event ?
+	.events generell (shop, equiped, drop) -> schönerer code und hoffentlich performanter als zig listen immer wieder durch zu gehen
 
 	- GamePlay
 	- Speicheranforderungen runterschrauben (Performanz *hat mirko drauf bestanden...*)

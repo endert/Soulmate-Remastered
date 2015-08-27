@@ -82,11 +82,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                 switch (selectedCollum)
                 {
                     case Shop.Collum.Sell:
-                        return itemStack.Pop().sellPrize;
+                        return itemStack.Pop().SellPrize;
                     case Shop.Collum.Buy:
-                        if (PlayerHandler.Player.Gold >= itemStack.Peek().sellPrize)
+                        if (PlayerHandler.Player.Gold >= itemStack.Peek().SellPrize)
                         {
-                            float prize = -itemStack.Peek().sellPrize;
+                            float prize = -itemStack.Peek().SellPrize;
                             itemStack.Pop().cloneAndDrop(PlayerHandler.Player.HitBox.Position);
                             return prize;
                         }
@@ -106,7 +106,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         private void TextUpdate()
         {
             displayedName.DisplayedString = itemStack.Count + "x " + itemStack.Peek().Name;
-            goldValue.DisplayedString = itemStack.Peek().sellPrize.ToString();
+            goldValue.DisplayedString = itemStack.Peek().SellPrize.ToString();
         }
 
         /// <summary>

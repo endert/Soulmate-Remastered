@@ -15,7 +15,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
                 return base.Type + ".Potion";
             }
         }
-
+        /// <summary>
+        /// the ID 12x
+        /// </summary>
         public override float ID
         {
             get
@@ -27,9 +29,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
         protected int size;
         public int getSize { get { return size; } }
 
-        public override string toStringForSave()
+        public override string ToStringForSave()
         {
-            return base.toStringForSave() + size + LineBreak.ToString();
+            return base.ToStringForSave() + size + LineBreak.ToString();
         }
     }
 }

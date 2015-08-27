@@ -9,34 +9,66 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder
 {
+    /// <summary>
+    /// base class for equipment
+    /// </summary>
     abstract class Equipment : AbstractItem
     {
+        /// <summary>
+        /// the type of this instance
+        /// </summary>
         public override String Type { get { return base.Type + ".Equipment"; } }
-        public override float ID { get { return base.ID * 10 + 1; } }
-        public override bool stackable { get { return false; } }
-        public override float sellPrize { get { return (attBonus + bonusDef + bonusHp) * 10 / ((ID % 10) + 1); } }
-
-        protected float attBonus;
-            public float bonusAtt { get { return attBonus; } }
-        protected float defBonus;
-            public float bonusDef { get { return defBonus; } }
-        protected float hpBonus;
-            public float bonusHp { get { return hpBonus; } }
+        /// <summary>
+        /// the ID = 13x
+        /// </summary>
+        public override float ID { get { return base.ID * 10 + 3; } }
+        /// <summary>
+        /// bool if this item can be stacked
+        /// </summary>
+        public override bool Stackable { get { return false; } }
+        /// <summary>
+        /// the amount of gold the player gets by selling this item
+        /// </summary>
+        public override float SellPrize { get { return (AttBonus + DefBonus + HpBonus) * 10 / ((ID % 10) + 1); } }
+        /// <summary>
+        /// the attack bonus granted by this equipment
+        /// </summary>
+        public float AttBonus { get; protected set; }
+        /// <summary>
+        /// the def bonus granted by this equipment
+        /// </summary>
+        public float DefBonus { get; protected set; }
+        /// <summary>
+        /// the hp bonus granted by this equipment
+        /// </summary>
+        public float HpBonus { get; protected set; }
+        /// <summary>
+        /// bool if it is equiped or not
+        /// <para>default false</para>
+        /// </summary>
         protected bool equiped = false;
 
-        public override string toStringForSave()
+        /// <summary>
+        /// creates a string out of the attributes of this instance
+        /// <para>only needed for saving</para>
+        /// </summary>
+        /// <returns></returns>
+        public override string ToStringForSave()
         {
-            String save = base.toStringForSave();
+            String save = base.ToStringForSave();
 
-            save += bonusAtt + LineBreak.ToString();
-            save += bonusDef + LineBreak.ToString();
-            save += bonusHp + LineBreak.ToString();
+            save += AttBonus + LineBreak.ToString();
+            save += DefBonus + LineBreak.ToString();
+            save += HpBonus + LineBreak.ToString();
             save += Name + LineBreak.ToString();
 
             return save;
         }
 
-        public override void use()
+        /// <summary>
+        /// use this item -> equip equipment
+        /// </summary>
+        public override void Use()
         {
             if (equiped)
                 unequip();
@@ -44,11 +76,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
                 equip();
         }
 
+        /// <summary>
+        /// equiped = true
+        /// </summary>
         public void setEquiped()
         {
             equiped = true;
         }
 
+        /// <summary>
+        /// equips this
+        /// </summary>
         public void equip()
         {
             if (ItemHandler.playerInventory.equipment[(int)((ID) / 10) % 10] != null)
@@ -62,6 +100,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
             equiped = true;
         }
 
+        /// <summary>
+        /// unequips this
+        /// </summary>
         public void unequip()
         {
             if (!ItemHandler.playerInventory.isFullWith(this))

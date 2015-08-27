@@ -22,9 +22,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
             Position = new Vector2f();
             HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
             dropRate = 30 * (100 / (_attBonus + _defBonus + _hpBonus));
-            attBonus = (int)_attBonus;
-            defBonus = (int)_defBonus;
-            hpBonus = (int)_hpBonus;
+            AttBonus = _attBonus;
+            DefBonus = _defBonus;
+            HpBonus = _hpBonus;
         }
 
         public Sword(float _attBonus, float _defBonus, float _hpBonus, String name)
@@ -37,7 +37,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
 
         public override AbstractItem clone()
         {
-            AbstractItem clonedItem = new Sword(attBonus, defBonus, hpBonus, Name);
+            AbstractItem clonedItem = new Sword(AttBonus, DefBonus, HpBonus, Name);
             clonedItem.Position = this.Position;
             return clonedItem;
         }

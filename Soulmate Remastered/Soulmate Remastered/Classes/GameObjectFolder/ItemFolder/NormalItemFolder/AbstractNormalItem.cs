@@ -15,11 +15,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
                 return base.Type + ".NormalItem";
             }
         }
+        /// <summary>
+        /// the ID = 11x
+        /// </summary>
         public override float ID
         {
             get
             {
-                return base.ID * 10 + 0;
+                return base.ID * 10 + 1;
             }
         }
     }

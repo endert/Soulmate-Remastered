@@ -15,10 +15,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
     {
         public override String Type { get { return base.Type + ".Item"; } }
         public virtual float ID { get { return 1; } }
-        public virtual bool stackable { get { return true; } }
+        public virtual bool Stackable { get { return true; } }
         public override bool Walkable { get { return true; } }
         public virtual bool sellable { get { return true; } }
-        public virtual float sellPrize { get { return 0; } }
+        public virtual float SellPrize { get { return 0; } }
         protected float dropRate; // in percent
         public float DROPRATE { get { return dropRate; } }
         public bool onMap { get; set; }
@@ -40,7 +40,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             } 
         }
 
-        public virtual String toStringForSave()
+        public virtual String ToStringForSave()
         {
             String itemForSave = "it" + LineBreak.ToString();
 
@@ -105,7 +105,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             }
         }
 
-        public virtual void use() { } 
+        public virtual void Use() { } 
 
         public void drop(Vector2f dropPosition)
         {
@@ -154,7 +154,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
         public int CompareTo(AbstractItem other)
         {
-            if (stackable)
+            if (Stackable)
             {
                 return (int)(ID - other.ID);
             }

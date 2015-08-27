@@ -8,23 +8,38 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder
 {
+    /// <summary>
+    /// base class for all weapons
+    /// </summary>
     abstract class AbstractWeapon : Equipment
     {
+        /// <summary>
+        /// type of this instance
+        /// </summary>
         public override string Type { get { return base.Type + ".Weapon"; } }
+        /// <summary>
+        /// the ID = 132x
+        /// </summary>
         public override float ID { get { return base.ID * 10 + 2; } }
-        protected String discription = "";
+        /// <summary>
+        /// discription of this weapon
+        /// </summary>
+        protected string discription = "";
+        /// <summary>
+        /// discription of this item
+        /// </summary>
         public override string ItemDiscription
         {
             get
             {
-                String itemDiscription = "";
+                string itemDiscription = "";
 
                 itemDiscription += Name + "\n";
                 if (!discription.Equals(""))
                     itemDiscription += '"'.ToString() + discription + '"'.ToString() + "\n";
-                itemDiscription += "AttBonus: " + attBonus + "      ";
-                itemDiscription += "DefBonus: " + defBonus + "\n";
-                itemDiscription += "HpBonus: " + hpBonus + "      ";
+                itemDiscription += "AttBonus: " + AttBonus + "      ";
+                itemDiscription += "DefBonus: " + DefBonus + "\n";
+                itemDiscription += "HpBonus: " + HpBonus + "      ";
 
                 return itemDiscription;
             }

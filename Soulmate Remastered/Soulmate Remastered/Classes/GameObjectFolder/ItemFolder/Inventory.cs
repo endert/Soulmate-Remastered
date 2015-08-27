@@ -176,7 +176,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     {
                         throw new NullReferenceException(); //deleating Stacks witch a count of 0;
                     }
-                    inventoryForSave += itemStack.Peek().toStringForSave() + itemStack.Count + lineBreak.ToString();
+                    inventoryForSave += itemStack.Peek().ToStringForSave() + itemStack.Count + lineBreak.ToString();
                 }
                 catch (NullReferenceException)
                 {
@@ -188,7 +188,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             {
                 try
                 {
-                    inventoryForSave += equip.toStringForSave() + lineBreak.ToString();
+                    inventoryForSave += equip.ToStringForSave() + lineBreak.ToString();
                 }
                 catch (NullReferenceException)
                 {
@@ -626,7 +626,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 if (inventoryMatrix[yInInventory, xInInventory] != null && inventoryMatrix[yInInventory, xInInventory].Count != 0 && inventoryMatrix[yInInventory, xInInventory].Peek() != null)
                 {
                     inventoryMatrix[yInInventory, xInInventory].Peek().giveMatrixPosition(yInInventory, xInInventory);
-                    inventoryMatrix[yInInventory, xInInventory].Peek().use();
+                    inventoryMatrix[yInInventory, xInInventory].Peek().Use();
                     PlayerHandler.Player.StatsUpdate();
                 }
             }
@@ -661,7 +661,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                 {
                     if (equipment[i] != null && selected.Position.Equals(equipmentPosition[i]))
                     {
-                        equipment[i].use();
+                        equipment[i].Use();
                         PlayerHandler.Player.StatsUpdate();
                     }
                 }
@@ -859,7 +859,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
                     {
                         if (inventoryMatrix[i,j].Count < 10)
                         {
-                            if (inventoryMatrix[i, j].Peek().stackable)
+                            if (inventoryMatrix[i, j].Peek().Stackable)
                                 StackCount[k].DisplayedString = "0" + Convert.ToString(inventoryMatrix[i, j].Count);
                             else
                                 StackCount[k].DisplayedString = "";
@@ -885,7 +885,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             {
                 if (equip != null)
                 {
-                    attBonus += equip.bonusAtt;
+                    attBonus += equip.AttBonus;
                 }
             }
             return attBonus;
@@ -898,7 +898,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             {
                 if (equip != null)
                 {
-                    defBonus += equip.bonusDef;
+                    defBonus += equip.DefBonus;
                 }
             }
             return defBonus;
@@ -911,7 +911,7 @@ namespace Soulmate_Remastered.Classes.ItemFolder
             {
                 if (equip != null)
                 {
-                    hpBonus += equip.bonusHp;
+                    hpBonus += equip.HpBonus;
                 }
             }
             return hpBonus;

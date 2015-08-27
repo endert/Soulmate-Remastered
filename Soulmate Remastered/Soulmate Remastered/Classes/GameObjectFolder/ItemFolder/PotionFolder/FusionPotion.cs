@@ -53,7 +53,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
             HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
         }
 
-        public override void use()
+        public override void Use()
         {
             if (PlayerHandler.Player.CurrentFusionValue != PlayerHandler.Player.MaxFusionValue)
             {

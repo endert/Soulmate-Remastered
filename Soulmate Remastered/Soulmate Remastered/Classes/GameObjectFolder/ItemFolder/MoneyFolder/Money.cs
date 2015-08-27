@@ -11,6 +11,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
     abstract class Money : AbstractItem
     {
         public override String Type { get { return base.Type + ".Money"; } }
+        /// <summary>
+        /// the ID 10x
+        /// </summary>
+        public override float ID
+        {
+            get
+            {
+                return base.ID* 10 + 0;
+            }
+        }
         public override void pickUp()
         {
             onMap = false;
