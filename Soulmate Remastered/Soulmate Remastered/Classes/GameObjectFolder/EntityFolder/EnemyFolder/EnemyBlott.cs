@@ -38,7 +38,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottBack.png"));
             TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottRight.png"));
             TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottLeft.png"));
+
             TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Invulnerable/BlottFrontInvulnerable.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Invulnerable/BlottBackInvulnerable.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Invulnerable/BlottRightInvulnerable.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Invulnerable/BlottLeftInvulnerable.png"));
 
             IsVisible = true;
             Sprite = new Sprite(TextureList[0]);
@@ -77,12 +81,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// </summary>
         protected override void React()
         {
-            if (!touchedPlayer())
-                move(getPlayerDirection());
+            if (!TouchedPlayer())
+                move(GetPlayerDirection());
             else
             {
-                move(new Vector2f(-getPlayerDirection().X, -getPlayerDirection().Y));
-                FacingDirection = getPlayerDirection();
+                move(new Vector2f(-GetPlayerDirection().X, -GetPlayerDirection().Y));
+                FacingDirection = GetPlayerDirection();
             }
         }
 

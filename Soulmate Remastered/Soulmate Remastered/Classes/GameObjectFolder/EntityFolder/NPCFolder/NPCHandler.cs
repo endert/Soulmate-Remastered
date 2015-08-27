@@ -44,7 +44,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         public static void Add_(AbstractNPC npc)
         {
             NPCs.Add(npc);
-            EntityHandler.add(npc);
+            EntityHandler.Add(npc);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 
             if (foundEntry)
             {
-                EntityHandler.deleateType(_type);
+                EntityHandler.DeleateType(_type);
             }
         }
 

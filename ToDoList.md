@@ -41,7 +41,7 @@ ToDoList
 	- leere Zeile beim Händler verkaufen wirft Fehler
 	.
 	.shop event!! (Mirko)
-	.
+	.für entities ein die event ?
 
 	- GamePlay
 	- Speicheranforderungen runterschrauben (Performanz *hat mirko drauf bestanden...*)

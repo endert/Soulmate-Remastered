@@ -75,7 +75,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         public static void Add_(AbstractEnemy enemy)
         {
             EnemyList.Add(enemy);
-            EntityHandler.add(enemy);
+            EntityHandler.Add(enemy);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// </summary>
         public static void Deleate()
         {
-            EntityHandler.deleateType("Enemy");
+            EntityHandler.DeleateType("Enemy");
         }
 
         /// <summary>
@@ -110,15 +110,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                 {
                     //if enemy is hit by the players attack hit box, it suffers damage
                     if (EnemyList[i].HitBox.Hit(PlayerHandler.Player.AttackHitBox) && PlayerHandler.Player.Attacking)
-                        EnemyList[i].takeDmg(PlayerHandler.Player.Att);
+                        EnemyList[i].TakeDmg(PlayerHandler.Player.Att);
 
                     //if the player is hit by the enemy the player suffers damage
-                    if (EnemyList[i].touchedPlayer())
-                        PlayerHandler.Player.takeDmg(EnemyList[i].Att);
+                    if (EnemyList[i].TouchedPlayer())
+                        PlayerHandler.Player.TakeDmg(EnemyList[i].Att);
 
                     //if the pet is hit by the enemy the pet suffers damage
                     if (PetHandler.Pet != null && EnemyList[i].HitBox.Hit(PetHandler.Pet.HitBox))
-                        PetHandler.Pet.takeDmg(EnemyList[i].Att);
+                        PetHandler.Pet.TakeDmg(EnemyList[i].Att);
                 }
             }
         }

@@ -65,7 +65,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             {
                 gObj.Kill();
             }
-            EntityHandler.deleate();
+            EntityHandler.Deleate();
             ItemHandler.deleate();
         }
 
@@ -87,7 +87,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
                 }
             }
 
-            entityHandler.update(gameTime);
+            entityHandler.Update(gameTime);
             itemHandler.update(gameTime);
         }
 

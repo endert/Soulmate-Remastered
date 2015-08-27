@@ -97,7 +97,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         public override void Update(GameTime gameTime)
         {
             Sprite.Position = Position;
-            animate();
+            Animate();
         }
     }
 }

@@ -60,9 +60,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
 
             PlayerHandler.Player = this;
-            EntityHandler.deleateType(player.Type);
-            EntityHandler.deleateType(pet.Type);
-            EntityHandler.add(this);
+            EntityHandler.DeleateType(player.Type);
+            EntityHandler.DeleateType(pet.Type);
+            EntityHandler.Add(this);
 
             StatsUpdate();
             animatingFusion = true;
@@ -122,9 +122,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
                 PlayerHandler.Player = fusionedPlayer;
                 PetHandler.Pet = fusionedPet;
-                EntityHandler.add(fusionedPlayer);
-                EntityHandler.add(fusionedPet);
-                EntityHandler.deleateType(Type);
+                EntityHandler.Add(fusionedPlayer);
+                EntityHandler.Add(fusionedPet);
+                EntityHandler.DeleateType(Type);
             }
         }
 

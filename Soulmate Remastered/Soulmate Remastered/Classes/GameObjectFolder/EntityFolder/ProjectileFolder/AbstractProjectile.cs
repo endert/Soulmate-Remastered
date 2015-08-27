@@ -66,7 +66,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
                 Entity hit = (Entity)args.CollidedWith;
                 if (!hit.Type.Equals(owner.Type))
                 {
-                    hit.takeDmg(Att);
+                    hit.TakeDmg(Att);
                     IsAlive = false;
                 }
             }
@@ -82,7 +82,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
             if (ShouldDespawn())
             {
                 move(FacingDirection);
-                animate();
+                Animate();
             }
             else
                 IsAlive = false;

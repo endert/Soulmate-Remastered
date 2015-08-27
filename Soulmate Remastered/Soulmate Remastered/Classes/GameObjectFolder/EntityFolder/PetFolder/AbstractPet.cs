@@ -90,7 +90,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             {
                 if (IsBehindPlayer())
                 {
-                    return getPlayerDirection();
+                    return GetPlayerDirection();
                 }
                 else if (!(PlayerHandler.Player.FacingDirection.X != 0 && PlayerHandler.Player.FacingDirection.Y != 0))    //If player dont facing diagonal
                 {
@@ -117,7 +117,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             {
                 if (IsBehindPlayer() && HitBox.DistanceTo(PlayerHandler.Player.HitBox) >= 50f)
                 {
-                    return getPlayerDirection();
+                    return GetPlayerDirection();
                 }
                 else if (!IsBehindPlayer())    //If player dont facing diagonal
                 {
@@ -219,7 +219,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
                 Position = PlayerHandler.Player.Position;
 
             //call animate
-            animate();
+            Animate();
 
             //update the rest
             HitBox.update(Sprite);

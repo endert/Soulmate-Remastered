@@ -371,7 +371,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 CurrentHP = MaxHP;
             
             if (!animating)
-                animate();
+                Animate();
 
             HitBox.update(Sprite);
             SpritePositionUpdate();

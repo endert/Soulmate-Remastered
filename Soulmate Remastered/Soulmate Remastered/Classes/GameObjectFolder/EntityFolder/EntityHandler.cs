@@ -12,49 +12,72 @@ using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChestFol
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 {
+    /// <summary>
+    /// handles the other handler plus the entitylist
+    /// </summary>
     class EntityHandler
     {
-        public static List<Entity> entityList { get; set; }
-        public static PlayerHandler playerHandler { get; set; }
-        public static EnemyHandler enemyHandler { get; set; }
-        public static PetHandler petHandler { get; set; }
-        public static ProjectileHandler projectileHandler { get; set; }
-        public static NPCHandler npcHandler { get; set; }
-        public static TreasureChestHandler treasureChestHandler { get; set; }
+        /// <summary>
+        /// all entities
+        /// </summary>
+        public static List<Entity> EntityList { get; set; }
+        /// <summary>
+        /// the playerhandler
+        /// </summary>
+        public static PlayerHandler PlayerHandler { get; set; }
+        /// <summary>
+        /// the enemyhandler
+        /// </summary>
+        public static EnemyHandler EnemyHandler { get; set; }
+        /// <summary>
+        /// the pethandler
+        /// </summary>
+        public static PetHandler PetHandler { get; set; }
+        /// <summary>
+        /// the projectilehandler 
+        /// </summary>
+        public static ProjectileHandler ProjectileHandler { get; set; }
+        /// <summary>
+        /// the npchandler 
+        /// </summary>
+        public static NPCHandler NpcHandler { get; set; }
+        /// <summary>
+        /// the treasurechesthandler 
+        /// </summary>
+        public static TreasureChestHandler TreasureChestHandler { get; set; }
 
+        /// <summary>
+        /// initialize this
+        /// </summary>
         public EntityHandler()
         {
-            entityList = new List<Entity>();
+            EntityList = new List<Entity>();
 
-            playerHandler = new PlayerHandler();
-            enemyHandler = new EnemyHandler();
-            petHandler = new PetHandler();
-            projectileHandler = new ProjectileHandler();
-            npcHandler = new NPCHandler();
-            treasureChestHandler = new TreasureChestHandler();
+            PlayerHandler = new PlayerHandler();
+            EnemyHandler = new EnemyHandler();
+            PetHandler = new PetHandler();
+            ProjectileHandler = new ProjectileHandler();
+            NpcHandler = new NPCHandler();
+            TreasureChestHandler = new TreasureChestHandler();
         }
 
-        public static void add(Entity entity)
+        /// <summary>
+        /// adds the entity
+        /// </summary>
+        /// <param name="entity"></param>
+        public static void Add(Entity entity)
         {
-            entityList.Add(entity);
+            EntityList.Add(entity);
             GameObjectHandler.add(entity);
         }
 
-        public static void add(List<Entity> entities)
+        /// <summary>
+        /// clears the list => deleates all enities
+        /// </summary>
+        public static void Deleate()
         {
-            foreach (Entity entity in entities)
-            {
-                entityList.Add(entity);
-                GameObjectHandler.add(entity);
-            }
-        }
+            EntityList.Clear();
 
-        public static void deleate()
-        {
-            foreach (Entity entity in entityList)
-            {
-                entity.Kill();
-            }
             PlayerHandler.Deleate();
             EnemyHandler.Deleate();
             PetHandler.Deleate();
@@ -63,41 +86,41 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             TreasureChestHandler.Deleate();
         }
 
-        public static void deleateType(String _type)
+        /// <summary>
+        /// deleates all entities that matches this type
+        /// </summary>
+        /// <param name="_type"></param>
+        public static void DeleateType(String _type)
         {
             bool foundEntry = false;
-            for (int i = 0; i < entityList.Count; i++)
-            {
-                if (entityList[i].Type.Equals(_type))
+            for (int i = 0; i < EntityList.Count; i++)
+                if (EntityList[i].Type.Equals(_type))
                 {
-                    entityList.RemoveAt(i);
+                    EntityList.RemoveAt(i);
                     foundEntry = true;
                     i--;
                 }
-            }
 
             if (foundEntry)
-            {
                 GameObjectHandler.deleateType(_type);
-            }
         }
 
-        public void update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            for (int i = 0; i < entityList.Count; i++)
+            for (int i = 0; i < EntityList.Count; i++)
             {
-                if (!entityList[i].IsAlive)
+                if (!EntityList[i].IsAlive)
                 {
-                    entityList[i].Drop();
-                    entityList.RemoveAt(i);
+                    EntityList[i].Drop();
+                    EntityList.RemoveAt(i);
                     i--;
                 }
             }
-            enemyHandler.Update(gameTime);
-            petHandler.Update();
-            projectileHandler.Update(gameTime);
-            npcHandler.Update(gameTime);
-            treasureChestHandler.Update(gameTime);
+            EnemyHandler.Update(gameTime);
+            PetHandler.Update();
+            ProjectileHandler.Update(gameTime);
+            NpcHandler.Update(gameTime);
+            TreasureChestHandler.Update(gameTime);
         }
     }
 }

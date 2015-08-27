@@ -190,7 +190,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             {
                 Vector2 movement = MovementSpeed * (direction.GetNormalized());
 
-                if (GameObjectHandler.lvlMap.getWalkable(HitBox, movement) && !WillHitAnotherEntity(movement) && moveHelp())
+                if (GameObjectHandler.lvlMap.getWalkable(HitBox, movement) && !WillHitAnotherEntity(movement))
                     Position += movement;
 
                 FacingDirection = movement;
@@ -255,7 +255,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         /// bool if the player is touched
         /// </summary>
         /// <returns></returns>
-        public bool touchedPlayer()
+        public bool TouchedPlayer()
         {
             if (HitBox.Hit(PlayerHandler.Player.HitBox))
                 return true;
@@ -263,24 +263,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                 return false;
         }
 
-        public bool moveHelp()
-        {
-            if (Type.Split('.')[2].Equals("Player"))
-            {
-                return true;
-            }
-            else
-            {
-                return !touchedPlayer();
-            }
-        }
-
+        /// <summary>
+        /// drops the possible drops
+        /// </summary>
         public virtual void Drop()
         {
 
         }
 
-        public void takeDmg(float dmg)
+        /// <summary>
+        /// lowers the hp by substracting this def from dmg
+        /// </summary>
+        /// <param name="dmg"></param>
+        public void TakeDmg(float dmg)
         {
             if (IsVulnerable)
             {
@@ -292,38 +287,67 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             }
         }
 
-        public Vector2 getPlayerDirection()
+        /// <summary>
+        /// the vector, which points from this mid to the players mid
+        /// </summary>
+        /// <returns></returns>
+        public Vector2 GetPlayerDirection()
         {
             Vector2 playerDirection = (PlayerHandler.Player.HitBox.Position + (1 / 2) * PlayerHandler.Player.HitBox.Size) - (HitBox.Position + (1 / 2) * HitBox.Size);
             return playerDirection;
         }
 
-        virtual public void animate()
+        /// <summary>
+        /// animate the sprite according to the facing direction
+        /// </summary>
+        virtual public void Animate()
         {
             if (IsVulnerable)
             {
-                if (FacingDirection.Y > 0)
+                switch (Direction)
                 {
-                    Sprite = new Sprite(TextureList[0]); //front
-                }
-                else if (FacingDirection.Y < 0)
-                {
-                    Sprite = new Sprite(TextureList[1]); // back
-                }
-                else if (FacingDirection.X > 0)
-                {
-                    Sprite = new Sprite(TextureList[2]); // right
-                }
-                else
-                {
-                    Sprite = new Sprite(TextureList[3]); // left
+                    case EDirection.Front:
+                        Sprite = new Sprite(TextureList[0]);
+                        break;
+                    case EDirection.Back:
+                        Sprite = new Sprite(TextureList[1]);
+                        break;
+                    case EDirection.Right:
+                        Sprite = new Sprite(TextureList[2]);
+                        break;
+                    case EDirection.Left:
+                        Sprite = new Sprite(TextureList[3]);
+                        break;
+                    default:
+                        Sprite = new Sprite(TextureList[0]);
+                        break;
                 }
             }
             else
             {
-                if (TextureList.Count > 4)
+                try
                 {
-                    Sprite = new Sprite(TextureList[4]); // invulnerablety
+                    switch (Direction)
+                    {
+                        case EDirection.Front:
+                            Sprite = new Sprite(TextureList[4]);
+                            break;
+                        case EDirection.Back:
+                            Sprite = new Sprite(TextureList[5]);
+                            break;
+                        case EDirection.Right:
+                            Sprite = new Sprite(TextureList[6]);
+                            break;
+                        case EDirection.Left:
+                            Sprite = new Sprite(TextureList[7]);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.WriteLine("u are missing some textures");
                 }
             }
 

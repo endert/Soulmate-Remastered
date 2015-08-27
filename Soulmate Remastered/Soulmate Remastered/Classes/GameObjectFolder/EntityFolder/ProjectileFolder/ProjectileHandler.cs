@@ -32,7 +32,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
         public static void Add(AbstractProjectile projectile)
         {
             ProjectileList.Add(projectile);
-            EntityHandler.add(projectile);
+            EntityHandler.Add(projectile);
         }
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
                 }
                 else
                 {
-                    if (ProjectileList[i].touchedPlayer())
+                    if (ProjectileList[i].TouchedPlayer())
                     {
-                        PlayerHandler.Player.takeDmg(ProjectileList[i].Att);
+                        PlayerHandler.Player.TakeDmg(ProjectileList[i].Att);
                     }
                 }
             }

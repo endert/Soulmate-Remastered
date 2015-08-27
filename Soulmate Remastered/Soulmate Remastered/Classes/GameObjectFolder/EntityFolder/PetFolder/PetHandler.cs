@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 {
+    /// <summary>
+    /// handles the pet
+    /// </summary>
     class PetHandler
     {
         /// <summary>
@@ -28,7 +31,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             PetList = new List<AbstractPet>();
 
             Pet = new PetWolf(PlayerHandler.Player);
-            EntityHandler.add(Pet);
+            EntityHandler.Add(Pet);
             PetList.Add(Pet);
         }
 
@@ -62,7 +65,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         public static void Add_(AbstractPet pet)
         {
             PetList.Add(pet);
-            EntityHandler.add(pet);
+            EntityHandler.Add(pet);
         }
 
         /// <summary>
@@ -70,7 +73,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         /// </summary>
         static public void Deleate()
         {
-            EntityHandler.deleateType(Pet.Type);
+            EntityHandler.DeleateType(Pet.Type);
             Pet = null;
         }
 

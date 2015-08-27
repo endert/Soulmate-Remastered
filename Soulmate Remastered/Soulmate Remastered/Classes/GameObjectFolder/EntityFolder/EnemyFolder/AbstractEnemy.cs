@@ -171,7 +171,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         public override void Update(GameTime gameTime)
         {
             //animate if needed
-            animate();
+            Animate();
 
             //setting sprite at the current position
             Sprite.Position = Position;

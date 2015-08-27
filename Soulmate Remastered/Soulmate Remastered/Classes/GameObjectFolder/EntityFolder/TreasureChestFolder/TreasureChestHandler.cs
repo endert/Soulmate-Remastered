@@ -41,7 +41,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
         public static void Add(AbstractTreasureChest treasureChest)
         {
             treasureChestList.Add(treasureChest);
-            EntityHandler.add(treasureChest);
+            EntityHandler.Add(treasureChest);
         }
 
         /// <summary>
