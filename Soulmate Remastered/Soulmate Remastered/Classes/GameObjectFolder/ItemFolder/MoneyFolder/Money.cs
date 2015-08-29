@@ -8,9 +8,15 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
 {
-    abstract class Money : AbstractItem
+    /// <summary>
+    /// the base class for all currencies
+    /// </summary>
+    abstract class Currency : AbstractItem
     {
-        public override String Type { get { return base.Type + ".Money"; } }
+        /// <summary>
+        /// the type of this instance
+        /// </summary>
+        public override String Type { get { return base.Type + ".Currency"; } }
         /// <summary>
         /// the ID 10x
         /// </summary>
@@ -21,9 +27,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
                 return base.ID* 10 + 0;
             }
         }
-        public override void pickUp()
+
+        /// <summary>
+        /// method for picking this up, should only be called on the pick up event (to do)
+        /// </summary>
+        public override void PickUp()
         {
-            onMap = false;
+            OnMap = false;
             GameObjectHandler.removeAt(IndexObjectList);
             PlayerHandler.Player.Gold += 1;
         }

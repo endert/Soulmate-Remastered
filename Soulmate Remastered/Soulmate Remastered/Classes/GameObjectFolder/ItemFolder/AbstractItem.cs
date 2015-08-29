@@ -2,6 +2,7 @@
 using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.ItemFolder;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,38 +12,84 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {
+    /// <summary>
+    /// base classs for all items
+    /// </summary>
     abstract class AbstractItem : GameObject, IComparable<AbstractItem>
     {
+        /// <summary>
+        /// the type of this instance
+        /// </summary>
         public override String Type { get { return base.Type + ".Item"; } }
+        /// <summary>
+        /// the ID = 1x
+        /// </summary>
         public virtual float ID { get { return 1; } }
+        /// <summary>
+        /// bool if it is stackable or not, default true
+        /// </summary>
         public virtual bool Stackable { get { return true; } }
+        /// <summary>
+        /// bool if it triggers a collision or not, items do not trigger collisions
+        /// </summary>
         public override bool Walkable { get { return true; } }
-        public virtual bool sellable { get { return true; } }
+        /// <summary>
+        /// bool if this item can be sold by a merchant
+        /// </summary>
+        public virtual bool Sellable { get { return true; } }
+        /// <summary>
+        /// the prize this item costs
+        /// </summary>
         public virtual float SellPrize { get { return 0; } }
-        protected float dropRate; // in percent
-        public float DROPRATE { get { return dropRate; } }
-        public bool onMap { get; set; }
-        protected bool wasOnMap = false; //not longer on map but it was droped once
-        public float pickUpRange { get { return 50f; } }
-        protected Stopwatch decay = new Stopwatch();
-        protected int decayingIn = 60000; //60sec
-        protected float recoveryValue;
-        protected int inventoryMatrixPositionX;
-        protected int inventoryMatrixPositionY;
+        /// <summary>
+        /// drop rate of this in percent
+        /// </summary>
+        public float DropRate { get; protected set; }
+        /// <summary>
+        /// bool if this item is at the moment on the map or is hold by an entity
+        /// </summary>
+        public bool OnMap { get; set; }
+        /// <summary>
+        /// the distance this item can be picked up by the player, default = 50f
+        /// </summary>
+        public float PickUpRange { get { return 50f; } }
 
-        public virtual String ItemDiscription 
+        /// <summary>
+        /// bool if it was once on the map
+        /// </summary>
+        protected bool wasOnMap = false;
+        /// <summary>
+        /// stopwatch for the decaying of this
+        /// </summary>
+        protected Stopwatch decay = new Stopwatch();
+        /// <summary>
+        /// the time in millisec this can lay on the map before it decays, default = 60 sec
+        /// </summary>
+        protected int decayingIn = 60000;
+        /// <summary>
+        /// position in the inventory matrix
+        /// </summary>
+        protected Vector2 InventoryMatrixPosition { get; set; }
+        /// <summary>
+        /// the description of this item
+        /// </summary>
+        public virtual string ItemDiscription 
         { 
             get 
             {
-                String itemDiscription = "";
+                string itemDiscription = "";
 
                 return itemDiscription;
             } 
         }
 
-        public virtual String ToStringForSave()
+        /// <summary>
+        /// saves this item, by creating a string out of this attributes
+        /// </summary>
+        /// <returns></returns>
+        public virtual string ToStringForSave()
         {
-            String itemForSave = "it" + LineBreak.ToString();
+            string itemForSave = "it" + LineBreak.ToString();
 
             itemForSave += Type.Split('.')[Type.Split('.').Length-1] + LineBreak.ToString();
             itemForSave += Position.X + LineBreak.ToString();
@@ -51,21 +98,37 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             return itemForSave;
         }
 
-        public abstract AbstractItem clone();
+        /// <summary>
+        /// clones this item
+        /// </summary>
+        /// <returns></returns>
+        public abstract AbstractItem Clone();
 
-        public void setPositionMatrix(int x, int y)
+        /// <summary>
+        /// sets the item position according to the matrix position
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void SetPosition(int x, int y)
         {
-            Position = new Vector2f(x * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X,
+            Position = new Vector2(x * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X,
                 y * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.Y);
         }
 
-        public void giveMatrixPosition(int i, int j)
+        /// <summary>
+        /// set the matrix position
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        public void SetMatrixPosition(int i, int j)
         {
-            inventoryMatrixPositionX = j;
-            inventoryMatrixPositionY = i;
+            InventoryMatrixPosition = new Vector2(j, i);
         }
 
-        public virtual void pickUp()
+        /// <summary>
+        /// method triggered by the pick up event
+        /// </summary>
+        public virtual void PickUp()
         {
             if (Type.Equals("Object.Item.Gold"))
             {
@@ -82,7 +145,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                         ItemHandler.playerInventory.inventoryMatrix[i, j].Push(this);
                         Position = new Vector2f((j * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X),
                                                 (i * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.Y));
-                        onMap = false;
+                        OnMap = false;
                         GameObjectHandler.removeAt(IndexObjectList);
                         return;
 
@@ -92,12 +155,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                     {
                         if (ItemHandler.playerInventory.inventoryMatrix[i,j].Count != 0 && ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() != null)
                         {
-                            ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().setVisible(false);
+                            ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().SetVisible(false);
                         }
                         ItemHandler.playerInventory.inventoryMatrix[i, j].Push(this);
-                        Position = new Vector2f((j * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X),
+                        Position = new Vector2((j * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X),
                             (i * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.Y));
-                        onMap = false;
+                        OnMap = false;
                         GameObjectHandler.removeAt(IndexObjectList);
                         return;
                     }
@@ -105,32 +168,47 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             }
         }
 
+        /// <summary>
+        /// use this item
+        /// </summary>
         public virtual void Use() { } 
 
-        public void drop(Vector2f dropPosition)
+        /// <summary>
+        /// drop this item
+        /// </summary>
+        /// <param name="dropPosition"></param>
+        public void Drop(Vector2 dropPosition)
         {
             Position = dropPosition;
             Sprite.Position = Position;
-            onMap = true;
+            OnMap = true;
         }
 
-        public void setVisible(bool _visible)
+        /// <summary>
+        /// set visibility
+        /// </summary>
+        /// <param name="_visible"></param>
+        public void SetVisible(bool _visible)
         {
             IsVisible = _visible;
         }
 
-        public void cloneAndDrop(Vector2f dropPosition)
+        /// <summary>
+        /// clones this item and drop the clone
+        /// </summary>
+        /// <param name="dropPosition"></param>
+        public void CloneAndDrop(Vector2 dropPosition)
         {
-            AbstractItem dropedItem = this.clone();
+            AbstractItem dropedItem = this.Clone();
             ItemHandler.add(dropedItem);
-            dropedItem.drop(dropPosition);
+            dropedItem.Drop(dropPosition);
         }
 
         public override void Update(GameTime gameTime)
         {
             HitBox.Position = Position;
             Sprite.Position = Position;
-            if (onMap)
+            if (OnMap)
             {
                 IsVisible = true;
                 wasOnMap = true;
@@ -140,18 +218,23 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                     IsAlive = false;
                 }
             }
-            if (wasOnMap && !onMap)
+            if (wasOnMap && !OnMap) //picked up
             {
                 wasOnMap = false;
-                onMap = false;
+                OnMap = false;
                 decay.Reset();
             }
-            if (!onMap)
+            if (!OnMap)
             {
                 IsVisible = false;
             }
         }
 
+        /// <summary>
+        /// compares this item with another item
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public int CompareTo(AbstractItem other)
         {
             if (Stackable)

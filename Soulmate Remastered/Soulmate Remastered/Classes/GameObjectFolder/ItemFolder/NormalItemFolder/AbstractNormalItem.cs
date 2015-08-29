@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFolder
 {
+    /// <summary>
+    /// base class for "normal" items, in generell items that cannot be used for example: quest items
+    /// </summary>
     abstract class AbstractNormalItem : AbstractItem
     {
+        /// <summary>
+        /// the type of this instance
+        /// </summary>
         public override string Type
         {
             get
@@ -15,6 +21,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
                 return base.Type + ".NormalItem";
             }
         }
+
         /// <summary>
         /// the ID = 11x
         /// </summary>

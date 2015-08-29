@@ -36,11 +36,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 case 0:
                     return new TestItem();
                 case 1:
-                    return new HealPotion((HealPotion.healPotionSize)Convert.ToInt32(parameter[0]));
+                    return new HealPotion((HealPotion.PotionSize)Convert.ToInt32(parameter[0]));
                 case 2:
                     return new Sword(Convert.ToSingle(parameter[0]), Convert.ToSingle(parameter[1]), Convert.ToSingle(parameter[2]), parameter[3]);
                 case 3:
-                    return new FusionPotion((FusionPotion.fusionPotionSize)Convert.ToInt32(parameter[0]));
+                    return new FusionPotion((FusionPotion.PotionSize)Convert.ToInt32(parameter[0]));
                 default:
                     return null;
             }
@@ -71,29 +71,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                                 parameter.Add(itemString.Split(AbstractItem.LineBreak)[j]);
                             }
 
-                        switch (i)
-                        {
-                            case 0:
-                                loadedItem = evaluateLoadedItem(i, parameter);
-                                break;
-                            case 1:
-                                loadedItem = evaluateLoadedItem(i, parameter);
-                                break;
-                            case 2:
-                                loadedItem = evaluateLoadedItem(i, parameter);
-                                break;
-                            case 3:
-                                loadedItem = evaluateLoadedItem(i, parameter);
-                                break;
-                            default:
-                                break;
-                        }
+                        loadedItem = evaluateLoadedItem(i, parameter);
                         loadedItem.Position = new Vector2f(Convert.ToSingle(itemString.Split(AbstractItem.LineBreak)[2]),
                                                            Convert.ToSingle(itemString.Split(AbstractItem.LineBreak)[3]));
 
                         for (int j = 0; j < Convert.ToInt32(itemString.Split(AbstractItem.LineBreak)[itemString.Split(AbstractItem.LineBreak).Length - 1]); j++)
                         {
-                            loadedStack.Push(loadedItem.clone());
+                            loadedStack.Push(loadedItem.Clone());
                         }
 
                         break;
@@ -181,7 +165,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             }
             playerInventory.deleate();
             playerInventory = null;
-            equipmentHandler.deleate();
+            equipmentHandler.Deleate();
         }
 
         public void update(GameTime gameTime)
@@ -195,9 +179,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                     break;
                 }
                 
-                if (itemList[i].onMap && itemList[i].HitBox.DistanceTo(PlayerHandler.Player.HitBox) <= itemList[i].pickUpRange && !playerInventory.isFullWith(itemList[i]))
+                if (itemList[i].OnMap && itemList[i].HitBox.DistanceTo(PlayerHandler.Player.HitBox) <= itemList[i].PickUpRange && !playerInventory.isFullWith(itemList[i]))
                 {
-                    itemList[i].pickUp();
+                    itemList[i].PickUp();
                     itemList.RemoveAt(i);
                     i--;
                 }

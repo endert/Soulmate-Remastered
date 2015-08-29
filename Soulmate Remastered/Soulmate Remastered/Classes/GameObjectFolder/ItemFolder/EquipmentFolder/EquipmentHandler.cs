@@ -6,46 +6,53 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder
 {
+    /// <summary>
+    /// handles the equipment
+    /// </summary>
     class EquipmentHandler
     {
-        public static List<Equipment> equipmentList { get; set; }
+        /// <summary>
+        /// every piece of equipment
+        /// </summary>
+        public static List<Equipment> EquipmentList { get; set; }
 
+        /// <summary>
+        /// initialize the equipment list
+        /// </summary>
         public EquipmentHandler()
         {
-            equipmentList = new List<Equipment>();
+            EquipmentList = new List<Equipment>();
         }
 
-        public static void add(Equipment equip)
+        /// <summary>
+        /// adds the equip to the list
+        /// </summary>
+        /// <param name="equip"></param>
+        public static void Add(Equipment equip)
         {
-            equipmentList.Add(equip);
+            EquipmentList.Add(equip);
             ItemHandler.add(equip);
         }
 
-        public static void add(List<Equipment> equipment)
+        /// <summary>
+        /// clears the list => deleates all equipment
+        /// </summary>
+        public void Deleate()
         {
-            foreach (Equipment equip in equipment)
-            {
-                equipmentList.Add(equip);
-                ItemHandler.add(equip);
-            }
+            EquipmentList.Clear();
         }
 
-        public void deleate()
+        /// <summary>
+        /// updates the equipment list
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public void Update(GameTime gameTime)
         {
-            for (int i = 0; i < equipmentList.Count; i++)
+            for (int i = 0; i < EquipmentList.Count; i++)
             {
-                equipmentList.RemoveAt(i);
-                i--;
-            }
-        }
-
-        public void update(GameTime gameTime)
-        {
-            for (int i = 0; i < equipmentList.Count; i++)
-            {
-                if (equipmentList[i].IsAlive)
+                if (EquipmentList[i].IsAlive)
                 {
-                    equipmentList.RemoveAt(i);
+                    EquipmentList.RemoveAt(i);
                     i--;
                 }
             }

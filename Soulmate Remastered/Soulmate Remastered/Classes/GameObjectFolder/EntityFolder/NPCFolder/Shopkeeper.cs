@@ -80,7 +80,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 
             for (int i = 0; i < count; i++)
             {
-                stack.Push(item.clone());
+                stack.Push(item.Clone());
             }
 
             AddItemsForSell(stack);

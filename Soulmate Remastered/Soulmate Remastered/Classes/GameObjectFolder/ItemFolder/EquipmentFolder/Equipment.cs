@@ -94,7 +94,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
                 ItemHandler.playerInventory.equipment[(int)((ID) / 10) % 10].unequip();
             }
             ItemHandler.playerInventory.equipment[(int)((ID) / 10) % 10] = this;
-            ItemHandler.playerInventory.inventoryMatrix[inventoryMatrixPositionY, inventoryMatrixPositionX] = null;
+            ItemHandler.playerInventory.inventoryMatrix[(int)InventoryMatrixPosition.Y, (int)InventoryMatrixPosition.X] = null;
             Position = Inventory.equipmentPosition[(int)((ID) / 10) % 10];
             Sprite.Position = Position;
             equiped = true;

@@ -142,15 +142,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             int rand = random.Next(Drops.Length);
 
             //check if it is droped because of droprate
-            if (Drops[rand].DROPRATE >= 100 * random.NextDouble())
+            if (Drops[rand].DropRate >= 100 * random.NextDouble())
             {
-                Drops[rand].cloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
+                Drops[rand].CloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
             }
 
             //drop gold
             for (int i = 0; i < random.Next(100); i++)
             {
-                new Gold().cloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
+                new Gold().CloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
             }
         }
 

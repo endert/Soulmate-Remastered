@@ -34,9 +34,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
             for (int i = 0; i < random.Next(100); i++)
             {
                 int rand = random.Next(Drops.Length);
-                if (Drops[rand].DROPRATE > 100 * random.NextDouble())
+                if (Drops[rand].DropRate > 100 * random.NextDouble())
                 {
-                    Drops[rand].cloneAndDrop(new Vector2(Position.X + random.Next(50), Position.Y + random.Next(50)));
+                    Drops[rand].CloneAndDrop(new Vector2(Position.X + random.Next(50), Position.Y + random.Next(50)));
                 }
             }
         }
