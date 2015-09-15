@@ -83,9 +83,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                     loading = false;
                     return; //if this part was succesful, no need for the rest
                 }
-                catch
+                catch(Exception e)
                 {
                     Console.WriteLine("Loading failed ;(");
+                    Console.WriteLine(e);
                     loading = false;
                     loadContent();
                 }
@@ -148,7 +149,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             }
 
             //no update needed if game was closed
-            ItemHandler.playerInventory.update(gameTime);
+
+            //Update the MouseControler
+            MouseControler.Update();
+
+            ItemHandler.playerInventory.Update(gameTime);
             inGameMenu.update(gameTime);
             //************************************************
 
@@ -160,7 +165,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 returnValue = 2;
             }
 
-            if (!Inventory.inventoryOpen && !inGameMenu.inGameMenuOpen && !Shop.ShopIsOpen) //run update for game, if no menu, inventory or shop is open
+            if (!PlayerInventory.IsOpen && !inGameMenu.inGameMenuOpen && !Shop.ShopIsOpen) //run update for game, if no menu, inventory or shop is open
             {
                 VIEW.Move(VectorForViewMove());
 
@@ -215,10 +220,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             dialoges.Draw(window);
             hud.draw(window);
 
-            if (Inventory.inventoryOpen)
+            if (PlayerInventory.IsOpen)
             {
                 window.SetView(viewHelp);
-                ItemHandler.playerInventory.draw(window);
+                ItemHandler.playerInventory.Draw(window);
             }
 
             if (Shop.ShopIsOpen)

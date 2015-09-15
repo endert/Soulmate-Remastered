@@ -26,8 +26,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             lvl = _lvl;
             
             gameObjectList = new List<GameObject>();
-            entityHandler = new EntityHandler();
             itemHandler = new ItemHandler();
+            entityHandler = new EntityHandler();
         }
 
         public static void add(GameObject obj)
@@ -47,11 +47,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             }
         }
 
-        public static void deleateType(String _type)
+        public static void deleateType(Type _type)
         {
             for (int i = 0; i < gameObjectList.Count; i++)
             {
-                if (gameObjectList[i].Type.Equals(_type))
+                if (gameObjectList[i].GetType().Equals(_type))
                 {
                     gameObjectList.RemoveAt(i);
                     i--;

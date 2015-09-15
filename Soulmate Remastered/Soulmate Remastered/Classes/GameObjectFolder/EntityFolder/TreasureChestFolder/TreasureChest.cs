@@ -16,16 +16,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
     /// </summary>
     class TreasureChest : AbstractTreasureChest
     {
+        protected override void LoadTextures()
+        {
+            TextureList.Add(new Texture("Pictures/Treasure Chest/TreasureChest.png"));
+        }
+
         public TreasureChest(Vector2 _position, params AbstractItem[] _drops)
         {
             //game object*************************************************************
 
-            TextureList.Add(new Texture("Pictures/Treasure Chest/TreasureChest.png"));
-            IsVisible = true;
-            Sprite = new Sprite(TextureList[0]);
             Position = _position;
             Sprite.Position = Position;
-            HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
 
             //************************************************************************
             

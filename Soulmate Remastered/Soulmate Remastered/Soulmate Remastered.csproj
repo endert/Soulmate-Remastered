@@ -62,10 +62,16 @@
     <Compile Include="Classes\GameObjectFolder\AbstractHitBox.cs" />
     <Compile Include="Classes\GameObjectFolder\Cooldown.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\CollisionArgs.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\Inventory.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\ItemStack.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\PlayerInventory.cs" />
+    <Compile Include="Classes\GameObjectFolder\ItemFolder\UseEventArgs.cs" />
     <Compile Include="Core\Matrix3x3.cs" />
+    <Compile Include="Core\MouseControler.cs" />
     <Compile Include="Core\MovingDirection.cs" />
     <Compile Include="Core\Params.cs" />
     <Compile Include="Classes\Controls.cs" />
+    <Compile Include="Core\Rectangle.cs" />
     <Compile Include="Core\RidgedBody.cs" />
     <Compile Include="Core\Vector2.cs" />
     <Compile Include="Classes\DialogeBoxFolder\DialogeHandler.cs" />
@@ -127,7 +133,6 @@
     <Compile Include="Classes\HUDFolder\LifeBarForOthers.cs" />
     <Compile Include="Classes\HUDFolder\LifeFusionBar.cs" />
     <Compile Include="Classes\InGameMenuFolder\InGameMenu.cs" />
-    <Compile Include="Classes\GameObjectFolder\ItemFolder\Inventory.cs" />
     <Compile Include="Classes\InGameMenuFolder\InGameOptions.cs" />
     <Compile Include="Classes\MapFolder\Blocks.cs" />
     <Compile Include="Classes\MapFolder\Map.cs" />
@@ -145,6 +150,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Pictures\Menu\MainMenu\Controls\ControlsText.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Shader\RedSelectedShader.frag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Shader\SelectedCursorShader.frag">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Shader\SelectedShader.frag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

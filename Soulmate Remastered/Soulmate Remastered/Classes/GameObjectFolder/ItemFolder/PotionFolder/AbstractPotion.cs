@@ -12,16 +12,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder
     abstract class AbstractPotion : AbstractItem
     {
         /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override string Type
-        {
-            get
-            {
-                return base.Type + ".Potion";
-            }
-        }
-        /// <summary>
         /// the ID 12x
         /// </summary>
         public override float ID

@@ -90,11 +90,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         /// deleates all entities that matches this type
         /// </summary>
         /// <param name="_type"></param>
-        public static void DeleateType(String _type)
+        public static void DeleateType(Type _type)
         {
             bool foundEntry = false;
             for (int i = 0; i < EntityList.Count; i++)
-                if (EntityList[i].Type.Equals(_type))
+                if (EntityList[i].GetType().Equals(_type))
                 {
                     EntityList.RemoveAt(i);
                     foundEntry = true;

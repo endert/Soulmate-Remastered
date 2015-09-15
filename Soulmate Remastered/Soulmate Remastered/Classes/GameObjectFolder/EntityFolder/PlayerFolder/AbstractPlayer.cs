@@ -21,11 +21,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
     abstract class AbstractPlayer : Entity
     {
         /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override String Type { get { return base.Type + ".Player"; } }
-
-        /// <summary>
         /// returns the max Level
         /// </summary>
         public int MaxLvl { get { return 100; } }
@@ -398,7 +393,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             {
                 movement = Vector2.ZERO;
                 movement = GetKeyPressed(MovementSpeed);
-                move(movement);
+                Move(movement);
             }
 
             if (Lvl >= MaxLvl)

@@ -16,10 +16,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
     /// </summary>
     class PetWolf : AbstractPet
     {
-        /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override String Type { get { return base.Type + ".PetWolf"; } }
+        public PetWolf():this(PlayerHandler.Player) { }
+
+        protected override void LoadTextures()
+        {
+            TextureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfFront.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfBack.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfRight.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfLeft.png"));
+        }
 
         /// <summary>
         /// creates an instance
@@ -29,17 +34,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         {
             //Initialize Gameobject attributes********************************************************************************
 
-            TextureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfFront.png"));
-            TextureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfBack.png"));
-            TextureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfRight.png"));
-            TextureList.Add(new Texture("Pictures/Entities/Pet/Wolf/WolfLeft.png"));
-
-            IsAlive = true;
-            IsVisible = true;
-            Sprite = new Sprite(TextureList[0]);
             Position = new Vector2f(player.Position.X - 150, player.Position.Y + player.HitBox.height - TextureList[0].Size.Y);
             Sprite.Position = Position;
-            HitBox = new HitBox(Sprite.Position, TextureList[0].Size.X, TextureList[0].Size.Y);
 
             //****************************************************************************************************************
             //Initialize Entity attributes************************************************************************************
@@ -47,7 +43,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             MaxHP = 50f;
             CurrentHP = MaxHP;
             BaseMovementSpeed = 0.4f;
-            lifeBar = new LifeBarForOthers();
 
             //****************************************************************************************************************
         }

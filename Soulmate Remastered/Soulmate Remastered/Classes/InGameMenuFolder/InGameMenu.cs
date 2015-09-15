@@ -75,7 +75,8 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public bool getInGameMenuOpen()
         {
-            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed && !inGameMenuOpen && !Inventory.inventoryOpen && !Shop.ShopIsOpen)
+
+            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed && !inGameMenuOpen && !PlayerInventory.IsOpen && !Shop.ShopIsOpen)
             {
                 Game.isPressed = true;
                 inGameMenuOpen = true;

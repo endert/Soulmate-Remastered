@@ -83,7 +83,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// </summary>
         public static void Deleate()
         {
-            EntityHandler.DeleateType("Enemy");
+            EntityHandler.DeleateType(typeof(AbstractEnemy));
         }
 
         /// <summary>

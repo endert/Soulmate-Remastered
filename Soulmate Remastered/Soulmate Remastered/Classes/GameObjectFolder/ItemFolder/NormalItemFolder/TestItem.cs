@@ -1,6 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFolder;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
     /// </summary>
     class TestItem : AbstractNormalItem
     {
-        /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override string Type { get { return base.Type + ".Pete"; } }
         /// <summary>
         /// a bool if this item is sellable
         /// </summary>
@@ -50,16 +47,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
             }
         }
 
+        protected override void LoadTextures()
+        {
+            TextureList.Add(new Texture("Pictures/Items/TestItem(Pete).png"));
+        }
+
         /// <summary>
         /// initialize a new instance
         /// </summary>
         public TestItem()
         {
-            TextureList.Add(new Texture("Pictures/Items/TestItem(Pete).png"));
-            Sprite = new Sprite(TextureList[0]);
-            IsVisible = false;
-            Position = new Vector2f();
-            HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
+            Position = new Vector2();
             DropRate = 100;
         }
 

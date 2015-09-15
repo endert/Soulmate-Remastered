@@ -18,13 +18,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
     class PetStorageGuy : AbstractNPC
     {
         /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override String Type { get { return base.Type + ".PetStorageGuy"; } }
-        /// <summary>
         /// path to the dialoge file
         /// </summary>
         protected override string DialogePath{ get { return "Dialoges/Test.txt"; } }
+
+        protected override void LoadTextures()
+        {
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyFrontTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyBackTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyRightTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyLeftTest.png"));
+        }
 
         /// <summary>
         /// create an instance of this class
@@ -32,31 +36,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <param name="_position"></param>
         public PetStorageGuy(Vector2 _position)
         {
-            //Initialize GameObject Data*********************************************************************
-            
-            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyFrontTest.png"));
-            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyBackTest.png"));
-            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyRightTest.png"));
-            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyLeftTest.png"));
 
-            IsAlive = true;
-            IsVisible = true;
-            Sprite = new Sprite(TextureList[0]);
             Position = _position;
             Sprite.Position = Position;
-            HitBox = new HitBox(Position, Sprite.Texture.Size.X, Sprite.Texture.Size.Y);
-            
-            //***********************************************************************************************
-            //Initialize Entity Data*************************************************************************
 
             FacingDirection = Vector2.FRONT;
-
-            //***********************************************************************************************
-            //Initialize NPC Data****************************************************************************
-
-            Interacting = false;
-
-            NPCHandler.Add_(this);
         }
 
         /// <summary>

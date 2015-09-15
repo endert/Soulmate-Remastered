@@ -1,6 +1,7 @@
 ﻿using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
+using Soulmate_Remastered.Classes.HUDFolder;
 using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 {
     abstract class AbstractPet : Entity
     {
-        /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override String Type { get { return base.Type + ".Pet"; } }
+        public AbstractPet()
+        {
+            lifeBar = new LifeBarForOthers();
+        }
 
         /// <summary>
         /// saves the data of this instance as a String
@@ -23,12 +24,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         /// <returns></returns>
         public String ToStringForSave()
         {
-            String petForSave = "pt" + LineBreak.ToString();
+            string petForSave = GetType() + LineBreak.ToString();
 
             petForSave += CurrentHP + LineBreak.ToString();   //splitPetString[1]
             petForSave += Position.X + LineBreak.ToString(); //splitPetString[2]
             petForSave += Position.Y + LineBreak.ToString(); //splitPetString[3]
-            petForSave += Type.Split('.')[Type.Split('.').Length - 1] + LineBreak.ToString();  //splitPetString[4]
 
             return petForSave;
         }
@@ -227,7 +227,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             lifeBar.update(this);
 
             movement = GetVectorForMove();
-            move(movement);
+            Move(movement);
         }
     }
 }

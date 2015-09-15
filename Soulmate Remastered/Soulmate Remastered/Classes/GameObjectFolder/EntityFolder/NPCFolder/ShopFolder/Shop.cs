@@ -210,11 +210,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
 
             //sellable Items
             sellableItems = new List<ShopItem>();
-            foreach (Stack<AbstractItem> itemStack in ItemHandler.playerInventory.inventoryMatrix)
-            {
-                if (itemStack != null && itemStack.Count > 0)
-                    sellableItems.Add(new ShopItem(itemStack));
-            }
+            //foreach (Stack<AbstractItem> itemStack in ItemHandler.playerInventory.inventoryMatrix)
+            //{
+            //    if (itemStack != null && itemStack.Count > 0)
+            //        sellableItems.Add(new ShopItem(itemStack));
+            //}
             for (int i = 0; i < sellableItems.Count; i++)
             {
                 sellableItems[i].Position = new Vector2f(StartSellPosition.X, StartSellPosition.Y + i * 50);

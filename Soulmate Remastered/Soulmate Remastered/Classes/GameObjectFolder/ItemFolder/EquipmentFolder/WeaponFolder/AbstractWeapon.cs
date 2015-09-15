@@ -14,13 +14,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
     abstract class AbstractWeapon : Equipment
     {
         /// <summary>
-        /// type of this instance
-        /// </summary>
-        public override string Type { get { return base.Type + ".Weapon"; } }
-        /// <summary>
         /// the ID = 132x
         /// </summary>
         public override float ID { get { return base.ID * 10 + 2; } }
+        /// <summary>
+        /// determines the index of this item in the equipment slot
+        /// </summary>
+        public override EType EquipmentType { get { return EType.Weapon; } }
         /// <summary>
         /// discription of this weapon
         /// </summary>

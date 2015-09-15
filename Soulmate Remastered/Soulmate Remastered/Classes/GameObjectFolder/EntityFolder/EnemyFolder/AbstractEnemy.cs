@@ -1,6 +1,7 @@
 ﻿using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder;
+using Soulmate_Remastered.Classes.HUDFolder;
 using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
@@ -32,10 +33,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// the direction in wich the enemy moves
         /// </summary>
         protected MovingDirection.Direction randomMovingDirection;
-        /// <summary>
-        /// the type of this Instance
-        /// </summary>
-        public override String Type { get { return base.Type + ".Enemy"; } }
+
+        public AbstractEnemy() : base()
+        {
+            lifeBar = new LifeBarForOthers();
+        }
 
         /// <summary>
         /// bool if the player is in aggro range
@@ -79,54 +81,54 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             {
                 case MovingDirection.Direction.Back:
                     if (GameObjectHandler.lvlMap.getWalkable(HitBox, Vector2.BACK))
-                        move(Vector2.BACK);
+                        Move(Vector2.BACK);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.UpRight:
                     if (GameObjectHandler.lvlMap.getWalkable(HitBox, upRight))
-                        move(upRight);
+                        Move(upRight);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.Right:
                     if (GameObjectHandler.lvlMap.getWalkable(HitBox, Vector2.RIGHT))
-                        move(Vector2.RIGHT);
+                        Move(Vector2.RIGHT);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.DownRight:
                     if (GameObjectHandler.lvlMap.getWalkable(HitBox, downRight))
-                        move(downRight);
+                        Move(downRight);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.Front:
                     if (GameObjectHandler.lvlMap.getWalkable(HitBox, Vector2.FRONT))
-                        move(Vector2.FRONT);
+                        Move(Vector2.FRONT);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.DownLeft:
                     if (GameObjectHandler.lvlMap.getWalkable(HitBox, downLeft))
-                        move(downLeft);
+                        Move(downLeft);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.Left:
                     if (GameObjectHandler.lvlMap.getWalkable(HitBox, Vector2.LEFT))
-                        move(Vector2.LEFT);
+                        Move(Vector2.LEFT);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.UpLeft:
                     if (GameObjectHandler.lvlMap.getWalkable(HitBox, upLeft))
-                        move(upLeft);
+                        Move(upLeft);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 default:    //stand still
-                    move(Vector2.ZERO);
+                    Move(Vector2.ZERO);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
@@ -147,8 +149,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                 Drops[rand].CloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
             }
 
+            int goldAmount = random.Next(100);
+
             //drop gold
-            for (int i = 0; i < random.Next(100); i++)
+            for (int i = 0; i < goldAmount; i++)
             {
                 new Gold().CloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
             }

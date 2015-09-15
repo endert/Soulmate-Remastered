@@ -47,13 +47,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
                 return;
             }
 
-            //if loaded pet differs from the current one
-            if (!petString.Split(AbstractPet.LineBreak)[4].Equals(Pet.Type.Split('.')[Pet.Type.Split('.').Length-1]))
-            {
-                Deleate();
-                // ToDo: initialize new Pet
-                // pet = ...
-            }
+            //load the pet with a reflection ^^
+            Pet = (AbstractPet)Activator.CreateInstance(null, petString.Split(GameObject.LineBreak)[0]).Unwrap();
 
             Pet.Load(petString);
         }
@@ -73,7 +68,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         /// </summary>
         static public void Deleate()
         {
-            EntityHandler.DeleateType(Pet.Type);
+            EntityHandler.DeleateType(Pet.GetType());
             Pet = null;
         }
 

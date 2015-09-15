@@ -26,10 +26,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
         /// is this a solid object or not, it is not
         /// </summary>
         public override bool Walkable { get { return true; } }
-        /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override String Type { get { return base.Type + ".Projectile"; } }
         protected Entity owner;
 
         /// <summary>
@@ -64,7 +60,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
             if (sender == this)
             {
                 Entity hit = (Entity)args.CollidedWith;
-                if (!hit.Type.Equals(owner.Type))
+                if (!hit.GetType().Equals(owner.GetType()))
                 {
                     hit.TakeDmg(Att);
                     IsAlive = false;
@@ -81,7 +77,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
 
             if (ShouldDespawn())
             {
-                move(FacingDirection);
+                Move(FacingDirection);
                 Animate();
             }
             else

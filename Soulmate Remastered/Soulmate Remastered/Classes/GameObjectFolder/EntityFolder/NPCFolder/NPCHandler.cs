@@ -1,6 +1,7 @@
 ﻿using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,8 +33,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             NPCs = new List<AbstractNPC>();
             if (GameObjectHandler.lvl == 0)
             {
-                new PetStorageGuy(new Vector2f(300, 400));
-                new Shopkeeper(new Vector2f(600, 600));
+                new PetStorageGuy(new Vector2(300, 400));
+                new Shopkeeper(new Vector2(600, 600));
             }
         }
 
@@ -62,12 +63,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// deletes all Npc with the given type
         /// </summary>
         /// <param name="_type"></param>
-        public static void DeleateType(String _type)
+        public static void DeleateType(Type _type)
         {
             bool foundEntry = false;
             for (int i = 0; i < NPCs.Count; i++)
             {
-                if (NPCs[i].Type.Equals(_type))
+                if (NPCs[i].GetType().Equals(_type))
                 {
                     NPCs.RemoveAt(i);
                     foundEntry = true;

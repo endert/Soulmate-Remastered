@@ -15,20 +15,36 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
     /// <summary>
     /// base classs for all items
     /// </summary>
-    abstract class AbstractItem : GameObject, IComparable<AbstractItem>
+    abstract class AbstractItem : GameObject
     {
+        //Events*************************************************************************************
+
         /// <summary>
-        /// the type of this instance
+        /// the event that is triggered when this item is used
         /// </summary>
-        public override String Type { get { return base.Type + ".Item"; } }
+        public event EventHandler<UseEventArgs> UseEvent;
+
+        /// <summary>
+        /// triggers the use event
+        /// </summary>
+        /// <param name="index">the index in the inventory</param>
+        public void OnUse(int index)
+        {
+            EventHandler<UseEventArgs> handler = UseEvent;
+            if (handler != null)
+                handler(this, new UseEventArgs(index));
+        }
+
+        //Constants**********************************************************************************
+
+        /// <summary>
+        /// the max count of a stack of this
+        /// </summary>
+        public virtual int MaxStackCount { get { return 99; } }
         /// <summary>
         /// the ID = 1x
         /// </summary>
         public virtual float ID { get { return 1; } }
-        /// <summary>
-        /// bool if it is stackable or not, default true
-        /// </summary>
-        public virtual bool Stackable { get { return true; } }
         /// <summary>
         /// bool if it triggers a collision or not, items do not trigger collisions
         /// </summary>
@@ -42,6 +58,25 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         /// </summary>
         public virtual float SellPrize { get { return 0; } }
         /// <summary>
+        /// the distance this item can be picked up by the player, default = 50f
+        /// </summary>
+        public float PickUpRange { get { return 50f; } }
+        /// <summary>
+        /// the description of this item
+        /// </summary>
+        public virtual string ItemDiscription
+        {
+            get
+            {
+                string itemDiscription = "";
+
+                return itemDiscription;
+            }
+        }
+
+        //Properties*********************************************************************************
+
+        /// <summary>
         /// drop rate of this in percent
         /// </summary>
         public float DropRate { get; protected set; }
@@ -49,15 +84,18 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         /// bool if this item is at the moment on the map or is hold by an entity
         /// </summary>
         public bool OnMap { get; set; }
-        /// <summary>
-        /// the distance this item can be picked up by the player, default = 50f
-        /// </summary>
-        public float PickUpRange { get { return 50f; } }
+
+
+        //Attributes*********************************************************************************
 
         /// <summary>
         /// bool if it was once on the map
         /// </summary>
         protected bool wasOnMap = false;
+        /// <summary>
+        /// bool if this was in the player Inventory
+        /// </summary>
+        bool wasInPlayerInventory = false;
         /// <summary>
         /// stopwatch for the decaying of this
         /// </summary>
@@ -66,21 +104,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         /// the time in millisec this can lay on the map before it decays, default = 60 sec
         /// </summary>
         protected int decayingIn = 60000;
-        /// <summary>
-        /// position in the inventory matrix
-        /// </summary>
-        protected Vector2 InventoryMatrixPosition { get; set; }
-        /// <summary>
-        /// the description of this item
-        /// </summary>
-        public virtual string ItemDiscription 
-        { 
-            get 
-            {
-                string itemDiscription = "";
 
-                return itemDiscription;
-            } 
+
+        //Methodes***********************************************************************************
+
+        /// <summary>
+        /// Abstract constructors are allways called
+        /// </summary>
+        public AbstractItem()
+        {
+            UseEvent += Use;
+            OnMap = false;
+            DropRate = 0;
+            IsVisible = false;
         }
 
         /// <summary>
@@ -89,13 +125,24 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         /// <returns></returns>
         public virtual string ToStringForSave()
         {
-            string itemForSave = "it" + LineBreak.ToString();
+            string itemForSave = "";
 
-            itemForSave += Type.Split('.')[Type.Split('.').Length-1] + LineBreak.ToString();
+            itemForSave += GetType().FullName + LineBreak.ToString();
             itemForSave += Position.X + LineBreak.ToString();
             itemForSave += Position.Y + LineBreak.ToString();
 
             return itemForSave;
+        }
+
+        /// <summary>
+        /// Load this from a string
+        /// </summary>
+        /// <param name="loadFrom"></param>
+        public virtual void Load(string loadFrom)
+        {
+            string[] array = loadFrom.Split(LineBreak);
+
+            Position = new Vector2(Convert.ToSingle(array[1]), Convert.ToSingle(array[2]));
         }
 
         /// <summary>
@@ -105,73 +152,33 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         public abstract AbstractItem Clone();
 
         /// <summary>
-        /// sets the item position according to the matrix position
+        /// 
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        public void SetPosition(int x, int y)
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        protected virtual void Use(object sender, UseEventArgs eventArgs)
         {
-            Position = new Vector2(x * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X,
-                y * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.Y);
+            IsAlive = false;
         }
 
         /// <summary>
-        /// set the matrix position
+        /// Update the attributes when it is picked up
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        public void SetMatrixPosition(int i, int j)
+        public void OnPickUp()
         {
-            InventoryMatrixPosition = new Vector2(j, i);
+            IsVisible = false;
+            OnMap = false;
+            wasInPlayerInventory = true;
+            ItemHandler.playerInventory.Open_CloseInventory += SetVisible;
         }
 
         /// <summary>
-        /// method triggered by the pick up event
+        /// methode that sets the visibility when the inventory is Opened/ Closed
         /// </summary>
-        public virtual void PickUp()
+        void SetVisible(object sender, EventArgs e)
         {
-            if (Type.Equals("Object.Item.Gold"))
-            {
-                PlayerHandler.Player.Gold += 1;
-                return;
-            }
-            for (int i = 0; i < ItemHandler.playerInventory.inventoryMatrix.GetLength(0); i++) //row -> x-coordinate
-            {
-                for (int j = 0; j < ItemHandler.playerInventory.inventoryMatrix.GetLength(1); j++) //collum -> y-coordinate
-                {
-                    if (ItemHandler.playerInventory.inventoryMatrix[i,j] == null)
-                    {
-                        ItemHandler.playerInventory.inventoryMatrix[i, j] = new Stack<AbstractItem>();
-                        ItemHandler.playerInventory.inventoryMatrix[i, j].Push(this);
-                        Position = new Vector2f((j * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X),
-                                                (i * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.Y));
-                        OnMap = false;
-                        GameObjectHandler.removeAt(IndexObjectList);
-                        return;
-
-                    }
-                    if (ItemHandler.playerInventory.inventoryMatrix[i, j].Count < Inventory.MaxStackCount &&
-                       (ItemHandler.playerInventory.inventoryMatrix[i,j].Count == 0 || ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() == null || ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().CompareTo(this) == 0))
-                    {
-                        if (ItemHandler.playerInventory.inventoryMatrix[i,j].Count != 0 && ItemHandler.playerInventory.inventoryMatrix[i, j].Peek() != null)
-                        {
-                            ItemHandler.playerInventory.inventoryMatrix[i, j].Peek().SetVisible(false);
-                        }
-                        ItemHandler.playerInventory.inventoryMatrix[i, j].Push(this);
-                        Position = new Vector2((j * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.X),
-                            (i * ItemHandler.playerInventory.FIELDSIZE + 1 + ItemHandler.playerInventory.inventoryMatrixPosition.Y));
-                        OnMap = false;
-                        GameObjectHandler.removeAt(IndexObjectList);
-                        return;
-                    }
-                }
-            }
+            IsVisible = PlayerInventory.IsOpen;
         }
-
-        /// <summary>
-        /// use this item
-        /// </summary>
-        public virtual void Use() { } 
 
         /// <summary>
         /// drop this item
@@ -179,18 +186,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         /// <param name="dropPosition"></param>
         public void Drop(Vector2 dropPosition)
         {
+            if (wasInPlayerInventory)
+            {
+                ItemHandler.playerInventory.Open_CloseInventory -= SetVisible;
+            }
+
             Position = dropPosition;
             Sprite.Position = Position;
             OnMap = true;
-        }
-
-        /// <summary>
-        /// set visibility
-        /// </summary>
-        /// <param name="_visible"></param>
-        public void SetVisible(bool _visible)
-        {
-            IsVisible = _visible;
         }
 
         /// <summary>
@@ -227,23 +230,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             if (!OnMap)
             {
                 IsVisible = false;
-            }
-        }
-
-        /// <summary>
-        /// compares this item with another item
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public int CompareTo(AbstractItem other)
-        {
-            if (Stackable)
-            {
-                return (int)(ID - other.ID);
-            }
-            else
-            {
-                return -1;
             }
         }
     }

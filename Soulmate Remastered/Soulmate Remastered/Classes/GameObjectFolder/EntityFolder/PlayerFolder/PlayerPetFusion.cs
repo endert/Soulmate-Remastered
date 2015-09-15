@@ -31,12 +31,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         /// bool if the fusion is animated at the moment
         /// </summary>
         bool animatingFusion;
-        
-        /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override String Type { get { return base.Type + ".PlayerPetFusion"; } } 
-        
+
+        protected override void LoadTextures()
+        {
+            TextureSetting(PetHandler.Pet);
+        }
+
         /// <summary>
         /// "fuse" the pet and the player
         /// </summary>
@@ -44,7 +44,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         /// <param name="pet"></param>
         public PlayerPetFusion(AbstractPlayer player, AbstractPet pet)
         {
-            TextureSetting(pet);
 
             transforming = true;
             vulnerable = false;
@@ -60,8 +59,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
 
             PlayerHandler.Player = this;
-            EntityHandler.DeleateType(player.Type);
-            EntityHandler.DeleateType(pet.Type);
+            EntityHandler.DeleateType(player.GetType());
+            EntityHandler.DeleateType(pet.GetType());
             EntityHandler.Add(this);
 
             StatsUpdate();
@@ -74,7 +73,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         /// <param name="pet"></param>
         public void TextureSetting(AbstractPet pet)
         {
-            if (pet.Type.Split('.')[3].Equals("PetWolf"))
+            if (pet.GetType().IsSubclassOf(typeof(PetWolf)))
             {
                 TextureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfFront.png"));
                 TextureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfBack.png"));
@@ -124,7 +123,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 PetHandler.Pet = fusionedPet;
                 EntityHandler.Add(fusionedPlayer);
                 EntityHandler.Add(fusionedPet);
-                EntityHandler.DeleateType(Type);
+                EntityHandler.DeleateType(GetType());
             }
         }
 

@@ -10,6 +10,7 @@ using Soulmate_Remastered.Classes;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameStatesFolder;
 using Soulmate_Remastered.Classes.CheatConsoleFolder;
+using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes
 {
@@ -26,6 +27,7 @@ namespace Soulmate_Remastered.Classes
 
             gameTime = new GameTime();
             cheatConsole = new CheatConsoleThreadStart();
+            MouseControler.Initialize();
         }
 
         public void run()

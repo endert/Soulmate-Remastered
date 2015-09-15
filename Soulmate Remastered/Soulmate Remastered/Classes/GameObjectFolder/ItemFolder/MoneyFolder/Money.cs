@@ -14,10 +14,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
     abstract class Currency : AbstractItem
     {
         /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override String Type { get { return base.Type + ".Currency"; } }
-        /// <summary>
         /// the ID 10x
         /// </summary>
         public override float ID
@@ -26,16 +22,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder
             {
                 return base.ID* 10 + 0;
             }
-        }
-
-        /// <summary>
-        /// method for picking this up, should only be called on the pick up event (to do)
-        /// </summary>
-        public override void PickUp()
-        {
-            OnMap = false;
-            GameObjectHandler.removeAt(IndexObjectList);
-            PlayerHandler.Player.Gold += 1;
         }
     }
 }

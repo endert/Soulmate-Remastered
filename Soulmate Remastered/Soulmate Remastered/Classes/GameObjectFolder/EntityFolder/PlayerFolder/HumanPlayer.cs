@@ -15,10 +15,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
     /// </summary>
     class HumanPlayer : AbstractPlayer
     {
-        /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override String Type { get { return base.Type + ".HumanPlayer"; } }
+
+        protected override void LoadTextures()
+        {
+            TextureList.Add(new Texture("Pictures/Entities/Player/PlayerFront.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Player/PlayerBack.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Player/PlayerRightSword.png"));
+            TextureList.Add(new Texture("Pictures/Entities/Player/PlayerLeftSword.png"));
+        }
 
         /// <summary>
         /// creates new human player at the given spawn position
@@ -29,17 +33,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             //initialize game object data***************************************************************************
             
-            TextureList.Add(new Texture("Pictures/Entities/Player/PlayerFront.png"));
-            TextureList.Add(new Texture("Pictures/Entities/Player/PlayerBack.png"));
-            TextureList.Add(new Texture("Pictures/Entities/Player/PlayerRightSword.png"));
-            TextureList.Add(new Texture("Pictures/Entities/Player/PlayerLeftSword.png"));
-            
-            Sprite = new Sprite(TextureList[0]);
             Sprite.Position = spawnPosition;
             Position = spawnPosition;
-            HitBox = new HitBox(Sprite.Position, TextureList[0].Size.X, TextureList[0].Size.Y);
-            IsAlive = true;
-            IsVisible = true;
 
             //******************************************************************************************************
             

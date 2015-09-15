@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
     class Sword : AbstractWeapon
     {
         /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override string Type { get { return base.Type + ".Sword"; } }
-        /// <summary>
         /// the ID = 1320
         /// </summary>
         public override float ID { get { return base.ID*10 + 0; } }
-        
+
+        protected override void LoadTextures()
+        {
+            TextureList.Add(new Texture("Pictures/Items/Equipment/Player/Weapon/Sword.png"));
+        }
+
         /// <summary>
         /// initialize a sword
         /// </summary>
@@ -31,18 +33,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
         /// <param name="name">a costum name (optional); default = ""</param>
         public Sword(float _attBonus, float _defBonus, float _hpBonus, string name = "")
         {
-            TextureList.Add(new Texture("Pictures/Items/Equipment/Player/Weapon/Sword.png"));
-            Sprite = new Sprite(TextureList[0]);
-            IsVisible = false;
-            Position = new Vector2f();
-            HitBox = new HitBox(Position, TextureList[0].Size.X, TextureList[0].Size.Y);
+            Position = new Vector2();
             DropRate = 30 * (100 / (_attBonus + _defBonus + _hpBonus));
             AttBonus = _attBonus;
             DefBonus = _defBonus;
             HpBonus = _hpBonus;
             CustomName = name;
 
-            //EquipmentHandler.Add(this);
+            EquipmentHandler.Add(this);
         }
 
         /// <summary>

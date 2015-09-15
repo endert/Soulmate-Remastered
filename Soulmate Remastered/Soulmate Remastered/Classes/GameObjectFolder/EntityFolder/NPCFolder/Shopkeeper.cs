@@ -18,10 +18,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
     class Shopkeeper : AbstractNPC
     {
         /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override string Type { get { return base.Type + ".Shopkeeper"; } }
-        /// <summary>
         /// path to the dialoge File
         /// </summary>
         protected override string DialogePath { get { return base.DialogePath; } }
@@ -34,6 +30,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// </summary>
         List<Stack<AbstractItem>> itemsForSell;
 
+        protected override void LoadTextures()
+        {
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyFrontTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyBackTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyRightTest.png"));
+            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyLeftTest.png"));
+        }
+
         /// <summary>
         /// create a new instance of this class
         /// </summary>
@@ -42,18 +46,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         {
             //Insitialize Game Object data**************************************************************************
 
-            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyFrontTest.png"));
-            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyBackTest.png"));
-            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyRightTest.png"));
-            TextureList.Add(new Texture("Pictures/Entities/NPC/PetStorageGuy/PetStorageGuyLeftTest.png"));
-
-            IsAlive = true;
-            IsVisible = true;
-            Sprite = new Sprite(TextureList[0]);
             itemsForSell = new List<Stack<AbstractItem>>();
             Position = _position;
             Sprite.Position = Position;
-            HitBox = new HitBox(Position, Sprite.Texture.Size.X, Sprite.Texture.Size.Y);
 
             //******************************************************************************************************
             //Insitialize Entity data*******************************************************************************
@@ -63,7 +58,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
             //******************************************************************************************************
             //Insitialize NPC data**********************************************************************************
 
-            Interacting = false;
             NPCHandler.Shop_ = shop;
             NPCHandler.Add_(this);
             AddItemForSell(new Sword(10, 10, 10), 10);

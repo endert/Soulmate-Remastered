@@ -16,10 +16,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
     abstract class AbstractNPC : Entity
     {
         /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override string Type { get { return base.Type + ".NPC"; } }
-        /// <summary>
         /// randius in wich the Player can interact with this NPC constant
         /// </summary>
         protected float InteractionRadius { get { return 50f; } }
@@ -53,6 +49,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// bool if the Player is in interaction range of this instance
         /// </summary>
         public bool InIteractionRange { get { return HitBox.DistanceTo(PlayerHandler.Player.HitBox) <= InteractionRadius; } }
+
+        public AbstractNPC() : base()
+        {
+            Interacting = false;
+            NPCHandler.Add_(this);
+        }
 
         /// <summary>
         /// load the Dialoge from the dialoge File
@@ -97,6 +99,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         public override void Update(GameTime gameTime)
         {
             Sprite.Position = Position;
+            HitBox.Position = Position;
             Animate();
         }
     }

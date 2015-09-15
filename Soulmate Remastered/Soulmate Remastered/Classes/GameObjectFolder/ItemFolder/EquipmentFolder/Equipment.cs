@@ -15,17 +15,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
     abstract class Equipment : AbstractItem
     {
         /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override String Type { get { return base.Type + ".Equipment"; } }
-        /// <summary>
         /// the ID = 13x
         /// </summary>
         public override float ID { get { return base.ID * 10 + 3; } }
-        /// <summary>
-        /// bool if this item can be stacked
-        /// </summary>
-        public override bool Stackable { get { return false; } }
         /// <summary>
         /// the amount of gold the player gets by selling this item
         /// </summary>
@@ -42,11 +34,29 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
         /// the hp bonus granted by this equipment
         /// </summary>
         public float HpBonus { get; protected set; }
+
+        public override int MaxStackCount { get { return 1; } }
+
         /// <summary>
-        /// bool if it is equiped or not
-        /// <para>default false</para>
+        /// enum for the types of equip
         /// </summary>
-        protected bool equiped = false;
+        public enum EType
+        {
+            None = -1,
+            Helmet,
+            Chest,
+            Weapon,
+            Arms,
+            Legs,
+            Shoe,
+
+            Count
+        }
+
+        /// <summary>
+        /// determines the index of this item in the equipment slot
+        /// </summary>
+        public virtual EType EquipmentType { get { return EType.None; } }
 
         /// <summary>
         /// creates a string out of the attributes of this instance
@@ -66,75 +76,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
         }
 
         /// <summary>
-        /// use this item -> equip equipment
+        /// 
         /// </summary>
-        public override void Use()
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        protected override void Use(object sender, UseEventArgs eventArgs)
         {
-            if (equiped)
-                unequip();
-            else
-                equip();
-        }
-
-        /// <summary>
-        /// equiped = true
-        /// </summary>
-        public void setEquiped()
-        {
-            equiped = true;
-        }
-
-        /// <summary>
-        /// equips this
-        /// </summary>
-        public void equip()
-        {
-            if (ItemHandler.playerInventory.equipment[(int)((ID) / 10) % 10] != null)
-            {
-                ItemHandler.playerInventory.equipment[(int)((ID) / 10) % 10].unequip();
-            }
-            ItemHandler.playerInventory.equipment[(int)((ID) / 10) % 10] = this;
-            ItemHandler.playerInventory.inventoryMatrix[(int)InventoryMatrixPosition.Y, (int)InventoryMatrixPosition.X] = null;
-            Position = Inventory.equipmentPosition[(int)((ID) / 10) % 10];
-            Sprite.Position = Position;
-            equiped = true;
-        }
-
-        /// <summary>
-        /// unequips this
-        /// </summary>
-        public void unequip()
-        {
-            if (!ItemHandler.playerInventory.isFullWith(this))
-            {
-                bool _break = false;
-                for (int i = 0; i < ItemHandler.playerInventory.inventoryMatrix.GetLength(0); i++)
-                {
-                    for (int j = 0; j < ItemHandler.playerInventory.inventoryMatrix.GetLength(1); j++)
-                    {
-                        if (ItemHandler.playerInventory.inventoryMatrix[i,j] == null)
-                        {
-                            ItemHandler.playerInventory.inventoryMatrix[i, j] = new Stack<AbstractItem>();
-                            ItemHandler.playerInventory.inventoryMatrix[i, j].Push(this);
-                            Position = new Vector2f(ItemHandler.playerInventory.inventoryMatrixPosition.X + j * ItemHandler.playerInventory.FIELDSIZE + 1,
-                                                    ItemHandler.playerInventory.inventoryMatrixPosition.Y + i * ItemHandler.playerInventory.FIELDSIZE + 1);
-
-                            _break = true;
-                            break;
-                        }
-                    }
-                    if (_break)
-                    {
-                        break;
-                    }
-                }
-                ItemHandler.playerInventory.equipment[(int)(ID) % 10] = null;
-                equiped = false;
-            }
-            else
-            {
-                Console.WriteLine("Fuck you!! Inventar voll!!");
-            }
+            PlayerInventory.OnEquip(sender, eventArgs);
         }
     }
 }

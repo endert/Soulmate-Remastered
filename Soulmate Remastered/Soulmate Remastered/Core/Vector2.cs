@@ -229,6 +229,15 @@ namespace Soulmate_Remastered.Core
             return new Vector2(v.X / f, v.Y / f);
         }
 
+        /// <summary>
+        /// modulo component wise also casts x and y to int
+        /// </summary>
+        /// <returns>the result as vector</returns>
+        public static Vector2 operator %(Vector2 v1, Vector2 v2)
+        {
+            return new Vector2((int)v1.X % (int)v2.X, (int)v1.Y % (int)v2.Y);
+        }
+
         //*********************************************************************
         //Methods**************************************************************
 

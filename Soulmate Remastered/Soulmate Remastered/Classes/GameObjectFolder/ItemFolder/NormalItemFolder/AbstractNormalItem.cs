@@ -12,17 +12,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFold
     abstract class AbstractNormalItem : AbstractItem
     {
         /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override string Type
-        {
-            get
-            {
-                return base.Type + ".NormalItem";
-            }
-        }
-
-        /// <summary>
         /// the ID = 11x
         /// </summary>
         public override float ID

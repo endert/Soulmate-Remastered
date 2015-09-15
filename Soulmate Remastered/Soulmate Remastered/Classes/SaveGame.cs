@@ -29,7 +29,7 @@ namespace Soulmate_Remastered.Classes
             else
                 writer.WriteLine(PetHandler.Pet.ToStringForSave());
             writer.WriteLine(GameObjectHandler.lvl);
-            writer.WriteLine(ItemHandler.playerInventory.toStringForSave());
+            writer.WriteLine(ItemHandler.playerInventory.ToStringForSave());
 
             writer.Flush();
             writer.Close();
@@ -41,6 +41,7 @@ namespace Soulmate_Remastered.Classes
             if (File.Exists(loadPath))
             {
                 StreamReader reader = new StreamReader(loadPath);
+
 
                 if (PlayerHandler.Player != null)
                 {
@@ -64,7 +65,7 @@ namespace Soulmate_Remastered.Classes
                 if (ItemHandler.playerInventory != null)
                 {
                     Console.WriteLine("loading: Inventar");
-                    ItemHandler.playerInventory.load(reader.ReadLine());
+                    ItemHandler.playerInventory.Load(reader.ReadLine());
                 }
                 else
                     reader.ReadLine();
@@ -82,7 +83,7 @@ namespace Soulmate_Remastered.Classes
             PlayerHandler.Player.LoadMapChange(reader.ReadLine());
             PetHandler.Load(reader.ReadLine());
             reader.ReadLine();
-            ItemHandler.playerInventory.load(reader.ReadLine());
+            ItemHandler.playerInventory.Load(reader.ReadLine());
 
             reader.Close();
         }

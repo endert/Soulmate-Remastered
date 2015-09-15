@@ -20,20 +20,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
     /// </summary>
     class EnemyBlott : AbstractEnemy
     {
-        /// <summary>
-        /// The type of this Instance
-        /// </summary>
-        public override String Type { get { return base.Type + ".EnemyBlott"; } }
-        
-        /// <summary>
-        /// creates a Blott at the given Position
-        /// </summary>
-        /// <param name="spawnPos">Vector2 spawn position</param>
-        public EnemyBlott(Vector2 spawnPos)
+        protected override void LoadTextures()
         {
-            //initialize the gameObject attributes******************************************************************
-
-            //initialize the TextureList
             TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottFront.png"));
             TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottBack.png"));
             TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Vulnerable/BlottRight.png"));
@@ -43,16 +31,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Invulnerable/BlottBackInvulnerable.png"));
             TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Invulnerable/BlottRightInvulnerable.png"));
             TextureList.Add(new Texture("Pictures/Entities/Enemy/Blott/Invulnerable/BlottLeftInvulnerable.png"));
+        }
 
-            IsVisible = true;
-            Sprite = new Sprite(TextureList[0]);
+        /// <summary>
+        /// creates a Blott at the given Position
+        /// </summary>
+        /// <param name="spawnPos">Vector2 spawn position</param>
+        public EnemyBlott(Vector2 spawnPos)
+        {
             Position = spawnPos;
             Sprite.Position = Position;
-            IsAlive = true;
-            HitBox = new HitBox(Sprite.Position, Sprite.Texture.Size.X, Sprite.Texture.Size.Y);
-
-            //******************************************************************************************************
-            //initialize Entity Attributes**************************************************************************
 
             MaxHP = 100;
             CurrentHP = MaxHP;
@@ -61,7 +49,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             aggroRange = 150f;
             KnockBack = 50f;
             BaseMovementSpeed = 0.2f;
-            lifeBar = new LifeBarForOthers();
 
             //initialize the AbstractItem array wich contains the drops
             Drops = new AbstractItem[] 
@@ -82,10 +69,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         protected override void React()
         {
             if (!TouchedPlayer())
-                move(GetPlayerDirection());
+                Move(GetPlayerDirection());
             else
             {
-                move(new Vector2f(-GetPlayerDirection().X, -GetPlayerDirection().Y));
+                Move(new Vector2f(-GetPlayerDirection().X, -GetPlayerDirection().Y));
                 FacingDirection = GetPlayerDirection();
             }
         }

@@ -15,11 +15,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
     /// </summary>
     abstract class AbstractTreasureChest : Entity
     {
-        /// <summary>
-        /// type of this instance
-        /// </summary>
-        public override string Type { get { return base.Type + ".TreasureChest"; } }
-
         protected bool isOpen = false;
         /// <summary>
         /// for random drop direction

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.ItemFolder
 {
-    class SortByID : Comparer<ItemStack>
+    class UseEventArgs : EventArgs
     {
-        public override int Compare(ItemStack x, ItemStack y)
-        {
-            return (int)x.Peek().ID - (int)y.Peek().ID;
-        }
+        public int Index;
+
+        public UseEventArgs(int i) { Index = i; }
     }
 }

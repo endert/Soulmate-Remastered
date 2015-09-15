@@ -12,21 +12,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFo
 {
     class ProjectileArrow : AbstractProjectile
     {
-        /// <summary>
-        /// the type of this instance
-        /// </summary>
-        public override String Type { get { return base.Type + ".Arrow"; } }
-        
+        protected override void LoadTextures()
+        {
+            TextureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowBottom.png"));
+            TextureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowTop.png"));
+            TextureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowRight.png"));
+            TextureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowLeft.png"));
+        }
+
         public ProjectileArrow(Entity _owner, float _movementSpeed = 0.8f, float _duration = 2f) : base()
         {
             FacingDirection = _owner.FacingDirection; //important for the game object initialization
 
             //initialize game object********************************************************************************
-
-            TextureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowBottom.png"));
-            TextureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowTop.png"));
-            TextureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowRight.png"));
-            TextureList.Add(new Texture("Pictures/Projectile/Arrow/ArrowLeft.png"));
 
             Sprite = new Sprite(TextureList[(int)Direction]);
             switch (Direction)

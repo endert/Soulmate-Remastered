@@ -10,6 +10,7 @@ using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.HUDFolder;
 using Soulmate_Remastered.Core;
+using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
 {
@@ -18,37 +19,31 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
     /// </summary>
     abstract class Entity : GameObject
     {
-        //Attributes******************************************************************************************************************
+        //Events*************************************************************************************
 
         /// <summary>
-        /// the type of this instance
+        /// risen if this object collides
         /// </summary>
-        public override String Type { get { return base.Type + ".Entity"; } }
+        public event EventHandler<CollisionArgs> EntityCollision;
         /// <summary>
-        /// the lifebar
+        /// rise the EntityCollision event
         /// </summary>
-        protected LifeBarForOthers lifeBar;
-        /// <summary>
-        /// <para>0 = animation</para>
-        /// <para>1 = vulnerable</para>
-        /// <para>2 = transformation</para>
-        /// </summary>
-        protected Stopwatch[] stopWatchList = { new Stopwatch(), new Stopwatch(), new Stopwatch() };
+        /// <param name="c"></param>
+        protected void OnEntityCollision(CollisionArgs c)
+        {
+            EventHandler<CollisionArgs> handler = EntityCollision;
+            if (handler != null)
+            {
+                handler(this, c);
+            }
+        }
 
-        protected bool tookDmg;
-        /// <summary>
-        /// bool for checking if vulnerable or not
-        /// </summary>
-        protected bool vulnerable = true;
+        //Constants**********************************************************************************
 
-        /// <summary>
-        /// in milliseconds
-        /// </summary>
-        protected int inVulnerableFor = 500;
-        
-        //****************************************************************************************************************************
 
-        //Properties******************************************************************************************************************
+
+        //Properties*********************************************************************************
+
 
         /// <summary>
         /// bool if this entity is vulnerable or not
@@ -130,7 +125,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         /// </summary>
         public Vector2 movement { get; protected set; }
 
-        //****************************************************************************************************************************
         public EDirection Direction
         {
             get
@@ -148,22 +142,29 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             }
         }
 
+        //Attributes*********************************************************************************
+
         /// <summary>
-        /// risen if this object collides
+        /// the lifebar
         /// </summary>
-        public event EventHandler<CollisionArgs> EntityCollision;
+        protected LifeBarForOthers lifeBar;
         /// <summary>
-        /// rise the EntityCollision event
+        /// <para>0 = animation</para>
+        /// <para>1 = vulnerable</para>
+        /// <para>2 = transformation</para>
         /// </summary>
-        /// <param name="c"></param>
-        protected void OnEntityCollision(CollisionArgs c)
-        {
-            EventHandler<CollisionArgs> handler = EntityCollision;
-            if (handler != null)
-            {
-                handler(this, c);
-            }
-        }
+        protected Stopwatch[] stopWatchList = { new Stopwatch(), new Stopwatch(), new Stopwatch() };
+
+        protected bool tookDmg;
+        /// <summary>
+        /// bool for checking if vulnerable or not
+        /// </summary>
+        protected bool vulnerable = true;
+
+        /// <summary>
+        /// in milliseconds
+        /// </summary>
+        protected int inVulnerableFor = 500;
 
         public enum EDirection
         {
@@ -180,11 +181,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             Zero
         }
 
+        //Methodes***********************************************************************************
+
         /// <summary>
         /// moves this in the given direction if possible
         /// </summary>
         /// <param name="direction"></param>
-        public void move(Vector2 direction)
+        public void Move(Vector2 direction)
         {
             if (!direction.Equals(Vector2.ZERO))
             {
@@ -230,7 +233,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         /// <returns></returns>
         private bool HitAnotherEnityHelp(int index)
         {
-            if (Type.Split('.')[2].Equals("Pet") || Type.Split('.')[2].Equals("Player"))
+            if (GetType().IsSubclassOf(typeof(AbstractPet)) || GetType().IsSubclassOf(typeof(AbstractPlayer)))
                 return !PetPlayerCollision(index);
             else
                 return !GameObjectHandler.gameObjectList[index].Walkable;
@@ -242,10 +245,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         /// <returns></returns>
         public bool PetPlayerCollision(int index)
         {
-            if (Type.Split('.')[2].Equals("Pet") && GameObjectHandler.gameObjectList[index].Type.Split('.')[2].Equals("Player"))
+            if (GetType().IsSubclassOf(typeof(AbstractPet)) && GameObjectHandler.gameObjectList[index].GetType().IsSubclassOf(typeof(AbstractPlayer)))
                 return true;
 
-            if (Type.Split('.')[2].Equals("Player") && GameObjectHandler.gameObjectList[index].Type.Split('.')[2].Equals("Pet"))
+            if (GetType().IsSubclassOf(typeof(AbstractPlayer)) && GameObjectHandler.gameObjectList[index].GetType().IsSubclassOf(typeof(AbstractPet)))
                 return true;
 
             return false;
