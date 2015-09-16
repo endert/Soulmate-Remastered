@@ -18,11 +18,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// <summary>
         /// load the content of the level
         /// </summary>
-        public override void loadContent()
+        public override void LoadContent()
         {
             map = new Map(new Bitmap("Pictures/Map/Bitmap/Village.bmp"));
             GameObjectHandler.lvl = 0;
-            base.loadContent();
+            base.LoadContent();
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// </summary>
         /// <param name="gameTime">time of the game</param>
         /// <returns>enumGameStates</returns>
-        public override EnumGameStates update(GameTime gameTime)
+        public override EnumGameStates Update(GameTime gameTime)
         {
             GameUpdate(gameTime);
 
@@ -38,14 +38,14 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             {
                 case 1:
                     Console.WriteLine("change to mainMenu");
-                    return EnumGameStates.mainMenu;
+                    return EnumGameStates.MainMenu;
 
                 case 2:
                     Console.WriteLine("change to instance");
-                    return EnumGameStates.inGame;
+                    return EnumGameStates.InGame;
 
                 default:
-                    return EnumGameStates.village;
+                    return EnumGameStates.Village;
             }          
         }
     }

@@ -14,37 +14,34 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         Texture controlsTexture;
         Sprite controls;
 
-        public override void initialize()
+        public override void Initialize()
         {
-            base.initialize();
+            base.Initialize();
 
             controls = new Sprite(controlsTexture);
             controls.Position = new Vector2(0, 0);
         }
 
-        public override void loadContent()
+        public override void LoadContent()
         {
-            base.loadContent();
+            base.LoadContent();
 
             controlsTexture = new Texture("Pictures/Menu/MainMenu/Controls/ControlsMenu.png");
         }
 
-        public override EnumGameStates update(GameTime gameTime)
+        public override EnumGameStates Update(GameTime gameTime)
         {
-            gameUpdate(gameTime);
+            GameUpdate(gameTime);
 
-            if (backValueSelected == 1)
-                return EnumGameStates.mainMenu;
-
-            return EnumGameStates.controls;
+            return ReturnState;
         }
 
-        public override void draw(RenderWindow window)
+        public override void Draw(RenderWindow window)
         {
-            base.draw(window);
+            base.Draw(window);
 
             window.Draw(controls);
-            window.Draw(back);
+            window.Draw(Back);
         }
     }
 }

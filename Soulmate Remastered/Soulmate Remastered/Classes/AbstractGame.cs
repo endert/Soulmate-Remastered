@@ -16,7 +16,13 @@ namespace Soulmate_Remastered.Classes
 {
     abstract class AbstractGame
     {
+        /// <summary>
+        /// the cheat console thread
+        /// </summary>
         static CheatConsoleThreadStart cheatConsole;
+        /// <summary>
+        /// the 
+        /// </summary>
         public static RenderWindow window;
         public static GameTime gameTime;
 
@@ -39,18 +45,18 @@ namespace Soulmate_Remastered.Classes
                 window.Clear(new Color(101, 156, 239)); //CornFlowerBlue
                 window.DispatchEvents();
                 gameTime.Update();
-                update(gameTime);
+                Update(gameTime);
                 cheatConsole.Update();
-                draw(window);
+                Draw(window);
                 window.Display();
             }
 
             cheatConsole.Delete();
         }
 
-        public abstract void draw(RenderWindow window);
+        public abstract void Draw(RenderWindow window);
 
-        public abstract void update(GameTime gameTime);
+        public abstract void Update(GameTime gameTime);
 
         private void window_Close(Object sender, EventArgs e)
         {

@@ -57,7 +57,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// <summary>
         /// initialize time and view
         /// </summary>
-        public void initialize()
+        public void Initialize()
         {
             VIEW = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
             viewHelp = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
@@ -65,7 +65,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// <summary>
         /// load content of the game
         /// </summary>
-        public virtual void loadContent()
+        public virtual void LoadContent()
         {
             dialoges = new DialogeHandler();
             inGameMenu = new InGameMenu();
@@ -88,7 +88,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                     Console.WriteLine("Loading failed ;(");
                     Console.WriteLine(e);
                     loading = false;
-                    loadContent();
+                    LoadContent();
                 }
             }
 
@@ -109,7 +109,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// </summary>
         /// <param name="gameTime">time of the game</param>
         /// <returns>returns current state of game</returns>
-        public abstract EnumGameStates update(GameTime gameTime);
+        public abstract EnumGameStates Update(GameTime gameTime);
         
         /// <summary>
         /// calculate the view vector
@@ -149,9 +149,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             }
 
             //no update needed if game was closed
-
-            //Update the MouseControler
-            MouseControler.Update();
 
             ItemHandler.playerInventory.Update(gameTime);
             inGameMenu.update(gameTime);
@@ -212,7 +209,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// draw everything in the game what is needed
         /// </summary>
         /// <param name="window">window where it should be drawed</param>
-        public void draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             window.SetView(VIEW);
             map.draw(window);

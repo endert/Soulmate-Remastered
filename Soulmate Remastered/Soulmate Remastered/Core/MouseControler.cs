@@ -22,6 +22,10 @@ namespace Soulmate_Remastered.Core
         /// </summary>
         public static event EventHandler<MouseButtonEventArgs> ButtonPressed;
 
+        /// <summary>
+        /// triggers the relize event
+        /// </summary>
+        /// <param name="b"></param>
         static void OnRealize(MouseButtonEvent b)
         {
             EventHandler<MouseButtonEventArgs> handler = Relize;
@@ -29,6 +33,10 @@ namespace Soulmate_Remastered.Core
                 handler(null, new MouseButtonEventArgs(b));
         }
 
+        /// <summary>
+        /// triggers the button press event
+        /// </summary>
+        /// <param name="e"></param>
         static void OnButtonPress(MouseButtonEvent e)
         {
             EventHandler <MouseButtonEventArgs> handler = ButtonPressed;
@@ -39,6 +47,15 @@ namespace Soulmate_Remastered.Core
         static bool[] isPressed;
         static bool[] wasPressed;
 
+        /// <summary>
+        /// returns if the given sprite is pressed with the given Button
+        /// </summary>
+        /// <param name="sprite">the sprite that shall be pressed</param>
+        /// <param name="b">the button that shall be checked</param>
+        public static bool IsPressed(Sprite sprite, Mouse.Button b)
+        {
+            return MouseIn(sprite) && isPressed[(int)b];
+        }
 
         public static bool IsPressed(Mouse.Button b)
         {

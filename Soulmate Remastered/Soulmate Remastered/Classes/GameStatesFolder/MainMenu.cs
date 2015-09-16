@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class MainMenu : AbstractMainMenu
     {
+        int CountSprites = Eselected.MainMenuCount - Eselected.MainMenuOffset - 1;
+
         Texture startSelected;
         Texture startNotSelected;
                         
@@ -25,45 +28,37 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         Texture endSelected;
         Texture endNotSelected;
 
-        Sprite start;
-        Sprite optionsButton;
-        Sprite controls;
-        Sprite credits;
-        Sprite end;
-
-        /// <summary>
-        /// <para>value to define which sprite is selected</para>
-        /// <para>0=>sart-sprite</para>
-        /// <para>1=options-sprite></para>
-        /// <para>2=controls-sprite></para>
-        /// <para>3=credits-sprite></para>
-        /// <para>4=end-sprite></para>
-        /// </summary>
-        int spriteNumber;
+        Sprite StartSprite;
+        Sprite OptionsButton;
+        Sprite Controls;
+        Sprite Credits;
+        Sprite End;
        
-        public override void initialize()
+        public override void Initialize()
         {
-            base.initialize();
+            base.Initialize();
 
-            start = new Sprite(startNotSelected);
-            start.Position = new Vector2f(300, 300);
+            StartSprite = new Sprite(startNotSelected);
+            StartSprite.Position = new Vector2f(300, 300);
 
-            optionsButton = new Sprite(optionsNotSelected);
-            optionsButton.Position = new Vector2f(start.Position.X, start.Position.Y + 75 * 1);
+            OptionsButton = new Sprite(optionsNotSelected);
+            OptionsButton.Position = new Vector2f(StartSprite.Position.X, StartSprite.Position.Y + 75 * 1);
 
-            controls = new Sprite(controlsNotSelected);
-            controls.Position = new Vector2f(start.Position.X, start.Position.Y + 75 * 2);
+            Controls = new Sprite(controlsNotSelected);
+            Controls.Position = new Vector2f(StartSprite.Position.X, StartSprite.Position.Y + 75 * 2);
 
-            credits = new Sprite(creditsNotSelected);
-            credits.Position = new Vector2f(start.Position.X, start.Position.Y + 75 * 3);
+            Credits = new Sprite(creditsNotSelected);
+            Credits.Position = new Vector2f(StartSprite.Position.X, StartSprite.Position.Y + 75 * 3);
 
-            end = new Sprite(endNotSelected);
-            end.Position = new Vector2f(start.Position.X, start.Position.Y + 75 * 4);
+            End = new Sprite(endNotSelected);
+            End.Position = new Vector2f(StartSprite.Position.X, StartSprite.Position.Y + 75 * 4);
+
+            selectedSprite = Eselected.StartSprite;
         }
 
-        public override void loadContent()
+        public override void LoadContent()
         {
-            base.loadContent();
+            base.LoadContent();
 
             startSelected = new Texture("Pictures/Menu/MainMenu/Start/StartSelected.png");
             startNotSelected = new Texture("Pictures/Menu/MainMenu/Start/StartNotSelected.png");
@@ -81,132 +76,123 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             endNotSelected = new Texture("Pictures/Menu/MainMenu/End/EndNotSelected.png");   
         }
 
-        public override EnumGameStates update(GameTime gameTime)
+        public override EnumGameStates Update(GameTime gameTime)
         {
-            gameUpdate(gameTime);
+            GameUpdate(gameTime);
 
-            if (NavigationHelp.isMouseInSprite(start))
-            {
-                spriteNumber = 0;
-            }
-            if (NavigationHelp.isMouseInSprite(optionsButton))
-            {
-                spriteNumber = 1;
-            }
-            if (NavigationHelp.isMouseInSprite(controls))
-            {
-                spriteNumber = 2;
-            }
-            if (NavigationHelp.isMouseInSprite(credits))
-            {
-                spriteNumber = 3;
-            }
-            if (NavigationHelp.isMouseInSprite(end))
-            {
-                spriteNumber = 4;
-            }
+            if (MouseControler.MouseIn(StartSprite))
+                selectedSprite = Eselected.StartSprite;
 
-            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
+            if (MouseControler.MouseIn(OptionsButton))
+                selectedSprite = Eselected.OptionsButton;
+
+            if (MouseControler.MouseIn(Controls))
+                selectedSprite = Eselected.Controls;
+
+            if (MouseControler.MouseIn(Credits))
+                selectedSprite = Eselected.Credits;
+
+            if (MouseControler.MouseIn(End))
+                selectedSprite = Eselected.End;
+
+            if (Keyboard.IsKeyPressed(Classes.Controls.Up) && !Game.isPressed)
             {
-                spriteNumber = (spriteNumber + 4) % 5;
+                selectedSprite = (Eselected)((((int)(selectedSprite - Eselected.MainMenuOffset - 1) + CountSprites - 1) % CountSprites) + Eselected.MainMenuOffset + 1);
                 Game.isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Classes.Controls.Down) && !Game.isPressed)
             {
-                spriteNumber = (spriteNumber + 1) % 5;
+                selectedSprite = (Eselected)((((int)(selectedSprite - Eselected.MainMenuOffset - 1) + 1) % CountSprites) + (Eselected.MainMenuOffset + 1));
                 Game.isPressed = true;
             }
 
-            if (spriteNumber == 0)
+            if (selectedSprite == Eselected.StartSprite)
             {
-                start.Texture = startSelected;
-                optionsButton.Texture = optionsNotSelected;
-                controls.Texture = controlsNotSelected;
-                credits.Texture = creditsNotSelected;
-                end.Texture = endNotSelected;
+                StartSprite.Texture = startSelected;
+                OptionsButton.Texture = optionsNotSelected;
+                Controls.Texture = controlsNotSelected;
+                Credits.Texture = creditsNotSelected;
+                End.Texture = endNotSelected;
             }
 
-            if (spriteNumber == 1)
+            if (selectedSprite == Eselected.OptionsButton)
             {
-                start.Texture = startNotSelected;
-                optionsButton.Texture = optionsSelected;
-                controls.Texture = controlsNotSelected;
-                credits.Texture = creditsNotSelected;
-                end.Texture = endNotSelected;
+                StartSprite.Texture = startNotSelected;
+                OptionsButton.Texture = optionsSelected;
+                Controls.Texture = controlsNotSelected;
+                Credits.Texture = creditsNotSelected;
+                End.Texture = endNotSelected;
             }
 
-            if (spriteNumber == 2)
+            if (selectedSprite == Eselected.Controls)
             {
-                start.Texture = startNotSelected;
-                optionsButton.Texture = optionsNotSelected;
-                controls.Texture = controlsSelected;
-                credits.Texture = creditsNotSelected;
-                end.Texture = endNotSelected;
+                StartSprite.Texture = startNotSelected;
+                OptionsButton.Texture = optionsNotSelected;
+                Controls.Texture = controlsSelected;
+                Credits.Texture = creditsNotSelected;
+                End.Texture = endNotSelected;
             }
 
-            if (spriteNumber == 3)
+            if (selectedSprite == Eselected.Credits)
             {
-                start.Texture = startNotSelected;
-                optionsButton.Texture = optionsNotSelected;
-                controls.Texture = controlsNotSelected;
-                credits.Texture = creditsSelected;
-                end.Texture = endNotSelected;
+                StartSprite.Texture = startNotSelected;
+                OptionsButton.Texture = optionsNotSelected;
+                Controls.Texture = controlsNotSelected;
+                Credits.Texture = creditsSelected;
+                End.Texture = endNotSelected;
             }
 
-            if (spriteNumber == 4)
+            if (selectedSprite == Eselected.End)
             {
-                start.Texture = startNotSelected;
-                optionsButton.Texture = optionsNotSelected;
-                controls.Texture = controlsNotSelected;
-                credits.Texture = creditsNotSelected;
-                end.Texture = endSelected;
+                StartSprite.Texture = startNotSelected;
+                OptionsButton.Texture = optionsNotSelected;
+                Controls.Texture = controlsNotSelected;
+                Credits.Texture = creditsNotSelected;
+                End.Texture = endSelected;
             }
 
-            if (NavigationHelp.isSpriteKlicked(spriteNumber, 0, start, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 0, StartSprite, Classes.Controls.Return))
             {
                 Game.isPressed = true;
-                return EnumGameStates.loadGame;
+                ReturnState = EnumGameStates.LoadGame;
             }
-            if (NavigationHelp.isSpriteKlicked(spriteNumber, 1, optionsButton, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 1, OptionsButton, Classes.Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("load Options");
-                return EnumGameStates.options;
+                ReturnState = EnumGameStates.Options;
             }
-            if (NavigationHelp.isSpriteKlicked(spriteNumber, 2, controls, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 2, Controls, Classes.Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("load Controls");
-                return EnumGameStates.controls;
+                ReturnState = EnumGameStates.ControlsSetting;
             }
-            if (NavigationHelp.isSpriteKlicked(spriteNumber, 3, credits, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 3, Credits, Classes.Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("load Credits");
-                return EnumGameStates.credits;
+                ReturnState = EnumGameStates.Credits;
             }
-            if (NavigationHelp.isSpriteKlicked(spriteNumber, 4, end, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 4, End, Classes.Controls.Return))
             {
                 Game.isPressed = true;
-                return EnumGameStates.none;
+                ReturnState = EnumGameStates.None;
             }
 
-            if (backValueSelected == 1)
-                return EnumGameStates.titleSreen;
-
-            return EnumGameStates.mainMenu;
+            return ReturnState;
         }
 
-        public override void draw(RenderWindow window)
+        public override void Draw(RenderWindow window)
         {
-            base.draw(window);
+            base.Draw(window);
 
-            window.Draw(start);
-            window.Draw(optionsButton);
-            window.Draw(controls);
-            window.Draw(credits);
-            window.Draw(end);
+            window.Draw(StartSprite);
+            window.Draw(OptionsButton);
+            window.Draw(Controls);
+            window.Draw(Credits);
+            window.Draw(End);
         }
     }
 }

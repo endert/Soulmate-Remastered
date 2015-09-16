@@ -6,70 +6,59 @@ using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.Window;
 using System.Diagnostics;
+using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class TitleScreen : GameState
     {
-        Stopwatch animationTime;
-
         Texture titleScreenTexture;
         Sprite titleScreen;
 
         Texture pressEnter;
-        Texture pressEnter2;
         Sprite enter;
+
+        RenderStates SelectedState;
+        Shader shader;
 
         View view;
 
-        public void initialize()
+        public void Initialize()
         {
-            animationTime = new Stopwatch();
-
             titleScreen = new Sprite(titleScreenTexture);
            
             enter = new Sprite(pressEnter);
             enter.Position = new Vector2f((Game.windowSizeX / 2) - (pressEnter.Size.X / 2), (Game.windowSizeY - pressEnter.Size.Y) - 50);
-            animationTime.Start();
+
+            shader = new Shader(null, "Shader/MenuSelectionShader.frag");
+            SelectedState = new RenderStates(shader);
 
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
 
-        public void loadContent()
+        public void LoadContent()
         {
             titleScreenTexture = new Texture("Pictures/Menu/MainMenu/Background.png");
             pressEnter = new Texture("Pictures/Menu/MainMenu/AnyKey/AnyKeyNotSelected.png");
-            pressEnter2 = new Texture("Pictures/Menu/MainMenu/AnyKey/AnyKeySelected.png");
         }
 
-        public EnumGameStates update(GameTime gameTime)
+        public EnumGameStates Update(GameTime gameTime)
         {
-            if (animationTime.ElapsedMilliseconds <= 500)
-            {
-                enter.Texture = pressEnter;
-            }
-            else if (animationTime.ElapsedMilliseconds <= 1000)
-            {
-                enter.Texture = pressEnter2;
-            }
-            else
-            {
-                animationTime.Restart();
-            }
-            
-            if ((NavigationHelp.isAnyKeyPressed() || Mouse.IsButtonPressed(Mouse.Button.Left)) && !Game.isPressed)
+            shader.SetParameter("time", ((float)gameTime.TotalTime.Seconds) * (float)Math.PI);
+               
+            if (!Game.isPressed && (MouseControler.IsPressed(Mouse.Button.Left) || NavigationHelp.isAnyKeyPressed()))
             {
                 Game.isPressed = true;
-                return EnumGameStates.mainMenu;
+                return EnumGameStates.MainMenu;
             }
 
-            return EnumGameStates.titleSreen;
+            return EnumGameStates.TitleScreen;
         }
 
-        public void draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             window.Draw(titleScreen);
-            window.Draw(enter);
+            window.Draw(enter, SelectedState);
         }
     }
 }

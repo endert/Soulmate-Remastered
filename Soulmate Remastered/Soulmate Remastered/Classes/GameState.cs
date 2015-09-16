@@ -11,26 +11,29 @@ namespace Soulmate_Remastered.Classes
 {
     public enum EnumGameStates
     {
-        none,
-        mainMenu,
-        inGame,
-        credits,
-        gameWon,
-        village,
-        controls,
-        options,
-        titleSreen,
-        loadGame
+        None = -1,
+
+        MainMenu,
+        InGame,
+        Credits,
+        GameWon,
+        Village,
+        ControlsSetting,
+        Options,
+        TitleScreen,
+        LoadGame, 
+
+        GameStateCount
     }
 
     interface GameState
     {
-        void initialize();
+        void Initialize();
 
-        void loadContent();
+        void LoadContent();
 
-        EnumGameStates update(GameTime time);
+        EnumGameStates Update(GameTime time);
 
-        void draw(RenderWindow window);
+        void Draw(RenderWindow window);
     }
 }

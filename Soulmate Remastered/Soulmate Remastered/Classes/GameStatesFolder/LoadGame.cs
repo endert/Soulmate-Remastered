@@ -1,6 +1,7 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder;
+using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class LoadGame : AbstractMainMenu
     {
-        private readonly String loadFile = "Saves/save.soul";
+        private readonly string loadFile = "Saves/save.soul";
 
         Texture loadSelected;
         Texture loadNotSelected;
@@ -21,16 +22,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         Texture newGameNotSelected;
         Sprite newGame;
 
-        /// <summary>
-        /// <para>value to define which sprite is selected</para>
-        /// <para>0=>load-sprite</para>
-        /// <para>1=>newGame-sprite></para>
-        /// </summary>
-        int spriteNumber;
+        int CountOffset = (int)Eselected.LoadOffset + 1;
+        int SpriteCount = Eselected.LoadSpriteCount - Eselected.LoadOffset - 1;
 
-        public override void initialize()
+        public override void Initialize()
         {
-            base.initialize();
+            base.Initialize();
             
             load = new Sprite(loadNotSelected);
             load.Position = new Vector2f(300, 300);
@@ -39,9 +36,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             newGame.Position = new Vector2f(load.Position.X, load.Position.Y + 150);
         }
 
-        public override void loadContent()
+        public override void LoadContent()
         {
-            base.loadContent();
+            base.LoadContent();
             
             loadSelected = new Texture("Pictures/Menu/MainMenu/Load/LoadSelected.png");
             loadNotSelected = new Texture("Pictures/Menu/MainMenu/Load/LoadNotSelected.png");
@@ -50,83 +47,79 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             newGameNotSelected = new Texture("Pictures/Menu/MainMenu/NewGame/NewGameNotSelected.png");
         }
 
-        public override EnumGameStates update(GameTime gameTime)
+        public override EnumGameStates Update(GameTime gameTime)
         {
-            gameUpdate(gameTime);
-            
-            if (NavigationHelp.isMouseInSprite(load))
-            {
-                spriteNumber = 0;
-            }
+            GameUpdate(gameTime);
 
-            if (NavigationHelp.isMouseInSprite(newGame))
-            {
-                spriteNumber = 1;
-            }
+            if (MouseControler.MouseIn(load))
+                selectedSprite = Eselected.LoadGame;
+
+            if (MouseControler.MouseIn(newGame))
+                selectedSprite = Eselected.NewGame;
 
             if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
             {
-                spriteNumber = (spriteNumber + 1) % 2;
+                selectedSprite = (Eselected)(((int)((selectedSprite - CountOffset) + SpriteCount - 1) % (int)SpriteCount) + CountOffset);
                 Game.isPressed = true;
             }
 
             if (Keyboard.IsKeyPressed(Controls.Down) && !Game.isPressed)
             {
-                spriteNumber = (spriteNumber + 1) % 2;
+                selectedSprite = (Eselected)(((int)((selectedSprite - CountOffset) + 1) % (int)SpriteCount) + CountOffset);
                 Game.isPressed = true;
             }
 
-            if (spriteNumber == 0)
+            if (selectedSprite == Eselected.LoadGame)
             {
                 load.Texture = loadSelected;
                 newGame.Texture = newGameNotSelected;
+
+                if(!Game.isPressed && (MouseControler.IsPressed(load, Mouse.Button.Left) || Keyboard.IsKeyPressed(Controls.Return)))
+                {
+                    Game.isPressed = true;
+                    AbstractGamePlay.loading = true;
+                    SaveGame.loadPath = loadFile;
+                    SaveGame.loadGame();
+
+                    switch (GameObjectHandler.lvl)
+                    {
+                        case 0:
+                            return EnumGameStates.Village;
+                        case 1:
+                            return EnumGameStates.InGame;
+                        default:
+                            return EnumGameStates.Village;
+                    }
+                }
+
             }
 
-            if (spriteNumber == 1)
+            if (selectedSprite == Eselected.NewGame)
             {
                 load.Texture = loadNotSelected;
                 newGame.Texture = newGameSelected;
+
+
             }
 
-            if (backValueSelected == 1)
-                return EnumGameStates.mainMenu;
-
-            if (NavigationHelp.isSpriteKlicked(spriteNumber, 0, load, Controls.Return))
-            {
-                Game.isPressed = true;
-                AbstractGamePlay.loading = true;
-                SaveGame.loadPath = loadFile;
-                SaveGame.loadGame();
-
-                switch (GameObjectHandler.lvl)
-                {
-                    case 0:
-                        return EnumGameStates.village;
-                    case 1:
-                        return EnumGameStates.inGame;
-                    default:
-                        return EnumGameStates.village;
-                }
-            }
-
-            if (NavigationHelp.isSpriteKlicked(spriteNumber, 1, newGame, Controls.Return))
+            if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 1, newGame, Controls.Return))
             {
                 Game.isPressed = true;
                 Console.WriteLine("new Game");
                 AbstractGamePlay.startNewGame = true;
-                return EnumGameStates.village;
+                ReturnState = EnumGameStates.Village;
             }           
 
-            return EnumGameStates.loadGame;
+            return ReturnState;
         }
 
-        public override void draw(RenderWindow window)
+        public override void Draw(RenderWindow window)
         {
-            base.draw(window);
+            base.Draw(window);
 
             window.Draw(load);
             window.Draw(newGame);
-            window.Draw(back);
+            window.Draw(Back);
         }
     }
 }

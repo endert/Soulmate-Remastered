@@ -16,9 +16,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         Text Controls = new Text("Controls", Game.font, 100);
         
-        public override void initialize()
+        public override void Initialize()
         {
-            base.initialize();
+            base.Initialize();
 
             options = new Sprite(optionsTexture);
             options.Position = new Vector2(0, 0);
@@ -26,30 +26,27 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             Controls.Position = new Vector2(200, 200);
         }
 
-        public override void loadContent()
+        public override void LoadContent()
         {
-            base.loadContent();
+            base.LoadContent();
 
             optionsTexture = new Texture("Pictures/Menu/MainMenu/Options/OptionsMenu.png");
         }
 
-        public override EnumGameStates update(GameTime gameTime)
+        public override EnumGameStates Update(GameTime gameTime)
         {
-            gameUpdate(gameTime);
+            GameUpdate(gameTime);
 
-            if (backValueSelected == 1)
-                return EnumGameStates.mainMenu;
-
-            return EnumGameStates.options;
+            return ReturnState;
         }
 
-        public override void draw(RenderWindow window)
+        public override void Draw(RenderWindow window)
         {
-            base.draw(window);
+            base.Draw(window);
 
             window.Draw(options);
             window.Draw(Controls);
-            window.Draw(back);
+            window.Draw(Back);
         }
     }
 }
