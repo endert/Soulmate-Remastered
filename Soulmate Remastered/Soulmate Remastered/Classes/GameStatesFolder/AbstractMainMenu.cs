@@ -32,10 +32,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             MainMenuOffset,
 
             StartSprite,
-            OptionsButton,
-            Controls,
-            Credits,
-            End,
+            OptionsSprite,
+            ControlsSprite,
+            CreditsSprite,
+            EndSprite,
 
             MainMenuCount,
 
@@ -54,6 +54,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         protected EnumGameStates ReturnState;
 
         /// <summary>
+        /// state that contains the seleceted shader
+        /// </summary>
+        protected RenderStates SelectedState;
+        Shader shader;
+
+        /// <summary>
         /// texture of the background
         /// </summary>
         protected Texture backGroundTexture;
@@ -62,10 +68,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// </summary>
         protected Sprite backGround;
 
-        /// <summary>
-        /// texture of the back-button when selected
-        /// </summary>
-        protected Texture backSelected;
         /// <summary>
         /// texture of the back-button when not selected
         /// </summary>
@@ -117,16 +119,16 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                             case Eselected.StartSprite:
                                 ReturnState = EnumGameStates.LoadGame;
                                 break;
-                            case Eselected.OptionsButton:
+                            case Eselected.OptionsSprite:
                                 ReturnState = EnumGameStates.Options;
                                 break;
-                            case Eselected.Controls:
+                            case Eselected.ControlsSprite:
                                 ReturnState = EnumGameStates.ControlsSetting;
                                 break;
-                            case Eselected.Credits:
+                            case Eselected.CreditsSprite:
                                 ReturnState = EnumGameStates.Credits;
                                 break;
-                            case Eselected.End:
+                            case Eselected.EndSprite:
                                 ReturnState = EnumGameStates.None;
                                 break;
 
@@ -169,19 +171,36 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             selectedSprite = Eselected.None;
 
             backGroundTexture = new Texture("Pictures/Menu/MainMenu/Background.png");
-            backGround = new Sprite(backGroundTexture);
-            backGround.Position = new Vector2(0, 0);
-            
+           
             backNotSelected = new Texture("Pictures/Menu/MainMenu/Back/BackNotSelected.png");
-            backSelected = new Texture("Pictures/Menu/MainMenu/Back/BackSelected.png");
-            Back = new Sprite(backNotSelected);
-            Back.Position = GetBackPostion();
 
             ReturnState = GetThisAsEnum();
 
             view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
         }
 
+        /// <summary>
+        /// initialize sprites
+        /// </summary>
+        public virtual void Initialize()
+        {
+            backGround = new Sprite(backGroundTexture);
+            backGround.Position = new Vector2(0, 0);
+
+            Back = new Sprite(backNotSelected);
+            Back.Position = GetBackPostion();
+
+            shader = new Shader(null, "Shader/MenuSelectionShader.frag");
+            SelectedState = new RenderStates(shader);
+
+            shader.SetParameter("time", 0);
+        }
+
+        /// <summary>
+        /// updates this gamest
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <returns></returns>
         public abstract EnumGameStates Update(GameTime gameTime);
 
         /// <summary>
@@ -208,12 +227,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public void GameUpdate(GameTime gameTime)
         {
             if (MouseControler.MouseIn(Back))
-            {
-                Back.Texture = backSelected;
                 selectedSprite = Eselected.Back;
-            }
-            else
-                Back.Texture = backNotSelected;
 
             if (!Game.isPressed && Keyboard.IsKeyPressed(Controls.Escape))
             {
@@ -230,9 +244,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             window.Draw(backGround);
             window.SetView(view);
-            window.Draw(Back);
-        }
 
-        public virtual void Initialize() { }
+            if (selectedSprite == Eselected.Back)
+                window.Draw(Back, SelectedState);
+            else
+                window.Draw(Back);
+        }
     }
 }

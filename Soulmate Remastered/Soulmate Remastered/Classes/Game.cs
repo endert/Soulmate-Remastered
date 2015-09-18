@@ -78,42 +78,6 @@ namespace Soulmate_Remastered.Classes
             if(!StateFound)
                 throw new NotFiniteNumberException();
 
-            //switch (currentGameState)
-            //{
-            //    case EnumGameStates.None:
-            //        window.Close();
-            //        break;
-            //    case EnumGameStates.MainMenu:
-            //        gameState = new MainMenu();
-            //        break;
-            //    case EnumGameStates.InGame:
-            //        gameState = new InGame();
-            //        break;
-            //    case EnumGameStates.ControlsSetting:
-            //        gameState = new ControlsSetting();
-            //        break;
-            //    case EnumGameStates.Options:
-            //        gameState = new Options();
-            //        break;
-            //    case EnumGameStates.TitleScreen:
-            //        gameState = new TitleScreen();
-            //        break;
-            //    case EnumGameStates.Village:
-            //        gameState = new Village();
-            //        break;
-            //    case EnumGameStates.LoadGame:
-            //        gameState = new LoadGame();
-            //        break;
-            //    case EnumGameStates.Credits:
-            //        gameState = new Credits();
-            //        break;
-            //    //case EGameStates.gameWon:
-            //    //    gameState = new GameWon();
-            //    //    break;
-            //    default:
-            //        throw new NotFiniteNumberException();
-            //}
-
             gameState.LoadContent();
 
             gameState.Initialize();

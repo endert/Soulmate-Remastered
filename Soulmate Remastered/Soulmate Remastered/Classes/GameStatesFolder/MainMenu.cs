@@ -11,71 +11,69 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     class MainMenu : AbstractMainMenu
     {
+        /// <summary>
+        /// number of sprites that can be selected
+        /// </summary>
         int CountSprites = Eselected.MainMenuCount - Eselected.MainMenuOffset - 1;
 
-        Texture startSelected;
-        Texture startNotSelected;
-                        
-        Texture optionsSelected;
-        Texture optionsNotSelected;
-
-        Texture controlsSelected;
+        Texture StartSpriteTexture;
+        Texture OptionsSpriteTexture;
         Texture controlsNotSelected;
-
-        Texture creditsSelected;
         Texture creditsNotSelected;
-
-        Texture endSelected;
         Texture endNotSelected;
 
         Sprite StartSprite;
-        Sprite OptionsButton;
-        Sprite Controls;
-        Sprite Credits;
-        Sprite End;
+        Sprite OptionsSprite;
+        Sprite ControlsSprite;
+        Sprite CreditsSprite;
+        Sprite EndSprite;
        
+        /// <summary>
+        /// initialize the sprites
+        /// </summary>
         public override void Initialize()
         {
             base.Initialize();
 
-            StartSprite = new Sprite(startNotSelected);
-            StartSprite.Position = new Vector2f(300, 300);
+            StartSprite = new Sprite(StartSpriteTexture);
+            StartSprite.Position = new Vector2(300, 300);
 
-            OptionsButton = new Sprite(optionsNotSelected);
-            OptionsButton.Position = new Vector2f(StartSprite.Position.X, StartSprite.Position.Y + 75 * 1);
+            OptionsSprite = new Sprite(OptionsSpriteTexture);
+            OptionsSprite.Position = new Vector2(StartSprite.Position.X, StartSprite.Position.Y + 75 * 1);
 
-            Controls = new Sprite(controlsNotSelected);
-            Controls.Position = new Vector2f(StartSprite.Position.X, StartSprite.Position.Y + 75 * 2);
+            ControlsSprite = new Sprite(controlsNotSelected);
+            ControlsSprite.Position = new Vector2(StartSprite.Position.X, StartSprite.Position.Y + 75 * 2);
 
-            Credits = new Sprite(creditsNotSelected);
-            Credits.Position = new Vector2f(StartSprite.Position.X, StartSprite.Position.Y + 75 * 3);
+            CreditsSprite = new Sprite(creditsNotSelected);
+            CreditsSprite.Position = new Vector2(StartSprite.Position.X, StartSprite.Position.Y + 75 * 3);
 
-            End = new Sprite(endNotSelected);
-            End.Position = new Vector2f(StartSprite.Position.X, StartSprite.Position.Y + 75 * 4);
-
-            selectedSprite = Eselected.StartSprite;
+            EndSprite = new Sprite(endNotSelected);
+            EndSprite.Position = new Vector2(StartSprite.Position.X, StartSprite.Position.Y + 75 * 4);
         }
 
+        /// <summary>
+        /// Loads all textures needed for initialization
+        /// </summary>
         public override void LoadContent()
         {
             base.LoadContent();
 
-            startSelected = new Texture("Pictures/Menu/MainMenu/Start/StartSelected.png");
-            startNotSelected = new Texture("Pictures/Menu/MainMenu/Start/StartNotSelected.png");
+            StartSpriteTexture = new Texture("Pictures/Menu/MainMenu/Start/StartNotSelected.png");
 
-            optionsSelected = new Texture("Pictures/Menu/MainMenu/Options/OptionsSelected.png");
-            optionsNotSelected = new Texture("Pictures/Menu/MainMenu/Options/OptionsNotSelected.png");
+            OptionsSpriteTexture = new Texture("Pictures/Menu/MainMenu/Options/OptionsNotSelected.png");
 
-            creditsSelected = new Texture("Pictures/Menu/MainMenu/Credits/CreditsSelected.png");
             creditsNotSelected = new Texture("Pictures/Menu/MainMenu/Credits/CreditsNotSelected.png");
 
-            controlsSelected = new Texture("Pictures/Menu/MainMenu/Controls/ControlsSelected.png");
             controlsNotSelected = new Texture("Pictures/Menu/MainMenu/Controls/ControlsNotSelected.png");
 
-            endSelected = new Texture("Pictures/Menu/MainMenu/End/EndSelected.png");
             endNotSelected = new Texture("Pictures/Menu/MainMenu/End/EndNotSelected.png");   
         }
 
+        /// <summary>
+        /// updates the current gamestate
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <returns></returns>
         public override EnumGameStates Update(GameTime gameTime)
         {
             GameUpdate(gameTime);
@@ -83,116 +81,94 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (MouseControler.MouseIn(StartSprite))
                 selectedSprite = Eselected.StartSprite;
 
-            if (MouseControler.MouseIn(OptionsButton))
-                selectedSprite = Eselected.OptionsButton;
+            if (MouseControler.MouseIn(OptionsSprite))
+                selectedSprite = Eselected.OptionsSprite;
 
-            if (MouseControler.MouseIn(Controls))
-                selectedSprite = Eselected.Controls;
+            if (MouseControler.MouseIn(ControlsSprite))
+                selectedSprite = Eselected.ControlsSprite;
 
-            if (MouseControler.MouseIn(Credits))
-                selectedSprite = Eselected.Credits;
+            if (MouseControler.MouseIn(CreditsSprite))
+                selectedSprite = Eselected.CreditsSprite;
 
-            if (MouseControler.MouseIn(End))
-                selectedSprite = Eselected.End;
+            if (MouseControler.MouseIn(EndSprite))
+                selectedSprite = Eselected.EndSprite;
 
-            if (Keyboard.IsKeyPressed(Classes.Controls.Up) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
             {
-                selectedSprite = (Eselected)((((int)(selectedSprite - Eselected.MainMenuOffset - 1) + CountSprites - 1) % CountSprites) + Eselected.MainMenuOffset + 1);
+                if (selectedSprite == Eselected.None)
+                    selectedSprite = Eselected.StartSprite;
+                else
+                    selectedSprite = (Eselected)((((int)(selectedSprite - Eselected.MainMenuOffset - 1) + CountSprites - 1) % CountSprites) + Eselected.MainMenuOffset + 1);
                 Game.isPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Classes.Controls.Down) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.isPressed)
             {
                 selectedSprite = (Eselected)((((int)(selectedSprite - Eselected.MainMenuOffset - 1) + 1) % CountSprites) + (Eselected.MainMenuOffset + 1));
                 Game.isPressed = true;
             }
 
-            if (selectedSprite == Eselected.StartSprite)
-            {
-                StartSprite.Texture = startSelected;
-                OptionsButton.Texture = optionsNotSelected;
-                Controls.Texture = controlsNotSelected;
-                Credits.Texture = creditsNotSelected;
-                End.Texture = endNotSelected;
-            }
-
-            if (selectedSprite == Eselected.OptionsButton)
-            {
-                StartSprite.Texture = startNotSelected;
-                OptionsButton.Texture = optionsSelected;
-                Controls.Texture = controlsNotSelected;
-                Credits.Texture = creditsNotSelected;
-                End.Texture = endNotSelected;
-            }
-
-            if (selectedSprite == Eselected.Controls)
-            {
-                StartSprite.Texture = startNotSelected;
-                OptionsButton.Texture = optionsNotSelected;
-                Controls.Texture = controlsSelected;
-                Credits.Texture = creditsNotSelected;
-                End.Texture = endNotSelected;
-            }
-
-            if (selectedSprite == Eselected.Credits)
-            {
-                StartSprite.Texture = startNotSelected;
-                OptionsButton.Texture = optionsNotSelected;
-                Controls.Texture = controlsNotSelected;
-                Credits.Texture = creditsSelected;
-                End.Texture = endNotSelected;
-            }
-
-            if (selectedSprite == Eselected.End)
-            {
-                StartSprite.Texture = startNotSelected;
-                OptionsButton.Texture = optionsNotSelected;
-                Controls.Texture = controlsNotSelected;
-                Credits.Texture = creditsNotSelected;
-                End.Texture = endSelected;
-            }
-
-            if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 0, StartSprite, Classes.Controls.Return))
+            if (!Game.isPressed && Keyboard.IsKeyPressed(Controls.Return))
             {
                 Game.isPressed = true;
-                ReturnState = EnumGameStates.LoadGame;
-            }
-            if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 1, OptionsButton, Classes.Controls.Return))
-            {
-                Game.isPressed = true;
-                Console.WriteLine("load Options");
-                ReturnState = EnumGameStates.Options;
-            }
-            if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 2, Controls, Classes.Controls.Return))
-            {
-                Game.isPressed = true;
-                Console.WriteLine("load Controls");
-                ReturnState = EnumGameStates.ControlsSetting;
-            }
-            if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 3, Credits, Classes.Controls.Return))
-            {
-                Game.isPressed = true;
-                Console.WriteLine("load Credits");
-                ReturnState = EnumGameStates.Credits;
-            }
-            if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 4, End, Classes.Controls.Return))
-            {
-                Game.isPressed = true;
-                ReturnState = EnumGameStates.None;
+
+                switch (selectedSprite) {
+                    case Eselected.StartSprite:
+                        ReturnState = EnumGameStates.LoadGame;
+                        break;
+                    case Eselected.OptionsSprite:
+                        Console.WriteLine("load Options");
+                        ReturnState = EnumGameStates.Options;
+                        break;
+                    case Eselected.ControlsSprite:
+                        Console.WriteLine("load Controls");
+                        ReturnState = EnumGameStates.ControlsSetting;
+                        break;
+                    case Eselected.CreditsSprite:
+                        Console.WriteLine("load Credits");
+                        ReturnState = EnumGameStates.Credits;
+                        break;
+                    case Eselected.EndSprite:
+                        ReturnState = EnumGameStates.None;
+                        break;
+                }
             }
 
             return ReturnState;
         }
 
+        /// <summary>
+        /// draws all sprites
+        /// </summary>
+        /// <param name="window"></param>
         public override void Draw(RenderWindow window)
         {
             base.Draw(window);
 
-            window.Draw(StartSprite);
-            window.Draw(OptionsButton);
-            window.Draw(Controls);
-            window.Draw(Credits);
-            window.Draw(End);
+            if (selectedSprite == Eselected.StartSprite)
+                window.Draw(StartSprite, SelectedState);
+            else
+                window.Draw(StartSprite);
+
+            if (selectedSprite == Eselected.OptionsSprite)
+                window.Draw(OptionsSprite, SelectedState);
+            else
+                window.Draw(OptionsSprite);
+
+            if (selectedSprite == Eselected.ControlsSprite)
+                window.Draw(ControlsSprite, SelectedState);
+            else
+                window.Draw(ControlsSprite);
+
+            if (selectedSprite == Eselected.CreditsSprite)
+                window.Draw(CreditsSprite, SelectedState);
+            else
+                window.Draw(CreditsSprite);
+
+            if (selectedSprite == Eselected.EndSprite)
+                window.Draw(EndSprite, SelectedState);
+            else
+                window.Draw(EndSprite);
         }
     }
 }
