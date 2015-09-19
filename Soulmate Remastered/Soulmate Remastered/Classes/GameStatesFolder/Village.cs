@@ -21,7 +21,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public override void LoadContent()
         {
             map = new Map(new Bitmap("Pictures/Map/Bitmap/Village.bmp"));
-            GameObjectHandler.lvl = 0;
+            GameObjectHandler.Lvl = 0;
             base.LoadContent();
         }
 

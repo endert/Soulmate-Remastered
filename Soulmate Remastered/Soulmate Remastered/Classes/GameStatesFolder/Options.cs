@@ -9,10 +9,13 @@ using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
-    class Options : AbstractMainMenu
+    class Options : AbstractMenu
     {
         protected Texture optionsTexture;
-        protected Sprite options;
+        /// <summary>
+        /// background
+        /// </summary>
+        Sprite options;
 
         Text Controls = new Text("Controls", Game.font, 100);
         

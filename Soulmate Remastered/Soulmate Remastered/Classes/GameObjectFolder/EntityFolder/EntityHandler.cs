@@ -49,7 +49,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         /// <summary>
         /// initialize this
         /// </summary>
-        public EntityHandler()
+        public static void Initialize()
         {
             EntityList = new List<Entity>();
 
@@ -68,7 +68,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         public static void Add(Entity entity)
         {
             EntityList.Add(entity);
-            GameObjectHandler.add(entity);
+            GameObjectHandler.Add(entity);
         }
 
         /// <summary>
@@ -102,10 +102,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
                 }
 
             if (foundEntry)
-                GameObjectHandler.deleateType(_type);
+                GameObjectHandler.DeleateType(_type);
         }
 
-        public void Update(GameTime gameTime)
+        public static void Update(GameTime gameTime)
         {
             for (int i = 0; i < EntityList.Count; i++)
             {

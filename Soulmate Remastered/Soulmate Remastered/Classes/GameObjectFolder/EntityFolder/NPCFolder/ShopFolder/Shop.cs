@@ -2,7 +2,6 @@
 using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
-using Soulmate_Remastered.Classes.ItemFolder;
 using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;

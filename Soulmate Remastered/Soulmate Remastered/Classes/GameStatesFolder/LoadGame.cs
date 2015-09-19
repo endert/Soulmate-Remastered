@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
-    class LoadGame : AbstractMainMenu
+    class LoadGame : AbstractMenu
     {
         private readonly string loadFile = "Saves/save.soul";
 
@@ -81,7 +81,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                     SaveGame.loadPath = loadFile;
                     SaveGame.loadGame();
 
-                    switch (GameObjectHandler.lvl)
+                    switch (GameObjectHandler.Lvl)
                     {
                         case 0:
                             return EnumGameStates.Village;

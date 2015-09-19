@@ -19,7 +19,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
         /// <summary>
         /// initialize the equipment list
         /// </summary>
-        public EquipmentHandler()
+        public static void Initialize()
         {
             EquipmentList = new List<Equipment>();
         }
@@ -31,13 +31,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
         public static void Add(Equipment equip)
         {
             EquipmentList.Add(equip);
-            ItemHandler.add(equip);
+            ItemHandler.Add(equip);
         }
 
         /// <summary>
         /// clears the list => deleates all equipment
         /// </summary>
-        public void Deleate()
+        public static void Deleate()
         {
             EquipmentList.Clear();
         }
@@ -46,7 +46,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolde
         /// updates the equipment list
         /// </summary>
         /// <param name="gameTime"></param>
-        public void Update(GameTime gameTime)
+        public static void Update(GameTime gameTime)
         {
             for (int i = 0; i < EquipmentList.Count; i++)
             {

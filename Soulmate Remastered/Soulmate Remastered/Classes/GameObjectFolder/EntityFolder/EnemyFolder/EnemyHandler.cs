@@ -39,7 +39,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
         /// </summary>
         public static void EnemyInitialize()
         {
-            switch (GameObjectHandler.lvl)
+            switch (GameObjectHandler.Lvl)
             {
                 case 0:
                     break;

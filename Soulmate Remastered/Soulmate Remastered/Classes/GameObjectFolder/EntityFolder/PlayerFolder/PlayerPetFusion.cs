@@ -130,7 +130,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            HitBox.update(Sprite);
+            HitBox.Update(Sprite);
             if (animatingFusion)
             {
                 AnimateFusion();

@@ -1,84 +1,92 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder;
-using SFML.Graphics;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
-using Soulmate_Remastered.Classes.InGameMenuFolder;
-using Soulmate_Remastered.Classes.ItemFolder;
-using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
-using SFML.Window;
-using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFolder;
-using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {
     class ItemHandler
     {
-        public static List<AbstractItem> itemList { get; set; }
-        public static PlayerInventory playerInventory { get; set; }
-        public static EquipmentHandler equipmentHandler { get; set; }
+        /// <summary>
+        /// all items, that are not in an inventory
+        /// </summary>
+        public static List<AbstractItem> ItemList { get; set; }
+        /// <summary>
+        /// the inventory of the player
+        /// </summary>
+        public static PlayerInventory ṔlayerInventory { get; set; }
 
-        public ItemHandler()
+        /// <summary>
+        /// initializes the Itemlist and the PlayerInventory, also calls EquipmentHandler.Initialize()
+        /// </summary>
+        public static void Initialize()
         {
-            itemList = new List<AbstractItem>();
-            playerInventory = new PlayerInventory();
-            equipmentHandler = new EquipmentHandler();
+            ItemList = new List<AbstractItem>();
+            ṔlayerInventory = new PlayerInventory();
+            EquipmentHandler.Initialize();
         }
 
-        static public void add(AbstractItem aItem)
+        /// <summary>
+        /// Adds the given item to the list and calls all other needed add methods
+        /// </summary>
+        /// <param name="aItem"></param>
+        public static void Add(AbstractItem aItem)
         {
-            itemList.Add(aItem);
-            GameObjectHandler.add(aItem);
+            ItemList.Add(aItem);
+            GameObjectHandler.Add(aItem);
         }
 
-        static public void add(List<AbstractItem> aItemList)
+        /// <summary>
+        /// deletes all items, wich match the given type
+        /// </summary>
+        /// <param name="_type"></param>
+        public static void DeleateType(Type _type)
         {
-            foreach (AbstractItem aItem in aItemList)
+            for(int i = 0; i<ItemList.Count; ++i)
             {
-                itemList.Add(aItem);
-                GameObjectHandler.add(aItem);
+                if(ItemList[i].GetType().Equals(_type))
+                {
+                    ItemList.RemoveAt(i);
+                    --i;
+                }
             }
         }
 
-        public static void deleateType(String _type)
+        /// <summary>
+        /// deletes all items and calls EquipmentHandler.Deleate()
+        /// </summary>
+        public static void Deleate()
         {
-
-        }
-
-        public static void deleate()
-        {
-            foreach (AbstractItem aItem in itemList)
-            {
-                aItem.Kill();
-            }
+            ItemList = null;
             //playerInventory.Deleate();
-            playerInventory = null;
-            equipmentHandler.Deleate();
+            ṔlayerInventory = null;
+            EquipmentHandler.Deleate();
         }
 
-        public void update(GameTime gameTime)
+        /// <summary>
+        /// Updates the list and updates all items within the list
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public static void Update(GameTime gameTime)
         {
-            for (int i = 0; i < itemList.Count; i++)
+            for (int i = 0; i < ItemList.Count; i++)
             {
-                if (!itemList[i].IsAlive)
+                if (!ItemList[i].IsAlive)
                 {
-                    itemList.RemoveAt(i);
+                    ItemList.RemoveAt(i);
                     i--;
-                    break;
+                    continue;
                 }
 
-                if (itemList[i].OnMap && itemList[i].HitBox.DistanceTo(PlayerHandler.Player.HitBox) <= itemList[i].PickUpRange)
+                if (ItemList[i].OnMap && ItemList[i].HitBox.DistanceTo(PlayerHandler.Player.HitBox) <= ItemList[i].PickUpRange)
                 {
-                    playerInventory.PickUp(itemList[i]);
-                    itemList.RemoveAt(i);
+                    ṔlayerInventory.PickUp(ItemList[i]);
+                    ItemList.RemoveAt(i);
                     i--;
                 }
 
             }
-            playerInventory.Update(gameTime);
+            ṔlayerInventory.Update(gameTime);
         }
     }
 }

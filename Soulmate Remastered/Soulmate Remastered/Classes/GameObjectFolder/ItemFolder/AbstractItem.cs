@@ -1,7 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
-using Soulmate_Remastered.Classes.ItemFolder;
 using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
@@ -169,7 +168,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             IsVisible = false;
             OnMap = false;
             wasInPlayerInventory = true;
-            ItemHandler.playerInventory.Open_CloseInventory += SetVisible;
+            ItemHandler.ṔlayerInventory.Open_CloseInventory += SetVisible;
         }
 
         /// <summary>
@@ -188,7 +187,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         {
             if (wasInPlayerInventory)
             {
-                ItemHandler.playerInventory.Open_CloseInventory -= SetVisible;
+                ItemHandler.ṔlayerInventory.Open_CloseInventory -= SetVisible;
             }
 
             Position = dropPosition;
@@ -203,7 +202,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         public void CloneAndDrop(Vector2 dropPosition)
         {
             AbstractItem dropedItem = this.Clone();
-            ItemHandler.add(dropedItem);
+            ItemHandler.Add(dropedItem);
             dropedItem.Drop(dropPosition);
         }
 

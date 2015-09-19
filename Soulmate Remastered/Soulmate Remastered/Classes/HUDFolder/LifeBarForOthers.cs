@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder;
+using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.HUDFolder
 {
@@ -23,32 +24,32 @@ namespace Soulmate_Remastered.Classes.HUDFolder
             lifeSpriteBar = new Sprite(lifeTextureBar);
         }
 
-        public Sprite scale(Entity entity)
+        public Sprite Scale(Entity entity)
         {
-            lifeSpriteBar.Scale = new Vector2f((float)entity.CurrentHP / (float)entity.MaxHP, 1);
+            lifeSpriteBar.Scale = new Vector2((float)entity.CurrentHP / (float)entity.MaxHP, 1);
 
             return lifeSpriteBar;
         }
 
-        public void setPosition(Entity entity)
+        public void SetPosition(Entity entity)
         {
             //if (!entity.type.Split('.')[2].Equals("Player"))
             {
                 if (entity != null)
                 {
-                    lifeSpriteBackground.Position = new Vector2f((entity.Position.X + entity.Sprite.Texture.Size.X / 2) - lifeTextureBackground.Size.X / 2, entity.Position.Y - 20);
-                    lifeSpriteBar.Position = new Vector2f(lifeSpriteBackground.Position.X + 2, lifeSpriteBackground.Position.Y + 2);
+                    lifeSpriteBackground.Position = new Vector2((entity.Position.X + entity.Sprite.Texture.Size.X / 2) - lifeTextureBackground.Size.X / 2, entity.Position.Y - 20);
+                    lifeSpriteBar.Position = new Vector2(lifeSpriteBackground.Position.X + 2, lifeSpriteBackground.Position.Y + 2);
                 }
             }
         }
 
-        public void update(Entity entity)
+        public void Update(Entity entity)
         {
-            setPosition(entity);
-            scale(entity);
+            SetPosition(entity);
+            Scale(entity);
         }
 
-        public void draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             window.Draw(lifeSpriteBackground);
             window.Draw(lifeSpriteBar);

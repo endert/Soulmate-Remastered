@@ -80,49 +80,49 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             switch (randomMovingDirection)
             {
                 case MovingDirection.Direction.Back:
-                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, Vector2.BACK))
+                    if (GameObjectHandler.LvlMap.getWalkable(HitBox, Vector2.BACK))
                         Move(Vector2.BACK);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.UpRight:
-                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, upRight))
+                    if (GameObjectHandler.LvlMap.getWalkable(HitBox, upRight))
                         Move(upRight);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.Right:
-                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, Vector2.RIGHT))
+                    if (GameObjectHandler.LvlMap.getWalkable(HitBox, Vector2.RIGHT))
                         Move(Vector2.RIGHT);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.DownRight:
-                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, downRight))
+                    if (GameObjectHandler.LvlMap.getWalkable(HitBox, downRight))
                         Move(downRight);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.Front:
-                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, Vector2.FRONT))
+                    if (GameObjectHandler.LvlMap.getWalkable(HitBox, Vector2.FRONT))
                         Move(Vector2.FRONT);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.DownLeft:
-                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, downLeft))
+                    if (GameObjectHandler.LvlMap.getWalkable(HitBox, downLeft))
                         Move(downLeft);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.Left:
-                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, Vector2.LEFT))
+                    if (GameObjectHandler.LvlMap.getWalkable(HitBox, Vector2.LEFT))
                         Move(Vector2.LEFT);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
                     break;
                 case MovingDirection.Direction.UpLeft:
-                    if (GameObjectHandler.lvlMap.getWalkable(HitBox, upLeft))
+                    if (GameObjectHandler.LvlMap.getWalkable(HitBox, upLeft))
                         Move(upLeft);
                     stopWatchList[2].Start();
                     movingFor = (int)(1000 * random.NextDouble()) + 500;
@@ -189,7 +189,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             if (IsAlive)
             {
                 //sets position of the HitBox 
-                HitBox.update(Sprite);
+                HitBox.Update(Sprite);
 
                 //react to Player if needed
                 if (SensePlayer)
@@ -199,7 +199,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             }
 
             //call life bar update
-            lifeBar.update(this);
+            lifeBar.Update(this);
         }
     }
 }

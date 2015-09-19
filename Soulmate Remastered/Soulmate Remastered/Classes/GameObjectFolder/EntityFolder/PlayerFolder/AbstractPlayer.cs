@@ -292,7 +292,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                     Sprite.Position = Position;
                     break;
                 case EDirection.Left:
-                    Sprite.Position = new Vector2(Position.X - (TextureList[2].Size.X - HitBox.width), Position.Y);
+                    Sprite.Position = new Vector2(Position.X - (TextureList[2].Size.X - HitBox.Width), Position.Y);
                     break;
                 default:
                     break;
@@ -340,11 +340,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
                 MaxEXP = (float)Math.Round(((5 * (float)Math.Pow(Lvl + 1, 3)) / 4) * 10);
 
             //set the states accordingly
-            if (ItemHandler.playerInventory != null)
+            if (ItemHandler.ṔlayerInventory != null)
             {
-                Att = BaseAtt + (Lvl) * 1 + ItemHandler.playerInventory.getAttBonus();
-                Def = BaseDef + (Lvl) * 0.5f + ItemHandler.playerInventory.getDefBonus();
-                MaxHP = BaseHp + (Lvl) * 50 + ItemHandler.playerInventory.getHpBonus();
+                Att = BaseAtt + (Lvl) * 1 + ItemHandler.ṔlayerInventory.getAttBonus();
+                Def = BaseDef + (Lvl) * 0.5f + ItemHandler.ṔlayerInventory.getDefBonus();
+                MaxHP = BaseHp + (Lvl) * 50 + ItemHandler.ṔlayerInventory.getHpBonus();
             }
             else
             {
@@ -368,7 +368,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             if (!animating)
                 Animate();
 
-            HitBox.update(Sprite);
+            HitBox.Update(Sprite);
             SpritePositionUpdate();
 
             if (AttackHitBox != null)
@@ -518,7 +518,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         public override void DebugDraw(RenderWindow window)
         {
             base.DebugDraw(window);
-            AttackHitBox.draw(window);
+            AttackHitBox.Draw(window);
         }
 
     }

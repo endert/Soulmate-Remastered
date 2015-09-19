@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
-    class MainMenu : AbstractMainMenu
+    class MainMenu : AbstractMenu
     {
         /// <summary>
         /// number of sprites that can be selected

@@ -23,7 +23,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
         {
             treasureChestList = new List<AbstractTreasureChest>();
 
-            switch (GameObjectHandler.lvl)
+            switch (GameObjectHandler.Lvl)
             {
                 case 0:
                     new TreasureChest(new Vector2(1000, 500), new Sword(100, 100, 100, "Super Awesome Mega Sword of DOOOOOOM!!!!"));

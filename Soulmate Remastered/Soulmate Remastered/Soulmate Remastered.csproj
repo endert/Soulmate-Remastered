@@ -59,7 +59,7 @@
     <Compile Include="Classes\CheatConsoleFolder\CheatConsoleThreadFolder\CheatConsole.cs" />
     <Compile Include="Classes\CheatConsoleFolder\CheatConsoleThreadFolder\Cheats.cs" />
     <Compile Include="Classes\CheatConsoleFolder\CheatConsoleThreadFolder\Input.cs" />
-    <Compile Include="Classes\GameObjectFolder\AbstractHitBox.cs" />
+    <Compile Include="Classes\GameObjectFolder\BaseHitBox.cs" />
     <Compile Include="Classes\GameObjectFolder\Cooldown.cs" />
     <Compile Include="Classes\GameObjectFolder\EntityFolder\CollisionArgs.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\Inventory.cs" />
@@ -119,7 +119,7 @@
     <Compile Include="Classes\GameObjectFolder\ItemFolder\SortByID.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameStatesFolder\AbstractGamePlay.cs" />
-    <Compile Include="Classes\GameStatesFolder\AbstractMainMenu.cs" />
+    <Compile Include="Classes\GameStatesFolder\AbstractMenu.cs" />
     <Compile Include="Classes\GameStatesFolder\ControlsSetting.cs" />
     <Compile Include="Classes\GameStatesFolder\Credits.cs" />
     <Compile Include="Classes\GameStatesFolder\InGame.cs" />

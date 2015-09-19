@@ -13,87 +13,101 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 {
     class GameObjectHandler
     {
-        public static List<GameObject> gameObjectList { get; set; }
-        public static EntityHandler entityHandler { get; set; }
-        public static ItemHandler itemHandler { get; set; }
+        /// <summary>
+        /// the list, that contains all gameObjects, sorted according to their highest y-Coordinate
+        /// </summary>
+        public static List<GameObject> GameObjectList { get; set; }
 
-        public static Map lvlMap { get; set; }
-        public static int lvl { get; set; }
-        
-        public GameObjectHandler(Map _lvlMap, int _lvl)
+        /// <summary>
+        /// the map for the current lvl
+        /// </summary>
+        public static Map LvlMap { get; set; }
+        /// <summary>
+        /// the current lvl
+        /// </summary>
+        public static int Lvl { get; set; }
+
+        public static void Initialize(Map _lvlMap, int _lvl)
         {
-            lvlMap = _lvlMap;
-            lvl = _lvl;
-            
-            gameObjectList = new List<GameObject>();
-            itemHandler = new ItemHandler();
-            entityHandler = new EntityHandler();
+            LvlMap = _lvlMap;
+            Lvl = _lvl;
+
+            GameObjectList = new List<GameObject>();
+            ItemHandler.Initialize();
+            EntityHandler.Initialize();
         }
 
-        public static void add(GameObject obj)
+        /// <summary>
+        /// adds the gameObject to the list
+        /// </summary>
+        /// <param name="obj"></param>
+        public static void Add(GameObject obj)
         {
-            gameObjectList.Add(obj);
+            GameObjectList.Add(obj);
         }
 
-        public static void removeAt(int index)
+        /// <summary>
+        /// deleates all objects, wich match the given type
+        /// </summary>
+        /// <param name="_type"></param>
+        public static void DeleateType(Type _type)
         {
-            if (index < gameObjectList.Count)
+            for (int i = 0; i < GameObjectList.Count; i++)
             {
-                gameObjectList.RemoveAt(index);
-            }
-            for (int i = 0; i < gameObjectList.Count; i++)
-            {
-                gameObjectList[i].IndexObjectList = i;
-            }
-        }
-
-        public static void deleateType(Type _type)
-        {
-            for (int i = 0; i < gameObjectList.Count; i++)
-            {
-                if (gameObjectList[i].GetType().Equals(_type))
+                if (GameObjectList[i].GetType().Equals(_type))
                 {
-                    gameObjectList.RemoveAt(i);
+                    GameObjectList.RemoveAt(i);
                     i--;
                 }
             }
         }
 
-        public void deleate()
+        /// <summary>
+        /// deleates the gameobject list and calls the Deleate Methode of the other handler
+        /// </summary>
+        public static void Deleate()
         {
-            foreach (GameObject gObj in gameObjectList)
+            foreach (GameObject gObj in GameObjectList)
             {
                 gObj.Kill();
             }
             EntityHandler.Deleate();
-            ItemHandler.deleate();
+            ItemHandler.Deleate();
         }
 
-        public void update(GameTime gameTime)
+        /// <summary>
+        /// update the list and all gameobjects
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public static void Update(GameTime gameTime)
         {
-            gameObjectList.Sort();
+            GameObjectList.Sort();
 
-            for (int i = 0; i < gameObjectList.Count; ++i)
+            for (int i = 0; i < GameObjectList.Count; ++i)
             {
-                if (!gameObjectList[i].IsAlive)
+                if (!GameObjectList[i].IsAlive)
                 {
-                    gameObjectList.RemoveAt(i);
+                    GameObjectList.RemoveAt(i);
                     i--;
                 }
                 else
                 {
-                    gameObjectList[i].IndexObjectList = i;
-                    gameObjectList[i].Update(gameTime);
+                    GameObjectList[i].IndexObjectList = i;
+                    GameObjectList[i].Update(gameTime);
                 }
             }
 
-            entityHandler.Update(gameTime);
-            itemHandler.update(gameTime);
+            EntityHandler.Update(gameTime);
+            ItemHandler.Update(gameTime);
         }
 
-        public void draw(RenderWindow window)
+        /// <summary>
+        /// draws every gameobject, that is visible
+        /// </summary>
+        /// <param name="window"></param>
+        public static void Draw(RenderWindow window)
         {
-            foreach (GameObject gObj in gameObjectList)
+            foreach (GameObject gObj in GameObjectList)
             {
                 if (gObj.IsVisible)
                 {
@@ -102,9 +116,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             }
         }
 
-        public void debugDraw(RenderWindow window)
+        /// <summary>
+        /// draws the hitboxes
+        /// </summary>
+        /// <param name="window"></param>
+        public static void DebugDraw(RenderWindow window)
         {
-            foreach (GameObject obj in gameObjectList)
+            foreach (GameObject obj in GameObjectList)
                 obj.DebugDraw(window);
         }
     }

@@ -27,6 +27,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
 
             Position = _position;
             Sprite.Position = Position;
+            HitBox.Position = Position;
 
             //************************************************************************
             

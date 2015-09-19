@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder
 {
-    class AbstractHitBox
+    class BaseHitBox
     {
         /// <summary>
         /// Position in world coordinates
@@ -37,7 +37,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="size"></param>
-        public AbstractHitBox(Vector2 pos, Vector2 size) 
+        public BaseHitBox(Vector2 pos, Vector2 size) 
         {
             Position = pos;
             Size = size;
@@ -47,25 +47,25 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="size"></param>
-        public AbstractHitBox(Vector2 pos, float width, float height) : this(pos, new Vector2(width, height)) { }
+        public BaseHitBox(Vector2 pos, float width, float height) : this(pos, new Vector2(width, height)) { }
         /// <summary>
         /// <para>constructor is the same as for all child classes</para>
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="size"></param>
-        public AbstractHitBox(float x, float y, Vector2 size) : this(new Vector2(x, y), size) { }
+        public BaseHitBox(float x, float y, Vector2 size) : this(new Vector2(x, y), size) { }
         /// <summary>
         /// <para>constructor is the same as for all child classes</para>
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="size"></param>
-        public AbstractHitBox(float x, float y, float width, float height) : this(new Vector2(x, y), new Vector2(width, height)) { }
+        public BaseHitBox(float x, float y, float width, float height) : this(new Vector2(x, y), new Vector2(width, height)) { }
 
 
         //****************************************************************************************************
         //Methods*********************************************************************************************
 
-        public bool Hit(AbstractHitBox h)
+        public bool Hit(BaseHitBox h)
         {
             //creating an Vector that will help us, it point toward the position of h
             Vector2 v = h.Position - Position;
@@ -91,7 +91,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         /// <summary>
         /// the hitbox with the smaller x coordinate
         /// </summary>
-        private AbstractHitBox CompareX(AbstractHitBox h)
+        private BaseHitBox CompareX(BaseHitBox h)
         {
             return (Position.X <= h.Position.X) ? (this) : (h);
         }
@@ -101,7 +101,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         /// </summary>
         /// <param name="h"></param>
         /// <returns></returns>
-        private AbstractHitBox CompareY(AbstractHitBox h)
+        private BaseHitBox CompareY(BaseHitBox h)
         {
             return (Position.Y <= h.Position.Y) ? (this) : (h);
         }
@@ -112,9 +112,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         /// <param name="direction">moving Direction</param>
         /// <param name="h">testet hitbox for collision</param>
         /// <returns>it will hit</returns>
-        public bool WillHit(Vector2 direction, AbstractHitBox h)
+        public bool WillHit(Vector2 direction, BaseHitBox h)
         {
-            AbstractHitBox test = new AbstractHitBox(Position + direction, Size);
+            BaseHitBox test = new BaseHitBox(Position + direction, Size);
             return test.Hit(h);
         }
 
@@ -123,7 +123,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         /// </summary>
         /// <param name="h"></param>
         /// <returns></returns>
-        public Vector2 hitFrom(AbstractHitBox h)
+        public Vector2 hitFrom(BaseHitBox h)
         {
             return h.Position - Position;
         }
@@ -133,7 +133,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         /// </summary>
         /// <param name="h"></param>
         /// <returns></returns>
-        public float DistanceTo(AbstractHitBox h)
+        public float DistanceTo(BaseHitBox h)
         {
             if (Hit(h))
                 return 0;
@@ -187,12 +187,20 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
 
         //****************************************************************************************************
 
-        public virtual void update(Sprite sprite)
+        /// <summary>
+        /// updates the hitbox according to the given sprite
+        /// </summary>
+        /// <param name="sprite"></param>
+        public virtual void Update(Sprite sprite)
         {
             Position = sprite.Position;
         }
 
-        public virtual void draw(RenderWindow window)
+        /// <summary>
+        /// Draws the hitbox, only call in DebugDraw
+        /// </summary>
+        /// <param name="window"></param>
+        public virtual void Draw(RenderWindow window)
         {
 
         }

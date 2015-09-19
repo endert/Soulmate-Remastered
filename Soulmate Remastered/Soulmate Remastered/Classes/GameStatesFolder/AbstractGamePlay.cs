@@ -11,7 +11,6 @@ using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChestFol
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.HUDFolder;
 using Soulmate_Remastered.Classes.InGameMenuFolder;
-using Soulmate_Remastered.Classes.ItemFolder;
 using Soulmate_Remastered.Classes.MapFolder;
 using Soulmate_Remastered.Core;
 using System;
@@ -38,7 +37,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// </summary>
         protected View viewHelp;
         protected Map map;
-        protected GameObjectHandler gameObjectHandler;
         protected DialogeHandler dialoges;
         protected InGameMenu inGameMenu;
         protected HUD hud;
@@ -70,8 +68,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             dialoges = new DialogeHandler();
             inGameMenu = new InGameMenu();
             hud = new HUD();
-            GameObjectHandler.lvlMap = map;
-            gameObjectHandler = new GameObjectHandler(map, GameObjectHandler.lvl);
+            GameObjectHandler.LvlMap = map;
+            GameObjectHandler.Initialize(map, GameObjectHandler.Lvl);
             EnemyHandler.EnemyInitialize();
             
             if (loading) 
@@ -117,8 +115,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// <returns>view vector</returns>
         private Vector2 VectorForViewMove()
         {
-            float Xmove = (PlayerHandler.Player.Position.X + (PlayerHandler.Player.HitBox.width / 2)) - VIEW.Center.X;
-            float Ymove = (PlayerHandler.Player.Position.Y + (PlayerHandler.Player.HitBox.height * 5 / 6)) - VIEW.Center.Y;
+            float Xmove = (PlayerHandler.Player.Position.X + (PlayerHandler.Player.HitBox.Width / 2)) - VIEW.Center.X;
+            float Ymove = (PlayerHandler.Player.Position.Y + (PlayerHandler.Player.HitBox.Height * 5 / 6)) - VIEW.Center.Y;
 
             //view cannot go over the map edge
             if (VIEW.Center.X + Xmove < VIEW.Size.X / 2)
@@ -142,7 +140,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             if (inGameMenu.closeGame) //if exit in inGameMenu clicked
             {
-                gameObjectHandler.deleate();
+                GameObjectHandler.Deleate();
                 File.Delete(savePlayer);
                 returnValue = 1;
                 return; //end method, because other updates throw errors after the gameObjectHandler is deleated
@@ -150,7 +148,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             //no update needed if game was closed
 
-            ItemHandler.playerInventory.Update(gameTime);
+            ItemHandler.ṔlayerInventory.Update(gameTime);
             inGameMenu.update(gameTime);
             //************************************************
 
@@ -166,12 +164,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             {
                 VIEW.Move(VectorForViewMove());
 
-                gameObjectHandler.update(gameTime);
+                GameObjectHandler.Update(gameTime);
                 dialoges.Update();
 
                 if (PlayerHandler.Player.CurrentHP <= 0) //if player is dead go back to mainMenu
                 {
-                    gameObjectHandler.deleate();
+                    GameObjectHandler.Deleate();
                     File.Delete(savePlayer);
                     returnValue = 1;
                 }
@@ -179,7 +177,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             else if (Shop.ShopIsOpen) //update the shop if it is open
             {
                 NPCHandler.UpdateShop(gameTime);
-                GameObjectHandler.itemHandler.update(gameTime);
+                ItemHandler.Update(gameTime);
             }
 
             //no use, don't know it is here xD
@@ -188,7 +186,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             //    returnValue = 3;
             //}
 
-            hud.update(gameTime);//must be update after gameObjectHandler
+            hud.Update(gameTime);//must be update after gameObjectHandler
             
             debug();
         }
@@ -213,14 +211,14 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             window.SetView(VIEW);
             map.draw(window);
-            gameObjectHandler.draw(window);
+            GameObjectHandler.Draw(window);
             dialoges.Draw(window);
-            hud.draw(window);
+            hud.Draw(window);
 
             if (PlayerInventory.IsOpen)
             {
                 window.SetView(viewHelp);
-                ItemHandler.playerInventory.Draw(window);
+                ItemHandler.ṔlayerInventory.Draw(window);
             }
 
             if (Shop.ShopIsOpen)
@@ -237,7 +235,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             if (debugging)
             {
-                gameObjectHandler.debugDraw(window);
+                GameObjectHandler.DebugDraw(window);
                 map.debugDraw(window);
             }
         }

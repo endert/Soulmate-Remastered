@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
-    class ControlsSetting : AbstractMainMenu
+    class ControlsSetting : AbstractMenu
     {
         Texture controlsTexture;
         Sprite controls;

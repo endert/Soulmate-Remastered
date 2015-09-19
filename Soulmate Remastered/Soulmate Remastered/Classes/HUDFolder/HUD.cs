@@ -19,16 +19,16 @@ namespace Soulmate_Remastered.Classes.HUDFolder
             lifeBar = new LifeFusionBar("Life");
         }
 
-        public void update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            fusionBar.update();
-            lifeBar.update();
+            fusionBar.Update();
+            lifeBar.Update();
         }
 
-        public void draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
-            fusionBar.draw(window);
-            lifeBar.draw(window);
+            fusionBar.Draw(window);
+            lifeBar.Draw(window);
         }
     }
 }

@@ -9,7 +9,7 @@ using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
-    class Credits : AbstractMainMenu
+    class Credits : AbstractMenu
     {
         Texture creditsTexture;
         Sprite credits;

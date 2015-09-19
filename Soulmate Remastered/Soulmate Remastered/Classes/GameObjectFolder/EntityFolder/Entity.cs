@@ -193,7 +193,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             {
                 Vector2 movement = MovementSpeed * (direction.GetNormalized());
 
-                if (GameObjectHandler.lvlMap.getWalkable(HitBox, movement) && !WillHitAnotherEntity(movement))
+                if (GameObjectHandler.LvlMap.getWalkable(HitBox, movement) && !WillHitAnotherEntity(movement))
                     Position += movement;
 
                 FacingDirection = movement;
@@ -211,12 +211,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         /// <returns></returns>
         private bool WillHitAnotherEntity(Vector2 movement)
         {
-            for (int i = 0; i < GameObjectHandler.gameObjectList.Count; ++i)
+            for (int i = 0; i < GameObjectHandler.GameObjectList.Count; ++i)
             {
-                if ((i != IndexObjectList) && !GameObjectHandler.gameObjectList[i].Walkable && HitBox.WillHit(movement, GameObjectHandler.gameObjectList[i].HitBox) && HitAnotherEnityHelp(i))
+                if ((i != IndexObjectList) && !GameObjectHandler.GameObjectList[i].Walkable && HitBox.WillHit(movement, GameObjectHandler.GameObjectList[i].HitBox) && HitAnotherEnityHelp(i))
                 {
                     CollisionArgs args = new CollisionArgs();
-                    args.CollidedWith = GameObjectHandler.gameObjectList[i];
+                    args.CollidedWith = GameObjectHandler.GameObjectList[i];
                     OnEntityCollision(args);
 
                     return true;
@@ -236,7 +236,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             if (GetType().IsSubclassOf(typeof(AbstractPet)) || GetType().IsSubclassOf(typeof(AbstractPlayer)))
                 return !PetPlayerCollision(index);
             else
-                return !GameObjectHandler.gameObjectList[index].Walkable;
+                return !GameObjectHandler.GameObjectList[index].Walkable;
         }
 
         /// <summary>
@@ -245,10 +245,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         /// <returns></returns>
         public bool PetPlayerCollision(int index)
         {
-            if (GetType().IsSubclassOf(typeof(AbstractPet)) && GameObjectHandler.gameObjectList[index].GetType().IsSubclassOf(typeof(AbstractPlayer)))
+            if (GetType().IsSubclassOf(typeof(AbstractPet)) && GameObjectHandler.GameObjectList[index].GetType().IsSubclassOf(typeof(AbstractPlayer)))
                 return true;
 
-            if (GetType().IsSubclassOf(typeof(AbstractPlayer)) && GameObjectHandler.gameObjectList[index].GetType().IsSubclassOf(typeof(AbstractPet)))
+            if (GetType().IsSubclassOf(typeof(AbstractPlayer)) && GameObjectHandler.GameObjectList[index].GetType().IsSubclassOf(typeof(AbstractPet)))
                 return true;
 
             return false;
@@ -364,7 +364,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
             base.Draw(window);
             if(lifeBar!=null)
             {
-                lifeBar.draw(window);
+                lifeBar.Draw(window);
             }
         }
     }

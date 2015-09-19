@@ -44,7 +44,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         public EnumGameStates Update(GameTime gameTime)
         {
-            shader.SetParameter("time", ((float)gameTime.TotalTime.Seconds) * (float)Math.PI);
+            shader.SetParameter("time", gameTime.TotalTime.Seconds * (float)Math.PI);
                
             if (!Game.isPressed && (MouseControler.IsPressed(Mouse.Button.Left) || NavigationHelp.isAnyKeyPressed()))
             {

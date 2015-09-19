@@ -28,8 +28,8 @@ namespace Soulmate_Remastered.Classes
                 writer.WriteLine("null");
             else
                 writer.WriteLine(PetHandler.Pet.ToStringForSave());
-            writer.WriteLine(GameObjectHandler.lvl);
-            writer.WriteLine(ItemHandler.playerInventory.ToStringForSave());
+            writer.WriteLine(GameObjectHandler.Lvl);
+            writer.WriteLine(ItemHandler.ṔlayerInventory.ToStringForSave());
 
             writer.Flush();
             writer.Close();
@@ -60,12 +60,12 @@ namespace Soulmate_Remastered.Classes
                     reader.ReadLine();
 
                 Console.WriteLine("loading: lvlCount");
-                GameObjectHandler.lvl = Convert.ToInt32(reader.ReadLine());
+                GameObjectHandler.Lvl = Convert.ToInt32(reader.ReadLine());
 
-                if (ItemHandler.playerInventory != null)
+                if (ItemHandler.ṔlayerInventory != null)
                 {
                     Console.WriteLine("loading: Inventar");
-                    ItemHandler.playerInventory.Load(reader.ReadLine());
+                    ItemHandler.ṔlayerInventory.Load(reader.ReadLine());
                 }
                 else
                     reader.ReadLine();
@@ -83,7 +83,7 @@ namespace Soulmate_Remastered.Classes
             PlayerHandler.Player.LoadMapChange(reader.ReadLine());
             PetHandler.Load(reader.ReadLine());
             reader.ReadLine();
-            ItemHandler.playerInventory.Load(reader.ReadLine());
+            ItemHandler.ṔlayerInventory.Load(reader.ReadLine());
 
             reader.Close();
         }

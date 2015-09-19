@@ -131,7 +131,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         /// <param name="window"></param>
         public virtual void DebugDraw(RenderWindow window)
         {
-            HitBox.draw(window);
+            HitBox.Draw(window);
         }
     }
 }

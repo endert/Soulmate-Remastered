@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Soulmate_Remastered.Core;
 using SFML.Graphics;
-using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 
-namespace Soulmate_Remastered.Classes.ItemFolder
+namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 {
     /// <summary>
     /// base class for all inventorys, only contains the items

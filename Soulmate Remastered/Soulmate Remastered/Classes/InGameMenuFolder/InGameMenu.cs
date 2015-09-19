@@ -3,7 +3,6 @@ using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
-using Soulmate_Remastered.Classes.ItemFolder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +41,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         /// </summary>
         int x = 0; 
 
-        readonly String saveFile = "Saves/save.soul";
+        readonly string saveFile = "Saves/save.soul";
         
         public bool inGameMenuOpen { get; set; }
         public bool closeGame { get; set; }

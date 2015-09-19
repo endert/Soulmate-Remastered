@@ -53,7 +53,7 @@ namespace Soulmate_Remastered.Classes.HUDFolder
         /// scales the backGround for the bars and defines the text for the bars
         /// </summary>
         /// <returns>the sprite of the background</returns>
-        public Sprite scale()
+        public Sprite Scale()
         {
             if (barStyle.Equals("Fusion"))
             {
@@ -73,7 +73,7 @@ namespace Soulmate_Remastered.Classes.HUDFolder
         /// <summary>
         /// sets the position of the bar and the text of it
         /// </summary>
-        public void setPosition()
+        public void SetPosition()
         {
             if(barStyle.Equals("Fusion"))
             {
@@ -90,13 +90,13 @@ namespace Soulmate_Remastered.Classes.HUDFolder
             }
         }
 
-        public void update()
+        public void Update()
         {
-            setPosition();
-            scale();
+            SetPosition();
+            Scale();
         }
 
-        public void draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             if (barStyle.Equals("Fusion"))
                 window.Draw(fusionBar);

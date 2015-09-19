@@ -31,7 +31,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         public NPCHandler()
         {
             NPCs = new List<AbstractNPC>();
-            if (GameObjectHandler.lvl == 0)
+            if (GameObjectHandler.Lvl == 0)
             {
                 new PetStorageGuy(new Vector2(300, 400));
                 new Shopkeeper(new Vector2(600, 600));

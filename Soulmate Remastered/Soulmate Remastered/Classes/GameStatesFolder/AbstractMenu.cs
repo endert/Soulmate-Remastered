@@ -11,9 +11,10 @@ using System.Threading.Tasks;
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
     /// <summary>
+    /// <para>base class for the menus</para>
     /// similar content of all menu points
     /// </summary>
-    abstract class AbstractMainMenu : GameState
+    abstract class AbstractMenu : GameState
     {
         /// <summary>
         /// Enum that indicates which Sprite is selected

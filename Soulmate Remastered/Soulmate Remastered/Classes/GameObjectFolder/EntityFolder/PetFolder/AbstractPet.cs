@@ -73,7 +73,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
                     Sprite.Position = Position;
                     break;
                 case EDirection.Left:
-                    Sprite.Position = new Vector2(Position.X - (TextureList[2].Size.X - HitBox.width), Position.Y);
+                    Sprite.Position = new Vector2(Position.X - (TextureList[2].Size.X - HitBox.Width), Position.Y);
                     break;
                 default:
                     break;
@@ -164,19 +164,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
                 switch (PlayerHandler.Player.Direction)
                 {
                     case (EDirection.Back):
-                        if (Position.Y + HitBox.height <= PlayerHandler.Player.Position.Y)
+                        if (Position.Y + HitBox.Height <= PlayerHandler.Player.Position.Y)
                             return true;
                         break;
                     case (EDirection.Front):
-                        if (Position.Y >= PlayerHandler.Player.Position.Y + PlayerHandler.Player.HitBox.height)
+                        if (Position.Y >= PlayerHandler.Player.Position.Y + PlayerHandler.Player.HitBox.Height)
                             return true;
                         break;
                     case (EDirection.Right):
-                        if (Position.X + HitBox.width <= PlayerHandler.Player.Position.X)
+                        if (Position.X + HitBox.Width <= PlayerHandler.Player.Position.X)
                             return true;
                         break;
                     case (EDirection.Left):
-                        if (Position.X >= PlayerHandler.Player.Position.X + PlayerHandler.Player.HitBox.width)
+                        if (Position.X >= PlayerHandler.Player.Position.X + PlayerHandler.Player.HitBox.Width)
                             return true;
                         break;
                     default:
@@ -187,17 +187,17 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             else      // moving diagonal
             {
                 if (playerMovingDirection.X > 0)
-                    if (Position.X + HitBox.width <= PlayerHandler.Player.Position.X)
+                    if (Position.X + HitBox.Width <= PlayerHandler.Player.Position.X)
                         behindX = true;
                 else if (playerMovingDirection.X < 0)
-                    if (Position.X >= PlayerHandler.Player.Position.X + PlayerHandler.Player.HitBox.width)
+                    if (Position.X >= PlayerHandler.Player.Position.X + PlayerHandler.Player.HitBox.Width)
                         behindX = true;
 
                 if (playerMovingDirection.Y > 0)
-                    if (Position.Y + HitBox.height <= PlayerHandler.Player.Position.Y)
+                    if (Position.Y + HitBox.Height <= PlayerHandler.Player.Position.Y)
                         behindY = true;
                 else if (playerMovingDirection.Y < 0)
-                    if (Position.Y >= PlayerHandler.Player.Position.Y + PlayerHandler.Player.HitBox.height)
+                    if (Position.Y >= PlayerHandler.Player.Position.Y + PlayerHandler.Player.HitBox.Height)
                         behindY = true;
 
                 return (behindX || behindY);
@@ -222,9 +222,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
             Animate();
 
             //update the rest
-            HitBox.update(Sprite);
+            HitBox.Update(Sprite);
             SpritePositionUpdate();
-            lifeBar.update(this);
+            lifeBar.Update(this);
 
             movement = GetVectorForMove();
             Move(movement);

@@ -34,7 +34,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         {
             //Initialize Gameobject attributes********************************************************************************
 
-            Position = new Vector2f(player.Position.X - 150, player.Position.Y + player.HitBox.height - TextureList[0].Size.Y);
+            Position = new Vector2f(player.Position.X - 150, player.Position.Y + player.HitBox.Height - TextureList[0].Size.Y);
             Sprite.Position = Position;
 
             //****************************************************************************************************************

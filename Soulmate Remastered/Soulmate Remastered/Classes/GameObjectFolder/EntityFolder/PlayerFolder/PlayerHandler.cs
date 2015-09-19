@@ -24,7 +24,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         /// </summary>
         public PlayerHandler()
         {
-            switch(GameObjectHandler.lvl)
+            switch(GameObjectHandler.Lvl)
             { 
                 case 0:
                     Player = new HumanPlayer(new Vector2f(32 * 15, 32 * 10 - 219), Vector2.RIGHT);
