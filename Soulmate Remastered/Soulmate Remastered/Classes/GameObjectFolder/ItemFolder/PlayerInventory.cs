@@ -125,7 +125,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         }
 
         /// <summary>
-        /// things that shal happen when a mouse button is relized
+        /// things that shall happen when a mouse button is released
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -170,7 +170,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         /// <summary>
         /// the Base position for the equipment
         /// </summary>
-        Vector2 EquipmentBase { get{ return (Vector2)character_pet_questSprite.Position + new Vector2(208, 102); } }
+        Vector2 EquipmentBase { get { return (Vector2)character_pet_questSprite.Position + new Vector2(208, 102); } }
         /// <summary>
         /// the offsets from the base of equipment according to wich index u got
         /// </summary>
@@ -181,11 +181,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 return new Vector2[]
                 {
                     new Vector2(0, 0),
-                    new Vector2(0,  54),
-                    new Vector2( 15, 114),
-                    new Vector2( 15,  168),
-                    new Vector2( - 4,  228),
-                    new Vector2( -4 , 282)
+                    new Vector2(0, 54),
+                    new Vector2(15,114),
+                    new Vector2(15, 168),
+                    new Vector2(-4, 228),
+                    new Vector2(-4,282)
                 };
             }
         }
@@ -688,7 +688,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         /// </summary>
         private void EnterExitQuest()
         {
-            if(activeTab == ETab.Quest)
+            if (activeTab == ETab.Quest)
             {
                 cursor.Size = QuestLineSize;
             }
@@ -727,7 +727,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                     break;
             }
 
-            
+
         }
 
         /// <summary>
@@ -736,7 +736,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         private void CursorManagementInventory()
         {
             //navigation+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            
+
             if (!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.W))
                 cursorPositionInMatrix += Vector2.BACK;
 
@@ -757,7 +757,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 positionSelected = cursorPositionInMatrix;
                 isSeleced = true;
             }
-            else if(!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.Return))
+            else if (!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.Return))
             {
                 inventory.Swap((int)positionSelected.Y * MatrixSizeX + (int)positionSelected.X, (int)cursorPositionInMatrix.Y * MatrixSizeX + (int)cursorPositionInMatrix.X);
                 isSeleced = false;
@@ -786,7 +786,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 cursorPositionInMatrix = Vector2.ZERO;
             }
 
-            if(cursorPositionInMatrix.X < 0)
+            if (cursorPositionInMatrix.X < 0)
             {
                 if (activeTab == ETab.Character)
                     cursorIn = ECursorIn.Equipment;
@@ -822,7 +822,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             }
 
             //exit+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            if(positionInEquipment < 0)
+            if (positionInEquipment < 0)
             {
                 cursorIn = ECursorIn.Tabs;
 
@@ -834,7 +834,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 positionInEquipment = 0;
             }
 
-            if(!Game.IsPressed && (Keyboard.IsKeyPressed(Keyboard.Key.D) || Keyboard.IsKeyPressed(Keyboard.Key.A)))
+            if (!Game.IsPressed && (Keyboard.IsKeyPressed(Keyboard.Key.D) || Keyboard.IsKeyPressed(Keyboard.Key.A)))
             {
                 cursorIn = ECursorIn.Inventory;
 
@@ -866,7 +866,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             {
                 selectedTab = (ETab)(((int)selectedTab + 1) % (int)ETab.Count);
 
-                if(selectedTab == activeTab)
+                if (selectedTab == activeTab)
                     selectedTab = (ETab)(((int)selectedTab + 1) % (int)ETab.Count);
             }
 
@@ -897,7 +897,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
             //exit+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-            if(!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.S))
+            if (!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.S))
             {
                 switch (activeTab)
                 {
@@ -914,7 +914,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             }
 
         }
-        
+
         /// <summary>
         /// manages the cursor within the quests
         /// </summary>
@@ -933,7 +933,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
 
             //exit+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            if(positionInQuest < 0)
+            if (positionInQuest < 0)
             {
                 cursorIn = ECursorIn.Tabs;
                 selectedTab = ETab.Character;
@@ -949,10 +949,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             //navigation+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
             if (!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.W))
-                    positionInPetEquipment--;
+                positionInPetEquipment--;
 
             if (!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.S))
-                    positionInPetEquipment++;
+                positionInPetEquipment++;
 
             //activition (return is pressed)+++++++++++++++++++++++++++++++++++++++++++++
 
@@ -1062,7 +1062,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
             //Equip+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             for (int i = 0; i < petEquip.Capacity; ++i)
-                if (MouseControler.MouseIn(new Rectangle(EquipmentBase + EquipmentOffsets[i + ((i > 0)?(2):(0))], new Vector2(FIELDSIZE, FIELDSIZE))))
+                if (MouseControler.MouseIn(new Rectangle(EquipmentBase + EquipmentOffsets[i + ((i > 0) ? (2) : (0))], new Vector2(FIELDSIZE, FIELDSIZE))))
                 {
                     cursorIn = ECursorIn.PetEquipment;
                     selectedTab = ETab.None;
@@ -1107,7 +1107,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 equip.RemoveAt(positionInEquipment);
                 int? position = inventory.Add(followingItem);
 
-                if(position != null)
+                if (position != null)
                 {
                     int _position = (int)position;
                     positionSelected = new Vector2(_position % MatrixSizeX, _position / MatrixSizeX);
@@ -1154,7 +1154,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 }
             }
 
-            
+
         }
 
         private void RightMouseButtonPressed(Vector2 mousePosition)
@@ -1198,13 +1198,13 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 else
                     inventory.Swap((int)positionSelected.Y * MatrixSizeX + (int)positionSelected.X, (int)positionSelected.Y * MatrixSizeX + (int)positionSelected.X);
 
-                if(cursorIn == ECursorIn.Equipment)
+                if (cursorIn == ECursorIn.Equipment)
                 {
                     try
                     {
                         Equipment eq = (Equipment)followingItem;
 
-                        if(positionInEquipment == (int)eq.EquipmentType)
+                        if (positionInEquipment == (int)eq.EquipmentType)
                         {
                             eq.OnUse((int)positionSelected.Y * MatrixSizeX + (int)positionSelected.X);
                         }
@@ -1236,8 +1236,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                 lvl.DisplayedString += "°";
 
             gold.DisplayedString = "Gold: " + PlayerHandler.Player.Gold;
-            
-            if(cursorIn == ECursorIn.Inventory)
+
+            if (cursorIn == ECursorIn.Inventory)
             {
                 if (inventory.At((int)cursorPositionInMatrix.Y * MatrixSizeX + (int)cursorPositionInMatrix.X) != null)
                     itemDescription.DisplayedString = inventory.At((int)cursorPositionInMatrix.Y * MatrixSizeX + (int)cursorPositionInMatrix.X).ItemDiscription;
@@ -1251,7 +1251,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         /// updates the list and calls the navigation methods
         /// </summary>
         public void Update(GameTime gameTime)
-        { 
+        {
             if (Keyboard.IsKeyPressed(Controls.OpenInventar) && !Game.IsPressed)
             {
                 OnOpen_Close();
@@ -1360,7 +1360,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
                         equip.Draw(win);
                 }
 
-                if(cursorIn == ECursorIn.Quests)
+                if (cursorIn == ECursorIn.Quests)
                 {
                     win.Draw(cursor);
                 }

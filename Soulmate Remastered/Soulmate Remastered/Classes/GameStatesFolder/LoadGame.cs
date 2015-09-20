@@ -74,7 +74,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 load.Texture = loadSelected;
                 newGame.Texture = newGameNotSelected;
 
-                if(!Game.IsPressed && (MouseControler.IsPressed(load, Mouse.Button.Left) || Keyboard.IsKeyPressed(Controls.Return)))
+                if(!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Return))
                 {
                     Game.IsPressed = true;
                     AbstractGamePlay.loading = true;
@@ -102,7 +102,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             }
 
-            if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 1, newGame, Controls.Return))
+            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Return))
             {
                 Game.IsPressed = true;
                 Console.WriteLine("new Game");
