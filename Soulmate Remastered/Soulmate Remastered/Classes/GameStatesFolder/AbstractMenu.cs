@@ -44,7 +44,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             LoadOffset,
 
             NewGame,
-            LoadGame,
+            Load,
 
             LoadSpriteCount
 
@@ -133,15 +133,17 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                             case Eselected.EndSprite:
                                 ReturnState = EnumGameStates.None;
                                 break;
-
                             case Eselected.NewGame:
                                 Console.WriteLine("new Game");
                                 AbstractGamePlay.startNewGame = true;
                                 ReturnState = EnumGameStates.Village;
                                 break;
-                            case Eselected.LoadGame:
+                            case Eselected.Load:
                                 AbstractGamePlay.loading = true;
-                                SaveGame.LoadPath = (string)typeof(LoadGame).GetField("loadFile").GetValue(this);
+
+                                string loadFile = (string)GetType().GetField("loadFile", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
+
+                                SaveGame.LoadPath = loadFile;
                                 SaveGame.LoadGame();
 
                                 switch (GameObjectHandler.Lvl)

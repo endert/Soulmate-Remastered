@@ -16,11 +16,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         Texture loadSelected;
         Texture loadNotSelected;
-        Sprite load;
+        Sprite Load;
 
         Texture newGameSelected;
         Texture newGameNotSelected;
-        Sprite newGame;
+        Sprite NewGame;
 
         int CountOffset = (int)Eselected.LoadOffset + 1;
         int SpriteCount = Eselected.LoadSpriteCount - Eselected.LoadOffset - 1;
@@ -29,11 +29,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             base.Initialize();
             
-            load = new Sprite(loadNotSelected);
-            load.Position = new Vector2f(300, 300);
+            Load = new Sprite(loadNotSelected);
+            Load.Position = new Vector2f(300, 300);
 
-            newGame = new Sprite(newGameNotSelected);
-            newGame.Position = new Vector2f(load.Position.X, load.Position.Y + 150);
+            NewGame = new Sprite(newGameNotSelected);
+            NewGame.Position = new Vector2f(Load.Position.X, Load.Position.Y + 150);
         }
 
         public override void LoadContent()
@@ -51,10 +51,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             GameUpdate(gameTime);
 
-            if (MouseControler.MouseIn(load))
-                selectedSprite = Eselected.LoadGame;
+            if (MouseControler.MouseIn(Load))
+                selectedSprite = Eselected.Load;
 
-            if (MouseControler.MouseIn(newGame))
+            if (MouseControler.MouseIn(NewGame))
                 selectedSprite = Eselected.NewGame;
 
             if (Keyboard.IsKeyPressed(Controls.Up) && !Game.IsPressed)
@@ -69,10 +69,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 Game.IsPressed = true;
             }
 
-            if (selectedSprite == Eselected.LoadGame)
+            if (selectedSprite == Eselected.Load)
             {
-                load.Texture = loadSelected;
-                newGame.Texture = newGameNotSelected;
+                Load.Texture = loadSelected;
+                NewGame.Texture = newGameNotSelected;
 
                 if(!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Return))
                 {
@@ -84,11 +84,14 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                     switch (GameObjectHandler.Lvl)
                     {
                         case 0:
-                            return EnumGameStates.Village;
+                            ReturnState = EnumGameStates.Village;
+                            break;
                         case 1:
-                            return EnumGameStates.InGame;
+                            ReturnState = EnumGameStates.InGame;
+                            break;
                         default:
-                            return EnumGameStates.Village;
+                            ReturnState = EnumGameStates.Village;
+                            break;
                     }
                 }
 
@@ -96,19 +99,17 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             if (selectedSprite == Eselected.NewGame)
             {
-                load.Texture = loadNotSelected;
-                newGame.Texture = newGameSelected;
+                Load.Texture = loadNotSelected;
+                NewGame.Texture = newGameSelected;
 
-
-            }
-
-            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Return))
-            {
-                Game.IsPressed = true;
-                Console.WriteLine("new Game");
-                AbstractGamePlay.startNewGame = true;
-                ReturnState = EnumGameStates.Village;
-            }           
+                if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Return))
+                {
+                    Game.IsPressed = true;
+                    Console.WriteLine("new Game");
+                    AbstractGamePlay.startNewGame = true;
+                    ReturnState = EnumGameStates.Village;
+                }
+            }       
 
             return ReturnState;
         }
@@ -117,8 +118,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             base.Draw(window);
 
-            window.Draw(load);
-            window.Draw(newGame);
+            window.Draw(Load);
+            window.Draw(NewGame);
             window.Draw(Back);
         }
     }
