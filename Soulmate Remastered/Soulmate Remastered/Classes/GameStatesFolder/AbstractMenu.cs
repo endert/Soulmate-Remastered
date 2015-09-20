@@ -1,5 +1,6 @@
 ﻿using SFML.Graphics;
 using SFML.Window;
+using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
@@ -131,6 +132,30 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                                 break;
                             case Eselected.EndSprite:
                                 ReturnState = EnumGameStates.None;
+                                break;
+
+                            case Eselected.NewGame:
+                                Console.WriteLine("new Game");
+                                AbstractGamePlay.startNewGame = true;
+                                ReturnState = EnumGameStates.Village;
+                                break;
+                            case Eselected.LoadGame:
+                                AbstractGamePlay.loading = true;
+                                SaveGame.LoadPath = (string)typeof(LoadGame).GetField("loadFile").GetValue(this);
+                                SaveGame.LoadGame();
+
+                                switch (GameObjectHandler.Lvl)
+                                {
+                                    case 0:
+                                        ReturnState = EnumGameStates.Village;
+                                        break;
+                                    case 1:
+                                        ReturnState = EnumGameStates.InGame;
+                                        break;
+                                    default:
+                                        ReturnState = EnumGameStates.Village;
+                                        break;
+                                }
                                 break;
 
                         }
