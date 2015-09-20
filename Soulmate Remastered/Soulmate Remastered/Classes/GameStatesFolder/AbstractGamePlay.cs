@@ -138,7 +138,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// <param name="gameTime">time of the game</param>
         public void GameUpdate(GameTime gameTime)
         {
-            if (inGameMenu.closeGame) //if exit in inGameMenu clicked
+            if (inGameMenu.CloseGame) //if exit in inGameMenu clicked
             {
                 GameObjectHandler.Deleate();
                 File.Delete(savePlayer);
@@ -149,7 +149,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             //no update needed if game was closed
 
             ItemHandler.ṔlayerInventory.Update(gameTime);
-            inGameMenu.update(gameTime);
+            inGameMenu.Update(gameTime);
             //************************************************
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !Game.IsPressed) //switches between level and village
@@ -160,7 +160,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 returnValue = 2;
             }
 
-            if (!PlayerInventory.IsOpen && !inGameMenu.inGameMenuOpen && !Shop.ShopIsOpen) //run update for game, if no menu, inventory or shop is open
+            if (!PlayerInventory.IsOpen && !inGameMenu.InGameMenuOpen && !Shop.ShopIsOpen) //run update for game, if no menu, inventory or shop is open
             {
                 VIEW.Move(VectorForViewMove());
 
@@ -227,10 +227,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 NPCHandler.Shop_.Draw(window);
             }
 
-            if (inGameMenu.inGameMenuOpen)
+            if (inGameMenu.InGameMenuOpen)
             {
                 window.SetView(viewHelp);
-                inGameMenu.draw(window);
+                inGameMenu.Draw(window);
             }
 
             if (debugging)

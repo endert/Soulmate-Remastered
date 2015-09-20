@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.InGameMenuFolder
 {
@@ -16,111 +17,125 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         Texture inGameMenuBackGroundTexture = new Texture("Pictures/Menu/InGameMenu/InGameMenuBackground.png");
         Sprite inGameMenuBackGround;
 
-        Texture continueNotSelected = new Texture("Pictures/Menu/InGameMenu/Continue/ContinueNotSelected.png");
-        Texture continueSelected = new Texture("Pictures/Menu/InGameMenu/Continue/ContinueSelected.png");
-        Sprite continueGame;
+        Texture ContinueTexture = new Texture("Pictures/Menu/InGameMenu/Continue/ContinueNotSelected.png");
+        Sprite Continue;
 
-        Texture saveNotSelected = new Texture("Pictures/Menu/InGameMenu/Save/SaveNotSelected.png");
-        Texture saveSelected = new Texture("Pictures/Menu/InGameMenu/Save/SaveSelected.png");
-        Sprite save;
+        Texture SaveTexture = new Texture("Pictures/Menu/InGameMenu/Save/SaveNotSelected.png");
+        Sprite Save;
 
-        Texture optionsNotSelected = new Texture("Pictures/Menu/MainMenu/Options/OptionsNotSelected.png");
-        Texture optionsSelected = new Texture("Pictures/Menu/MainMenu/Options/OptionsSelected.png");
-        Sprite options;
+        Texture OptionsTexture = new Texture("Pictures/Menu/MainMenu/Options/OptionsNotSelected.png");
+        Sprite Options;
 
-        Texture exitNotSelected = new Texture("Pictures/Menu/InGameMenu/Exit/ExitNotSelected.png");
-        Texture exitSelected = new Texture("Pictures/Menu/InGameMenu/Exit/ExitSelected.png");
-        Sprite exit;
+        Texture ExitTexture = new Texture("Pictures/Menu/InGameMenu/Exit/ExitNotSelected.png");
+        Sprite Exit;
 
         /// <summary>
-        /// <para> Inventory-value which button is selected; </para>
-        /// <para> x = 0 Continue; </para>
-        /// <para> x = 1 Save; </para>
-        /// <para> x = 2 Options; </para>
-        /// x = 3 Exit </para>
+        /// the selected sprite
         /// </summary>
-        int x = 0; 
+        Selected selected = 0;
 
+        enum Selected
+        {
+            None = -1,
+
+            Continue,
+            Save,
+            Options,
+            Exit,
+
+            Count
+        }
+
+        /// <summary>
+        /// the destined save path
+        /// </summary>
         readonly string saveFile = "Saves/save.soul";
-        
-        public bool inGameMenuOpen { get; set; }
-        public bool closeGame { get; set; }
-        public bool optionsOpen { get; set; }
 
-        public Vector2f getInGameMenuBackGroundPosition()
+        /// <summary>
+        /// bool if InGameMenu is open
+        /// </summary>
+        public bool InGameMenuOpen { get; private set; }
+        /// <summary>
+        /// bool if the game should be closed
+        /// </summary>
+        public bool CloseGame { get; private set; }
+        /// <summary>
+        /// bool if options is open
+        /// </summary>
+        public bool OptionsOpen { get; private set; }
+
+        Vector2 GetInGameMenuBackGroundPosition()
         {
-            return new Vector2f((Game.WindowSizeX - inGameMenuBackGroundTexture.Size.X) / 2, (Game.WindowSizeY - inGameMenuBackGroundTexture.Size.Y) / 2);
+            return new Vector2((Game.WindowSizeX - inGameMenuBackGroundTexture.Size.X) / 2, (Game.WindowSizeY - inGameMenuBackGroundTexture.Size.Y) / 2);
         }
 
-        public Vector2f getContinueGamePosition()
+        Vector2 GetContinueGamePosition()
         {
-            return new Vector2f(inGameMenuBackGround.Position.X + (inGameMenuBackGround.Texture.Size.X / 2) - (continueGame.Texture.Size.X / 2), inGameMenuBackGround.Position.Y + 150);
+            return new Vector2(inGameMenuBackGround.Position.X + (inGameMenuBackGround.Texture.Size.X / 2) - (Continue.Texture.Size.X / 2), inGameMenuBackGround.Position.Y + 150);
         }
 
-        public Vector2f getSavePosition()
+        Vector2 GetSavePosition()
         {
-            return new Vector2f(getContinueGamePosition().X, inGameMenuBackGround.Position.Y + 250);
+            return new Vector2(GetContinueGamePosition().X, inGameMenuBackGround.Position.Y + 250);
         }
 
-        public Vector2f getOptionsPosition()
+        Vector2 GetOptionsPosition()
         {
-            return new Vector2f(getContinueGamePosition().X, inGameMenuBackGround.Position.Y + 350);
+            return new Vector2(GetContinueGamePosition().X, inGameMenuBackGround.Position.Y + 350);
         }
 
-        public Vector2f getExitPosition()
+        Vector2 GetExitPosition()
         {
-            return new Vector2f(getContinueGamePosition().X, inGameMenuBackGround.Position.Y + 450);
+            return new Vector2(GetContinueGamePosition().X, inGameMenuBackGround.Position.Y + 450);
         }
 
-        public bool getInGameMenuOpen()
+        public void SetInGameMenuOpen()
         {
-
-            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.IsPressed && !inGameMenuOpen && !PlayerInventory.IsOpen && !Shop.ShopIsOpen)
+            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.IsPressed && !InGameMenuOpen && !PlayerInventory.IsOpen && !Shop.ShopIsOpen)
             {
                 Game.IsPressed = true;
-                inGameMenuOpen = true;
+                InGameMenuOpen = true;
             }
-            return inGameMenuOpen;
         }
         
         public InGameMenu()
         {
             inGameMenuBackGround = new Sprite(inGameMenuBackGroundTexture);
-            inGameMenuBackGround.Position = getInGameMenuBackGroundPosition();
+            inGameMenuBackGround.Position = GetInGameMenuBackGroundPosition();
 
-            continueGame = new Sprite(continueSelected);
-            continueGame.Position = getContinueGamePosition();
+            Continue = new Sprite(ContinueTexture);
+            Continue.Position = GetContinueGamePosition();
 
-            save = new Sprite(saveNotSelected);
-            save.Position = getSavePosition();
+            Save = new Sprite(SaveTexture);
+            Save.Position = GetSavePosition();
 
-            options = new Sprite(optionsNotSelected);
-            options.Position = getOptionsPosition();
+            Options = new Sprite(OptionsTexture);
+            Options.Position = GetOptionsPosition();
 
-            exit = new Sprite(exitNotSelected);
-            exit.Position = getExitPosition();
+            Exit = new Sprite(ExitTexture);
+            Exit.Position = GetExitPosition();
         }
 
-        public void update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
-            getInGameMenuOpen();
-            if (inGameMenuOpen)
+            SetInGameMenuOpen();
+            if (InGameMenuOpen)
             {
-                manage();
+                Manage();
             }
         }
 
-        public void manage()
+        public void Manage()
         {
-            setValueToChangeSprite();
+            SetValueToChangeSprite();
 
-            if (NavigationHelp.isSpriteKlicked(x, 0, continueGame, Controls.Return) || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.IsPressed)) //checking if the continue button or escape was pressed
+            if (NavigationHelp.isSpriteKlicked(selected, 0, Continue, Controls.Return) || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.IsPressed)) //checking if the continue button or escape was pressed
             {
                 Game.IsPressed = true;
-                inGameMenuOpen = false;
+                InGameMenuOpen = false;
             }
 
-            if (NavigationHelp.isSpriteKlicked(x, 1, save, Controls.Return)) //checking if the save button was pressed
+            if (NavigationHelp.isSpriteKlicked(selected, 1, Save, Controls.Return)) //checking if the save button was pressed
             {
                 Game.IsPressed = true;
                 Console.WriteLine("saving Game");
@@ -131,67 +146,67 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
             //optionsOpen = false; //WHY?!?!?!?!!?!?!!??
             //it does nothing
-            
-            if (NavigationHelp.isSpriteKlicked(x, 2, options, Controls.Return)) //checking if the options button was pressed
+
+            if (NavigationHelp.isSpriteKlicked(selected, 2, Options, Controls.Return)) //checking if the options button was pressed
             {
                 Game.IsPressed = true;
-                inGameMenuOpen = false;
-                optionsOpen = true;
+                InGameMenuOpen = false;
+                OptionsOpen = true;
             }
 
             //closeGame = false; //WHY!?!?!?!?!!?!?!?
             //it does nothing
-            
-            if (NavigationHelp.isSpriteKlicked(x, 3, exit, Controls.Return)) //checking if the exit button was pressed
+
+            if (NavigationHelp.isSpriteKlicked(selected, 3, Exit, Controls.Return)) //checking if the exit button was pressed
             {
                 Game.IsPressed = true;
-                inGameMenuOpen = false;
-                closeGame = true;
+                InGameMenuOpen = false;
+                CloseGame = true;
             }
 
             changeSprites();
-            spritePositionUpdate();
+            SpritePositionUpdate();
         }
 
-        private void spritePositionUpdate()
+        private void SpritePositionUpdate()
         {
-            continueGame.Position = getContinueGamePosition();
-            save.Position = getSavePosition();
-            options.Position = getOptionsPosition();
-            exit.Position = getExitPosition();
+            Continue.Position = GetContinueGamePosition();
+            Save.Position = GetSavePosition();
+            Options.Position = GetOptionsPosition();
+            Exit.Position = GetExitPosition();
         }
 
-        private void setValueToChangeSprite()
+        private void SetValueToChangeSprite()
         {
-            if (NavigationHelp.isMouseInSprite(continueGame)) //Continue
+            if (NavigationHelp.isMouseInSprite(Continue)) //Continue
             {
-                x = 0;
+                selected = Selected.Continue;
             }
 
-            if (NavigationHelp.isMouseInSprite(save)) //Save
+            if (NavigationHelp.isMouseInSprite(Save)) //Save
             {
-                x = 1;
+                selected = Selected.Save;
             }
 
-            if (NavigationHelp.isMouseInSprite(options)) //Options
+            if (NavigationHelp.isMouseInSprite(Options)) //Options
             {
-                x = 2;
+                selected = Selected.Options;
             }
 
-            if (NavigationHelp.isMouseInSprite(exit)) //Exit
+            if (NavigationHelp.isMouseInSprite(Exit)) //Exit
             {
-                x = 3;
+                selected = Selected.Exit;
             }
 
             if (Keyboard.IsKeyPressed(Controls.Up) && !Game.IsPressed)
             {
-                x = (x + 3) % 4;
+                selected = (Selected)(((int)selected + ((int)Selected.Count - 1)) % (int)Selected.Count);
                 Game.IsPressed = true;
             }
 
             if (Keyboard.IsKeyPressed(Controls.Down) && !Game.IsPressed)
             {
-                x = (x + 1) % 4;
+                selected = (Selected)(((int)selected + 1) % (int)Selected.Count);
                 Game.IsPressed = true;
             }
         }
@@ -201,46 +216,46 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         /// </summary>
         private void changeSprites()
         {
-            if (x == 0)
+            if (selected == Selected.Continue)
             {
-                continueGame = new Sprite(continueSelected);
-                save = new Sprite(saveNotSelected);
-                options = new Sprite(optionsNotSelected);
-                exit = new Sprite(exitNotSelected);
+                Continue = new Sprite(continueSelected);
+                Save = new Sprite(SaveTexture);
+                Options = new Sprite(OptionsTexture);
+                Exit = new Sprite(ExitTexture);
             }
 
-            if (x == 1)
+            if (selected == 1)
             {
-                continueGame = new Sprite(continueNotSelected);
-                save = new Sprite(saveSelected);
-                options = new Sprite(optionsNotSelected);
-                exit = new Sprite(exitNotSelected);
+                Continue = new Sprite(ContinueTexture);
+                Save = new Sprite(saveSelected);
+                Options = new Sprite(OptionsTexture);
+                Exit = new Sprite(ExitTexture);
             }
 
-            if (x == 2)
+            if (selected == 2)
             {
-                continueGame = new Sprite(continueNotSelected);
-                save = new Sprite(saveNotSelected);
-                options = new Sprite(optionsSelected);
-                exit = new Sprite(exitNotSelected);
+                Continue = new Sprite(ContinueTexture);
+                Save = new Sprite(SaveTexture);
+                Options = new Sprite(optionsSelected);
+                Exit = new Sprite(ExitTexture);
             }
 
-            if (x == 3)
+            if (selected == 3)
             {
-                continueGame = new Sprite(continueNotSelected);
-                save = new Sprite(saveNotSelected);
-                options = new Sprite(optionsNotSelected);
-                exit = new Sprite(exitSelected);
+                Continue = new Sprite(ContinueTexture);
+                Save = new Sprite(SaveTexture);
+                Options = new Sprite(OptionsTexture);
+                Exit = new Sprite(exitSelected);
             }
         }
 
-        public void draw(RenderWindow window)
+        public void Draw(RenderWindow window)
         {
             window.Draw(inGameMenuBackGround);
-            window.Draw(continueGame);
-            window.Draw(save);
-            window.Draw(options);
-            window.Draw(exit);
+            window.Draw(Continue);
+            window.Draw(Save);
+            window.Draw(Options);
+            window.Draw(Exit);
         }
     }
 }

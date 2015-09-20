@@ -31,6 +31,21 @@ namespace Soulmate_Remastered.Classes
         /// </summary>
         public static void SaveTheGame()
         {
+            string[] saveSplit = SavePath.Split('/');
+            string directory = "";
+
+            for(int i = 0; i < saveSplit.Length -1; ++i)
+            {
+                directory += saveSplit[i];
+                if (i + 1 < saveSplit.Length - 1)
+                    directory += "/";
+            }
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
             StreamWriter writer = new StreamWriter(SavePath);
 
             writer.WriteLine(PlayerHandler.Player.ToStringForSave());
