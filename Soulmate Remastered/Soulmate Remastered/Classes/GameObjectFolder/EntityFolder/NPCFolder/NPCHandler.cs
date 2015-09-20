@@ -100,14 +100,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
                 }
 
                 //interaction update
-                if (NPCs[i].InIteractionRange && !Game.isPressed && Keyboard.IsKeyPressed(Controls.Interact) && !NPCs[i].Interacting)
+                if (NPCs[i].InIteractionRange && !Game.IsPressed && Keyboard.IsKeyPressed(Controls.Interact) && !NPCs[i].Interacting)
                 {
-                    Game.isPressed = true;
+                    Game.IsPressed = true;
                     NPCs[i].Interact();
                 }
-                if (NPCs[i].Interacting && (!NPCs[i].InIteractionRange || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed)))
+                if (NPCs[i].Interacting && (!NPCs[i].InIteractionRange || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.IsPressed)))
                 {
-                    Game.isPressed = true;
+                    Game.IsPressed = true;
                     NPCs[i].StopIteraction();
                 }
             }
@@ -119,9 +119,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <param name="gameTime"></param>
         public static void UpdateShop(GameTime gameTime)
         {
-            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.IsPressed)
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
 
                 foreach (AbstractNPC npc in NPCs)
                 {

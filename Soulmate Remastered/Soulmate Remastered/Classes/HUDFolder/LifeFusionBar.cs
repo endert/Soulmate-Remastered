@@ -77,14 +77,14 @@ namespace Soulmate_Remastered.Classes.HUDFolder
         {
             if(barStyle.Equals("Fusion"))
             {
-                fusionBar.Position = new Vector2f((AbstractGamePlay.VIEW.Center.X - (Game.windowSizeX / 2) + 5), (AbstractGamePlay.VIEW.Center.Y - (Game.windowSizeY / 2) + lifeBarTexture.Size.Y + 10));
+                fusionBar.Position = new Vector2f((AbstractGamePlay.VIEW.Center.X - (Game.WindowSizeX / 2) + 5), (AbstractGamePlay.VIEW.Center.Y - (Game.WindowSizeY / 2) + lifeBarTexture.Size.Y + 10));
                 barBackground.Position = new Vector2f(fusionBar.Position.X + fusionBar.Texture.Size.X, fusionBar.Position.Y);
                 inNumber.Position = new Vector2f(fusionBar.Position.X + 10, fusionBar.Position.Y + 2);
             }
 
             else if(barStyle.Equals("Life"))
             {
-                lifeBar.Position = new Vector2f((AbstractGamePlay.VIEW.Center.X - (Game.windowSizeX / 2) + 5), (AbstractGamePlay.VIEW.Center.Y - (Game.windowSizeY / 2) + 5));
+                lifeBar.Position = new Vector2f((AbstractGamePlay.VIEW.Center.X - (Game.WindowSizeX / 2) + 5), (AbstractGamePlay.VIEW.Center.Y - (Game.WindowSizeY / 2) + 5));
                 barBackground.Position = new Vector2f(lifeBar.Position.X + lifeBar.Texture.Size.X, lifeBar.Position.Y);
                 inNumber.Position = new Vector2f(lifeBar.Position.X + 10, lifeBar.Position.Y + 2);
             }

@@ -57,8 +57,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// </summary>
         public void Initialize()
         {
-            VIEW = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
-            viewHelp = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
+            VIEW = new View(new FloatRect(0, 0, Game.WindowSizeX, Game.WindowSizeY));
+            viewHelp = new View(new FloatRect(0, 0, Game.WindowSizeX, Game.WindowSizeY));
         }
         /// <summary>
         /// load content of the game
@@ -76,7 +76,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             {
                 try
                 {
-                    SaveGame.loadGame();
+                    SaveGame.LoadGame();
                     Console.WriteLine("successfully loaded");
                     loading = false;
                     return; //if this part was succesful, no need for the rest
@@ -92,8 +92,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             else if (File.Exists(savePlayer) && !startNewGame)
             {
-                SaveGame.loadPath = savePlayer;
-                SaveGame.loadMapChange();
+                SaveGame.LoadPath = savePlayer;
+                SaveGame.LoadMapChange();
             }
 
             if (startNewGame)
@@ -152,11 +152,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             inGameMenu.update(gameTime);
             //************************************************
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !Game.isPressed) //switches between level and village
+            if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !Game.IsPressed) //switches between level and village
             {
-                Game.isPressed = true;
-                SaveGame.savePath = savePlayer;
-                SaveGame.saveGame();
+                Game.IsPressed = true;
+                SaveGame.SavePath = savePlayer;
+                SaveGame.SaveTheGame();
                 returnValue = 2;
             }
 
@@ -196,10 +196,10 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// </summary>
         public void debug()
         {
-            if (Keyboard.IsKeyPressed(Controls.debugging) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.debugging) && !Game.IsPressed)
             {
                 debugging = !debugging;
-                Game.isPressed = true;
+                Game.IsPressed = true;
             }
         }
 

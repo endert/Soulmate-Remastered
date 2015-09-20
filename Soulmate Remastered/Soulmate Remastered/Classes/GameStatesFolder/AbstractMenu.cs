@@ -90,7 +90,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 if (selectedSprite == Eselected.None)
                     return;
 
-                Game.isPressed = true;
+                Game.IsPressed = true;
                 //get the selected sprite++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
                 string selected = selectedSprite.ToString().Split('.').Last();
@@ -159,7 +159,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// <returns>vector</returns>
         public Vector2 GetBackPostion()
         {
-            return new Vector2(Game.windowSizeX - Back.Texture.Size.X - 10, 650);
+            return new Vector2(Game.WindowSizeX - Back.Texture.Size.X - 10, 650);
         }
  
         /// <summary>
@@ -177,7 +177,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             ReturnState = GetThisAsEnum();
 
-            view = new View(new FloatRect(0, 0, Game.windowSizeX, Game.windowSizeY));
+            view = new View(new FloatRect(0, 0, Game.WindowSizeX, Game.WindowSizeY));
         }
 
         /// <summary>
@@ -230,9 +230,9 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (MouseControler.MouseIn(Back))
                 selectedSprite = Eselected.Back;
 
-            if (!Game.isPressed && Keyboard.IsKeyPressed(Controls.Escape))
+            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Escape))
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
                 SetBackReturnState();
             }
         }

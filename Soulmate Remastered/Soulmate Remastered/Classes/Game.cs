@@ -12,46 +12,86 @@ using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes
 {
-    class Game : Soulmate_Remastered.Classes.AbstractGame
+    class Game : AbstractGame
     {
-        public static uint windowSizeX { get { if (fullscreen) return 1920; return 1280; } }
-        public static uint windowSizeY { get { if (fullscreen) return 1080; return 720; } }
+        /// <summary>
+        /// the x size of the window
+        /// </summary>
+        public static uint WindowSizeX { get { if (Fullscreen) return 1920; return 1280; } }
+        /// <summary>
+        /// the y size of the window
+        /// </summary>
+        public static uint WindowSizeY { get { if (Fullscreen) return 1080; return 720; } }
 
-        public static bool isPressed { get; set; }
-        public static Font font = new Font("FontFolder/arial_narrow_7.ttf");
+        /// <summary>
+        /// a bool if a key was pressed
+        /// </summary>
+        public static bool IsPressed { get; set; }
+        /// <summary>
+        /// the font, that is used for all texts
+        /// </summary>
+        public static readonly Font font = new Font("FontFolder/arial_narrow_7.ttf");
 
+        /// <summary>
+        /// the current gamestate wich is on
+        /// </summary>
         EnumGameStates currentGameState = EnumGameStates.TitleScreen;
+        /// <summary>
+        /// previous gamestate, the gamestate of the last iteration of the gameloop
+        /// </summary>
         EnumGameStates prevGameState;
 
+        /// <summary>
+        /// the class that is the actual gamestate
+        /// </summary>
         GameState gameState;
 
+        /// <summary>
+        /// the style for the game (fullscreen etc.)
+        /// </summary>
         static Styles screen = Styles.Default;
 
-        public static bool fullscreen { get { return screen.Equals(Styles.Fullscreen); } }
+        /// <summary>
+        /// bool if the game is in fullscreen
+        /// </summary>
+        public static bool Fullscreen { get { return screen.Equals(Styles.Fullscreen); } }
 
-        public Game() : base(windowSizeX, windowSizeY, "Soulmate", screen) { }
+        public Game() : base(WindowSizeX, WindowSizeY, "Soulmate", screen) { }
 
+        /// <summary>
+        /// updates the game
+        /// </summary>
+        /// <param name="time"></param>
         public override void Update(GameTime time)
         {
             MouseControler.Update();
 
             if (currentGameState != prevGameState)
             {
-                handleGameState();
+                HandleGameState();
             }
 
             if (!NavigationHelp.isAnyKeyPressed() && !Mouse.IsButtonPressed(Mouse.Button.Left) && !Mouse.IsButtonPressed(Mouse.Button.Right))
-                isPressed = false;
+                IsPressed = false;
 
             currentGameState = gameState.Update(time);
         }
 
+        /// <summary>
+        /// draws everything
+        /// </summary>
+        /// <param name="window"></param>
         public override void Draw(RenderWindow window)
         {
             gameState.Draw(window);
         }
 
-        void handleGameState()
+        /// <summary>
+        /// handles the gamestates
+        /// <para>may only be called when currentgamestate != prevgamestate</para>
+        /// <para>decides what to do then</para>
+        /// </summary>
+        void HandleGameState()
         {
             //coole version des switches:
             if(currentGameState == EnumGameStates.None)

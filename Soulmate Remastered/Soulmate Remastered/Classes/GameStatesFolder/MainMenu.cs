@@ -93,24 +93,24 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (MouseControler.MouseIn(EndSprite))
                 selectedSprite = Eselected.EndSprite;
 
-            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.IsPressed)
             {
                 if (selectedSprite == Eselected.None)
                     selectedSprite = Eselected.StartSprite;
                 else
                     selectedSprite = (Eselected)((((int)(selectedSprite - Eselected.MainMenuOffset - 1) + CountSprites - 1) % CountSprites) + Eselected.MainMenuOffset + 1);
-                Game.isPressed = true;
+                Game.IsPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.IsPressed)
             {
                 selectedSprite = (Eselected)((((int)(selectedSprite - Eselected.MainMenuOffset - 1) + 1) % CountSprites) + (Eselected.MainMenuOffset + 1));
-                Game.isPressed = true;
+                Game.IsPressed = true;
             }
 
-            if (!Game.isPressed && Keyboard.IsKeyPressed(Controls.Return))
+            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Return))
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
 
                 switch (selectedSprite) {
                     case Eselected.StartSprite:

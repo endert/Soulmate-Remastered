@@ -49,7 +49,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public Vector2f getInGameMenuBackGroundPosition()
         {
-            return new Vector2f((Game.windowSizeX - inGameMenuBackGroundTexture.Size.X) / 2, (Game.windowSizeY - inGameMenuBackGroundTexture.Size.Y) / 2);
+            return new Vector2f((Game.WindowSizeX - inGameMenuBackGroundTexture.Size.X) / 2, (Game.WindowSizeY - inGameMenuBackGroundTexture.Size.Y) / 2);
         }
 
         public Vector2f getContinueGamePosition()
@@ -75,9 +75,9 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         public bool getInGameMenuOpen()
         {
 
-            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed && !inGameMenuOpen && !PlayerInventory.IsOpen && !Shop.ShopIsOpen)
+            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.IsPressed && !inGameMenuOpen && !PlayerInventory.IsOpen && !Shop.ShopIsOpen)
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
                 inGameMenuOpen = true;
             }
             return inGameMenuOpen;
@@ -114,18 +114,18 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         {
             setValueToChangeSprite();
 
-            if (NavigationHelp.isSpriteKlicked(x, 0, continueGame, Controls.Return) || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.isPressed)) //checking if the continue button or escape was pressed
+            if (NavigationHelp.isSpriteKlicked(x, 0, continueGame, Controls.Return) || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.IsPressed)) //checking if the continue button or escape was pressed
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
                 inGameMenuOpen = false;
             }
 
             if (NavigationHelp.isSpriteKlicked(x, 1, save, Controls.Return)) //checking if the save button was pressed
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
                 Console.WriteLine("saving Game");
-                SaveGame.savePath = saveFile;
-                SaveGame.saveGame();
+                SaveGame.SavePath = saveFile;
+                SaveGame.SaveTheGame();
                 Console.WriteLine("successfuly saved Game");
             }
 
@@ -134,7 +134,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             
             if (NavigationHelp.isSpriteKlicked(x, 2, options, Controls.Return)) //checking if the options button was pressed
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
                 inGameMenuOpen = false;
                 optionsOpen = true;
             }
@@ -144,7 +144,7 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             
             if (NavigationHelp.isSpriteKlicked(x, 3, exit, Controls.Return)) //checking if the exit button was pressed
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
                 inGameMenuOpen = false;
                 closeGame = true;
             }
@@ -183,16 +183,16 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
                 x = 3;
             }
 
-            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.IsPressed)
             {
                 x = (x + 3) % 4;
-                Game.isPressed = true;
+                Game.IsPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.IsPressed)
             {
                 x = (x + 1) % 4;
-                Game.isPressed = true;
+                Game.IsPressed = true;
             }
         }
 

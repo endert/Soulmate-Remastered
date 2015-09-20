@@ -181,7 +181,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         {
             //initialize sprite
             sprite = new Sprite(shopTexture);
-            sprite.Position = new Vector2f((Game.windowSizeX - sprite.Texture.Size.X) / 2, (Game.windowSizeY - sprite.Texture.Size.Y) / 2);
+            sprite.Position = new Vector2f((Game.WindowSizeX - sprite.Texture.Size.X) / 2, (Game.WindowSizeY - sprite.Texture.Size.Y) / 2);
 
             //initialize Marker
             selected = new RectangleShape(selectedSize+(-2*outlineThickness));
@@ -236,16 +236,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             //manage Collums***************************************************************
 
             //right button
-            if (!Game.isPressed && Keyboard.IsKeyPressed(Controls.Right))
+            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Right))
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
                 selectedCollum = (Collum)((int)++selectedCollum % (int)Collum.CollumCount);
             }
 
             //left button
-            if (!Game.isPressed && Keyboard.IsKeyPressed(Controls.Left))
+            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Left))
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
                 selectedCollum += (int)Collum.CollumCount - 1;
                 selectedCollum = (Collum)((int)selectedCollum % (int)Collum.CollumCount);
             }
@@ -254,9 +254,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             //manage Lines*****************************************************************
 
             //down button
-            if (!Game.isPressed && Keyboard.IsKeyPressed(Controls.Down))
+            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Down))
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
 
                 /*
                  * if the index of the first shown item + index of the selected Line = selectedLineCount - 1 then the last item of the List is selected
@@ -282,9 +282,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             }
 
             //up button
-            if (!Game.isPressed && Keyboard.IsKeyPressed(Controls.Up))
+            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Up))
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
 
                 //if the first item of the list is not the selected one
                 if (SmallestDisplayedItem > 0 || selectedLine > 0)
@@ -367,9 +367,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         private void ShopItemUpdate()
         {
             //buy or sell if return is pressed
-            if (Keyboard.IsKeyPressed(Controls.Return) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Return) && !Game.IsPressed)
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
                 BuyOrSell();
             }
 

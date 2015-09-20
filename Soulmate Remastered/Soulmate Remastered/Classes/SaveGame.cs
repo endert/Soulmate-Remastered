@@ -17,18 +17,31 @@ namespace Soulmate_Remastered.Classes
 {
     class SaveGame
     {
-        public static String savePath { get; set; }
-        public static String loadPath { get; set; }
+        /// <summary>
+        /// the path to the save file
+        /// </summary>
+        public static string SavePath { get; set; }
+        /// <summary>
+        /// the path to the file, that shall be loaded
+        /// </summary>
+        public static string LoadPath { get; set; }
 
-        public static void saveGame()
+        /// <summary>
+        /// saves the game in a text file
+        /// </summary>
+        public static void SaveTheGame()
         {
-            StreamWriter writer = new StreamWriter(savePath);
+            StreamWriter writer = new StreamWriter(SavePath);
+
             writer.WriteLine(PlayerHandler.Player.ToStringForSave());
+
             if (PetHandler.Pet == null)
                 writer.WriteLine("null");
             else
                 writer.WriteLine(PetHandler.Pet.ToStringForSave());
+
             writer.WriteLine(GameObjectHandler.Lvl);
+
             writer.WriteLine(ItemHandler.ṔlayerInventory.ToStringForSave());
 
             writer.Flush();
@@ -36,11 +49,14 @@ namespace Soulmate_Remastered.Classes
             //File.Encrypt(savePath);
         }
 
-        public static void loadGame()
+        /// <summary>
+        /// loads the game from a file, defined in the loadpath
+        /// </summary>
+        public static void LoadGame()
         {
-            if (File.Exists(loadPath))
+            if (File.Exists(LoadPath))
             {
-                StreamReader reader = new StreamReader(loadPath);
+                StreamReader reader = new StreamReader(LoadPath);
 
 
                 if (PlayerHandler.Player != null)
@@ -76,9 +92,12 @@ namespace Soulmate_Remastered.Classes
                 Console.WriteLine("File don't exist");
         }
 
-        public static void loadMapChange()
+        /// <summary>
+        /// loads the temp file for the map change
+        /// </summary>
+        public static void LoadMapChange()
         {
-            StreamReader reader = new StreamReader(loadPath);
+            StreamReader reader = new StreamReader(LoadPath);
 
             PlayerHandler.Player.LoadMapChange(reader.ReadLine());
             PetHandler.Load(reader.ReadLine());
@@ -88,10 +107,4 @@ namespace Soulmate_Remastered.Classes
             reader.Close();
         }
     }
-     /* player + position
-     * pet + position
-     * lvl
-     * Inventory
-     * //questlog
-     */
 }

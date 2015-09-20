@@ -84,7 +84,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder
         /// </summary>
         public void Update()
         {
-            if (Keyboard.IsKeyPressed(Controls.CheatConsoleOpen) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.CheatConsoleOpen) && !Game.IsPressed)
             {
                 cheatConsoleThread.Interrupt();
                 Input.SetKeyPressed(Keyboard.Key.T);
@@ -95,7 +95,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder
                 }
                 catch (ThreadInterruptedException)
                 {
-                    Game.isPressed = true;
+                    Game.IsPressed = true;
                 }
             }
         }

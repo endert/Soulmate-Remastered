@@ -41,10 +41,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
         /// </summary>
         public void Interaction()
         {
-            if (HitBox.DistanceTo(PlayerHandler.Player.HitBox) <= 50 && Keyboard.IsKeyPressed((Controls.Interact)) && !isOpen && !Game.isPressed)
+            if (HitBox.DistanceTo(PlayerHandler.Player.HitBox) <= 50 && Keyboard.IsKeyPressed((Controls.Interact)) && !isOpen && !Game.IsPressed)
             {
                 isOpen = true;
-                Game.isPressed = true;
+                Game.IsPressed = true;
                 Drop();
             }
             

@@ -57,16 +57,16 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             if (MouseControler.MouseIn(newGame))
                 selectedSprite = Eselected.NewGame;
 
-            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.IsPressed)
             {
                 selectedSprite = (Eselected)(((int)((selectedSprite - CountOffset) + SpriteCount - 1) % (int)SpriteCount) + CountOffset);
-                Game.isPressed = true;
+                Game.IsPressed = true;
             }
 
-            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.IsPressed)
             {
                 selectedSprite = (Eselected)(((int)((selectedSprite - CountOffset) + 1) % (int)SpriteCount) + CountOffset);
-                Game.isPressed = true;
+                Game.IsPressed = true;
             }
 
             if (selectedSprite == Eselected.LoadGame)
@@ -74,12 +74,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                 load.Texture = loadSelected;
                 newGame.Texture = newGameNotSelected;
 
-                if(!Game.isPressed && (MouseControler.IsPressed(load, Mouse.Button.Left) || Keyboard.IsKeyPressed(Controls.Return)))
+                if(!Game.IsPressed && (MouseControler.IsPressed(load, Mouse.Button.Left) || Keyboard.IsKeyPressed(Controls.Return)))
                 {
-                    Game.isPressed = true;
+                    Game.IsPressed = true;
                     AbstractGamePlay.loading = true;
-                    SaveGame.loadPath = loadFile;
-                    SaveGame.loadGame();
+                    SaveGame.LoadPath = loadFile;
+                    SaveGame.LoadGame();
 
                     switch (GameObjectHandler.Lvl)
                     {
@@ -104,7 +104,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             if (NavigationHelp.isSpriteKlicked((int)selectedSprite, 1, newGame, Controls.Return))
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
                 Console.WriteLine("new Game");
                 AbstractGamePlay.startNewGame = true;
                 ReturnState = EnumGameStates.Village;

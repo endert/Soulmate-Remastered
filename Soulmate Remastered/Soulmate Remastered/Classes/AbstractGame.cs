@@ -21,31 +21,38 @@ namespace Soulmate_Remastered.Classes
         /// </summary>
         static CheatConsoleThreadStart cheatConsole;
         /// <summary>
-        /// the 
+        /// the window
         /// </summary>
         public static RenderWindow window;
-        public static GameTime gameTime;
+        /// <summary>
+        /// the GameTime as static property
+        /// </summary>
+        public static GameTime SGameTime { get; private set; }
 
-        public AbstractGame(uint width, uint height, String title, Styles screen)
+        public AbstractGame(uint width, uint height, string title, Styles screen)
         {
             window = new RenderWindow(new VideoMode(width, height), title, screen);
-            window.Closed += window_Close;
 
-            gameTime = new GameTime();
+            window.Closed += (sender, e) => { ((RenderWindow)sender).Close(); };
+
+            SGameTime = new GameTime();
             cheatConsole = new CheatConsoleThreadStart();
             MouseControler.Initialize();
         }
 
-        public void run()
+        /// <summary>
+        /// Draws everything, checks logic calls all updates, overall let the game run
+        /// </summary>
+        public void Run()
         {
-            gameTime.Start();
+            SGameTime.Start();
 
             while(window.IsOpen())
             {
                 window.Clear(new Color(101, 156, 239)); //CornFlowerBlue
                 window.DispatchEvents();
-                gameTime.Update();
-                Update(gameTime);
+                SGameTime.Update();
+                Update(SGameTime);
                 cheatConsole.Update();
                 Draw(window);
                 window.Display();
@@ -57,10 +64,5 @@ namespace Soulmate_Remastered.Classes
         public abstract void Draw(RenderWindow window);
 
         public abstract void Update(GameTime gameTime);
-
-        private void window_Close(Object sender, EventArgs e)
-        {
-            ((RenderWindow)sender).Close();
-        }
     }
 }

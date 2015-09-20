@@ -36,7 +36,7 @@ namespace Soulmate_Remastered.Classes
         /// <returns>bool if the correct sprite was klicked</returns>
         public static bool isSpriteKlicked(int x, int y, Sprite sprite, Keyboard.Key key)
         {
-            return (x == y && (Keyboard.IsKeyPressed(key) || (Mouse.IsButtonPressed(Mouse.Button.Left) && isMouseInSprite(sprite))) && !Game.isPressed);
+            return (x == y && (Keyboard.IsKeyPressed(key) || (Mouse.IsButtonPressed(Mouse.Button.Left) && isMouseInSprite(sprite))) && !Game.IsPressed);
         }
 
         /// <summary>

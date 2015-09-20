@@ -15,7 +15,7 @@ namespace Soulmate_Remastered.Core
         /// <summary>
         /// the String List with the Parameter
         /// </summary>
-        List<String> parms;
+        List<string> parms;
 
         /// <summary>
         /// bool if the Params are empty or not
@@ -35,45 +35,45 @@ namespace Soulmate_Remastered.Core
             parms = new List<string>();
         }
 
-        public Params(Object o) : this()
+        public Params(object o) : this()
         {
-            add(o);
+            Add(o);
         }
 
-        public Params(Object[] oa) : this()
+        public Params(object[] oa) : this()
         {
-            add(oa);
+            Add(oa);
         }
 
         /// <summary>
         /// add a parameter
         /// </summary>
         /// <param name="o">added obj as parameter</param>
-        public void add(Object o)
+        public void Add(object o)
         {
             parms.Add(o.ToString());
-            normalize();
+            Normalize();
         }
 
         /// <summary>
         /// add a object list as parameters
         /// </summary>
         /// <param name="oa"></param>
-        public void add(Object[] oa)
+        public void Add(object[] oa)
         {
-            foreach (Object o in oa)
+            foreach (object o in oa)
             {
                 parms.Add(o.ToString());
             }
-            normalize();
+            Normalize();
         }
 
         /// <summary>
         /// simplify the List, helps with casting a lot
         /// </summary>
-        private void normalize()
+        private void Normalize()
         {
-            String completeParams = "";
+            string completeParams = "";
 
             for (int i = 0; i < parms.Count; ++i)
             {
@@ -84,11 +84,11 @@ namespace Soulmate_Remastered.Core
             completeParams = completeParams.Replace("]", "");
             completeParams = completeParams.Replace(",", "");
 
-            String[] res = completeParams.Split(' ');
+            string[] res = completeParams.Split(' ');
 
             parms = new List<string>();
 
-            foreach (String s in res)
+            foreach (string s in res)
             {
                 if (!s.Equals(""))
                     parms.Add(s);
@@ -227,9 +227,9 @@ namespace Soulmate_Remastered.Core
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static implicit operator String[](Params p)
+        public static implicit operator string[](Params p)
         {
-            String[] res = new String[p.parms.Count];
+            string[] res = new string[p.parms.Count];
 
             for (int i = 0; i < p.parms.Count; ++i)
                 res[i] = p.parms[i].ToString();
@@ -245,7 +245,7 @@ namespace Soulmate_Remastered.Core
         public static implicit operator Params(int i)
         {
             Params res = new Params();
-            res.add(i);
+            res.Add(i);
             return res;
         }
 
@@ -257,7 +257,7 @@ namespace Soulmate_Remastered.Core
         public static implicit operator Params(float f)
         {
             Params res = new Params();
-            res.add(f);
+            res.Add(f);
             return res;
         }
 
@@ -269,7 +269,7 @@ namespace Soulmate_Remastered.Core
         public static implicit operator Params(double d)
         {
             Params res = new Params();
-            res.add(d);
+            res.Add(d);
             return res;
         }
 
@@ -281,7 +281,7 @@ namespace Soulmate_Remastered.Core
         public static implicit operator Params(String s)
         {
             Params res = new Params();
-            res.add(s);
+            res.Add(s);
             return res;
         }
 
@@ -293,7 +293,7 @@ namespace Soulmate_Remastered.Core
         public static implicit operator Params(Vector2 v)
         {
             Params res = new Params();
-            res.add(v);
+            res.Add(v);
             return res;
         }
 
@@ -305,7 +305,7 @@ namespace Soulmate_Remastered.Core
         public static implicit operator Params(int[] i)
         {
             Params res = new Params();
-            res.add(i);
+            res.Add(i);
             return res;
         }
 
@@ -317,7 +317,7 @@ namespace Soulmate_Remastered.Core
         public static implicit operator Params(float[] f)
         {
             Params res = new Params();
-            res.add(f);
+            res.Add(f);
             return res;
         }
 
@@ -329,7 +329,7 @@ namespace Soulmate_Remastered.Core
         public static implicit operator Params(double[] d)
         {
             Params res = new Params();
-            res.add(d);
+            res.Add(d);
             return res;
         }
 
@@ -341,7 +341,7 @@ namespace Soulmate_Remastered.Core
         public static implicit operator Params(String[] s)
         {
             Params res = new Params();
-            res.add(s);
+            res.Add(s);
             return res;
         }
 
@@ -353,7 +353,7 @@ namespace Soulmate_Remastered.Core
         public static implicit operator Params(Vector2[] v)
         {
             Params res = new Params();
-            res.add(v);
+            res.Add(v);
             return res;
         }
         
@@ -363,7 +363,7 @@ namespace Soulmate_Remastered.Core
         /// returns the Parameter String
         /// </summary>
         /// <returns></returns>
-        public override String ToString()
+        public override string ToString()
         {
             if (parms.Count == 0)
                 return "";
@@ -371,9 +371,9 @@ namespace Soulmate_Remastered.Core
                 return parms[0];
             else
             {
-                String res = "[";
+                string res = "[";
 
-                foreach (Object o in parms)
+                foreach (object o in parms)
                 {
                     res += o.ToString() + ", ";
                 }

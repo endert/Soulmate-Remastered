@@ -152,9 +152,9 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
         public void Update()
         {
             //update the shown String if the interaction button is pressed
-            if (Keyboard.IsKeyPressed(Controls.Interact) && !Game.isPressed)
+            if (Keyboard.IsKeyPressed(Controls.Interact) && !Game.IsPressed)
             {
-                Game.isPressed = true;
+                Game.IsPressed = true;
 
                 //if there is nothing left to show, close the dialoge box
                 if (index == text.Count)

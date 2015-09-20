@@ -14,7 +14,7 @@ namespace Soulmate_Remastered
         static void Main(string[] args)
         {
             Game game = new Game();
-            game.run();
+            game.Run();
 
             File.Delete(AbstractGamePlay.savePlayerPath);
         }

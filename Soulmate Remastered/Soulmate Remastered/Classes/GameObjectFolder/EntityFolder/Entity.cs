@@ -107,7 +107,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder
         /// <summary>
         /// the movement speed with concern for the ellapsed time
         /// </summary>
-        protected float MovementSpeed { get { return BaseMovementSpeed * (float)AbstractGame.gameTime.EllapsedTime.Milliseconds; } }
+        protected float MovementSpeed { get { return BaseMovementSpeed * (float)AbstractGame.SGameTime.EllapsedTime.Milliseconds; } }
         /// <summary>
         /// the current hp
         /// </summary>
