@@ -235,7 +235,25 @@ namespace Soulmate_Remastered.Core
         /// <returns>the result as vector</returns>
         public static Vector2 operator %(Vector2 v1, Vector2 v2)
         {
-            return new Vector2((int)v1.X % (int)v2.X, (int)v1.Y % (int)v2.Y);
+            if (v2.X <= 0 || v2.Y <= 0)
+                return new Vector2();
+
+            int x = 0;
+            int y = 0;
+
+            if (v1.X < 0)
+                while (v1.X < 0)
+                    v1.X += v2.X;
+
+            x = (int)v1.X % (int)v2.X;
+
+            if (v1.Y < 0)
+                while (v1.Y < 0)
+                    v1.Y += v2.Y;
+
+            y = (int)v1.Y % (int)v2.Y;
+
+            return new Vector2(x, y);
         }
 
         //*********************************************************************

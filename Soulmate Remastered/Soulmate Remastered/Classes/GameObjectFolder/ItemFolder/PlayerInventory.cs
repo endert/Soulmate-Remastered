@@ -619,7 +619,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         /// <summary>
         /// returns the sum of the attack bonus gained with the equip
         /// </summary>
-        public float getAttBonus()
+        public float GetAttBonus()
         {
             float res = 0;
 
@@ -633,7 +633,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         /// <summary>
         /// returns the sum of the defense bonus gained with the equip
         /// </summary>
-        public float getDefBonus()
+        public float GetDefBonus()
         {
             float res = 0;
 
@@ -647,7 +647,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
         /// <summary>
         /// returns the sum of the hp bonus gained with the equip
         /// </summary>
-        public float getHpBonus()
+        public float GetHpBonus()
         {
             float res = 0;
 
@@ -738,17 +738,27 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             //navigation+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
             if (!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.W))
+            {
+                Game.IsPressed = true;
                 cursorPositionInMatrix += Vector2.BACK;
+            }
 
             if (!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.A))
+            {
+                Game.IsPressed = true;
                 cursorPositionInMatrix += Vector2.LEFT;
+            }
 
             if (!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.S))
+            {
+                Game.IsPressed = true;
                 cursorPositionInMatrix += Vector2.FRONT;
-
+            }
             if (!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.D))
+            {
+                Game.IsPressed = true;
                 cursorPositionInMatrix += Vector2.RIGHT;
-
+            }
             //activition (return is pressed)+++++++++++++++++++++++++++++++++++++++++++++
 
             //selection and swaping
@@ -807,16 +817,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
             //navigation+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
             if (!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.W))
+            {
+                Game.IsPressed = true;
                 positionInEquipment--;
-
+            }
             if (!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.S))
+            {
+                Game.IsPressed = true;
                 positionInEquipment++;
-
+            }
             //activition (return is pressed)+++++++++++++++++++++++++++++++++++++++++++++
 
             //unequip
             if (!Game.IsPressed && Keyboard.IsKeyPressed(Keyboard.Key.Return) && equip.At(positionInEquipment) != null)
             {
+                Game.IsPressed = true;
                 inventory.Add(equip.At(positionInEquipment));
                 equip.RemoveAt(positionInEquipment);
             }
@@ -836,6 +851,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder
 
             if (!Game.IsPressed && (Keyboard.IsKeyPressed(Keyboard.Key.D) || Keyboard.IsKeyPressed(Keyboard.Key.A)))
             {
+                Game.IsPressed = true;
                 cursorIn = ECursorIn.Inventory;
 
                 if (Keyboard.IsKeyPressed(Keyboard.Key.D))

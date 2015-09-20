@@ -342,9 +342,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             //set the states accordingly
             if (ItemHandler.ṔlayerInventory != null)
             {
-                Att = BaseAtt + (Lvl) * 1 + ItemHandler.ṔlayerInventory.getAttBonus();
-                Def = BaseDef + (Lvl) * 0.5f + ItemHandler.ṔlayerInventory.getDefBonus();
-                MaxHP = BaseHp + (Lvl) * 50 + ItemHandler.ṔlayerInventory.getHpBonus();
+                Att = BaseAtt + (Lvl) * 1 + ItemHandler.ṔlayerInventory.GetAttBonus();
+                Def = BaseDef + (Lvl) * 0.5f + ItemHandler.ṔlayerInventory.GetDefBonus();
+                MaxHP = BaseHp + (Lvl) * 50 + ItemHandler.ṔlayerInventory.GetHpBonus();
             }
             else
             {
