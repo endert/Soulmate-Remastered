@@ -61,16 +61,17 @@
     <Compile Include="Classes\CheatConsoleFolder\CheatConsoleThreadFolder\Input.cs" />
     <Compile Include="Classes\GameObjectFolder\BaseHitBox.cs" />
     <Compile Include="Classes\GameObjectFolder\Cooldown.cs" />
-    <Compile Include="Classes\GameObjectFolder\EntityFolder\CollisionArgs.cs" />
+    <Compile Include="Core\CollisionArgs.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\Inventory.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\ItemStack.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\PlayerInventory.cs" />
     <Compile Include="Classes\GameObjectFolder\ItemFolder\UseEventArgs.cs" />
+    <Compile Include="Core\KeyboardControler.cs" />
     <Compile Include="Core\Matrix3x3.cs" />
     <Compile Include="Core\MouseControler.cs" />
     <Compile Include="Core\MovingDirection.cs" />
     <Compile Include="Core\Params.cs" />
-    <Compile Include="Classes\Controls.cs" />
+    <Compile Include="Core\Controls.cs" />
     <Compile Include="Core\Rectangle.cs" />
     <Compile Include="Core\RidgedBody.cs" />
     <Compile Include="Core\Vector2.cs" />
@@ -137,7 +138,6 @@
     <Compile Include="Classes\MapFolder\Blocks.cs" />
     <Compile Include="Classes\MapFolder\Map.cs" />
     <Compile Include="Classes\GameObjectFolder\HitBox.cs" />
-    <Compile Include="Classes\NavigationHelp.cs" />
     <Compile Include="Classes\SaveGame.cs" />
     <Compile Include="Core\Vector3.cs" />
     <Compile Include="Core\Vertex.cs" />
