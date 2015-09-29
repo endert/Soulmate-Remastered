@@ -1,13 +1,6 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Soulmate_Remastered.Classes.HUDFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
-using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
+using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 {
@@ -34,7 +27,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         {
             //Initialize Gameobject attributes********************************************************************************
 
-            Position = new Vector2f(player.Position.X - 150, player.Position.Y + player.HitBox.Height - TextureList[0].Size.Y);
+            Position = new Vector2(player.Position.X - 150, player.Position.Y + player.HitBox.Height - TextureList[0].Size.Y);
             Sprite.Position = Position;
 
             //****************************************************************************************************************

@@ -1,10 +1,5 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Core;
 using System.Drawing;
@@ -70,9 +65,9 @@ namespace Soulmate_Remastered.Classes.MapFolder
                 {
                     blockTex = new Texture("Pictures/Map/Ground/Sand.png");
                     if (mask.GetPixel(i, j).Name == white)
-                        map[i, j] = new Blocks(0, new Vector2f(i * objectSize, j * objectSize), blockTex);
+                        map[i, j] = new Blocks(0, new Vector2(i * objectSize, j * objectSize), blockTex);
                     if (mask.GetPixel(i, j).Name == black)
-                        map[i, j] = new Blocks(1, new Vector2f(i * objectSize, j * objectSize), blockTex);
+                        map[i, j] = new Blocks(1, new Vector2(i * objectSize, j * objectSize), blockTex);
                 }
             }
         }

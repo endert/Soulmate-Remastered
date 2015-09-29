@@ -1,13 +1,9 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder
 {
@@ -179,9 +175,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
 
         public Shop(List<Stack<AbstractItem>> itemsToBuy)
         {
+            KeyboardControler.KeyPressed += OnKeyPress;
+
             //initialize sprite
             sprite = new Sprite(shopTexture);
-            sprite.Position = new Vector2f((Game.WindowSizeX - sprite.Texture.Size.X) / 2, (Game.WindowSizeY - sprite.Texture.Size.Y) / 2);
+            sprite.Position = new Vector2((Game.WindowSizeX - sprite.Texture.Size.X) / 2, (Game.WindowSizeY - sprite.Texture.Size.Y) / 2);
 
             //initialize Marker
             selected = new RectangleShape(selectedSize+(-2*outlineThickness));
@@ -193,7 +191,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             
 
             playerGoldText = new Text(PlayerHandler.Player.Gold.ToString(), Game.font, 20);
-            playerGoldText.Position = new Vector2f(sprite.Position.X, sprite.Position.Y);
+            playerGoldText.Position = new Vector2(sprite.Position.X, sprite.Position.Y);
 
             //initialize ItemLists**************************************************************************
 
@@ -201,7 +199,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             buyableItems = ShopItem.ToShopItemList(itemsToBuy);
             for (int i = 0; i < buyableItems.Count; i++)
             {
-                buyableItems[i].Position = new Vector2f(StartBuyPosition.X, StartBuyPosition.Y + i * 50);
+                buyableItems[i].Position = new Vector2(StartBuyPosition.X, StartBuyPosition.Y + i * 50);
 
                 if (i >= LineCount)
                     buyableItems[i].Visible = false;
@@ -216,7 +214,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             //}
             for (int i = 0; i < sellableItems.Count; i++)
             {
-                sellableItems[i].Position = new Vector2f(StartSellPosition.X, StartSellPosition.Y + i * 50);
+                sellableItems[i].Position = new Vector2(StartSellPosition.X, StartSellPosition.Y + i * 50);
 
                 if (i >= LineCount)
                     sellableItems[i].Visible = false;
@@ -228,36 +226,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
             ShopIsOpen = true;
         }
 
-        /// <summary>
-        /// manages the controls in the Shop
-        /// </summary>
-        public void Shopmanagement()
+        void OnKeyPress(object sender, Core.KeyEventArgs e)
         {
-            //manage Collums***************************************************************
-
-            //right button
-            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Right))
-            {
-                Game.IsPressed = true;
+            if(e.Key == Controls.Key.Right)
                 selectedCollum = (Collum)((int)++selectedCollum % (int)Collum.CollumCount);
-            }
 
-            //left button
-            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Left))
+            if(e.Key == Controls.Key.Left)
             {
-                Game.IsPressed = true;
                 selectedCollum += (int)Collum.CollumCount - 1;
                 selectedCollum = (Collum)((int)selectedCollum % (int)Collum.CollumCount);
             }
 
-            //*****************************************************************************
-            //manage Lines*****************************************************************
-
-            //down button
-            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Down))
+            if(e.Key == Controls.Key.Down)
             {
-                Game.IsPressed = true;
-
                 /*
                  * if the index of the first shown item + index of the selected Line = selectedLineCount - 1 then the last item of the List is selected
                  * because then we got the index of the last item in this List
@@ -281,11 +262,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                 }
             }
 
-            //up button
-            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Up))
+            if(e.Key == Controls.Key.Up)
             {
-                Game.IsPressed = true;
-
                 //if the first item of the list is not the selected one
                 if (SmallestDisplayedItem > 0 || selectedLine > 0)
                 {
@@ -306,6 +284,19 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
                     SmallestDisplayedItem = EvaluateIntSmallestDisplayedItem();
                 }
             }
+
+            if(e.Key == Controls.Key.Return)
+            {
+                BuyOrSell();
+            }
+        }
+
+        /// <summary>
+        /// manages the controls in the Shop
+        /// </summary>
+        public void Shopmanagement()
+        {
+            //manage Lines*****************************************************************
 
             //fixing eventual undefined lines
             if (selectedLine >= SelectedListCount)
@@ -366,13 +357,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// </summary>
         private void ShopItemUpdate()
         {
-            //buy or sell if return is pressed
-            if (Keyboard.IsKeyPressed(Controls.Return) && !Game.IsPressed)
-            {
-                Game.IsPressed = true;
-                BuyOrSell();
-            }
-
             //update sellable Items
             for (int i = 0; i < sellableItems.Count - smallestDisplayedItem0 && i < LineCount; i++)
             {

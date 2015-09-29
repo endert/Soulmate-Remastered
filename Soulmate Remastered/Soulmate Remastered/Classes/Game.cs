@@ -1,14 +1,8 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
-using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
-using Soulmate_Remastered.Classes.GameStatesFolder;
 using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes
 {
@@ -23,10 +17,6 @@ namespace Soulmate_Remastered.Classes
         /// </summary>
         public static uint WindowSizeY { get { if (Fullscreen) return 1080; return 720; } }
 
-        /// <summary>
-        /// a bool if a key was pressed
-        /// </summary>
-        public static bool IsPressed { get; set; }
         /// <summary>
         /// the font, that is used for all texts
         /// </summary>
@@ -49,12 +39,12 @@ namespace Soulmate_Remastered.Classes
         /// <summary>
         /// the style for the game (fullscreen etc.)
         /// </summary>
-        static Styles screen = Styles.Default;
+        static SFML.Window.Styles screen = SFML.Window.Styles.Default;
 
         /// <summary>
         /// bool if the game is in fullscreen
         /// </summary>
-        public static bool Fullscreen { get { return screen.Equals(Styles.Fullscreen); } }
+        public static bool Fullscreen { get { return screen.Equals(SFML.Window.Styles.Fullscreen); } }
 
         public Game() : base(WindowSizeX, WindowSizeY, "Soulmate", screen) { }
 
@@ -65,14 +55,12 @@ namespace Soulmate_Remastered.Classes
         public override void Update(GameTime time)
         {
             MouseControler.Update();
+            KeyboardControler.Update();
 
             if (currentGameState != prevGameState)
             {
                 HandleGameState();
             }
-
-            if (!NavigationHelp.isAnyKeyPressed() && !Mouse.IsButtonPressed(Mouse.Button.Left) && !Mouse.IsButtonPressed(Mouse.Button.Right))
-                IsPressed = false;
 
             currentGameState = gameState.Update(time);
         }

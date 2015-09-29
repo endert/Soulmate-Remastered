@@ -1,14 +1,8 @@
-﻿using SFML.Window;
-using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+﻿using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder;
 using Soulmate_Remastered.Classes.HUDFolder;
 using Soulmate_Remastered.Core;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
 {
@@ -146,7 +140,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             //check if it is droped because of droprate
             if (Drops[rand].DropRate >= 100 * random.NextDouble())
             {
-                Drops[rand].CloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
+                Drops[rand].CloneAndDrop(new Vector2(Position.X + random.Next(50), Position.Y + random.Next(50)));
             }
 
             int goldAmount = random.Next(100);
@@ -154,7 +148,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
             //drop gold
             for (int i = 0; i < goldAmount; i++)
             {
-                new Gold().CloneAndDrop(new Vector2f(Position.X + random.Next(50), Position.Y + random.Next(50)));
+                new Gold().CloneAndDrop(new Vector2(Position.X + random.Next(50), Position.Y + random.Next(50)));
             }
         }
 

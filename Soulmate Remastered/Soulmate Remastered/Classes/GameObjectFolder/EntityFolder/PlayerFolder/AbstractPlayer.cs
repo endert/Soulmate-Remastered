@@ -1,16 +1,7 @@
-﻿using SFML.Window;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Soulmate_Remastered.Classes.GameObjectFolder;
+﻿using System;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFolder;
 using SFML.Graphics;
-using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
-using System.Diagnostics;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
-using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
@@ -73,57 +64,65 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         {
             Arrow
         }
-        /// <summary>
-        /// help bool for IsPressedForAttack
-        /// </summary>
-        bool _isPressed = false;
-        /// <summary>
-        /// returns bool if the button for attack is pressed or not
-        /// </summary>
-        public bool IsPressedForAttack
+
+        protected override void OnKeyPress(object sender, KeyEventArgs e)
         {
-            get
-            {
-                if ((Keyboard.IsKeyPressed(Controls.ButtonForAttack) || Mouse.IsButtonPressed(Mouse.Button.Left)) && !_isPressed)
-                {
-                    _isPressed = true;
-                    return true;
-                }
-                if (_isPressed && !Keyboard.IsKeyPressed(Controls.ButtonForAttack) && !Mouse.IsButtonPressed(Mouse.Button.Left))
-                {
-                    _isPressed = false;
-                    return false;
-                }
+            base.OnKeyPress(sender, e);
 
-                return false;
+            if(e.Key == Controls.Key.Attack)
+                Attacking = true;
+            
+            if(e.Key == Controls.Key.Shoot)
+            {
+                CoolDowns[(int)ECooldown.Arrow].Start();
+                if (!CoolDowns[(int)ECooldown.Arrow].OnCooldown)
+                    new ProjectileArrow(this);
             }
+
+            if (e.Key == Controls.Key.Left)
+                movement += Vector2.LEFT;
+
+            if (e.Key == Controls.Key.Right)
+                movement += Vector2.RIGHT;
+
+            if (e.Key == Controls.Key.Down)
+                movement += Vector2.FRONT;
+
+            if (e.Key == Controls.Key.Up)
+                movement += Vector2.BACK;
         }
-        /// <summary>
-        /// help bool for IsPressedForShoot
-        /// </summary>
-        bool _isPressed2 = false;
-        /// <summary>
-        /// returns bool if the button for shooting is pressed or not
-        /// </summary>
-        public bool IsPressedForShoot
+
+        protected override void OnKeyRelease(object sender, KeyEventArgs e)
         {
-            get
-            {
-                if (Keyboard.IsKeyPressed(Controls.ButtonForShoot) && !_isPressed2)
-                {
-                    _isPressed2 = true;
-                    return true;
-                }
+            if (e.Key == Controls.Key.Attack)
+                Attacking = false;
 
-                if (_isPressed2 && !Keyboard.IsKeyPressed(Controls.ButtonForShoot))
-                {
-                    _isPressed2 = false;
-                    return false;
-                }
+            if (e.Key == Controls.Key.Left)
+                movement -= Vector2.LEFT;
 
-                return false;
-            }
+            if (e.Key == Controls.Key.Right)
+                movement -= Vector2.RIGHT;
+
+            if (e.Key == Controls.Key.Down)
+                movement -= Vector2.FRONT;
+
+            if (e.Key == Controls.Key.Up)
+                movement -= Vector2.BACK;
+
         }
+
+        protected override void OnMouseButtonPressed(object sender, MouseButtonEventArgs e)
+        {
+            if (e.Button == MouseButton.Left)
+                Attacking = true;
+        }
+
+        protected override void OnMouseButtonRelease(object sender, MouseButtonEventArgs e)
+        {
+            if (e.Button == MouseButton.Left)
+                Attacking = false;
+        }
+        
         protected bool transforming = false;
         protected bool animating = false;
         
@@ -136,9 +135,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         /// <para>[5] current hp</para>
         /// </summary>
         /// <returns></returns>
-        public String ToStringForMapChange()
+        public string ToStringForMapChange()
         {
-            String playerString = "pl" + LineBreak.ToString();
+            string playerString = base.ToStringForSave() + LineBreak.ToString();
 
             playerString += Lvl + LineBreak.ToString();
             playerString += CurrentFusionValue + LineBreak.ToString();
@@ -150,6 +149,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         }
 
         /// <summary>
+        /// suttf mgcrf, sglc suiw ah lgb äfftli rfmmlbwuc
         /// <para>creates a string wich contains the players stats</para>
         /// <para>[1] lvl</para>
         /// <para>[2] current fusion value</para>
@@ -160,9 +160,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         /// <para>[7] Position.Y</para>
         /// </summary>
         /// <returns></returns>
-        public String ToStringForSave()
+        public override string ToStringForSave()
         {
-            String playerForSave = ToStringForMapChange();
+            string playerForSave = ToStringForMapChange();
 
             playerForSave += Position.X + LineBreak.ToString();
             playerForSave += Position.Y + LineBreak.ToString();
@@ -174,9 +174,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         /// load player attributes from a string
         /// </summary>
         /// <param name="playerString"></param>
-        public void Load(String playerString)
+        public void Load(string playerString)
         {
-            String[] splitPlayerString = playerString.Split(LineBreak);
+            string[] splitPlayerString = playerString.Split(LineBreak);
 
             LoadMapChange(playerString);
             Position = new Vector2(Convert.ToSingle(splitPlayerString[6]), Convert.ToSingle(splitPlayerString[7]));
@@ -186,9 +186,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         /// load player attributes from a string
         /// </summary>
         /// <param name="playerString"></param>
-        public void LoadMapChange(String playerString)
+        public void LoadMapChange(string playerString)
         {
-            String[] splitPlayerString = playerString.Split(LineBreak);
+            string[] splitPlayerString = playerString.Split(LineBreak);
 
             Lvl = Convert.ToInt32(splitPlayerString[1]);
             StatsUpdate();
@@ -196,30 +196,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             Gold = Convert.ToSingle(splitPlayerString[3]);
             CurrentEXP = Convert.ToSingle(splitPlayerString[4]);
             CurrentHP = Convert.ToSingle(splitPlayerString[5]);
-        }
-
-        /// <summary>
-        /// evaluates Vector for player movement according to the input
-        /// </summary>
-        /// <param name="movementSpeed"></param>
-        /// <returns></returns>
-        public virtual Vector2 GetKeyPressed(float movementSpeed)
-        {
-            Vector2 result = new Vector2(0, 0);
-
-            if (Keyboard.IsKeyPressed(Controls.Left))
-                result += Vector2.LEFT * movementSpeed;
-
-            if (Keyboard.IsKeyPressed(Controls.Up))
-                result += Vector2.BACK * movementSpeed;
-
-            if (Keyboard.IsKeyPressed(Controls.Down))
-                result += Vector2.FRONT * movementSpeed;
-
-            if (Keyboard.IsKeyPressed(Controls.Right))
-                result += Vector2.RIGHT * movementSpeed;
-
-            return result;
         }
 
         /// <summary>
@@ -248,10 +224,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
         /// <summary>
         /// adapt all stats from the given player, used for fusion
+        /// <para>calls player.SubstractEvents methode to denie any control over that instance</para>
         /// </summary>
         /// <param name="player"></param>
         public void Adapt(AbstractPlayer player)
         {
+            //calls the substractEvents methode to denie any control over that instance
+            player.SubstractEvents();
+
+            movement = player.movement;
             FacingDirection = player.FacingDirection;
             Sprite = new Sprite(TextureList[(int)player.Direction]);
             Sprite.Position = player.Position;
@@ -374,27 +355,10 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             if (AttackHitBox != null)
                 AttackHitBox.Position = GetHitBoxPosition();
 
-            if (IsPressedForAttack)
-            {
-                Attacking = true;
-                //start animate
-            }
-            else
-                Attacking = false;
-
-            if (IsPressedForShoot)
-            {
-                CoolDowns[(int)ECooldown.Arrow].Start();
-                if (!CoolDowns[(int)ECooldown.Arrow].OnCooldown)
-                    new ProjectileArrow(this);
-            }
-
-            if (!transforming)
-            {
+            if (transforming)
                 movement = Vector2.ZERO;
-                movement = GetKeyPressed(MovementSpeed);
-                Move(movement);
-            }
+
+            Move(movement * MovementSpeed);
 
             if (Lvl >= MaxLvl)
             {

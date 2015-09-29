@@ -1,12 +1,7 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder;
 using Soulmate_Remastered.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.DialogeBoxFolder
 {
@@ -31,7 +26,7 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
         /// <summary>
         /// the List wich contains all lines of the dialoge
         /// </summary>
-        List<String> text;
+        List<string> text;
         /// <summary>
         /// the shown Text on screen
         /// </summary>
@@ -55,14 +50,16 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="dialoge"></param>
-        public DialogeBox(Vector2 pos,String dialoge, AbstractNPC _npc)
+        public DialogeBox(Vector2 pos,string dialoge, AbstractNPC _npc)
         {
+            KeyboardControler.KeyPressed += UpdateDialogue;
+
             //initialize
             position = pos;
             dialogeBox = new Sprite(background);
             dialogeBox.Position = position;
             txt = new Text("", Game.font, characterSize);
-            txt.Position = new Vector2f(dialogeBox.Position.X + 5, dialogeBox.Position.Y + 5);
+            txt.Position = new Vector2(dialogeBox.Position.X + 5, dialogeBox.Position.Y + 5);
             IsOpen = true;
             npc = _npc;
 
@@ -72,23 +69,32 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
         }
 
         /// <summary>
+        /// call before setting null
+        /// <para></para>
+        /// </summary>
+        public void Deleate()
+        {
+            KeyboardControler.KeyPressed -= UpdateDialogue;
+        }
+
+        /// <summary>
         /// splits the String so that it can be shown properly
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        private List<String> CreateDialoge(String str)
+        private List<string> CreateDialoge(string str)
         {
             //get rid of all unneccessary linebreaks
             str = str.Replace("\n", "");
 
             //setup for the evaluation
-            List<String> result = new List<string>();//the returned List
-            String[] spliString = str.Split(' ');    //a String array that contains the single words, so we can determine rather they stay in this line or the next
-            String oneLine = "";                     //a String that symbolize exactly one Line
+            List<string> result = new List<string>();//the returned List
+            string[] spliString = str.Split(' ');    //a String array that contains the single words, so we can determine rather they stay in this line or the next
+            string oneLine = "";                     //a String that symbolize exactly one Line
             uint maxNumber = (background.Size.X - 10) / (uint)(characterSize / 2);//the max number of characters in one line
 
             //filling the result list
-            foreach (String s in spliString)
+            foreach (string s in spliString)
             {
                 /*
                  * if the number of character in one line plus the number of characters in this String are smaller than the maxNumber
@@ -146,24 +152,15 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
             }
         }
 
-        /// <summary>
-        /// updates the dialoge box
-        /// </summary>
-        public void Update()
+        void UpdateDialogue(object sender, KeyEventArgs e)
         {
-            //update the shown String if the interaction button is pressed
-            if (Keyboard.IsKeyPressed(Controls.Interact) && !Game.IsPressed)
-            {
-                Game.IsPressed = true;
+            //if there is nothing left to show, close the dialoge box
+            if (index == text.Count)
+                npc.StopIteraction();//destroys this Instance
 
-                //if there is nothing left to show, close the dialoge box
-                if (index == text.Count)
-                    npc.StopIteraction();//destroys this Instance
-
-                //else set the diesplayed Sting new
-                txt.DisplayedString = "";
-                SetDisplayedString();
-            }
+            //else set the diesplayed Sting new
+            txt.DisplayedString = "";
+            SetDisplayedString();
         }
 
         /// <summary>

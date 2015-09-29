@@ -1,14 +1,9 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder;
 using Soulmate_Remastered.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 {

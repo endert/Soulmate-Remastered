@@ -1,13 +1,7 @@
-﻿using SFML.Window;
-using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
-using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
+﻿using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.HUDFolder;
 using Soulmate_Remastered.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 {
@@ -22,7 +16,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         /// saves the data of this instance as a String
         /// </summary>
         /// <returns></returns>
-        public String ToStringForSave()
+        public override string ToStringForSave()
         {
             string petForSave = GetType() + LineBreak.ToString();
 
@@ -37,12 +31,12 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         /// loads the data of this instance from a String
         /// </summary>
         /// <param name="petString"></param>
-        public void Load(String petString)
+        public void Load(string petString)
         {
-            String[] splitPetString = petString.Split(LineBreak);
+            string[] splitPetString = petString.Split(LineBreak);
 
             CurrentHP = Convert.ToSingle(splitPetString[1]);
-            Position = new Vector2f(Convert.ToSingle(splitPetString[2]), Convert.ToSingle(splitPetString[3]));
+            Position = new Vector2(Convert.ToSingle(splitPetString[2]), Convert.ToSingle(splitPetString[3]));
         }
 
         /// <summary>

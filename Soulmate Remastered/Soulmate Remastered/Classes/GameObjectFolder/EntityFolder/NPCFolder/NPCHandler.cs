@@ -1,12 +1,7 @@
-﻿using SFML.Window;
-using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
-using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+﻿using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
 {
@@ -99,15 +94,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
                     continue;
                 }
 
-                //interaction update
-                if (NPCs[i].InIteractionRange && !Game.IsPressed && Keyboard.IsKeyPressed(Controls.Interact) && !NPCs[i].Interacting)
+                if (NPCs[i].Interacting && !NPCs[i].InInteractionRange)
                 {
-                    Game.IsPressed = true;
-                    NPCs[i].Interact();
-                }
-                if (NPCs[i].Interacting && (!NPCs[i].InIteractionRange || (Keyboard.IsKeyPressed(Controls.Escape) && !Game.IsPressed)))
-                {
-                    Game.IsPressed = true;
                     NPCs[i].StopIteraction();
                 }
             }
@@ -119,22 +107,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder
         /// <param name="gameTime"></param>
         public static void UpdateShop(GameTime gameTime)
         {
-            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.IsPressed)
-            {
-                Game.IsPressed = true;
-
-                foreach (AbstractNPC npc in NPCs)
-                {
-                    npc.StopIteraction();
-                }
-                Shop_ = null;
-            }
-            else
-            {
-                if (Shop_ != null)
-                    Shop_.Shopmanagement();
-                PlayerHandler.Player.Update(gameTime);
-            }
+            if (Shop_ != null)
+                Shop_.Shopmanagement();
         }
     }
 }

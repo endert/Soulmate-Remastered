@@ -4,10 +4,7 @@ using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolder
 {
@@ -16,7 +13,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// <summary>
         /// the cursor that blinks has the size 5,10
         /// </summary>
-        RectangleShape cursor = new RectangleShape(new Vector2f(5, 10));
+        RectangleShape cursor = new RectangleShape(new Vector2(5, 10));
         /// <summary>
         /// <para>Vector which contains width and heigth of the Console Window.</para>
         /// Standard 300,100
@@ -69,10 +66,10 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
 
             //initializing the texts
             closeWithEnter = new Text("close with Enter", font, 15);
-            closeWithEnter.Position = new Vector2f((Window.Size.X / 2) - (42),
+            closeWithEnter.Position = new Vector2((Window.Size.X / 2) - (42),
                                                   (Window.Size.Y / 2) - 30);
             Text_ = new Text("", font, 10);
-            Text_.Position = new Vector2f(3, WindowSize.Y - 40);
+            Text_.Position = new Vector2(3, WindowSize.Y - 40);
 
             //start the blinkTime
             cursorBlickTime.Start();
@@ -93,7 +90,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             if (Input.ReturnIsPressed())
             {
                 Input.SetKeyPressed(Keyboard.Key.Return);
-                if (Text_.DisplayedString.Equals("/" + Cheats.Cheat.ShowCheats.ToString()))
+                if (Text_.DisplayedString.Equals("/" + Cheats.Cheat.Help.ToString()))
                 {
                     Cheats.ActivateCheat(Text_.DisplayedString);
                     Text_.DisplayedString = "";
@@ -169,7 +166,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
 
 
             //handle cursor
-            cursor.Position = new Vector2f(Text_.FindCharacterPos((UInt32)Text_.DisplayedString.Length).X + cursor.Size.X, Text_.Position.Y);  //sets the cursor Position
+            cursor.Position = new Vector2(Text_.FindCharacterPos((UInt32)Text_.DisplayedString.Length).X + cursor.Size.X, Text_.Position.Y);  //sets the cursor Position
             CursorBlink();
 
             //draw everything that must be drawn

@@ -1,24 +1,17 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
-using Soulmate_Remastered.Classes.CheatConsoleFolder;
 using Soulmate_Remastered.Classes.DialogeBoxFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
-using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChestFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Classes.HUDFolder;
 using Soulmate_Remastered.Classes.InGameMenuFolder;
 using Soulmate_Remastered.Classes.MapFolder;
 using Soulmate_Remastered.Core;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
@@ -26,12 +19,12 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
     {
         public static bool loading = false;
         public static bool startNewGame = false;
-        protected static readonly String savePlayer = "Saves/player.soul";
+        protected static readonly string savePlayer = "Saves/player.soul";
         /// <summary>
         /// bool if debug on or off
         /// </summary>
         bool debugging = false;
-        public static String savePlayerPath { get { return savePlayer; } }
+        public static string SavePlayerPath { get { return savePlayer; } }
         /// <summary>
         /// view for inventory, shop, inGameMenu
         /// </summary>
@@ -40,7 +33,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         protected DialogeHandler dialoges;
         protected InGameMenu inGameMenu;
         protected HUD hud;
-        public static View VIEW { get; protected set; }
+        public static View View { get; protected set; }
 
         //protected int index = 0; //WHY, no using
 
@@ -51,13 +44,40 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// 3 = inGameMenu COMMING SOON
         /// </summary>
         protected int returnValue = 0;
-                
+
+
+        /// <summary>
+        /// things that shall happen when a key is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void OnKeyPress(object sender, KeyEventArgs e)
+        {
+            Console.WriteLine("AbstractGamePlay");
+
+            if (e.Key == Controls.Key.Debugging)
+            {
+                debugging = !debugging;
+            }
+
+            if (e.Key == Controls.Key.DebugMapChange)
+            {
+                KeyboardControler.KeyPressed -= OnKeyPress;
+                SaveGame.SavePath = savePlayer;
+                SaveGame.SaveTheGame();
+                KeyboardControler.Deleate();
+                returnValue = 2;
+            }
+        }
+
         /// <summary>
         /// initialize time and view
         /// </summary>
         public void Initialize()
         {
-            VIEW = new View(new FloatRect(0, 0, Game.WindowSizeX, Game.WindowSizeY));
+            KeyboardControler.KeyPressed += OnKeyPress;
+
+            View = new View(new FloatRect(0, 0, Game.WindowSizeX, Game.WindowSizeY));
             viewHelp = new View(new FloatRect(0, 0, Game.WindowSizeX, Game.WindowSizeY));
         }
         /// <summary>
@@ -115,17 +135,17 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// <returns>view vector</returns>
         private Vector2 VectorForViewMove()
         {
-            float Xmove = (PlayerHandler.Player.Position.X + (PlayerHandler.Player.HitBox.Width / 2)) - VIEW.Center.X;
-            float Ymove = (PlayerHandler.Player.Position.Y + (PlayerHandler.Player.HitBox.Height * 5 / 6)) - VIEW.Center.Y;
+            float Xmove = (PlayerHandler.Player.Position.X + (PlayerHandler.Player.HitBox.Width / 2)) - View.Center.X;
+            float Ymove = (PlayerHandler.Player.Position.Y + (PlayerHandler.Player.HitBox.Height * 5 / 6)) - View.Center.Y;
 
             //view cannot go over the map edge
-            if (VIEW.Center.X + Xmove < VIEW.Size.X / 2)
+            if (View.Center.X + Xmove < View.Size.X / 2)
                 Xmove = 0;
-            if (VIEW.Center.Y + Ymove < VIEW.Size.Y / 2)
+            if (View.Center.Y + Ymove < View.Size.Y / 2)
                 Ymove = 0;
-            if (VIEW.Center.X + Xmove + (VIEW.Size.X / 2) > map.MapSize.X)
+            if (View.Center.X + Xmove + (View.Size.X / 2) > map.MapSize.X)
                 Xmove = 0;
-            if (VIEW.Center.Y + Ymove + (VIEW.Size.Y / 2) > map.MapSize.Y)
+            if (View.Center.Y + Ymove + (View.Size.Y / 2) > map.MapSize.Y)
                 Ymove = 0;
             //*********************************
 
@@ -152,20 +172,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             inGameMenu.Update(gameTime);
             //************************************************
 
-            if (Keyboard.IsKeyPressed(Keyboard.Key.L) && !Game.IsPressed) //switches between level and village
-            {
-                Game.IsPressed = true;
-                SaveGame.SavePath = savePlayer;
-                SaveGame.SaveTheGame();
-                returnValue = 2;
-            }
-
             if (!PlayerInventory.IsOpen && !inGameMenu.InGameMenuOpen && !Shop.ShopIsOpen) //run update for game, if no menu, inventory or shop is open
             {
-                VIEW.Move(VectorForViewMove());
+                View.Move(VectorForViewMove());
 
                 GameObjectHandler.Update(gameTime);
-                dialoges.Update();
 
                 if (PlayerHandler.Player.CurrentHP <= 0) //if player is dead go back to mainMenu
                 {
@@ -187,20 +198,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             //}
 
             hud.Update(gameTime);//must be update after gameObjectHandler
-            
-            debug();
-        }
-
-        /// <summary>
-        /// draw a rectangle shape for the hitbox
-        /// </summary>
-        public void debug()
-        {
-            if (Keyboard.IsKeyPressed(Controls.debugging) && !Game.IsPressed)
-            {
-                debugging = !debugging;
-                Game.IsPressed = true;
-            }
         }
 
         /// <summary>
@@ -209,7 +206,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         /// <param name="window">window where it should be drawed</param>
         public void Draw(RenderWindow window)
         {
-            window.SetView(VIEW);
+            window.SetView(View);
             map.draw(window);
             GameObjectHandler.Draw(window);
             dialoges.Draw(window);

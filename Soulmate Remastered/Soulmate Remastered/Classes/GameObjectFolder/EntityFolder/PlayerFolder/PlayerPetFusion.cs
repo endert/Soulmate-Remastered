@@ -1,12 +1,7 @@
 ﻿using SFML.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
-using System.Diagnostics;
-using SFML.Window;
+using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 {
@@ -35,6 +30,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         protected override void LoadTextures()
         {
             TextureSetting(PetHandler.Pet);
+        }
+
+        protected override void OnKeyPress(object sender, KeyEventArgs e)
+        {
+            base.OnKeyPress(sender, e);
+
+            if (e.Key == Controls.Key.Fuse)
+            {
+                Defuse();
+            }
         }
 
         /// <summary>
@@ -73,7 +78,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         /// <param name="pet"></param>
         public void TextureSetting(AbstractPet pet)
         {
-            if (pet.GetType().IsSubclassOf(typeof(PetWolf)))
+            if (pet.GetType().Equals(typeof(PetWolf)))
             {
                 TextureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfFront.png"));
                 TextureList.Add(new Texture("Pictures/Entities/Player/Fusion/Werewolf/WerewolfBack.png"));
@@ -108,23 +113,29 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             }
         }
 
+        void Defuse()
+        {
+            fusionedPlayer.Adapt(this);
+            fusionedPet.Position = Position;
+
+            PlayerHandler.Player = fusionedPlayer;
+            PetHandler.Pet = fusionedPet;
+            EntityHandler.Add(fusionedPlayer);
+            EntityHandler.Add(fusionedPet);
+            EntityHandler.DeleateType(GetType());
+
+            //invoke the protected AddEvents Methode, to give back control over that instance
+            fusionedPlayer.GetType().GetMethod("AddEvents", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).Invoke(fusionedPlayer, null);
+        }
+
         /// <summary>
         /// splits the fusion into player and pet
         /// </summary>
-        public void Defuse()
+        void CheckIfDefuse()
         {
             CurrentFusionValue = MaxFusionValue - stopWatchList[2].ElapsedMilliseconds / 100;
-            if (stopWatchList[2].ElapsedMilliseconds >= fusionedPlayer.FusionDuration || Keyboard.IsKeyPressed(Keyboard.Key.Space))
-            {
-                fusionedPlayer.Adapt(this);
-                fusionedPet.Position = Position;
-
-                PlayerHandler.Player = fusionedPlayer;
-                PetHandler.Pet = fusionedPet;
-                EntityHandler.Add(fusionedPlayer);
-                EntityHandler.Add(fusionedPet);
-                EntityHandler.DeleateType(GetType());
-            }
+            if (stopWatchList[2].ElapsedMilliseconds >= fusionedPlayer.FusionDuration)
+                Defuse();
         }
 
         public override void Update(GameTime gameTime)
@@ -144,7 +155,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
             if (!transforming)
             {
                 stopWatchList[2].Start();
-                Defuse();
+                CheckIfDefuse();
             }
         }
     }

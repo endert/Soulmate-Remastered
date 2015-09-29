@@ -1,13 +1,8 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
-using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameStatesFolder;
+using Soulmate_Remastered.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.HUDFolder
 {
@@ -57,13 +52,13 @@ namespace Soulmate_Remastered.Classes.HUDFolder
         {
             if (barStyle.Equals("Fusion"))
             {
-                barBackground.Scale = new Vector2f(-1 + (PlayerHandler.Player.CurrentFusionValue / PlayerHandler.Player.MaxFusionValue), 1);
+                barBackground.Scale = new Vector2(-1 + (PlayerHandler.Player.CurrentFusionValue / PlayerHandler.Player.MaxFusionValue), 1);
                 inNumber.DisplayedString = "FP: " + PlayerHandler.Player.CurrentFusionValue + "/" + PlayerHandler.Player.MaxFusionValue;
             }
 
             else if (barStyle.Equals("Life"))
             {
-                barBackground.Scale = new Vector2f(-1 + (PlayerHandler.Player.CurrentHP / PlayerHandler.Player.MaxHP), 1);
+                barBackground.Scale = new Vector2(-1 + (PlayerHandler.Player.CurrentHP / PlayerHandler.Player.MaxHP), 1);
                 inNumber.DisplayedString = "HP: " + PlayerHandler.Player.CurrentHP + "/" + PlayerHandler.Player.MaxHP;
             }
 
@@ -77,16 +72,16 @@ namespace Soulmate_Remastered.Classes.HUDFolder
         {
             if(barStyle.Equals("Fusion"))
             {
-                fusionBar.Position = new Vector2f((AbstractGamePlay.VIEW.Center.X - (Game.WindowSizeX / 2) + 5), (AbstractGamePlay.VIEW.Center.Y - (Game.WindowSizeY / 2) + lifeBarTexture.Size.Y + 10));
-                barBackground.Position = new Vector2f(fusionBar.Position.X + fusionBar.Texture.Size.X, fusionBar.Position.Y);
-                inNumber.Position = new Vector2f(fusionBar.Position.X + 10, fusionBar.Position.Y + 2);
+                fusionBar.Position = new Vector2((AbstractGamePlay.View.Center.X - (Game.WindowSizeX / 2) + 5), (AbstractGamePlay.View.Center.Y - (Game.WindowSizeY / 2) + lifeBarTexture.Size.Y + 10));
+                barBackground.Position = new Vector2(fusionBar.Position.X + fusionBar.Texture.Size.X, fusionBar.Position.Y);
+                inNumber.Position = new Vector2(fusionBar.Position.X + 10, fusionBar.Position.Y + 2);
             }
 
             else if(barStyle.Equals("Life"))
             {
-                lifeBar.Position = new Vector2f((AbstractGamePlay.VIEW.Center.X - (Game.WindowSizeX / 2) + 5), (AbstractGamePlay.VIEW.Center.Y - (Game.WindowSizeY / 2) + 5));
-                barBackground.Position = new Vector2f(lifeBar.Position.X + lifeBar.Texture.Size.X, lifeBar.Position.Y);
-                inNumber.Position = new Vector2f(lifeBar.Position.X + 10, lifeBar.Position.Y + 2);
+                lifeBar.Position = new Vector2((AbstractGamePlay.View.Center.X - (Game.WindowSizeX / 2) + 5), (AbstractGamePlay.View.Center.Y - (Game.WindowSizeY / 2) + 5));
+                barBackground.Position = new Vector2(lifeBar.Position.X + lifeBar.Texture.Size.X, lifeBar.Position.Y);
+                inNumber.Position = new Vector2(lifeBar.Position.X + 10, lifeBar.Position.Y + 2);
             }
         }
 

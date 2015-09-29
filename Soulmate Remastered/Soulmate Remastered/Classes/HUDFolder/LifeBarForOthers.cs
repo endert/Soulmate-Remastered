@@ -1,11 +1,4 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder;
 using Soulmate_Remastered.Core;
 

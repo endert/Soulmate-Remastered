@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SFML.Graphics;
-using SFML.Window;
+﻿using SFML.Graphics;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
-using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder;
 using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChestFolder
@@ -44,10 +37,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
 
             //************************************************************************
         }
-
         public override void Update(GameTime gameTime)
         {
-            Interaction();
+
         }
     }
 }

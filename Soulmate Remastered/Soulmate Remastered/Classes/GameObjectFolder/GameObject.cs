@@ -1,5 +1,4 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
 using Soulmate_Remastered.Core;
 using System;
 using System.Collections.Generic;
@@ -82,11 +81,68 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         /// </summary>
         public GameObject()
         {
+            AddEvents();
+
             LoadTextures();
             IsAlive = true;
             IsVisible = true;
             Sprite = new Sprite(TextureList[0]);
             HitBox = new HitBox(Sprite.Position, TextureList[0].Size.X, TextureList[0].Size.Y);
+        }
+
+        void DebugInitializedOutput() { Console.WriteLine(GetType() + " is initialized"); }
+
+        /// <summary>
+        /// the things that happen when a key is pressed
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnKeyPress(object sender, KeyEventArgs e)
+        {
+            //DebugInitializedOutput();
+        }
+        /// <summary>
+        /// the things that happen when a key is released
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnKeyRelease(object sender, KeyEventArgs e) { }
+        /// <summary>
+        /// the things that happen when a mousebutton is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected virtual void OnMouseButtonPressed(object sender, MouseButtonEventArgs e) { }
+        /// <summary>
+        /// the things that happen when a Mousebutton is released
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected virtual void OnMouseButtonRelease(object sender, MouseButtonEventArgs e) { }
+
+        /// <summary>
+        /// Adds the ControlMethods to ControlEvents, to gain control
+        /// </summary>
+        protected void AddEvents()//even if no reference is found, it is called via reflection so still important
+        {
+            KeyboardControler.KeyPressed += OnKeyPress;
+            KeyboardControler.KeyReleased += OnKeyRelease;
+            MouseControler.ButtonPressed += OnMouseButtonPressed;
+            MouseControler.Relessed += OnMouseButtonRelease;
+        }
+
+        /// <summary>
+        /// Substract the ControlMethods from the events, to denie further control
+        /// </summary>
+        protected void SubstractEvents()
+        {
+            KeyboardControler.KeyPressed -= OnKeyPress;
+            KeyboardControler.KeyReleased -= OnKeyRelease;
+            MouseControler.ButtonPressed -= OnMouseButtonPressed;
+            MouseControler.Relessed -= OnMouseButtonRelease;
+        }
+
+        public virtual string ToStringForSave()
+        {
+            return GetType().FullName;
         }
 
         /// <summary>

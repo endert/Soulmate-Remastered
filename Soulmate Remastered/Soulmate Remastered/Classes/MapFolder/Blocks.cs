@@ -1,11 +1,6 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder;
+using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.MapFolder
 {
@@ -24,7 +19,7 @@ namespace Soulmate_Remastered.Classes.MapFolder
 
         public BaseHitBox getBlockHitBox { get { return blockHitBox; } }
 
-        public Blocks(int blockType, Vector2f position, Texture bodenTex)
+        public Blocks(int blockType, Vector2 position, Texture bodenTex)
         {
             switch (blockType)
             {

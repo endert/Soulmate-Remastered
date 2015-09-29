@@ -1,13 +1,8 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using Soulmate_Remastered.Core;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder
 {
@@ -64,9 +59,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.Sh
         /// </summary>
         private void PositionUpdate()
         {
-            itemSprite.Position = new Vector2f(Position.X + 5, Position.Y);
-            displayedName.Position = new Vector2f(itemSprite.Position.X + itemSprite.Texture.Size.X + 5, Position.Y + 5);
-            goldValue.Position = new Vector2f(Position.X + 390 - (goldValue.DisplayedString.Length * goldValue.CharacterSize) / 2, Position.Y + 5);
+            itemSprite.Position = new Vector2(Position.X + 5, Position.Y);
+            displayedName.Position = new Vector2(itemSprite.Position.X + itemSprite.Texture.Size.X + 5, Position.Y + 5);
+            goldValue.Position = new Vector2(Position.X + 390 - (goldValue.DisplayedString.Length * goldValue.CharacterSize) / 2, Position.Y + 5);
             
         }
 

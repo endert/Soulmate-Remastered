@@ -1,9 +1,5 @@
 ﻿using SFML.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.DialogeBoxFolder
 {
@@ -22,21 +18,13 @@ namespace Soulmate_Remastered.Classes.DialogeBoxFolder
             DialogeList = new List<DialogeBox>();
         }
 
-        /// <summary>
-        /// updates all open dialoge boxes
-        /// </summary>
-        public void Update()
+        public static void Clear()
         {
-            //try catch because if a dialoge box is destroyed while updating it throws an exception but we can ignore that
-            //it may be skips the update of all dialoge boxes after the destroyed one once
-            try
+            for(int i = DialogeList.Count - 1; i >= 0; --i)
             {
-                foreach (DialogeBox dialoge in DialogeList)
-                {
-                    dialoge.Update();
-                }
+                DialogeList[i].Deleate();
+                DialogeList.RemoveAt(i);
             }
-            catch (InvalidOperationException) { }
         }
 
         /// <summary>

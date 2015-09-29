@@ -1,13 +1,9 @@
 ﻿using SFML.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.MapFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
-using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder
 {
@@ -82,7 +78,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         public static void Update(GameTime gameTime)
         {
             GameObjectList.Sort();
-
             for (int i = 0; i < GameObjectList.Count; ++i)
             {
                 if (!GameObjectList[i].IsAlive)

@@ -1,10 +1,6 @@
 ﻿using Soulmate_Remastered.Core;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolder
 {
@@ -37,7 +33,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             SetFusionValue = 9,
            
             //Other
-            ShowCheats = 10,
+            Help = 10,
 
             CheatCount
         }
@@ -45,7 +41,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// <summary>
         /// the Cheat Syntax
         /// </summary>
-        public static String CheatSyntax
+        public static string CheatSyntax
         {
             get
             {
@@ -61,7 +57,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
                     '"' + "/SetDef value" + '"' + " sets the defense of the Player.\n"+
                     '"' + "/SetAtt value" + '"' + " sets the attack damage of the Player.\n"+
                     '"' + "/SetFusionValue value" + '"' + " sets the FusionValue of the Player.\n"+
-                    '"' + "/ShowCheats" + '"' + " Opens a window with a List of all Cheats and their Syntax.\n"
+                    '"' + "/Help" + '"' + " Opens a window with a List of all Cheats and their Syntax.\n"
                 ;
             }
         }
@@ -70,11 +66,11 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// activate the entered Cheat should only be called once, when return is pressed
         /// </summary>
         /// <param name="input">String that contains: /Cheat parameter </param>
-        public static void ActivateCheat(String input)
+        public static void ActivateCheat(string input)
         {
-            String[] inputSplit = input.Split();    //seperate /Cheat and all other parameter
+            string[] inputSplit = input.Split();    //seperate /Cheat and all other parameter
             Cheat selectedCheat = Cheat.UNKOWN; //not defined cheat
-            String[] parameter = new String[inputSplit.Length - 1]; //String array without /Cheat
+            string[] parameter = new string[inputSplit.Length - 1]; //String array without /Cheat
             for (int i = 0; i < parameter.Length; i++)
             {
                 parameter[i] = inputSplit[i + 1];
@@ -135,7 +131,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
                     case Cheat.TakeDamage:
                         PlayerHandler.Player.ActivateCheat(-parms, PlayerHandler.Player.HealFor);
                         break;
-                    case Cheat.ShowCheats:
+                    case Cheat.Help:
                         CheatConsoleThreadStart.CheatConsole.ActivateCheat(parms, CheatConsoleThreadStart.CheatConsole.ShowCheats);
                         break;
                     default:

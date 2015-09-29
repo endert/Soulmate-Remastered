@@ -1,11 +1,6 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
 using Soulmate_Remastered.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
@@ -69,6 +64,58 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             endNotSelected = new Texture("Pictures/Menu/MainMenu/End/EndNotSelected.png");   
         }
 
+        protected override void OnKeyPress(object sender, KeyEventArgs e)
+        {
+            base.OnKeyPress(sender, e);
+
+            if (e.Key == Controls.Key.Up)
+            {
+                if (selectedSprite == Eselected.None)
+                    selectedSprite = Eselected.StartSprite;
+                else
+                    selectedSprite = (Eselected)((((int)(selectedSprite - Eselected.MainMenuOffset - 1) + CountSprites - 1) % CountSprites) + Eselected.MainMenuOffset + 1);
+            }
+
+            if (e.Key == Controls.Key.Down)
+            {
+                if (selectedSprite == Eselected.None)
+                    selectedSprite = Eselected.StartSprite;
+                else
+                    selectedSprite = (Eselected)((((int)(selectedSprite - Eselected.MainMenuOffset - 1) + 1) % CountSprites) + (Eselected.MainMenuOffset + 1));
+            }
+
+            if (e.Key == Controls.Key.Return)
+            {
+                if (selectedSprite != Eselected.None)
+                    KeyboardControler.KeyPressed -= OnKeyPress;
+
+                switch (selectedSprite)
+                {
+                    case Eselected.None:
+                        selectedSprite = Eselected.StartSprite;
+                        break;
+                    case Eselected.StartSprite:
+                        ReturnState = EnumGameStates.LoadGame;
+                        break;
+                    case Eselected.OptionsSprite:
+                        Console.WriteLine("load Options");
+                        ReturnState = EnumGameStates.Options;
+                        break;
+                    case Eselected.ControlsSprite:
+                        Console.WriteLine("load Controls");
+                        ReturnState = EnumGameStates.ControlsSetting;
+                        break;
+                    case Eselected.CreditsSprite:
+                        Console.WriteLine("load Credits");
+                        ReturnState = EnumGameStates.Credits;
+                        break;
+                    case Eselected.EndSprite:
+                        ReturnState = EnumGameStates.None;
+                        break;
+                }
+            }
+        }
+
         /// <summary>
         /// updates the current gamestate
         /// </summary>
@@ -92,47 +139,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
             if (MouseControler.MouseIn(EndSprite))
                 selectedSprite = Eselected.EndSprite;
-
-            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.IsPressed)
-            {
-                if (selectedSprite == Eselected.None)
-                    selectedSprite = Eselected.StartSprite;
-                else
-                    selectedSprite = (Eselected)((((int)(selectedSprite - Eselected.MainMenuOffset - 1) + CountSprites - 1) % CountSprites) + Eselected.MainMenuOffset + 1);
-                Game.IsPressed = true;
-            }
-
-            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.IsPressed)
-            {
-                selectedSprite = (Eselected)((((int)(selectedSprite - Eselected.MainMenuOffset - 1) + 1) % CountSprites) + (Eselected.MainMenuOffset + 1));
-                Game.IsPressed = true;
-            }
-
-            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Return))
-            {
-                Game.IsPressed = true;
-
-                switch (selectedSprite) {
-                    case Eselected.StartSprite:
-                        ReturnState = EnumGameStates.LoadGame;
-                        break;
-                    case Eselected.OptionsSprite:
-                        Console.WriteLine("load Options");
-                        ReturnState = EnumGameStates.Options;
-                        break;
-                    case Eselected.ControlsSprite:
-                        Console.WriteLine("load Controls");
-                        ReturnState = EnumGameStates.ControlsSetting;
-                        break;
-                    case Eselected.CreditsSprite:
-                        Console.WriteLine("load Credits");
-                        ReturnState = EnumGameStates.Credits;
-                        break;
-                    case Eselected.EndSprite:
-                        ReturnState = EnumGameStates.None;
-                        break;
-                }
-            }
 
             return ReturnState;
         }

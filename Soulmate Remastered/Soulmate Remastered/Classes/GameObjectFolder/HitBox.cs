@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SFML.Graphics;
-using SFML.Window;
-using Soulmate_Remastered.Classes.MapFolder;
-using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.ProjectileFolder;
+﻿using SFML.Graphics;
 using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder

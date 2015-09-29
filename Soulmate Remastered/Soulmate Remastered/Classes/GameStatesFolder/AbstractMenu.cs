@@ -1,13 +1,9 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
 using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Core;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
 {
@@ -86,12 +82,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         void MouseButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            if (e.Button == Mouse.Button.Left)
+            if (e.Button == MouseButton.Left)
             {
                 if (selectedSprite == Eselected.None)
                     return;
 
-                Game.IsPressed = true;
                 //get the selected sprite++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
                 string selected = selectedSprite.ToString().Split('.').Last();
@@ -166,6 +161,15 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
             }
         }
 
+        protected virtual void OnKeyPress(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Controls.Key.Escape)
+            {
+                KeyboardControler.KeyPressed -= OnKeyPress;
+                SetBackReturnState();
+            }
+        }
+
         /// <summary>
         /// evaluates which GameState is entered by pressing back
         /// </summary>
@@ -195,6 +199,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public virtual void LoadContent()
         {
             MouseControler.ButtonPressed += MouseButtonPressed;
+            KeyboardControler.KeyPressed += OnKeyPress;
 
             selectedSprite = Eselected.None;
 
@@ -256,12 +261,6 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             if (MouseControler.MouseIn(Back))
                 selectedSprite = Eselected.Back;
-
-            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Escape))
-            {
-                Game.IsPressed = true;
-                SetBackReturnState();
-            }
         }
 
         /// <summary>

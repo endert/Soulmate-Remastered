@@ -1,13 +1,5 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
-using Soulmate_Remastered.Classes.HUDFolder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
-using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.MoneyFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.NormalItemFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.PotionFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder.EquipmentFolder;
@@ -72,7 +64,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.EnemyFolder
                 Move(GetPlayerDirection());
             else
             {
-                Move(new Vector2f(-GetPlayerDirection().X, -GetPlayerDirection().Y));
+                Move(-GetPlayerDirection());
                 FacingDirection = GetPlayerDirection();
             }
         }

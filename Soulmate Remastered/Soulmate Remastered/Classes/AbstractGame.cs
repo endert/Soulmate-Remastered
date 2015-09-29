@@ -1,14 +1,4 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
-using SFML.Audio;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Soulmate_Remastered.Classes;
-using Soulmate_Remastered.Classes.GameObjectFolder;
-using Soulmate_Remastered.Classes.GameStatesFolder;
 using Soulmate_Remastered.Classes.CheatConsoleFolder;
 using Soulmate_Remastered.Core;
 
@@ -29,15 +19,16 @@ namespace Soulmate_Remastered.Classes
         /// </summary>
         public static GameTime SGameTime { get; private set; }
 
-        public AbstractGame(uint width, uint height, string title, Styles screen)
+        public AbstractGame(uint width, uint height, string title, SFML.Window.Styles screen)
         {
-            window = new RenderWindow(new VideoMode(width, height), title, screen);
+            window = new RenderWindow(new SFML.Window.VideoMode(width, height), title, screen);
 
             window.Closed += (sender, e) => { ((RenderWindow)sender).Close(); };
 
             SGameTime = new GameTime();
             cheatConsole = new CheatConsoleThreadStart();
             MouseControler.Initialize();
+            KeyboardControler.Initialize();
         }
 
         /// <summary>
@@ -53,7 +44,6 @@ namespace Soulmate_Remastered.Classes
                 window.DispatchEvents();
                 SGameTime.Update();
                 Update(SGameTime);
-                cheatConsole.Update();
                 Draw(window);
                 window.Display();
             }

@@ -1,10 +1,4 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder;
 using Soulmate_Remastered.Core;
 
@@ -15,6 +9,14 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
     /// </summary>
     class HumanPlayer : AbstractPlayer
     {
+
+        protected override void OnKeyPress(object sender, KeyEventArgs e)
+        {
+            base.OnKeyPress(sender, e);
+
+            if (e.Key == Controls.Key.Fuse)
+                Fusion();
+        }
 
         protected override void LoadTextures()
         {
@@ -87,15 +89,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
 
             else
                 return Vector2.ZERO;
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
-            {
-                Fusion();
-            }
         }
     }
 }

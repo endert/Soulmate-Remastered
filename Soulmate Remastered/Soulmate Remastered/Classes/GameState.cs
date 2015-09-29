@@ -1,11 +1,4 @@
 ﻿using SFML.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SFML.Window;
-using Soulmate_Remastered.Classes.GameStatesFolder;
 
 namespace Soulmate_Remastered.Classes
 {

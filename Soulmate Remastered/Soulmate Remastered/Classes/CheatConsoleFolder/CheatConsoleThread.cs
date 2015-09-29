@@ -1,13 +1,6 @@
-﻿using SFML.Graphics;
-using SFML.Window;
-using Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolder;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolder;
+using Soulmate_Remastered.Core;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Soulmate_Remastered.Classes.CheatConsoleFolder
 {
@@ -32,10 +25,34 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder
         public static CheatConsole CheatConsole { get; protected set; }
 
         /// <summary>
+        /// opens the cheatconsole
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void OpenCheatConsole(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Controls.Key.CheatConsole)
+            {
+                cheatConsoleThread.Interrupt();
+                Input.SetKeyPressed(Controls.Cast(Controls.Key.CheatConsole));
+
+                try
+                {
+                    Thread.Sleep(Timeout.Infinite);
+                }
+                catch (ThreadInterruptedException)
+                {
+                }
+            }
+        }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         public CheatConsoleThreadStart()
         {
+            KeyboardControler.KeyPressed += OpenCheatConsole;
+
             //save game thread
             normalGameThread = Thread.CurrentThread;
 
@@ -53,7 +70,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder
         {
             //initialize
             CheatConsole = new CheatConsole();
-            Input.SetKeyPressed(Keyboard.Key.T);
+            Input.SetKeyPressed(Controls.Cast(Controls.Key.CheatConsole));
 
             //sleep till interupted
             try
@@ -77,27 +94,6 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder
         public void Delete()
         {
             cheatConsoleThread.Abort();
-        }
-
-        /// <summary>
-        /// switches from Game to Console when the ConsoleOpen button is pressed
-        /// </summary>
-        public void Update()
-        {
-            if (Keyboard.IsKeyPressed(Controls.CheatConsoleOpen) && !Game.IsPressed)
-            {
-                cheatConsoleThread.Interrupt();
-                Input.SetKeyPressed(Keyboard.Key.T);
-
-                try
-                {
-                    Thread.Sleep(Timeout.Infinite);
-                }
-                catch (ThreadInterruptedException)
-                {
-                    Game.IsPressed = true;
-                }
-            }
         }
     }
 }

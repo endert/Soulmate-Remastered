@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SFML.Graphics;
-using SFML.Window;
-using System.Diagnostics;
 using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameStatesFolder
@@ -22,13 +16,30 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         Shader shader;
 
         View view;
+        EnumGameStates ReturnState;
+
+        void OnKeyPress(object sender, KeyEventArgs e)
+        {
+            ReturnState = EnumGameStates.MainMenu;
+            KeyboardControler.KeyPressed -= OnKeyPress;
+        }
+
+        void OnButtonPress(object sender, MouseButtonEventArgs e)
+        {
+            ReturnState = EnumGameStates.MainMenu;
+            MouseControler.ButtonPressed -= OnButtonPress;
+        }
 
         public void Initialize()
         {
+            KeyboardControler.KeyPressed += OnKeyPress;
+            MouseControler.ButtonPressed += OnButtonPress;
+
+            ReturnState = EnumGameStates.TitleScreen;
             titleScreen = new Sprite(titleScreenTexture);
            
             enter = new Sprite(pressEnter);
-            enter.Position = new Vector2f((Game.WindowSizeX / 2) - (pressEnter.Size.X / 2), (Game.WindowSizeY - pressEnter.Size.Y) - 50);
+            enter.Position = new Vector2((Game.WindowSizeX / 2) - (pressEnter.Size.X / 2), (Game.WindowSizeY - pressEnter.Size.Y) - 50);
 
             shader = new Shader(null, "Shader/MenuSelectionShader.frag");
             SelectedState = new RenderStates(shader);
@@ -45,14 +56,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         public EnumGameStates Update(GameTime gameTime)
         {
             shader.SetParameter("time", gameTime.TotalTime.Seconds * (float)Math.PI);
-               
-            if (!Game.IsPressed && (MouseControler.IsPressed(Mouse.Button.Left) || NavigationHelp.isAnyKeyPressed()))
-            {
-                Game.IsPressed = true;
-                return EnumGameStates.MainMenu;
-            }
 
-            return EnumGameStates.TitleScreen;
+            return ReturnState;
         }
 
         public void Draw(RenderWindow window)

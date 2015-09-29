@@ -1,11 +1,5 @@
 ﻿using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SFML.Window;
-using SFML.Graphics;
 using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChestFolder
@@ -26,7 +20,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
         /// </summary>
         public override void Drop()
         {
-            for (int i = 0; i < random.Next(100); i++)
+            int count = random.Next(100);
+            for (int i = 0; i < count; i++)
             {
                 int rand = random.Next(Drops.Length);
                 if (Drops[rand].DropRate > 100 * random.NextDouble())
@@ -36,18 +31,16 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.TreasureChes
             }
         }
 
-        /// <summary>
-        /// interactes with the player
-        /// </summary>
-        public void Interaction()
+        protected override void OnKeyPress(object sender, KeyEventArgs e)
         {
-            if (HitBox.DistanceTo(PlayerHandler.Player.HitBox) <= 50 && Keyboard.IsKeyPressed((Controls.Interact)) && !isOpen && !Game.IsPressed)
-            {
-                isOpen = true;
-                Game.IsPressed = true;
-                Drop();
-            }
-            
+            base.OnKeyPress(sender, e);
+
+            if (e.Key == Controls.Key.Interact)
+                if (!isOpen && HitBox.DistanceTo(PlayerHandler.Player.HitBox) <= 50)
+                {
+                    isOpen = true;
+                    Drop();
+                }
         }
     }
 }

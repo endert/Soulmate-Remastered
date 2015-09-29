@@ -16,7 +16,7 @@ namespace Soulmate_Remastered
             Game game = new Game();
             game.Run();
 
-            File.Delete(AbstractGamePlay.savePlayerPath);
+            File.Delete(AbstractGamePlay.SavePlayerPath);
         }
     }
 }

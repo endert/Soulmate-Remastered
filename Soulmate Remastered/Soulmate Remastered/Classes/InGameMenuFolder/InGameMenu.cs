@@ -1,13 +1,7 @@
 ﻿using SFML.Graphics;
-using SFML.Window;
-using Soulmate_Remastered.Classes.GameObjectFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.NPCFolder.ShopFolder;
 using Soulmate_Remastered.Classes.GameObjectFolder.ItemFolder;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Soulmate_Remastered.Core;
 
 namespace Soulmate_Remastered.Classes.InGameMenuFolder
@@ -95,20 +89,52 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
             return new Vector2(GetContinueGamePosition().X, inGameMenuBackGround.Position.Y + 450);
         }
 
-        /// <summary>
-        /// sets InGameMenuOpen == true, if escape is pressed  and no other stuff is open
-        /// </summary>
-        public void SetInGameMenuOpen()
+        void OnKeyPress(object sender, KeyEventArgs e)
         {
-            if (Keyboard.IsKeyPressed(Controls.Escape) && !Game.IsPressed && !InGameMenuOpen && !PlayerInventory.IsOpen && !Shop.ShopIsOpen)
+            Console.WriteLine("InGameMenu");
+
+            if (e.Key == Controls.Key.Escape)
+                if (!PlayerInventory.IsOpen && !Shop.ShopIsOpen)
+                    InGameMenuOpen = !InGameMenuOpen;
+
+            if (InGameMenuOpen)
             {
-                Game.IsPressed = true;
-                InGameMenuOpen = true;
+                if (e.Key == Controls.Key.Return)
+                {
+                    switch (selected)
+                    {
+                        case Selected.Continue:
+                            InGameMenuOpen = false;
+                            break;
+                        case Selected.Save:
+                            Console.WriteLine("saving Game");
+                            SaveGame.SavePath = saveFile;
+                            SaveGame.SaveTheGame();
+                            Console.WriteLine("successfuly saved Game");
+                            break;
+                        case Selected.Options:
+                            InGameMenuOpen = false;
+                            OptionsOpen = true;
+                            break;
+                        case Selected.Exit:
+                            InGameMenuOpen = false;
+                            CloseGame = true;
+                            break;
+                    }
+                }
+
+                if (e.Key == Controls.Key.Up)
+                    selected = (Selected)(((int)selected + ((int)Selected.Count - 1)) % (int)Selected.Count);
+
+                if (e.Key == Controls.Key.Down)
+                    selected = (Selected)(((int)selected + 1) % (int)Selected.Count);
             }
         }
         
         public InGameMenu()
         {
+            KeyboardControler.KeyPressed += OnKeyPress;
+
             inGameMenuBackGround = new Sprite(inGameMenuBackGroundTexture);
             inGameMenuBackGround.Position = GetInGameMenuBackGroundPosition();
 
@@ -130,7 +156,6 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
         public void Update(GameTime gameTime)
         {
-            SetInGameMenuOpen();
             if (InGameMenuOpen)
                 Manage();
         }
@@ -141,32 +166,6 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
         public void Manage()
         {
             SetValueToChangeSprite();
-
-            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Return))
-            {
-                Game.IsPressed = true;
-
-                switch (selected)
-                {
-                    case Selected.Continue:
-                        InGameMenuOpen = false;
-                        break;
-                    case Selected.Save:
-                        Console.WriteLine("saving Game");
-                        SaveGame.SavePath = saveFile;
-                        SaveGame.SaveTheGame();
-                        Console.WriteLine("successfuly saved Game");
-                        break;
-                    case Selected.Options:
-                        InGameMenuOpen = false;
-                        OptionsOpen = true;
-                        break;
-                    case Selected.Exit:
-                        InGameMenuOpen = false;
-                        CloseGame = true;
-                        break;
-                }
-            }
 
             SpritePositionUpdate();
         }
@@ -192,18 +191,6 @@ namespace Soulmate_Remastered.Classes.InGameMenuFolder
 
             if (MouseControler.MouseIn(Exit)) //Exit
                 selected = Selected.Exit;
-
-            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.IsPressed)
-            {
-                selected = (Selected)(((int)selected + ((int)Selected.Count - 1)) % (int)Selected.Count);
-                Game.IsPressed = true;
-            }
-
-            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.IsPressed)
-            {
-                selected = (Selected)(((int)selected + 1) % (int)Selected.Count);
-                Game.IsPressed = true;
-            }
         }
 
         public void Draw(RenderWindow window)
