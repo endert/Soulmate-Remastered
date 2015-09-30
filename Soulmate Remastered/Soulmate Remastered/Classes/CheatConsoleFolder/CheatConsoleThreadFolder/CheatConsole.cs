@@ -52,6 +52,8 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         
         public CheatConsole()
         {
+            Input.Initialize();
+
             //set the standard of the windowSize
             WindowSize = new Vector2u(300, 100);
 
@@ -207,7 +209,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
             if (!p.IsEmpty)
                 throw new FormatException();
 
-            String shown = Cheats.CheatSyntax;
+            string shown = Cheats.CheatSyntax;
             Text t = new Text(shown, Game.font, textSize);
             t.Position = new Vector2(2, 2);
 
@@ -231,7 +233,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void DisposeContent(Object sender, EventArgs e)
+        void DisposeContent(object sender, EventArgs e)
         {
             int index = 0;
 

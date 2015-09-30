@@ -9,7 +9,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
         /// <summary>
         /// String for Console Output if the parameter were invalid
         /// </summary>
-        static String invalidInput = " is an invalid parameter for ";
+        static string invalidInput = " is an invalid parameter for ";
 
         /// <summary>
         /// Cheat names
@@ -34,6 +34,7 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
            
             //Other
             Help = 10,
+            OutputInitializedGameObjects = 11,
 
             CheatCount
         }
@@ -57,7 +58,8 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
                     '"' + "/SetDef value" + '"' + " sets the defense of the Player.\n"+
                     '"' + "/SetAtt value" + '"' + " sets the attack damage of the Player.\n"+
                     '"' + "/SetFusionValue value" + '"' + " sets the FusionValue of the Player.\n"+
-                    '"' + "/Help" + '"' + " Opens a window with a List of all Cheats and their Syntax.\n"
+                    '"' + "/Help" + '"' + " Opens a window with a List of all Cheats and their Syntax.\n" +
+                    '"' + "/OutputInitializedGameObjects" + '"' + " Console output wich GameObjects are initialized at the moment. \n"
                 ;
             }
         }
@@ -133,6 +135,9 @@ namespace Soulmate_Remastered.Classes.CheatConsoleFolder.CheatConsoleThreadFolde
                         break;
                     case Cheat.Help:
                         CheatConsoleThreadStart.CheatConsole.ActivateCheat(parms, CheatConsoleThreadStart.CheatConsole.ShowCheats);
+                        break;
+                    case Cheat.OutputInitializedGameObjects:
+                        GameObjectFolder.GameObject.DebugInitializedObjectsOutputInvoke();
                         break;
                     default:
                         Console.WriteLine("Error, " + ch + " not implemented");

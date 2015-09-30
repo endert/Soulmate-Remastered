@@ -139,7 +139,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
                                 string loadFile = (string)GetType().GetField("loadFile", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this);
 
                                 SaveGame.LoadPath = loadFile;
-                                SaveGame.LoadGame();
+                                SaveGame.LoadMapLvl();
 
                                 switch (GameObjectHandler.Lvl)
                                 {

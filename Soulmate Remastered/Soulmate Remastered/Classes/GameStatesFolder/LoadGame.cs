@@ -90,7 +90,7 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             AbstractGamePlay.loading = true;
             SaveGame.LoadPath = loadFile;
-            SaveGame.LoadGame();
+            SaveGame.LoadMapLvl();
 
             switch (GameObjectHandler.Lvl)
             {

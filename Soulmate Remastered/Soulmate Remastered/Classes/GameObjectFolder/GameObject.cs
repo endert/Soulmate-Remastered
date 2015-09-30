@@ -12,6 +12,15 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
     {
         //Events*************************************************************************************
 
+        public static EventHandler DebugInitializedObjectsOutput;
+
+        public static void DebugInitializedObjectsOutputInvoke()
+        {
+            EventHandler handler = DebugInitializedObjectsOutput;
+            if (handler != null)
+                handler(null, null);
+        }
+
         //Constants**********************************************************************************
 
         /// <summary>
@@ -81,6 +90,8 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
         /// </summary>
         public GameObject()
         {
+            DebugInitializedObjectsOutput += (sender, e) => { Console.WriteLine(GetType() + " is initialized"); };
+
             AddEvents();
 
             LoadTextures();
@@ -90,16 +101,11 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder
             HitBox = new HitBox(Sprite.Position, TextureList[0].Size.X, TextureList[0].Size.Y);
         }
 
-        void DebugInitializedOutput() { Console.WriteLine(GetType() + " is initialized"); }
-
         /// <summary>
         /// the things that happen when a key is pressed
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnKeyPress(object sender, KeyEventArgs e)
-        {
-            //DebugInitializedOutput();
-        }
+        protected virtual void OnKeyPress(object sender, KeyEventArgs e) { }
         /// <summary>
         /// the things that happen when a key is released
         /// </summary>

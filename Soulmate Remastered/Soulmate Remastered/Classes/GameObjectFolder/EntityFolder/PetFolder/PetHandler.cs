@@ -1,4 +1,5 @@
 ﻿using Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder;
+using Soulmate_Remastered.Classes.GameStatesFolder;
 using System;
 using System.Collections.Generic;
 
@@ -25,16 +26,21 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         {
             PetList = new List<AbstractPet>();
 
-            Pet = new PetWolf(PlayerHandler.Player);
-            EntityHandler.Add(Pet);
-            PetList.Add(Pet);
+            bool isLoading = (bool)typeof(AbstractGamePlay).GetField("loading").GetValue(null);
+
+            if (!isLoading)
+            {
+                Pet = new PetWolf(PlayerHandler.Player);
+                EntityHandler.Add(Pet);
+                PetList.Add(Pet);
+            }
         }
 
         /// <summary>
         /// loads the pet from a String
         /// </summary>
         /// <param name="petString"></param>
-        public static void Load(String petString)
+        public static void Load(string petString)
         {
             if (petString.Equals("null"))
             {
@@ -44,6 +50,9 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
 
             //load the pet with a reflection ^^
             Pet = (AbstractPet)Activator.CreateInstance(null, petString.Split(GameObject.LineBreak)[0]).Unwrap();
+
+            EntityHandler.Add(Pet);
+            PetList.Add(Pet);
 
             Pet.Load(petString);
         }

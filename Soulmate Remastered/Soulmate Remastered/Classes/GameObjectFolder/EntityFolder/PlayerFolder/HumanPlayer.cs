@@ -34,7 +34,7 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PlayerFolder
         public HumanPlayer(Vector2 spawnPosition, Vector2 spawnFacingDirection)
         {
             //initialize game object data***************************************************************************
-            
+
             Sprite.Position = spawnPosition;
             Position = spawnPosition;
 

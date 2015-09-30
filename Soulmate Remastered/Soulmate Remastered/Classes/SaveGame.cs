@@ -38,22 +38,43 @@ namespace Soulmate_Remastered.Classes
                 Directory.CreateDirectory(directory);
             }
 
-            StreamWriter writer = new StreamWriter(SavePath);
+            using (StreamWriter writer = new StreamWriter(SavePath))
+            {
 
-            writer.WriteLine(PlayerHandler.Player.ToStringForSave());
+                writer.WriteLine(GameObjectHandler.Lvl);
 
-            if (PetHandler.Pet == null)
-                writer.WriteLine("null");
+                writer.WriteLine(PlayerHandler.Player.ToStringForSave());
+
+                if (PetHandler.Pet == null)
+                    writer.WriteLine("null");
+                else
+                    writer.WriteLine(PetHandler.Pet.ToStringForSave());
+
+                writer.WriteLine(ItemHandler.ṔlayerInventory.ToStringForSave());
+            }
+
+            Encrypt(SavePath);
+        }
+
+        public static void LoadMapLvl()
+        {
+            if (File.Exists(LoadPath))
+            {
+                Decrypt(LoadPath);
+
+                using (StreamReader reader = new StreamReader(LoadPath))
+                { 
+                    Console.WriteLine("loading: lvl");
+                    GameObjectHandler.Lvl = Convert.ToInt32(reader.ReadLine());
+                }
+
+                Encrypt(LoadPath);
+            }
             else
-                writer.WriteLine(PetHandler.Pet.ToStringForSave());
-
-            writer.WriteLine(GameObjectHandler.Lvl);
-
-            writer.WriteLine(ItemHandler.ṔlayerInventory.ToStringForSave());
-
-            writer.Flush();
-            writer.Close();
-            //File.Encrypt(savePath);
+            {
+                Console.WriteLine("File Don't exist");
+                GameObjectHandler.Lvl = 0;
+            }
         }
 
         /// <summary>
@@ -63,37 +84,33 @@ namespace Soulmate_Remastered.Classes
         {
             if (File.Exists(LoadPath))
             {
-                StreamReader reader = new StreamReader(LoadPath);
+                Decrypt(LoadPath);
 
-
-                if (PlayerHandler.Player != null)
+                using (StreamReader reader = new StreamReader(LoadPath))
                 {
+
+                    //skip the first line (lvl is loaded already)
+                    reader.ReadLine();
+
+
                     Console.WriteLine("loading: Player");
                     PlayerHandler.Player.Load(reader.ReadLine());
-                }
-                else
-                    reader.ReadLine();
 
-                if (PetHandler.Pet != null)
-                {
+
                     Console.WriteLine("loading: Pet");
                     PetHandler.Load(reader.ReadLine());
+
+
+                    if (ItemHandler.ṔlayerInventory != null)
+                    {
+                        Console.WriteLine("loading: Inventar");
+                        ItemHandler.ṔlayerInventory.Load(reader.ReadLine());
+                    }
+                    else
+                        reader.ReadLine();
                 }
-                else
-                    reader.ReadLine();
 
-                Console.WriteLine("loading: lvlCount");
-                GameObjectHandler.Lvl = Convert.ToInt32(reader.ReadLine());
-
-                if (ItemHandler.ṔlayerInventory != null)
-                {
-                    Console.WriteLine("loading: Inventar");
-                    ItemHandler.ṔlayerInventory.Load(reader.ReadLine());
-                }
-                else
-                    reader.ReadLine();
-
-                reader.Close();
+                Encrypt(LoadPath);
             }
             else
                 Console.WriteLine("File don't exist");
@@ -112,6 +129,60 @@ namespace Soulmate_Remastered.Classes
             ItemHandler.ṔlayerInventory.Load(reader.ReadLine());
 
             reader.Close();
+        }
+
+        static void Encrypt(string path)
+        {
+            string s = path;
+
+            int encrytvalue = 0;
+            foreach (char c in s)
+                encrytvalue += c;
+
+            string[] FileContext = File.ReadAllLines(path);
+
+            for(int i = 0; i< FileContext.Length; ++i)
+            {
+                string res = "";
+                char[] c = FileContext[i].ToCharArray();
+
+                for(int j = 0; j<c.Length; ++j)
+                {
+                    c[j] = (char)(c[j] + encrytvalue);
+                    res += c[j].ToString();
+                }
+
+                FileContext[i] = res;
+            }
+
+            File.WriteAllLines(path, FileContext);
+        }
+
+        static void Decrypt(string path)
+        {
+            string s = path;
+
+            int encrytvalue = 0;
+            foreach (char c in s)
+                encrytvalue += c;
+
+            string[] FileContext = File.ReadAllLines(path);
+
+            for (int i = 0; i < FileContext.Length; ++i)
+            {
+                string res = "";
+                char[] c = FileContext[i].ToCharArray();
+
+                for (int j = 0; j < c.Length; ++j)
+                {
+                    c[j] = (char)(c[j] - encrytvalue);
+                    res += c[j].ToString();
+                }
+
+                FileContext[i] = res;
+            }
+
+            File.WriteAllLines(path, FileContext);
         }
     }
 }
