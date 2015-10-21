@@ -207,15 +207,14 @@ namespace Soulmate_Remastered.Core
         }
 
         /// <summary>
-        /// evaluating the dot product of both vectors
-        /// v1*v2 == v1.dot(v2)
+        /// multiply component wise
         /// </summary>
         /// <param name="v1">Vector2 v1 </param>
         /// <param name="v2">Vector2 v2 </param>
-        /// <returns> v1.dot(v2) </returns>
-        public static float operator *(Vector2 v1, Vector2 v2)
+        /// <returns> new Vector2(v1.x * v2.x, v1.y * v2.y) </returns>
+        public static Vector2 operator *(Vector2 v1, Vector2 v2)
         {
-            return v1.Dot(v2);
+            return new Vector2(v1.X * v2.X, v1.Y * v2.Y);
         }
 
         /// <summary>
@@ -227,6 +226,18 @@ namespace Soulmate_Remastered.Core
         public static Vector2 operator /(Vector2 v, float f)
         {
             return new Vector2(v.X / f, v.Y / f);
+        }
+
+        /// <summary>
+        /// divides component wise 
+        /// <para>divided by zero => result = 0</para>
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
+        public static Vector2 operator /(Vector2 v1, Vector2 v2)
+        {
+            return new Vector2((v2.X != 0) ? (v1.X / v2.X) : (0), (v2.Y != 0) ? (v1.Y / v2.Y) : (0));
         }
 
         /// <summary>
@@ -267,6 +278,15 @@ namespace Soulmate_Remastered.Core
         public float Dot(Vector2 v)
         {
             return X * v.X + Y * v.Y;
+        }
+
+        /// <summary>
+        /// evaluats the vector with the abs values of each component
+        /// </summary>
+        /// <returns></returns>
+        public Vector2 Abs()
+        {
+            return new Vector2(Math.Abs(X), Math.Abs(Y));
         }
 
         /// <summary>

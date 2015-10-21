@@ -113,7 +113,10 @@ namespace Soulmate_Remastered.Classes
                 Encrypt(LoadPath);
             }
             else
+            {
                 Console.WriteLine("File don't exist");
+                throw new FileLoadException();
+            }
         }
 
         /// <summary>
@@ -121,14 +124,15 @@ namespace Soulmate_Remastered.Classes
         /// </summary>
         public static void LoadMapChange()
         {
-            StreamReader reader = new StreamReader(LoadPath);
-
-            PlayerHandler.Player.LoadMapChange(reader.ReadLine());
-            PetHandler.Load(reader.ReadLine());
-            reader.ReadLine();
-            ItemHandler.ṔlayerInventory.Load(reader.ReadLine());
-
-            reader.Close();
+            Decrypt(LoadPath);
+            using (StreamReader reader = new StreamReader(LoadPath))
+            {
+                reader.ReadLine();
+                PlayerHandler.Player.LoadMapChange(reader.ReadLine());
+                PetHandler.Load(reader.ReadLine());
+                ItemHandler.ṔlayerInventory.Load(reader.ReadLine());
+            }
+            Encrypt(LoadPath);
         }
 
         static void Encrypt(string path)

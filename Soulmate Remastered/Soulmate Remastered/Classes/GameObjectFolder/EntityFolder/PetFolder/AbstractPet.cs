@@ -86,10 +86,6 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
                 {
                     return GetPlayerDirection();
                 }
-                else if (!(PlayerHandler.Player.FacingDirection.X != 0 && PlayerHandler.Player.FacingDirection.Y != 0))    //If player dont facing diagonal
-                {
-                    return -PlayerHandler.Player.FacingDirection;
-                }
                 else
                 {
                     switch (PlayerHandler.Player.Direction)
@@ -115,27 +111,22 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
                 }
                 else if (!IsBehindPlayer())    //If player dont facing diagonal
                 {
-                    if (PlayerHandler.Player.FacingDirection.X == 0 || PlayerHandler.Player.FacingDirection.Y == 0)    //If player dont facing diagonal
+
+                    switch (PlayerHandler.Player.Direction)
                     {
-                        return -PlayerHandler.Player.FacingDirection;
-                    }
-                    else
-                    {
-                        switch (PlayerHandler.Player.Direction)
-                        {
-                            case EDirection.Back:
-                                return Vector2.FRONT;
-                            case EDirection.Front:
-                                return Vector2.BACK;
-                            case EDirection.Right:
-                                return Vector2.LEFT;
-                            case EDirection.Left:
-                                return Vector2.RIGHT;
-                            default:
-                                return Vector2.ZERO;
-                        }
+                        case EDirection.Back:
+                            return Vector2.FRONT;
+                        case EDirection.Front:
+                            return Vector2.BACK;
+                        case EDirection.Right:
+                            return Vector2.LEFT;
+                        case EDirection.Left:
+                            return Vector2.RIGHT;
+                        default:
+                            return Vector2.ZERO;
                     }
                 }
+
                 else
                 {
                     return Vector2.ZERO;
@@ -149,53 +140,36 @@ namespace Soulmate_Remastered.Classes.GameObjectFolder.EntityFolder.PetFolder
         /// <returns></returns>
         public bool IsBehindPlayer()
         {
-            Vector2 playerMovingDirection = PlayerHandler.Player.FacingDirection;
-            bool behindX = false;   // for diagonal moving;
-            bool behindY = false;
+            bool res = true;
 
-            if (PlayerHandler.Player.FacingDirection.X == 0 || PlayerHandler.Player.FacingDirection.Y == 0)
-            {
-                switch (PlayerHandler.Player.Direction)
-                {
-                    case (EDirection.Back):
-                        if (Position.Y + HitBox.Height <= PlayerHandler.Player.Position.Y)
-                            return true;
-                        break;
-                    case (EDirection.Front):
-                        if (Position.Y >= PlayerHandler.Player.Position.Y + PlayerHandler.Player.HitBox.Height)
-                            return true;
-                        break;
-                    case (EDirection.Right):
-                        if (Position.X + HitBox.Width <= PlayerHandler.Player.Position.X)
-                            return true;
-                        break;
-                    case (EDirection.Left):
-                        if (Position.X >= PlayerHandler.Player.Position.X + PlayerHandler.Player.HitBox.Width)
-                            return true;
-                        break;
-                    default:
-                        break;
-                }
-                return false;
-            }
-            else      // moving diagonal
-            {
-                if (playerMovingDirection.X > 0)
-                    if (Position.X + HitBox.Width <= PlayerHandler.Player.Position.X)
-                        behindX = true;
-                else if (playerMovingDirection.X < 0)
-                    if (Position.X >= PlayerHandler.Player.Position.X + PlayerHandler.Player.HitBox.Width)
-                        behindX = true;
+            Vector2 p1 = PlayerHandler.Player.Position;
+            Vector2 S1 = PlayerHandler.Player.HitBox.Size;
+            Vector2 fd = PlayerHandler.Player.FacingDirection;
 
-                if (playerMovingDirection.Y > 0)
-                    if (Position.Y + HitBox.Height <= PlayerHandler.Player.Position.Y)
-                        behindY = true;
-                else if (playerMovingDirection.Y < 0)
-                    if (Position.Y >= PlayerHandler.Player.Position.Y + PlayerHandler.Player.HitBox.Height)
-                        behindY = true;
+            Vector2 p2 = Position;
+            Vector2 S2 = HitBox.Size;
 
-                return (behindX || behindY);
-            }
+            Vector2 t = S1 / 2 * fd.GetNormalized();
+            Vector2 u = p1 + S1 / 2;
+            Vector2 w = (p2 + S2 / 2) + (S2 / 2 * fd.GetNormalized());
+            Vector2 s = (w - (u - t));
+            bool help = s.Length >= 30;
+            s = s.GetNormalized();
+
+            Vector2 v = -(fd.GetNormalized());
+
+            s /= s.Abs();
+            v /= v.Abs();
+
+            if (v.X == 0)
+                s.X = 0;
+
+            if (v.Y == 0)
+                s.Y = 0;
+
+            res = s == v && help;
+
+            return res;
         }
 
         /// <summary>
