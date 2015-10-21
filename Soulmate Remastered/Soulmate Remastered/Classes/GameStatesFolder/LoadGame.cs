@@ -11,11 +11,11 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
 
         Texture loadSelected;
         Texture loadNotSelected;
-        Sprite Load;
+        Sprite load;
 
         Texture newGameSelected;
         Texture newGameNotSelected;
-        Sprite NewGame;
+        Sprite newGame;
 
         int CountOffset = (int)Eselected.LoadOffset + 1;
         int SpriteCount = Eselected.LoadSpriteCount - Eselected.LoadOffset - 1;
@@ -55,11 +55,19 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             base.Initialize();
             
+<<<<<<< HEAD
             Load = new Sprite(loadNotSelected);
             Load.Position = new Vector2(300, 300);
 
             NewGame = new Sprite(newGameNotSelected);
             NewGame.Position = new Vector2(Load.Position.X, Load.Position.Y + 150);
+=======
+            load = new Sprite(loadNotSelected);
+            load.Position = new Vector2f(300, 300);
+
+            newGame = new Sprite(newGameNotSelected);
+            newGame.Position = new Vector2f(load.Position.X, load.Position.Y + 150);
+>>>>>>> parent of 40ea887... load game does now function correctly
         }
 
         public override void LoadContent()
@@ -110,23 +118,77 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             GameUpdate(gameTime);
 
-            if (MouseControler.MouseIn(Load))
-                selectedSprite = Eselected.Load;
+            if (MouseControler.MouseIn(load))
+                selectedSprite = Eselected.LoadGame;
 
-            if (MouseControler.MouseIn(NewGame))
+            if (MouseControler.MouseIn(newGame))
                 selectedSprite = Eselected.NewGame;
 
+<<<<<<< HEAD
             if (selectedSprite == Eselected.Load)
             {
                 Load.Texture = loadSelected;
                 NewGame.Texture = newGameNotSelected;
+=======
+            if (Keyboard.IsKeyPressed(Controls.Up) && !Game.IsPressed)
+            {
+                selectedSprite = (Eselected)(((int)((selectedSprite - CountOffset) + SpriteCount - 1) % (int)SpriteCount) + CountOffset);
+                Game.IsPressed = true;
+            }
+
+            if (Keyboard.IsKeyPressed(Controls.Down) && !Game.IsPressed)
+            {
+                selectedSprite = (Eselected)(((int)((selectedSprite - CountOffset) + 1) % (int)SpriteCount) + CountOffset);
+                Game.IsPressed = true;
+            }
+
+            if (selectedSprite == Eselected.LoadGame)
+            {
+                load.Texture = loadSelected;
+                newGame.Texture = newGameNotSelected;
+
+                if(!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Return))
+                {
+                    Game.IsPressed = true;
+                    AbstractGamePlay.loading = true;
+                    SaveGame.LoadPath = loadFile;
+                    SaveGame.LoadGame();
+
+                    switch (GameObjectHandler.Lvl)
+                    {
+                        case 0:
+                            return EnumGameStates.Village;
+                        case 1:
+                            return EnumGameStates.InGame;
+                        default:
+                            return EnumGameStates.Village;
+                    }
+                }
+
+>>>>>>> parent of 40ea887... load game does now function correctly
             }
 
             if (selectedSprite == Eselected.NewGame)
             {
+<<<<<<< HEAD
                 Load.Texture = loadNotSelected;
                 NewGame.Texture = newGameSelected;
             }       
+=======
+                load.Texture = loadNotSelected;
+                newGame.Texture = newGameSelected;
+
+
+            }
+
+            if (!Game.IsPressed && Keyboard.IsKeyPressed(Controls.Return))
+            {
+                Game.IsPressed = true;
+                Console.WriteLine("new Game");
+                AbstractGamePlay.startNewGame = true;
+                ReturnState = EnumGameStates.Village;
+            }           
+>>>>>>> parent of 40ea887... load game does now function correctly
 
             return ReturnState;
         }
@@ -135,8 +197,8 @@ namespace Soulmate_Remastered.Classes.GameStatesFolder
         {
             base.Draw(window);
 
-            window.Draw(Load);
-            window.Draw(NewGame);
+            window.Draw(load);
+            window.Draw(newGame);
             window.Draw(Back);
         }
     }
